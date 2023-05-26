@@ -5,7 +5,7 @@ import { wishListCard } from "../Common/data";
 
 const HotDeals = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section pt-0">
                 <Container>
                     <Row >
@@ -54,7 +54,7 @@ const HotDeals = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     );
 }
 

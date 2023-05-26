@@ -8,14 +8,14 @@ import { CommonService } from "../../Components/CommonService";
 import { InvoiceModal } from "../../Components/MainModal";
 
 const Orderhistory = () => {
-    document.title = "Order History | Toner - React FrontEnd";
+    document.title = "Order History | RGAgency - React FrontEnd";
     //modal
     const [modal, setModal] = useState(false);
     const handleInvoice = () => setModal(true);
     const handleClose = () => setModal(false);
 
     return (
-        <React.Fragment>
+        <>
             <Shoptopbar title="Order History" page="Order History" />
             <section className="section">
                 <Container >
@@ -84,7 +84,7 @@ const Orderhistory = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

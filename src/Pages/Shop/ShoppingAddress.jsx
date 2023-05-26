@@ -12,7 +12,7 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
         setId(true);
     }
     return (
-        <React.Fragment>
+        <>
             <div className="mt-4 pt-2">
                 <div className="d-flex align-items-center mb-4">
                     <div className="flex-grow-1">
@@ -68,6 +68,6 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
                 </Row>
                 <DeleteModal removeModel={removeModel} hideModal={RemoveModel} onClick={RemoveModel} deleteData={deleteData} id={id} />
             </div>
-        </React.Fragment >
+        </ >
     )
 }

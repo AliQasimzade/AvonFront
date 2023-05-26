@@ -6,7 +6,7 @@ import DeleteModal, { ModalAdd } from "../../Components/DeleteModal";
 import { selectAddressData } from "../../Common/data";
 
 const Selectaddress = () => {
-    document.title = "Shop | Select address | Toner - React FrontEnd";
+    document.title = "Shop | Select address | RGAgency - React FrontEnd";
 
     const [addressData, setAddressData] = useState(selectAddressData);
     //delete id
@@ -29,7 +29,7 @@ const Selectaddress = () => {
     const handleShow = () => setAddressModal(true);
 
     return (
-        <React.Fragment>
+        <>
             <section className="section">
                 <Container>
                     <Row>
@@ -97,7 +97,7 @@ const Selectaddress = () => {
                     <ModalAdd addressModal={addressModal} handleClose={handleClose} />
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 export default Selectaddress;

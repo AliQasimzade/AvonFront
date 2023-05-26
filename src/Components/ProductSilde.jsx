@@ -67,7 +67,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
     }
 
     return (
-        <React.Fragment>
+        <>
             <Row className={cid || ''} style={{ position: position, height: height }}>
                 {
                     fileter && fileter.length > 0 ?
@@ -143,13 +143,13 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                 />
             }
 
-        </React.Fragment>
+        </>
     )
 }
 
 export const ProductGrid = ({ title } ) => {
     return (
-        <React.Fragment>
+        <>
             <section className="ecommerce-about" style={{ backgroundImage: `url(${profilebg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                 <div className="bg-overlay bg-primary" style={{ opacity: "0.85" }}></div>
                 <Container>
@@ -167,13 +167,13 @@ export const ProductGrid = ({ title } ) => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 
 export const ProductSelector = ({ handleratting, handledicount, handlecategory } ) => {
     return (
-        <React.Fragment>
+        <>
             <Row >
                 <Col lg={12} >
                     <Card >
@@ -250,7 +250,7 @@ export const ProductSelector = ({ handleratting, handledicount, handlecategory }
                     </Card>
                 </Col>
             </Row>
-        </React.Fragment >
+        </ >
     )
 }
 
@@ -337,7 +337,7 @@ export const DefauilOffer = () => {
                     <Col lg={6}>
                         <div className="text-center">
                             <h1 className="text-white lh-base text-capitalize">Don't miss out on special offers</h1>
-                            <p className="text-white-75 fs-15 mb-4 pb-2">Never Miss Anything From Toner By Signing Up To Our Newsletter.</p>
+                            <p className="text-white-75 fs-15 mb-4 pb-2">Never Miss Anything From RGAgency By Signing Up To Our Newsletter.</p>
                             <Form action="#">
                                 <div className="position-relative ecommerce-subscript">
                                     <Form.Control type="email" className="rounded-pill border-0" placeholder="Enter your email" />

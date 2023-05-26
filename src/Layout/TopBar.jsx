@@ -20,7 +20,7 @@ const TopBar = () => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <div className="top-tagbar">
         <Container fluid>
           <Row className="justify-content-between align-items-center">
@@ -85,7 +85,7 @@ const TopBar = () => {
           </Row>
         </Container>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

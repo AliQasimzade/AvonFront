@@ -11,7 +11,7 @@ import Index from "../../../Components/Index";
 
 const Defaultgrid = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section pb-0 mt-4">
                 <Container fluid>
                     <Row className="g-2">
@@ -63,7 +63,7 @@ const Defaultgrid = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment >
+        </ >
     )
 }
 

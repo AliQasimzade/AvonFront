@@ -15,7 +15,7 @@ const Invoice = () => {
         window.print()
     }
     return (
-        <React.Fragment>
+        <>
             <PublishedProduct title="Invoice Download" dicription="Last Updated 24 Nov, 2022" />
             <section className="section pt-0">
                 <Container>
@@ -37,8 +37,8 @@ const Invoice = () => {
                                                 </div>
                                                 <div className="flex-shrink-0 mt-sm-0 mt-3">
                                                     <h6><span className="text-muted fw-normal">Legal Registration No:</span> <span id="legal-register-no">987654</span></h6>
-                                                    <h6><span className="text-muted fw-normal">Email:</span> <span id="email">toner@themesbrand.com</span></h6>
-                                                    <h6><span className="text-muted fw-normal">Website:</span> <Link to='/https://themesbrand.com/' className="link-primary" target="_blank" id="website">www.themesbrand.com</Link></h6>
+                                                    <h6><span className="text-muted fw-normal">Email:</span> <span id="email">info@rgagency.org</span></h6>
+                                                    <h6><span className="text-muted fw-normal">Website:</span> <Link to='/https://rgagency.org/' className="link-primary" target="_blank" id="website">www.rgagency.org</Link></h6>
                                                     <h6 className="mb-0"><span className="text-muted fw-normal">Contact No: </span><span id="contact-no"> +(314) 234 6789</span></h6>
                                                 </div>
                                             </div>
@@ -180,7 +180,7 @@ const Invoice = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

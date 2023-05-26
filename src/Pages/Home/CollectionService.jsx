@@ -10,7 +10,7 @@ import { CommonTitle } from "../../Components/Homepage";
 
 const Service = () => {
     return (
-        <React.Fragment>
+        <>
             <CommonService />
             <section className="section pt-0">
                 <Container>
@@ -49,7 +49,7 @@ const Service = () => {
                     dicription="This ranges from women and men's outfits to children's clothing, shoes, accessories, and more. People love their clothes, and fashion isn't going anywhere!"
                 />
             </Container>
-        </React.Fragment >
+        </ >
     )
 }
 

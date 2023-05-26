@@ -29,7 +29,7 @@ const OnlineChat = () => {
     //online chat 
     const chatBot = () => { setChate(!chat) }
     return (
-        <React.Fragment>
+        <>
             <Button
                 variant="danger"
                 className="btn shadow-lg chat-button rounded-bottom-0 d-none d-lg-block"
@@ -76,7 +76,7 @@ const OnlineChat = () => {
                                                                 <div className="ctext-wrap-content">
                                                                     <p className="mb-0 ctext-content">
                                                                         Welcome to Themesbrand. We are here to help you. You can
-                                                                        also directly email us at Support@themesbrand.com to
+                                                                        also directly email us at Support@rgagency.org to
                                                                         schedule a meeting with our Technology Consultant.
                                                                     </p>
                                                                 </div>
@@ -165,7 +165,7 @@ const OnlineChat = () => {
                     </div>
                 </div>
             </Collapse>
-        </React.Fragment>
+        </>
     )
 }
 

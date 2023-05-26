@@ -11,7 +11,7 @@ const TopProducts = () => {
         setSelect(product?.filter((filters) => categories === filters.category || categories === "All"))
     }
     return (
-        <React.Fragment>
+        <>
             <section className="section pt-0">
                 <Container >
                     <Row className="mt-5">
@@ -39,7 +39,7 @@ const TopProducts = () => {
                     </Row>
                 </Container>
             </section >
-        </React.Fragment >
+        </ >
     )
 }
 

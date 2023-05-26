@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Adevertise = () => {
     return (
-        <React.Fragment>
+        <>
             <div className="offer-bar flex-shrink-0">
                 <div className="d-flex gap-3 flex-column">
                     <Card className="fs-13 border border-primary border-opacity-25">
@@ -37,7 +37,7 @@ const Adevertise = () => {
                     <div className="offer-banner rounded-3" style={{ backgroundImage: `url(${offerbanner})`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 }
 export default Adevertise;

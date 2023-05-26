@@ -40,7 +40,7 @@ const Layout = (props) => {
     }, [layoutThemeMode, dispatch, footertheme, footerModeType]);
 
     return (
-        <React.Fragment>
+        <>
         
             <TopBar />
             <Header handleMood={handleThemeMood} />
@@ -58,7 +58,7 @@ const Layout = (props) => {
                 <i className="ri-arrow-up-line"></i>
             </Button>
 
-        </React.Fragment>
+        </>
     );
 }
 

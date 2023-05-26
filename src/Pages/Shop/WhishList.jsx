@@ -8,9 +8,9 @@ import { CommonService } from "../../Components/CommonService";
 import HotDeals from "../../Components/HotDeals";
 
 const WishList = () => {
-    document.title = "Wishlist | Toner - React Frontend";
+    document.title = "Wishlist | RGAgency - React Frontend";
     return (
-        <React.Fragment>
+        <>
             <Shoptopbar title="Wishlist" page="Wishlist" />
             <section className="section">
                 <Container>
@@ -74,7 +74,7 @@ const WishList = () => {
             <HotDeals />
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 export default WishList;

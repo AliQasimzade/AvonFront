@@ -9,7 +9,7 @@ import bannerimg from '../../assets/images/ecommerce/banner.jpg';
 
 const Clothing = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section pb-0 mt-4">
                 <Container fluid >
                     <div className="position-relative rounded-3" style={{ backgroundImage: `url(${bannerimg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -34,7 +34,7 @@ const Clothing = () => {
                     </div>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

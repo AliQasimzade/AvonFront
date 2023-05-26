@@ -13,11 +13,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <React.Fragment>
+    <>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </React.Fragment>
+    </>
   </Provider>
 );
 

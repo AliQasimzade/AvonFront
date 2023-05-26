@@ -10,7 +10,7 @@ const ReactTable = ({ columns, data } ) => {
         prepareRow, } = useTable({ columns, data });
 
     return (
-        <React.Fragment>
+        <>
             <Table {...getTableProps()}>
                 <thead>
                     {
@@ -45,7 +45,7 @@ const ReactTable = ({ columns, data } ) => {
 
                 </tbody>
             </Table>
-        </React.Fragment>
+        </>
     );
 }
 

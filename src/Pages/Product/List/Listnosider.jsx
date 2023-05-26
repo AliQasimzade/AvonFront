@@ -24,7 +24,7 @@ const Listnoslider = () => {
         setListnoslider(filterProduct?.filter((category) => category.products === event.value))
     }
     return (
-        <React.Fragment>
+        <>
             <ProductGrid title="Product List No Sidebar" />
             <section className="section">
                 <Container>
@@ -43,7 +43,7 @@ const Listnoslider = () => {
             <HotDeals />
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     );
 }
 

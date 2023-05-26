@@ -2,7 +2,7 @@ import React from "react";
 
 export const BlueFlashSymbol = () => {
     return (
-        <React.Fragment>
+        <>
             <defs>
                 <mask id="SvgjsMask1136">
                     <rect width="1440" height="640" fill="#ffffff"></rect>
@@ -147,13 +147,13 @@ export const BlueFlashSymbol = () => {
                 <use xlinkHref="#SvgjsPath1138" x="690" y="510" stroke="rgba(255, 255, 255, 0.4)"></use>
                 <use xlinkHref="#SvgjsPath1142" x="690" y="570" stroke="rgba(255, 255, 255, 0.4)" strokeWidth="3"></use>
             </symbol>
-        </React.Fragment>
+        </>
     );
 }
 
 export const BlackFalshSymbol = () => {
     return (
-        <React.Fragment>
+        <>
             <defs>
                 <mask id="SvgjsMask1136">
                     <rect width="1440" height="640" fill="#ffffff"></rect>
@@ -298,6 +298,6 @@ export const BlackFalshSymbol = () => {
                 <use xlinkHref="#SvgjsPath1138" x="690" y="510" stroke="rgba(255, 255, 255, 0.4)"></use>
                 <use xlinkHref="#SvgjsPath1142" x="690" y="570" stroke="rgba(255, 255, 255, 0.4)" strokeWidth="3"></use>
             </symbol>
-        </React.Fragment>
+        </>
     )
 }

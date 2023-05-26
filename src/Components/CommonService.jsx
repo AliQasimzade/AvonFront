@@ -9,7 +9,7 @@ import { service } from "../Common/data";
 
 const CommonService = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section py-5">
                 <Container>
                     <Row className="gy-4 gy-lg-0">
@@ -34,13 +34,13 @@ const CommonService = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 
 const ContactHelp = ({ cname }) => {
     return (
-        <React.Fragment>
+        <>
             <section className={`${cname}`} style={{ backgroundImage: `url(${profileBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                 <div className="bg-overlay bg-secondary" style={{ opacity: "0.85" }}></div>
                 <Container >
@@ -56,7 +56,7 @@ const ContactHelp = ({ cname }) => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

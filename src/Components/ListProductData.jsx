@@ -39,7 +39,7 @@ const ListProductData = ({ listnoslider }) => {
     }, [currentPage, pageNumbers.length]);
 
     return (
-        <React.Fragment>
+        <>
             <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
                 <div className="search-box">
                     <Form.Control
@@ -248,7 +248,7 @@ const ListProductData = ({ listnoslider }) => {
                 handlenextPage={handlenextPage}
             />
 
-        </React.Fragment>
+        </>
     );
 }
 

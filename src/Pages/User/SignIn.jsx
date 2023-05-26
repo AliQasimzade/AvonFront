@@ -36,7 +36,7 @@ const Signin = () => {
         passwordtype === password ? setPassword("text") : setPassword("password");
     }
     return (
-        <React.Fragment>
+        <>
             <section className="auth-page-wrapper position-relative bg-light min-vh-100 d-flex align-items-center justify-content-between">
                 <div className="auth-header position-fixed top-0 start-0 end-0 bg-body">
                     <Container fluid>
@@ -79,12 +79,12 @@ const Signin = () => {
                                                     <Image src={auth1} alt="" className="img-fluid" />
                                                 </Col>
                                                 <Col lg={8} xs={9} >
-                                                    <h1 className="text-white lh-base fw-lighter">Join Our Toner Store</h1>
+                                                    <h1 className="text-white lh-base fw-lighter">Join Our RGAgency Store</h1>
                                                 </Col>
                                             </Row>
                                         </Card.Header>
                                         <Card.Body>
-                                            <p className="text-muted fs-15">Sign in to continue to Toner.</p>
+                                            <p className="text-muted fs-15">Sign in to continue to RGAgency.</p>
                                             <div className="p-2">
                                                 <Form action="#" onSubmit={formik.handleSubmit} >
                                                     <div className="mb-3">
@@ -158,7 +158,7 @@ const Signin = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} Toner. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
                                         </p>
                                     </div>
                                 </Col>
@@ -167,7 +167,7 @@ const Signin = () => {
                     </footer>
                 </div>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 

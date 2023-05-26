@@ -26,7 +26,7 @@ const ListDefault = () => {
     }
 
     return (
-        <React.Fragment>
+        <>
             <section className="section pb-0 mt-4">
                 <CommonProduct clg="4" cmd="6" />
             </section>
@@ -44,7 +44,7 @@ const ListDefault = () => {
             <Deals />
             <DefauilOffer />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

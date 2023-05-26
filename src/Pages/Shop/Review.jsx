@@ -6,9 +6,9 @@ import { Shoptopbar } from "../../Components/ShopTopBar";
 import { shopReviews } from "../../Common/data";
 
 const Review = () => {
-    document.title = "Customer Review | Toner - React FrontEnd";
+    document.title = "Customer Review | RGAgency - React FrontEnd";
     return (
-        <React.Fragment>
+        <>
             <Shoptopbar title="Product Reviews" page="Review" />
             <section className="section">
                 <Container>
@@ -39,7 +39,7 @@ const Review = () => {
                 </Container>
             </section>
             <ContactHelp cname="section" />
-        </React.Fragment >
+        </ >
     )
 }
 

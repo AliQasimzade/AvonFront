@@ -10,7 +10,7 @@ import avatar1 from "../../assets/images/users/avatar-1.jpg";
 
 const Logout = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="auth-page-wrapper position-relative bg-light min-vh-100 d-flex align-items-center justify-content-between">
                 <div className="auth-header position-fixed top-0 start-0 end-0 bg-body">
                     <Container fluid>
@@ -61,7 +61,7 @@ const Logout = () => {
                                             <div className="mb-4">
                                                 <Image src={avatar1} alt="" className="avatar-md rounded-circle" />
                                             </div>
-                                            <p className="text-muted fs-15">Thank you for using <span className="fw-semibold">Toner</span> admin template</p>
+                                            <p className="text-muted fs-15">Thank you for using <span className="fw-semibold">RGAgency</span> admin template</p>
                                             <div>
                                                 <Link to='/auth-signin-basic' className="btn btn-primary w-100">Sign In</Link>
                                             </div>
@@ -77,7 +77,7 @@ const Logout = () => {
                                 <Col lg={12} >
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} Toner. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
                                         </p>
                                     </div>
                                 </Col>
@@ -86,7 +86,7 @@ const Logout = () => {
                     </footer>
                 </div>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 export default Logout;

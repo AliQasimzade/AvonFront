@@ -12,7 +12,7 @@ import { CommonService } from "../../Components/CommonService";
 
 const MyAccount = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="position-relative">
                 <div className="profile-basic position-relative" style={{ backgroundImage: `url(${profilebg})`, backgroundSize: "cover", backgroundPosition: "center", height: "300px" }}>
                     <div className="bg-overlay bg-primary"
@@ -106,7 +106,7 @@ const MyAccount = () => {
                                                                                 Email Address
                                                                             </td>
                                                                             <td className="fw-medium">
-                                                                                raque@toner.com
+                                                                                raque@rgagency.org
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -315,7 +315,7 @@ const MyAccount = () => {
                                                                     <Col lg={6}>
                                                                         <div className="mb-3">
                                                                             <Form.Label htmlFor="emailInput">Email Address</Form.Label>
-                                                                            <Form.Control type="email" id="emailInput" placeholder="Enter your email" defaultValue="raque@toner.com" />
+                                                                            <Form.Control type="email" id="emailInput" placeholder="Enter your email" defaultValue="raque@rgagency.org" />
                                                                         </div>
                                                                     </Col>
                                                                     <Col lg={4}>
@@ -484,7 +484,7 @@ const MyAccount = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment >
+        </ >
     )
 }
 

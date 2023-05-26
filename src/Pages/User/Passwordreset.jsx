@@ -22,7 +22,7 @@ const Passwordreset = () => {
         },
     });
     return (
-        <React.Fragment>
+        <>
             <section className="auth-page-wrapper position-relative bg-light min-vh-100 d-flex align-items-center justify-content-between">
                 <div className="auth-header position-fixed top-0 start-0 end-0 bg-body">
                     <Container fluid >
@@ -70,7 +70,7 @@ const Passwordreset = () => {
                                             </Row>
                                         </Card.Header>
                                         <Card.Body>
-                                            <p className="text-muted fs-15">Reset password with Toner.</p>
+                                            <p className="text-muted fs-15">Reset password with RGAgency.</p>
                                             <Alert className="alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
                                                 Enter your email and instructions will be sent to you!
                                             </Alert>
@@ -113,7 +113,7 @@ const Passwordreset = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} Toner. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
                                         </p>
                                     </div>
                                 </Col>
@@ -122,7 +122,7 @@ const Passwordreset = () => {
                     </footer>
                 </div>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

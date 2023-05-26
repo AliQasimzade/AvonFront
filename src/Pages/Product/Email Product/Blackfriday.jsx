@@ -9,7 +9,7 @@ import { BlackFridaysymbol, BlueFridaySymbol } from "../../../Components/FridayS
 
 const Blackfriday = () => {
     return (
-        <React.Fragment>
+        <>
             <section style={{ fontFamily: "'Inter', sans-serif", boxSizing: "border-box", fontSize: "15px", width: "100%", backgroundColor: "transparent", margin: "35px 0", color: "#06283D" }}>
                 <div style={{ maxWidth: "600px", margin: "auto", boxShadow: " rgba(135, 138, 153, 0.10) 0 5px 20px -6px", borderRadius: "6px", overflow: "hidden", backgroundColor: "rgb(206, 236, 250)", position: "relative" }}>
                     <div style={{ position: "absolute", inset: 0, opacity: "0.5" }}>
@@ -110,7 +110,7 @@ const Blackfriday = () => {
                     </div>
                 </div>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 

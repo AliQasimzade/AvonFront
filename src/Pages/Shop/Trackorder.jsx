@@ -7,9 +7,9 @@ import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
 
 const Trackorder = () => {
-    document.title = "Track Order | Toner - React FrontEnd";
+    document.title = "Track Order | RGAgency - React FrontEnd";
     return (
-        <React.Fragment>
+        <>
             <Shoptopbar title="Track Order" page="Track Order" />
             <section className="section">
                 <Container>
@@ -139,7 +139,7 @@ const Trackorder = () => {
                                             <td className="text-end">$147.95</td>
                                         </tr>
                                         <tr>
-                                            <td>Discount <small className="text-muted">(Toner15)</small></td>
+                                            <td>Discount <small className="text-muted">(RGAgency15)</small></td>
                                             <td className="text-end">- $177.54</td>
                                         </tr>
                                         <tr>
@@ -196,7 +196,7 @@ const Trackorder = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

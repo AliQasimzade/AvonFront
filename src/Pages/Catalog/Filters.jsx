@@ -75,7 +75,7 @@ const Filters = ({ name, setFilterlist }) => {
     }, [mincost, maxcost]);
 
     return (
-        <React.Fragment>
+        <>
             <div className={`${name}`}>
                 <Card className="overflow-hidden">
                     <Card.Header>
@@ -476,7 +476,7 @@ const Filters = ({ name, setFilterlist }) => {
                     </div>
                 </Card>
             </div>
-        </React.Fragment >
+        </ >
     )
 };
 

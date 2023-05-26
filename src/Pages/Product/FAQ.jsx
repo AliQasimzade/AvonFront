@@ -10,7 +10,7 @@ const FAQ = () => {
     const [purpose, setPurpose] = useState(false);
     const [online, setOnline] = useState(false);
     return (
-        <React.Fragment>
+        <>
             <section className="ecommerce-about bg-primary">
                 <Container>
                     <Row className="justify-content-center">
@@ -164,7 +164,7 @@ const FAQ = () => {
                 </Container>
             </section>
             <ContactHelp cname="section" />
-        </React.Fragment>
+        </>
     )
 }
 export default FAQ;

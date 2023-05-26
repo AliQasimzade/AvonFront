@@ -6,7 +6,7 @@ import EmailClothe from "../../Pages/Catalog/EmailClothe";
 
 const Purchaseguide = () => {
     return (
-        <React.Fragment>
+        <>
             <PublishedProduct title="Purchase Guide" dicription="Last Updated 24 Nov, 2022" />
             <section className="section pt-0">
                 <Container>
@@ -159,7 +159,7 @@ const Purchaseguide = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 export default Purchaseguide;

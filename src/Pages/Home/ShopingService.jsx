@@ -35,7 +35,7 @@ const Shopping = () => {
     }
 
     return (
-        <React.Fragment>
+        <>
             <section className="position-relative bg-danger-subtle bg-cta">
                 <Container>
                     <Row className="align-items-center">
@@ -69,7 +69,7 @@ const Shopping = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 };
 

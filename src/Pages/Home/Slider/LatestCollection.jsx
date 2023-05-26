@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 
 const LastestCollection = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section pb-0">
                 <Container>
                     <CommonTitle
@@ -77,7 +77,7 @@ const LastestCollection = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 

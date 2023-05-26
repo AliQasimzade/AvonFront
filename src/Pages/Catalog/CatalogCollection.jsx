@@ -58,7 +58,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight, filterList }) => {
     }
 
     return (
-        <React.Fragment>
+        <>
             <div className="flex-grow-1">
                 <div className="d-flex align-items-center gap-2 mb-4">
                     <p className="text-muted flex-grow-1 mb-0">Showing 1-12 of 84 results</p>
@@ -320,7 +320,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight, filterList }) => {
                     handlenextPage={handlenextPage}
                 />
             </div >
-        </React.Fragment >
+        </ >
     )
 }
 

@@ -66,7 +66,7 @@ const Productfilter = ({ name, setSelect }) => {
     }, [mincost, maxcost]);
 
     return (
-        <React.Fragment>
+        <>
             <div className={`${name}`}>
                 <Card className="overflow-hidden">
                     <Card.Header>
@@ -465,7 +465,7 @@ const Productfilter = ({ name, setSelect }) => {
                     </div>
                 </Card>
             </div>
-        </React.Fragment>
+        </>
     )
 }
 

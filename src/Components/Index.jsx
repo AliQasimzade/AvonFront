@@ -6,7 +6,7 @@ import { filterProduct } from "../Common/data";
 const Index = ({ name, cxxl, clg, cmd,cxl }) => {
     const [filterList, setFilterlist] = useState(filterProduct);
     return (
-        <React.Fragment>
+        <>
             <Filters
                 setFilterlist={setFilterlist}
                 name={name}
@@ -18,7 +18,7 @@ const Index = ({ name, cxxl, clg, cmd,cxl }) => {
                 cmd={cmd}
                 cxl={cxl}
             />
-        </React.Fragment>
+        </>
     );
 }
 

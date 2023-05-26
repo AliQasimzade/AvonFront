@@ -35,7 +35,7 @@ const Deals = () => {
         }
     }
     return (
-        <React.Fragment>
+        <>
             <section className="section pt-0">
                 <Container>
                     <Row >
@@ -91,7 +91,7 @@ const Deals = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

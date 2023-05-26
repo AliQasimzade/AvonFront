@@ -13,7 +13,7 @@ import { CommonService } from "../../Components/CommonService";
 
 const About = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="ecommerce-about">
                 <div className="effect d-none d-md-block">
                     <div className="ecommerce-effect bg-primary"></div>
@@ -124,7 +124,7 @@ const About = () => {
             </section>
             <DefauilOffer />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

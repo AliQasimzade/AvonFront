@@ -11,7 +11,7 @@ import products5 from "../../../assets/images/products/img-5.png";
 
 const Ordersuccess2 = () => {
     return (
-        <React.Fragment>
+        <>
             <section style={{ fontFamily: "'Poppins', sans-serif", boxSizing: "border-box", fontSize: "15px", width: "100%", backgroundColor: "transparent", margin: "35px 0", color: "#06283D" }}>
                 <div style={{ maxWidth: "650px", margin: "auto", boxShadow: "rgba(135, 138, 153, 0.10) 0 5px 20px -6px", borderRadius: "6px", border: "1px solid #eef1f5", overflow: "hidden", backgroundColor: "#fff" }}>
                     <div style={{ padding: "1.5rem", display: "flex", gap: "8px", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" }}>
@@ -113,7 +113,7 @@ const Ordersuccess2 = () => {
                                 </tr>
                                 <tr>
                                     <td colSpan={3} style={{ padding: "12px 8px", fontSize: "15px" }}>
-                                        Discount (Toner50)
+                                        Discount (RGAgency50)
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
                                         <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Poppins', sans-serif" }}>$50.00</h6>
@@ -136,7 +136,7 @@ const Ordersuccess2 = () => {
                     </div>
                     <div style={{ padding: "1.5rem", backgroundColor: "#fafafa" }}>
                         <div style={{ textAlign: "center" }}>
-                            <p style={{ color: "#878a99", margin: "0", fontWeight: 500 }}> {new Date().getFullYear()} © Toner.</p>
+                            <p style={{ color: "#878a99", margin: "0", fontWeight: 500 }}> {new Date().getFullYear()} © RGAgency.</p>
                         </div>
                     </div>
                 </div>
@@ -261,7 +261,7 @@ const Ordersuccess2 = () => {
                                 </tr>
                                 <tr>
                                     <td colSpan={3} style={{ padding: "12px 8px", fontSize: "15px" }}>
-                                        Discount (Toner50)
+                                        Discount (RGAgency50)
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
                                         <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Poppins', sans-serif", color: "#fafafa" }}>$50.00</h6>
@@ -299,13 +299,13 @@ const Ordersuccess2 = () => {
                     <div style={{ padding: "1.5rem", backgroundColor: "#0f3146" }}>
                         <div style={{ textAlign: "center", fontWeight: 500 }}>
                             <p style={{ color: "#878a99 ", margin: "0" }}>
-                                {new Date().getFullYear()} © Toner.
+                                {new Date().getFullYear()} © RGAgency.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 export default Ordersuccess2;

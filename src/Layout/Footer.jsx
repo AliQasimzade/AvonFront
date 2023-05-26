@@ -12,7 +12,7 @@ import paypal from "../assets/images/ecommerce/payment/paypal.png";
 
 const Footer = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section footer-landing pb-0">
                 <Container >
                     <Row>
@@ -20,7 +20,7 @@ const Footer = () => {
                             <div className="footer-info">
                                 <Image src={logolight} alt="" height="28" className="logo-light" />
                                 <Image src={logodark} alt="" height="28" className="logo-dark" />
-                                <p className="footer-desc mt-4 mb-2 me-3">Toner provides best fashion experience for both men and women at best pricing. We follow New fashion approach to give best premium feel.</p>
+                                <p className="footer-desc mt-4 mb-2 me-3">RGAgency provides best fashion experience for both men and women at best pricing. We follow New fashion approach to give best premium feel.</p>
 
                                 <div className="footer-social mt-4">
                                     <ul className="list-inline mb-0">
@@ -122,7 +122,7 @@ const Footer = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 

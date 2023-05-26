@@ -5,15 +5,15 @@ import EmailClothe from './EmailClothe';
 import { CommonService } from '../../Components/CommonService';
 
 const Catalog = () => {
-    document.title = "Catalog | Toner - React FrontEnd";
+    document.title = "Catalog | RGAgency - React FrontEnd";
 
     return (
-        <React.Fragment>
+        <>
             <Clothing />
             <Deals />
             <EmailClothe />
            < CommonService />
-        </React.Fragment>
+        </>
     );
 }
 

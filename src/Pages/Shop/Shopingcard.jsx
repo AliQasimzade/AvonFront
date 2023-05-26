@@ -7,9 +7,9 @@ import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
 
 const Shopingcard = () => {
-    document.title = "Shop Cart | Toner - React Frontend";
+    document.title = "Shop Cart | RGAgency - React Frontend";
     return (
-        <React.Fragment>
+        <>
             <Shoptopbar title="Shopping Cart" page="Shopping Cart" />
             <section className="section">
                 <Container>
@@ -28,7 +28,7 @@ const Shopingcard = () => {
             <BrandedProduct title="New Branded Products" />
             <EmailClothe />
            < CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

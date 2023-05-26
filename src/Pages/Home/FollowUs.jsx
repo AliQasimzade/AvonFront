@@ -22,7 +22,7 @@ export const folloImg = [
 
 const FollowUs = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section pb-0">
                 <Container>
                     <CommonTitle
@@ -55,7 +55,7 @@ const FollowUs = () => {
                     </Row>
                 </div>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 export default FollowUs;

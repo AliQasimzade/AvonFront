@@ -25,7 +25,7 @@ export const MainModal = ({ location }) => {
     }, [location]);
 
     return (
-        <React.Fragment>
+        <>
             <Modal show={show} onHide={modalhide} id="subscribeModal"
                 contentClassName="border-0" size="lg" centered >
                 <Modal.Body className="p-0 bg-info-subtle rounded">
@@ -51,7 +51,7 @@ export const MainModal = ({ location }) => {
                     </Row>
                 </Modal.Body>
             </Modal>
-        </React.Fragment>
+        </>
     )
 }
 
@@ -63,7 +63,7 @@ export const InvoiceModal = ({ modal, handleClose }) => {
         window.print();
     }
     return (
-        <React.Fragment>
+        <>
             <Modal show={modal} onHide={handleClose} animation={true} dialogClassName="modal-custom-size" id='invoiceModal' aria-labelledby="invoiceModalLabel">
                 <Modal.Header closeButton>
                     <h1 className="modal-title fs-5" id="invoiceModalLabel">Invoice #TTB30280001</h1>
@@ -86,8 +86,8 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                         </div>
                                         <div className="flex-shrink-0 mt-sm-0 mt-3">
                                             <h6><span className="text-muted fw-normal">Legal Registration No:</span> <span id="legal-register-no">987654</span></h6>
-                                            <h6><span className="text-muted fw-normal">Email:</span> <span id="email">toner@themesbrand.com</span></h6>
-                                            <h6><span className="text-muted fw-normal">Website:</span> <Link to="https://themesbrand.com/" className="link-primary" target="_blank" id="website">www.themesbrand.com</Link></h6>
+                                            <h6><span className="text-muted fw-normal">Email:</span> <span id="email">info@rgagency.org</span></h6>
+                                            <h6><span className="text-muted fw-normal">Website:</span> <Link to="https://rgagency.org/" className="link-primary" target="_blank" id="website">www.rgagency.org</Link></h6>
                                             <h6 className="mb-0"><span className="text-muted fw-normal">Contact No: </span><span id="contact-no"> +(314) 234 6789</span></h6>
                                         </div>
                                     </div>
@@ -251,7 +251,7 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                     </Card>
                 </Modal.Body>
             </Modal>
-        </React.Fragment>
+        </>
     )
 }
 
@@ -289,11 +289,11 @@ export const SearchModal = ({ show, handleClose }) => {
 
     }, [value])
     return (
-        <React.Fragment>
+        <>
             <Modal show={show} onHide={handleClose} size="lg" contentClassName="rounded" id='searchModal'>
                 <Modal.Header className="p-3">
                     <div className="position-relative w-100">
-                        <Form.Control type="text" className="form-control-lg border-2" placeholder="Search for Toner..." id="search-options" value={value} onChange={(e) => handlesearch(e.target)} />
+                        <Form.Control type="text" className="form-control-lg border-2" placeholder="Search for RGAgency..." id="search-options" value={value} onChange={(e) => handlesearch(e.target)} />
                         <span className="bi bi-search search-widget-icon fs-17"></span>
                         <Link to="#" className="search-widget-icon fs-14 link-secondary text-decoration-underline search-widget-icon-close" id="search-close-options">Clear</Link>
                     </div>
@@ -320,14 +320,14 @@ export const SearchModal = ({ show, handleClose }) => {
                             <div className="notification-group-list">
                                 <h5 className="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">Apps Pages</h5>
                                 <Link to="#" className="list-group-item dropdown-item notify-item"><i className="bi bi-speedometer2 me-2"></i> <span>Analytics Dashboard</span></Link>
-                                <Link to="#" className="list-group-item dropdown-item notify-item"><i className="bi bi-filetype-psd me-2"></i> <span>Toner.psd</span></Link>
+                                <Link to="#" className="list-group-item dropdown-item notify-item"><i className="bi bi-filetype-psd me-2"></i> <span>RGAgency.psd</span></Link>
                                 <Link to="#" className="list-group-item dropdown-item notify-item"><i className="bi bi-ticket-detailed me-2"></i> <span>Support Tickets</span></Link>
-                                <Link to="#" className="list-group-item dropdown-item notify-item"><i className="bi bi-file-earmark-zip me-2"></i> <span>Toner.zip</span></Link>
+                                <Link to="#" className="list-group-item dropdown-item notify-item"><i className="bi bi-file-earmark-zip me-2"></i> <span>RGAgency.zip</span></Link>
                             </div>
 
                             <div className="notification-group-list">
                                 <h5 className="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">Links</h5>
-                                <Link to="#" className="list-group-item dropdown-item notify-item"><i className="bi bi-link-45deg me-2 align-middle"></i> <span>www.themesbrand.com</span></Link>
+                                <Link to="#" className="list-group-item dropdown-item notify-item"><i className="bi bi-link-45deg me-2 align-middle"></i> <span>www.rgagency.org</span></Link>
                             </div>
 
                             <div className="notification-group-list">
@@ -364,7 +364,7 @@ export const SearchModal = ({ show, handleClose }) => {
                     </SimpleBar>
                 </div>
             </Modal>
-        </React.Fragment >
+        </ >
     )
 }
 
@@ -419,7 +419,7 @@ export const CardModal = ({ show, handleClose }) => {
         setProductcount((productData || []).map((count) => (count.id === item.id && count.num >= 0) ? { ...count, num: item.num?.lenght > 0 ? item.num - 1 : 0, Total: (item.num?.lenght > 0 ? item.num - 1 : 0) * item.ItemPrice } : count))
     }
     return (
-        <React.Fragment>
+        <>
             <Offcanvas show={show} onHide={handleClose} backdrop="static" placement="end">
                 <Offcanvas.Header closeButton className="border-bottom">
                     <Offcanvas.Title id="ecommerceCartLabel" as="h5">My Cart <span className="badge bg-danger align-middle ms-1 cartitem-badge">{productcount.length}</span></Offcanvas.Title>
@@ -475,7 +475,7 @@ export const CardModal = ({ show, handleClose }) => {
                                         <td className="text-end cart-subtotal">${subtotal || "0.00"}</td>
                                     </tr>
                                     <tr>
-                                        <td>Discount <span className="text-muted">(Toner15)</span>:</td>
+                                        <td>Discount <span className="text-muted">(RGAgency15)</span>:</td>
                                         <td className="text-end cart-discount">-${(dis) || "0.00"}</td>
                                     </tr>
                                     <tr>
@@ -509,6 +509,6 @@ export const CardModal = ({ show, handleClose }) => {
                 </div>
             </Offcanvas>
             <DeleteModal hideModal={CloseremoveModal} removeModel={removeModel} deleteData={deleteData} />
-        </React.Fragment>
+        </>
     )
 }

@@ -9,13 +9,13 @@ import { CommonService, ContactHelp } from "../../Components/CommonService";
 
 const Storelocator = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="ecommerce-about bg-primary">
                 <Container>
                     <Row className="justify-content-center">
                         <Col lg={6}>
                             <div className="text-center">
-                                <h1 className="text-white mb-2">Toner Store Locator</h1>
+                                <h1 className="text-white mb-2">RGAgency Store Locator</h1>
                                 <p className="text-white-75 mb-0">Last Updated 24 Nov, 2022</p>
                             </div>
                         </Col>
@@ -107,7 +107,7 @@ const Storelocator = () => {
                 </Container>
             </section>
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

@@ -31,7 +31,7 @@ export const TopCategoies = ({ title }) => {
 
 const Categories = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section ecommerce-about" style={{ backgroundImage: `url(${profileBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                 <div className="bg-overlay bg-primary" style={{ opacity: "0.85" }}></div>
                 <Container>
@@ -199,7 +199,7 @@ const Categories = () => {
             </section>
             <DefauilOffer />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

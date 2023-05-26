@@ -47,7 +47,7 @@ const Productdetails = () => {
         }
     }
     return (
-        <React.Fragment>
+        <>
             <section
                 className="ecommerce-about"
                 style={{
@@ -817,7 +817,7 @@ const Productdetails = () => {
             <BrandedProduct title="Similar Products" />
             <EmailClothe />
             <CommonService />
-        </React.Fragment >
+        </ >
     )
 }
 

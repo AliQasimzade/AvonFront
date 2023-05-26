@@ -16,7 +16,7 @@ export const CommonTitle = ({ title, dicription }) => {
 
 export const ProductNoui = () => {
     return (
-        <React.Fragment>
+        <>
             <div className="noUi-pips noUi-pips-horizontal">
                 <div className="noUi-marker noUi-marker-horizontal noUi-marker-large" style={{ left: " 0%" }}></div>
                 <div className="noUi-value noUi-value-horizontal noUi-value-large" data-value="0" style={{ left: "0%" }}>0</div>
@@ -49,6 +49,6 @@ export const ProductNoui = () => {
                 <div className="noUi-marker noUi-marker-horizontal noUi-marker-large" style={{ left: "100%" }}></div>
                 <div className="noUi-value noUi-value-horizontal noUi-value-large" data-value="2000" style={{ left: "100%" }}>2000</div>
             </div>
-        </React.Fragment>
+        </>
     )
 }

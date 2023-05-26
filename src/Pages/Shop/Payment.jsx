@@ -3,9 +3,9 @@ import { Card, Col, Container, Row, Tabs, Tab, Alert, Button, Form } from "react
 import { Shoporder } from "../../Components/ShopTopBar";
 
 const Payment = () => {
-    document.title = "payment | Toner - React FrontEnd";
+    document.title = "payment | RGAgency - React FrontEnd";
     return (
-        <React.Fragment>
+        <>
             <section className="section pb-4">
                 <Container>
                     <Row >
@@ -117,7 +117,7 @@ const Payment = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

@@ -24,7 +24,7 @@ const ContactUs = () => {
     });
 
     return (
-        <React.Fragment>
+        <>
             <section className="ecommerce-about bg-primary">
                 <Container>
                     <Row className="justify-content-center">
@@ -181,7 +181,7 @@ const ContactUs = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 

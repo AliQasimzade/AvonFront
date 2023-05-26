@@ -8,7 +8,7 @@ import Index from "../../../Components/Index";
 
 const LeftSideBar = () => {
     return (
-        <React.Fragment>
+        <>
             <ProductGrid title="Product List Left Sidebar" />
             <section className="section">
                 <Container>
@@ -20,7 +20,7 @@ const LeftSideBar = () => {
             <BrandedProduct title="New Branded Products" />
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

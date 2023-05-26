@@ -76,28 +76,28 @@ export const storeLocation = [
         id: 1,
         name: "Themesbrand -  Main Branch",
         location: "Russia",
-        Email: "support@themesbrand.com",
+        Email: "support@rgagency.org",
         contactNo: "+(234) 12345 67890"
     },
     {
         id: 2,
-        name: "Toner",
+        name: "RGAgency",
         location: "Israel",
-        Email: "example@Toner.com",
+        Email: "example@RGAgency.com",
         contactNo: "+(741) 65432 19870"
     },
     {
         id: 3,
-        name: "Toner",
+        name: "RGAgency",
         location: "Germany",
-        Email: "example@Toner.com",
+        Email: "example@RGAgency.com",
         contactNo: "+(365) 98765 43210"
     },
     {
         id: 4,
         name: "Skote",
         location: "Colombia",
-        Email: "example@Toner.com",
+        Email: "example@RGAgency.com",
         contactNo: "+(137) 34567 89012"
     },
 ]

@@ -8,7 +8,7 @@ import NonAuthLayout from '../Layout/NonAuthLayout';
 
 const Index = () => {
     return (
-        <React.Fragment>
+        <>
             <Routes>
                 <Route>
                     {authProtectedRoutes.map((route, idx) => (
@@ -37,7 +37,7 @@ const Index = () => {
                     ))}
                 </Route>
             </Routes>
-        </React.Fragment>
+        </>
     );
 }
 

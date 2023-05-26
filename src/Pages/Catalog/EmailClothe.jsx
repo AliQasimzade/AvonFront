@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const EmailClothe = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section bg-light bg-opacity-25" style={{ backgroundImage: `url(${EbgEffect})`, backgroundPosition: "center", backgroundSize: "cover" }}>
                 <Container>
                     <Row className="align-items-center justify-content-between">
@@ -18,7 +18,7 @@ const EmailClothe = () => {
                                     <span className="fw-semibold text-danger">25% Up to </span>
                                     off all Products</p>
                                 <h1 className="lh-base text-capitalize mb-3">Stay home &amp; get your daily needs from our shop</h1>
-                                <p className="fs-15 mb-4 pb-2">Start You'r Daily Shopping with <Link to="#" className="link-info fw-medium">Toner</Link></p>
+                                <p className="fs-15 mb-4 pb-2">Start You'r Daily Shopping with <Link to="#" className="link-info fw-medium">RGAgency</Link></p>
                                 <Form action="#">
                                     <div className="position-relative ecommerce-subscript">
                                         <Form.Control type="email" className="rounded-pill" placeholder="Enter your email" />
@@ -35,7 +35,7 @@ const EmailClothe = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

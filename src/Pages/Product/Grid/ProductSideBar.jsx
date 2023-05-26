@@ -10,7 +10,7 @@ import Index from "../../../Components/Index";
 
 const ProductSidebar = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section pb-0 mt-4">
                 <Container fluid >
                     <div className="position-relative rounded-3" style={{ backgroundImage: `url(${bannerimg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -38,7 +38,7 @@ const ProductSidebar = () => {
             <Deals />
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

@@ -78,7 +78,7 @@ const Header = (props) => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <Navbar className="navbar-expand-lg ecommerce-navbar is-sticky" id="navbar">
                 <Container >
                     <Navbar.Brand href="/" className="d-none d-lg-block">
@@ -252,7 +252,7 @@ const Header = (props) => {
                                                 <div className="bg-overlay bg-primary" style={{ opacity: 0.90 }}></div>
                                                 <Card.Body className="d-flex align-items-center justify-content-center position-relative">
                                                     <div className="text-center">
-                                                        <h6 className="card-title text-white">Welcome to Toner</h6>
+                                                        <h6 className="card-title text-white">Welcome to RGAgency</h6>
                                                         <p className="text-white-75">See all the products at once.</p>
                                                         <Link to="/#" className="btn btn-light btn-sm btn-hover">Shop Now <i className="ph-arrow-right align-middle"></i></Link>
                                                     </div>
@@ -465,7 +465,7 @@ const Header = (props) => {
                 </Container>
             </Navbar>
             <CardModal show={card} handleClose={handlecardClose} />
-        </React.Fragment>
+        </>
     )
 };
 

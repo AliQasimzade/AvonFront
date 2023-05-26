@@ -2,7 +2,7 @@ import React from "react";
 
 export const BlueFridaySymbol = () => {
     return (
-        <React.Fragment>
+        <>
             <defs>
                 <mask id="SvgjsMask1136">
                     <rect width="1440" height="560" fill="#ffffff"></rect>
@@ -136,13 +136,13 @@ export const BlueFridaySymbol = () => {
                 <use xlinkHref="#SvgjsPath1138" x="690" y="510" stroke="rgba(28, 83, 142, 0.15)"></use>
                 <use xlinkHref="#SvgjsPath1142" x="690" y="570" stroke="rgba(28, 83, 142, 0.15)" strokeWidth="3"></use>
             </symbol>
-        </React.Fragment>
+        </>
     );
 }
 
 export const BlackFridaysymbol = () => {
     return (
-        <React.Fragment>
+        <>
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlnsXlink="http://www.w3.org/1999/xlink" width="1440" height="560" preserveAspectRatio="none" viewBox="0 0 1440 560">
                 <g mask="url(&quot;#SvgjsMask1027&quot;)" fill="none">
                     <path d="M919 348L918 564" strokeWidth="8" stroke="url(#SvgjsLinearGradient1028)" strokeLinecap="round" className="Up"></path>
@@ -196,6 +196,6 @@ export const BlackFridaysymbol = () => {
                     </linearGradient>
                 </defs>
             </svg>
-        </React.Fragment>
+        </>
     )
 }

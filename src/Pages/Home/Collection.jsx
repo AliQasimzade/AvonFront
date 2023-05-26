@@ -8,7 +8,7 @@ import img3 from "../../assets/images/ecommerce/home/img-6.jpg";
 
 const Collection = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="position-relative">
                 <Carousel id="ecommerceHero" data-bs-ride="carousel">
                     <Carousel.Item >
@@ -64,7 +64,7 @@ const Collection = () => {
                     </Carousel.Item>
                 </Carousel>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 

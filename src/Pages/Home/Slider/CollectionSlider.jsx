@@ -17,7 +17,7 @@ import lenovo from "../../../assets/images/clients/lenovo.svg";
 
 const CollectionSlider = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section">
                 <Container>
                     <CommonTitle
@@ -112,7 +112,7 @@ const CollectionSlider = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

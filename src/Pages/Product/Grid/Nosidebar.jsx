@@ -35,7 +35,7 @@ const Nosider = () => {
         }
     };
     return (
-        <React.Fragment>
+        <>
             <ProductGrid title="Product Grid No Sidebar" />
             <section className='position-relative section'>
                 <Container>
@@ -63,7 +63,7 @@ const Nosider = () => {
             <Deals />
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

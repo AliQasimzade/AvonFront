@@ -9,7 +9,7 @@ import auth1 from "../../assets/images/auth/img-1.png";
 
 const Successmsg = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="auth-page-wrapper position-relative bg-light min-vh-100 d-flex align-items-center justify-content-between">
                 <div className="auth-header position-fixed top-0 start-0 end-0 bg-body">
                     <Container fluid>
@@ -78,7 +78,7 @@ const Successmsg = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} Toner. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
                                         </p>
                                     </div>
                                 </Col>
@@ -87,7 +87,7 @@ const Successmsg = () => {
                     </footer>
                 </div>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

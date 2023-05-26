@@ -7,7 +7,7 @@ import { CommonService } from "../../Components/CommonService";
 
 const Termsconditions = () => {
     return (
-        <React.Fragment>
+        <>
             <PublishedProduct title="Terms of Conditions" dicription="Last Updated 24 Nov, 2022" />
             <section className="section pt-0">
                 <Container>
@@ -142,7 +142,7 @@ const Termsconditions = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

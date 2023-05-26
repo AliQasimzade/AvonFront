@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 
 const Flashsale = () => {
     return (
-        <React.Fragment>
+        <>
             <section style={{ fontFamily: "'Inter', sans-serif", boxSizing: "border-box", fontSize: "15px", width: "100%", backgroundColor: "transparent", margin: "35px 0", color: "#06283D" }}>
                 <div style={{ maxWidth: "600px", margin: "auto", boxShadow: "rgba(135, 138, 153, 0.10) 0 5px 20px -6px", borderRadius: "6px", overflow: "hidden", backgroundColor: "#438eff", position: "relative" }}>
                     <div style={{ padding: "24px", textAlign: "center", fontWeight: 600, zIndex: 1, position: "relative", backgroundColor: "#0d355d", color: "#fff" }}>It's our biggest sale of the year</div>
@@ -82,7 +82,7 @@ const Flashsale = () => {
                     </div>
                 </div>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 

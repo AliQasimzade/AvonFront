@@ -7,7 +7,7 @@ import { CommonService } from "../../Components/CommonService";
 
 const Privacypolicy = () => {
     return (
-        <React.Fragment>
+        <>
             <PublishedProduct title="Privacy Policy" dicription="This Privacy policy was published on November 24th , 2022" />
             <section className="section pt-0">
                 <Container>
@@ -109,7 +109,7 @@ const Privacypolicy = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

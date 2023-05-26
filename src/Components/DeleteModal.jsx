@@ -56,7 +56,7 @@ export const ModalAdd = ({ addressModal, handleClose }) => {
     });
 
     return (
-        <React.Fragment>
+        <>
             <Modal show={addressModal} onHide={handleClose} size="lg">
                 <Modal.Header closeButton>
                     <h1 className="modal-title fs-5" id="addAddressModalLabel">Add New Address</h1>
@@ -141,6 +141,6 @@ export const ModalAdd = ({ addressModal, handleClose }) => {
                     </Form>
                 </Modal.Body>
             </Modal>
-        </React.Fragment>
+        </>
     )
 }

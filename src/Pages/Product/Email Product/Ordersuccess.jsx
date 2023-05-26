@@ -11,7 +11,7 @@ import products4 from '../../../assets/images/products/img-4.png';
 
 const Ordersuccess = () => {
     return (
-        <React.Fragment>
+        <>
             <section style={{ fontFamily: "'Inter', sans-serif", boxSizing: "border-box", fontSize: "15px", width: "100%", backgroundColor: "transparent", margin: " 35px 0", color: "#06283D" }}>
                 <div style={{ maxWidth: "650px", margin: "auto", boxShadow: "rgba(135, 138, 153, 0.10) 0 5px 20px -6px", borderRadius: "6px", border: "1px solid #eef1f5", overflow: "hidden", backgroundColor: "#fff" }}>
                     <div style={{ padding: "1.5rem", backgroundColor: "#fafafa" }}>
@@ -127,7 +127,7 @@ const Ordersuccess = () => {
                                 </tr>
                                 <tr>
                                     <td colSpan={3} style={{ padding: "12px 8px", fontSize: "15px" }}>
-                                        Discount (Toner50)
+                                        Discount (RGAgency50)
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
                                         <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$50.00</h6>
@@ -151,7 +151,7 @@ const Ordersuccess = () => {
                     <div style={{ padding: "1.5rem", backgroundColor: "#fafafa" }}>
                         <div style={{ display: "flex", gap: "5px", justifyContent: "space-between" }}>
                             <p style={{ color: "#878a99", margin: "0" }}>Questions? Contact Our <Link to="#" style={{ textDecoration: "none" }}> Customer Support</Link></p>
-                            <p style={{ color: "#878a99", margin: "0" }}><script>document.write(new Date().getFullYear())</script>2023 © Toner.</p>
+                            <p style={{ color: "#878a99", margin: "0" }}><script>document.write(new Date().getFullYear())</script>2023 © RGAgency.</p>
                         </div>
                     </div>
                 </div>
@@ -272,7 +272,7 @@ const Ordersuccess = () => {
                                 </tr>
                                 <tr>
                                     <td colSpan={3} style={{ padding: "12px 8px", fontSize: "15px" }}>
-                                        Discount (Toner50)
+                                        Discount (RGAgency50)
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
                                         <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$50.00</h6>
@@ -297,13 +297,13 @@ const Ordersuccess = () => {
                         <div style={{ display: "flex", gap: "5px", justifyContent: "space-between" }}>
                             <p style={{ color: "#878a99 ", margin: "0" }}>Questions? Contact Our <Link to="#" style={{ textDecoration: "none", color: "#fff" }}> Customer Support</Link></p>
                             <p style={{ color: "#878a99 ", margin: "0" }}>
-                                {new Date().getFullYear()} © Toner.
+                                {new Date().getFullYear()} © RGAgency.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
-        </React.Fragment >
+        </ >
     )
 }
 

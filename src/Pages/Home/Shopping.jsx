@@ -7,7 +7,7 @@ import { CommonTitle } from "../../Components/Homepage";
 
 const Shoping = () => {
     return (
-        <React.Fragment>
+        <>
             <section className="section bg-light bg-opacity-50">
                 <Container>
                     <CommonTitle
@@ -49,7 +49,7 @@ const Shoping = () => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

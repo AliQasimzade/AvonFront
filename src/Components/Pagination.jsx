@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Pagination = ({ pagination, currentpages, pageNumbers, currentPage, handleprevPage, handleClick, handlenextPage }) => {
     return (
-        <React.Fragment>
+        <>
             {pagination && <Row className="mb-4" id="pagination-element">
                 <Col lg={12}>
                     <div className="pagination-block pagination pagination-separated justify-content-center justify-content-sm-end mb-sm-0">
@@ -13,13 +13,13 @@ const Pagination = ({ pagination, currentpages, pageNumbers, currentPage, handle
                         </div>
                         <span id="page-num" className="pagination">
                             {(pageNumbers || []).map((item, key) => (
-                                <React.Fragment key={key}>
+                                < key={key}>
                                     <div className={currentPage === item ? "page-item active" : "page-item"}>
                                         <Link className="page-link clickPageNumber" to="#" key={key} id={item} onClick={(e) => handleClick(e)}>
                                             {item}
                                         </Link>
                                     </div>
-                                </React.Fragment>
+                                </>
                             ))}
                         </span>
                         <div className={currentPage >= pageNumbers.length ? "page-item disabled" : "page-item"}>
@@ -40,7 +40,7 @@ const Pagination = ({ pagination, currentpages, pageNumbers, currentPage, handle
                     </div>
                 </Col>
             </Row>}
-        </React.Fragment>
+        </>
     );
 }
 

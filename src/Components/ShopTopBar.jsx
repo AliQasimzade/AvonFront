@@ -5,7 +5,7 @@ import { recentlyOrder } from "../Common/data";
 
 export const Shoptopbar = ({ title, page }) => {
     return (
-        <React.Fragment>
+        <>
             <section className="page-wrapper bg-primary">
                 <Container>
                     <Row>
@@ -23,20 +23,20 @@ export const Shoptopbar = ({ title, page }) => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 
 export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
     return (
-        <React.Fragment>
+        <>
             <Card>
                 <Card.Body>
                     <div className="text-center">
                         <h6 className="mb-3 fs-15">Have a <span className="fw-semibold">promo</span> code ?</h6>
                     </div>
                     <div className="hstack gap-3 px-3 mx-n3">
-                        <Form.Control className="me-auto" type="text" placeholder="Enter coupon code" defaultValue="Toner15" aria-label="Add Promo Code here..." />
+                        <Form.Control className="me-auto" type="text" placeholder="Enter coupon code" defaultValue="RGAgency15" aria-label="Add Promo Code here..." />
                         <Button variant="primary" className="w-xs">Apply</Button>
                     </div>
                 </Card.Body>
@@ -54,7 +54,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                                     <td className="text-end cart-subtotal">${subtotal || "0.00"}</td>
                                 </tr>
                                 <tr>
-                                    <td>Discount <span className="text-muted">(Toner15)</span>:</td>
+                                    <td>Discount <span className="text-muted">(RGAgency15)</span>:</td>
                                     <td className="text-end cart-discount">-${(dic) || "0.00"}</td>
                                 </tr>
                                 <tr>
@@ -76,7 +76,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                     </div>
                 </Card.Body>
             </Card>
-        </React.Fragment>
+        </>
     )
 }
 
@@ -90,7 +90,7 @@ export const BrandedProduct = ({ title }) => {
         }
     }
     return (
-        <React.Fragment>
+        <>
             <section className="section">
                 <Container>
                     <Row className="justify-content-center">
@@ -170,6 +170,6 @@ export const BrandedProduct = ({ title }) => {
                     </Row>
                 </Container>
             </section>
-        </React.Fragment>
+        </>
     )
 }

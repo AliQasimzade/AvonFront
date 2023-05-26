@@ -34,7 +34,7 @@ const SignUp = () => {
     });
 
     return (
-        <React.Fragment>
+        <>
             <section className="auth-page-wrapper position-relative bg-light min-vh-100 d-flex align-items-center justify-content-between">
                 <div className="auth-header position-fixed top-0 start-0 end-0 bg-body">
                     <Container fluid>
@@ -77,12 +77,12 @@ const SignUp = () => {
                                                     <Image src={auth1} alt="" className="img-fluid" />
                                                 </Col>
                                                 <Col lg={8} xs={9}>
-                                                    <h1 className="text-white text-capitalize lh-base fw-lighter">Let's get started with Toner Store</h1>
+                                                    <h1 className="text-white text-capitalize lh-base fw-lighter">Let's get started with RGAgency Store</h1>
                                                 </Col>
                                             </Row>
                                         </Card.Header>
                                         <Card.Body>
-                                            <p className="text-muted fs-15">Get your free Toner account now</p>
+                                            <p className="text-muted fs-15">Get your free RGAgency account now</p>
                                             <div className="p-2">
                                                 <Form className="needs-validation" action="#" onSubmit={formik.handleSubmit}>
                                                     <div className="mb-3">
@@ -140,7 +140,7 @@ const SignUp = () => {
                                                         </div>
                                                     </div>
                                                     <div className="mb-4">
-                                                        <p className="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Toner
+                                                        <p className="mb-0 fs-12 text-muted fst-italic">By registering you agree to the RGAgency
                                                             <Link to="#" className="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</Link>
                                                         </p>
                                                     </div>
@@ -176,7 +176,7 @@ const SignUp = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} Toner. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
                                         </p>
                                     </div>
                                 </Col>
@@ -185,7 +185,7 @@ const SignUp = () => {
                     </footer>
                 </div>
             </section>
-        </React.Fragment>
+        </>
     )
 }
 

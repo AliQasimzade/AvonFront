@@ -8,9 +8,9 @@ import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
 
 const Confirm = () => {
-    document.title = "Order Completed | Toner - React FrontEnd";
+    document.title = "Order Completed | RGAgency - React FrontEnd";
     return (
-        <React.Fragment>
+        <>
             <Shoptopbar title="Confirmation" page="Order Confirm" />
             <section className="section">
                 <Container>
@@ -38,7 +38,7 @@ const Confirm = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment>
+        </>
     )
 }
 

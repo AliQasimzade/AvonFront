@@ -12,7 +12,7 @@ const Home = () => {
     document.title = "AVON.NET.AZ – Online kosmetika mağazası";
 
     return (
-        <React.Fragment>
+        <>
             <Collection />
             <Service />
             <TopProducts />
@@ -21,7 +21,7 @@ const Home = () => {
             <CollectionSlider />
             <Shoping />
             <FollowUs />
-        </React.Fragment>
+        </>
     );
 }
 

@@ -12,7 +12,7 @@ const RightSidebar = () => {
         setSelect(product?.filter((sort) => sort.sortBy === event.value || sort === "all"))
     }
     return (
-        <React.Fragment>
+        <>
             <ProductGrid title="Product Grid Right Sidebar" />
             <section className='position-relative section'>
                 <Container>
@@ -37,7 +37,7 @@ const RightSidebar = () => {
             </section>
             <EmailClothe />
             <CommonService />
-        </React.Fragment >
+        </ >
     )
 }
 

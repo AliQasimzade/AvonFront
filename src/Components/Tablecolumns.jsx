@@ -73,9 +73,9 @@ const TableColumns = ({ data }) => {
         ]
         , []);
     return (
-        <React.Fragment>
+        <>
             <ReactTable columns={columns} data={data} />
-        </React.Fragment>
+        </>
     );
 }
 
