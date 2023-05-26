@@ -74,7 +74,7 @@ export const Location = [
 export const storeLocation = [
     {
         id: 1,
-        name: "Themesbrand -  Main Branch",
+        name: "RGAgency -  Main Branch",
         location: "Russia",
         Email: "support@rgagency.org",
         contactNo: "+(234) 12345 67890"

@@ -131,7 +131,7 @@ const Ordersuccess2 = () => {
                         <p style={{ color: "#878a99", marginBottom: "20px", marginTop: "15px" }}>We'll send you shipping Confirmation when your item(s) are on the way! We appereciate your business, and hope you enjoy your purchase.</p>
                         <div style={{ textAlign: "right" }}>
                             <h6 style={{ fontSize: "17px", margin: "0px", fontWeight: 500, fontFamily: "'Poppins', sans-serif" }}>Thank you!</h6>
-                            <p style={{ color: "#878a99", marginBottom: "0", marginTop: "8px" }}>Themesbrand</p>
+                            <p style={{ color: "#878a99", marginBottom: "0", marginTop: "8px" }}>RGAgency</p>
                         </div>
                     </div>
                     <div style={{ padding: "1.5rem", backgroundColor: "#fafafa" }}>
@@ -293,7 +293,7 @@ const Ordersuccess2 = () => {
                                 color: "#878a99 ",
                                 marginBottom: "0",
                                 marginTop: "8px"
-                            }}>Themesbrand</p>
+                            }}>RGAgency</p>
                         </div>
                     </div>
                     <div style={{ padding: "1.5rem", backgroundColor: "#0f3146" }}>

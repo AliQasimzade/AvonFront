@@ -118,7 +118,7 @@ const Verifyemail = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
                                         </p>
                                     </div>
                                 </Col>

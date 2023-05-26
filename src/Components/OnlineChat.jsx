@@ -75,7 +75,7 @@ const OnlineChat = () => {
                                                             <div className="ctext-wrap">
                                                                 <div className="ctext-wrap-content">
                                                                     <p className="mb-0 ctext-content">
-                                                                        Welcome to Themesbrand. We are here to help you. You can
+                                                                        Welcome to RGAgency. We are here to help you. You can
                                                                         also directly email us at Support@rgagency.org to
                                                                         schedule a meeting with our Technology Consultant.
                                                                     </p>
