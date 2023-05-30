@@ -1,9 +1,9 @@
 import React from "react";
-import { Alert, Card, Col, Container, Form, Row, Button,Image } from "react-bootstrap";
+import { Alert, Card, Col, Container, Form, Row, Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-
+import axios from "axios";
 //img
 import logodark from "../../assets/images/logo-dark.png";
 import logolight from "../../assets/images/logo-light.png";
@@ -15,10 +15,28 @@ const Passwordreset = () => {
             email: "",
         },
         validationSchema: Yup.object({
-            email: Yup.string().email().matches(/^(?!.*@[^,]*,)/).required("Please Enter Your Email")
+            email: Yup.string().email().required("Please Enter Your Email"),
         }),
-        onSubmit: (values) => {
-            // console.log("value", values);
+        onSubmit: async (values) => {
+            try {
+                const response = await fetch(`http://avontest0910-001-site1.atempurl.com/api/Account/passwordreset?userName=${values.email}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username: values.email }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Success:', data);
+                } else {
+                    const errorData = await response.json();
+                    console.error('Error:', errorData);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         },
     });
     return (

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from "react-bootstrap";
-import { Link } from 'react-router-dom';
 import { changeLayoutMood, changeThemeMood } from '../slices/thunk';
 import TopBar from './TopBar';
 import Footer from './Footer';
@@ -46,9 +45,6 @@ const Layout = (props) => {
             <Header handleMood={handleThemeMood} />
             {props.children}
             <Footer />
-            <Link to="../backend/index.html"
-                className="btn btn-warning position-fixed bottom-0 start-0 m-5 z-3 btn-hover d-none d-lg-block">
-                <i className="bi bi-database align-middle me-1"></i> Backend</Link>
             <Button
                 onClick={ScrollbarTop}
                 variant="info"

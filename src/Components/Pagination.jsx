@@ -13,13 +13,13 @@ const Pagination = ({ pagination, currentpages, pageNumbers, currentPage, handle
                         </div>
                         <span id="page-num" className="pagination">
                             {(pageNumbers || []).map((item, key) => (
-                                < key={key}>
+                                <div key={key}>
                                     <div className={currentPage === item ? "page-item active" : "page-item"}>
                                         <Link className="page-link clickPageNumber" to="#" key={key} id={item} onClick={(e) => handleClick(e)}>
                                             {item}
                                         </Link>
                                     </div>
-                                </>
+                                </div>
                             ))}
                         </span>
                         <div className={currentPage >= pageNumbers.length ? "page-item disabled" : "page-item"}>

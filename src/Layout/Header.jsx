@@ -1,26 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Dropdown, Button, Row, Col, Card, Image, Navbar, Nav } from "react-bootstrap";
-
+import axios from 'axios';
 //img
 import AvonLogo from "../assets/images/avonLogo.png";
 import avtar1 from "../assets/images/users/avatar-1.jpg";
 import img1 from "../assets/images/ecommerce/img-1.jpg";
 import Eimg2 from "../assets/images/ecommerce/img-2.jpg";
-import img2 from "../assets/images/brands/img-2.png";
-import img3 from "../assets/images/brands/img-3.png";
-import img4 from "../assets/images/brands/img-4.png";
-import img5 from "../assets/images/brands/img-5.png";
-import img6 from "../assets/images/brands/img-6.png";
-import img8 from "../assets/images/brands/img-8.png";
-
 import { CardModal, SearchModal } from "../Components/MainModal";
 import { withTranslation } from "react-i18next";
 import withRouter from "../Components/withRouter";
 
 const Header = (props) => {
 
-    console.log("props", props)
+    // kateqoriyalar
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false');
+            setCategories(response.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    // kateqoriyalar bitdi
+
+    const [brendler, setBrendler] = useState([]);
+    useEffect(() => {
+        fetchDataBrendler();
+    }, [])
+    const fetchDataBrendler = async () => {
+        try {
+            const res = await axios.get('http://avontest0910-001-site1.atempurl.com/api/Brands/Manage/GetAll?isDeleted=false');
+            setBrendler(res.data)
+        } catch (err) {
+            console.error('error', err)
+        }
+    }
+        // brendler bitdi
+
+
 
     //search modal
     const [show, setShow] = useState(false);
@@ -36,8 +60,8 @@ const Header = (props) => {
 
     useEffect(() => {
         const pathname = props.router.location.pathname;
-        var ul = document.getElementById("navigation-menu") 
-        let items = ul.getElementsByTagName("a") 
+        var ul = document.getElementById("navigation-menu")
+        let items = ul.getElementsByTagName("a")
         var matchingMenuItem = null;
         removeActivation(items);
         for (let i = 0; i < items.length; i++) {
@@ -85,7 +109,7 @@ const Header = (props) => {
                         <div className="logo-dark">
                             <Image src={AvonLogo} alt="" height="25" />
                         </div>
-                       
+
                     </Navbar.Brand>
                     <Button className="btn btn-soft-primary btn-icon d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i className="bi bi-list fs-20"></i>
@@ -114,130 +138,43 @@ const Header = (props) => {
                                                 </Card.Body>
                                             </Card>
                                         </Col>
-                                        <Col lg={2}>
-                                            <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                <li>
-                                                    <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key="t-men">{props.t('men')}</p>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/catalog/clothing' className="nav-link" data-key="t-clothing">{props.t('clothing')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/products-grid/right' className="nav-link" data-key="t-watches">{props.t('watches')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/product-list/left' className="nav-link" data-key="t-bags-Luggage">{props.t('bags-Luggage')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/products-grid/right' className="nav-link" data-key="t-footwear">{props.t('footwear')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/product-list' className="nav-link" data-key="t-innerwear">{props.t('innerwear')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/product-list/right' className="nav-link" data-key="t-other-accessories">{props.t('other-accessories')}</Link>
-                                                </li>
-                                            </ul>
-                                        </Col>
-                                        <Col lg={2}>
-                                            <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                <li>
-                                                    <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key="t-women">{props.t('women')}</p>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/product-list/defualt' className="nav-link" data-key="t-western-wear">{props.t('western-wear')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/product-list/left' className="nav-link" data-key="t-handbags-clutches">{props.t('handbags-clutches')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/products-grid/right' className="nav-link" data-key="t-lingerie-nightwear">{props.t('lingerie-nightwear')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/products-grid/sidebar-banner' className="nav-link" data-key="t-footwear">{props.t('footwear')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/products-grid/Default' className="nav-link" data-key="t-fashion-silver-jewellery">{props.t('fashion-silver-jewellery')}</Link>
-                                                </li>
-                                            </ul>
-                                        </Col>
-                                        <Col lg={2} >
-                                            <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                <li>
-                                                    <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key="t-accessories-others">{props.t('accessories-others')}</p>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/products-grid/right' className="nav-link" data-key="t-home-kitchen-pets">{props.t('home-kitchen-pets')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/product-list/left' className="nav-link" data-key="t-beauty-health-grocery">{props.t('beauty-health-grocery')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/products-grid/sidebar-banner' className="nav-link" data-key="t-sports-fitness-bags-luggage">{props.t('sports-fitness-bags-luggage')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/product-list' className="nav-link" data-key="t-car-motorbike-industrial">{props.t('car-motorbike-industrial')}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/product-list/right' className="nav-link" data-key="t-books">{props.t('books')}</Link>
-                                                </li>
-                                            </ul>
-                                        </Col>
-                                        <Col lg={2}>
-                                            <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                <li>
-                                                    <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key="t-others">{props.t("others")}</p>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/auth-signup-basic' className="nav-link" data-key="t-sign-up">{props.t("sign-up")}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/auth-signin-basic' className="nav-link" data-key="t-sign-in">{props.t("sign-in")}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/auth-pass-reset-basic' className="nav-link" data-key="t-passowrd-reset">{props.t("passowrd-reset")}</Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link to='/auth-404' className="nav-link" data-key="t-error-404">{props.t("error-404")}</Link>
-                                                </li>
-                                            </ul>
-                                        </Col>
-                                        <Col lg={2} className="d-none d-lg-block">
-                                            <div className="p-3">
-                                                <p className="mb-3 text-uppercase fs-11 fw-medium text-muted" data-key="t-top-brands">{props.t("top-brands")}</p>
-                                                <Row className="g-2">
-                                                    <Col lg={4}>
-                                                        <Link to="/#" className="d-block p-2 border border-dashed text-center rounded-3">
-                                                            <Image src={img8} alt="" className="avatar-sm" />
-                                                        </Link>
+                                        <Col lg={10} className="d-none d-lg-block">
+                                            <Row className="g-0 g-lg-4">
+                                                {/* kateqoriyalar */}
+                                                {categories.map((category, index) => (
+                                                    <Col lg={2} key={index}>
+                                                        <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                                                            <li>
+                                                                <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key={`t-${category.name}`}>
+                                                                    {category.name}
+                                                                </p>
+                                                            </li>
+                                                            {category.subCategories.map((subcategory, subIndex) => (
+                                                                <li className="nav-item" key={subIndex}>
+                                                                    <Link to={`/catalog/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
+                                                                        {props.t(subcategory.name)}
+                                                                    </Link>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
                                                     </Col>
-                                                    <Col lg={4}>
-                                                        <Link to="/#" className="d-block p-2 border border-dashed text-center rounded-3">
-                                                            <Image src={img2} alt="" className="avatar-sm" />
-                                                        </Link>
-                                                    </Col>
-                                                    <Col lg={4}>
-                                                        <Link to="/#" className="d-block p-2 border border-dashed text-center rounded-3">
-                                                            <Image src={img3} alt="" className="avatar-sm" />
-                                                        </Link>
-                                                    </Col>
-                                                    <Col lg={4}>
-                                                        <Link to="/#" className="d-block p-2 border border-dashed text-center rounded-3">
-                                                            <Image src={img4} alt="" className="avatar-sm" />
-                                                        </Link>
-                                                    </Col>
-                                                    <Col lg={4}>
-                                                        <Link to="/#" className="d-block p-2 border border-dashed text-center rounded-3">
-                                                            <Image src={img5} alt="" className="avatar-sm" />
-                                                        </Link>
-                                                    </Col>
-                                                    <Col lg={4}>
-                                                        <Link to="/#" className="d-block p-2 border border-dashed text-center rounded-3">
-                                                            <Image src={img6} alt="" className="avatar-sm" />
-                                                        </Link>
-                                                    </Col>
-                                                </Row>
-                                            </div>
+                                                ))}
+                                                {/* brendler */}
+                                                <Col lg={2} className="d-none d-lg-block">
+                                                    <div className="p-3">
+                                                        <p className="mb-3 text-uppercase fs-11 fw-medium text-muted" data-key="t-top-brands">{props.t("top-brands")}</p>
+                                                        <Row className="g-2">
+                                                            {brendler.map((brend) => (
+                                                                <Col key={brend.id} lg={4}>
+                                                                    <Link title={brend.name} to={`/${brend}`} className="d-block p-2 border border-dashed text-center rounded-3">
+                                                                        <Image src={brend.image} alt={brend.name} className="avatar-sm" />
+                                                                    </Link>
+                                                                </Col>
+                                                            ))}
+                                                        </Row>
+                                                    </div>
+                                                </Col>
+                                            </Row>
                                         </Col>
                                     </Row>
                                 </div>
