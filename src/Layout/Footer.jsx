@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { withTranslation } from "react-i18next";
+import withRouter from "../Components/withRouter";
 
 //img
 import logolight from "../assets/images/avonLogo.png";
@@ -10,7 +12,7 @@ import discover from "../assets/images/ecommerce/payment/discover.png";
 import americanexpress from "../assets/images/ecommerce/payment/american-express.png";
 import paypal from "../assets/images/ecommerce/payment/paypal.png";
 
-const Footer = () => {
+const Footer = (props) => {
 
     const [category, setCategory] = useState([]);
 
@@ -66,7 +68,7 @@ const Footer = () => {
                             <Row className="pl-0 pl-lg-3">
                                 <Col md={3}>
                                     <div className="mt-lg-0 mt-4">
-                                        <h5 className="footer-title">Categories</h5>
+                                        <h5 className="footer-title" data-key="t-categories">{props.t('categories')}</h5>
                                         <ul className="list-unstyled footer-link mt-3">
                                             {
                                                 category.slice(0, 5).map((cat, ind) => (
@@ -77,7 +79,7 @@ const Footer = () => {
                                             }
                                             {category.length > 5 && (
                                                 <li>
-                                                    <Link to="/categories">Bütün kateqoriyalara bax</Link>
+                                                    <Link to="/categories" data-key="t-see-all-categories">{props.t('see-all-categories')}</Link>
                                                 </li>
                                             )}
                                         </ul>
@@ -85,39 +87,39 @@ const Footer = () => {
                                 </Col>
                                 <Col md={3}>
                                     <div className="mt-lg-0 mt-4">
-                                        <h5 className="footer-title">Information</h5>
+                                        <h5 className="footer-title" data-key="t-information">{props.t('information')}</h5>
                                         <ul className="list-unstyled footer-link mt-3">
-                                            <li><Link to="#">Custom Service</Link></li>
-                                            <li><Link to="#">FAQs</Link></li>
-                                            <li><Link to="#">Ordering</Link></li>
-                                            <li><Link to="#">Tracking</Link></li>
-                                            <li><Link to="#">Contacts</Link></li>
+                                            <li><Link to="#" data-key="t-custom-service">{props.t('custom-service')}</Link></li>
+                                            <li><Link to="#" data-key="t-faqs">{props.t('faqs')}</Link></li>
+                                            <li><Link to="#" data-key="t-ordering">{props.t('ordering')}</Link></li>
+                                            <li><Link to="#" data-key="t-tracking">{props.t('tracking')}</Link></li>
+                                            <li><Link to="#" data-key="t-contact">{props.t('contact')}</Link></li>
                                         </ul>
                                     </div>
                                 </Col>
 
                                 <Col md={3}>
                                     <div className="mt-lg-0 mt-4">
-                                        <h5 className="footer-title">My Account</h5>
+                                        <h5 className="footer-title" data-key="t-account">{props.t('account')}</h5>
                                         <ul className="list-unstyled footer-link mt-3">
-                                            <li><Link to="#">Sign In</Link></li>
-                                            <li><Link to="#">View Cart</Link></li>
-                                            <li><Link to="#">My Wishlist</Link></li>
-                                            <li><Link to="#">Track My Order</Link></li>
-                                            <li><Link to="#">Help</Link></li>
+                                            <li><Link to="#" data-key="t-sign-in">{props.t('sign-in')}</Link></li>
+                                            <li><Link to="#" data-key="t-view-cart">{props.t('view-cart')}</Link></li>
+                                            <li><Link to="#" data-key="t-wishlist">{props.t('wishlist')}</Link></li>
+                                            <li><Link to="#" data-key="t-track-order">{props.t('track-order')}</Link></li>
+                                            <li><Link to="#" data-key="t-help">{props.t('help')}</Link></li>
                                         </ul>
                                     </div>
                                 </Col>
 
                                 <Col md={3}>
                                     <div className="mt-lg-0 mt-4">
-                                        <h5 className="footer-title">Customer Service</h5>
+                                        <h5 className="footer-title" data-key="t-customer-service">{props.t('customer-service')}</h5>
                                         <ul className="list-unstyled footer-link mt-3">
-                                            <li><Link to="#">Payment Methods</Link></li>
-                                            <li><Link to="#">Money-back!</Link></li>
-                                            <li><Link to="#">Returns</Link></li>
-                                            <li><Link to="#">Shipping</Link></li>
-                                            <li><Link to="#">Terms and conditions</Link></li>
+                                            <li><Link to="#" data-key="t-payment-methods">{props.t('payment-methods')}</Link></li>
+                                            <li><Link to="#" data-key="t-money-back">{props.t('money-back')}</Link></li>
+                                            <li><Link to="#" data-key="t-return">{props.t('return')}</Link></li>
+                                            <li><Link to="#" data-key="t-shipping">{props.t('shipping')}</Link></li>
+                                            <li><Link to="#" data-key="t-terms-and-conditions">{props.t('terms-and-conditions')}</Link></li>
                                         </ul>
                                     </div>
                                 </Col>
@@ -154,4 +156,4 @@ const Footer = () => {
     )
 }
 
-export default Footer;
+export default withRouter(withTranslation()(Footer));

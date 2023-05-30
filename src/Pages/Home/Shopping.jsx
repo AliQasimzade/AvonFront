@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
-import { shopingsCollection } from "../../Common/data";
+import { withTranslation } from "react-i18next";
+import withRouter from "../../Components/withRouter";
 import { CommonTitle } from "../../Components/Homepage";
 
-const Shoping = () => {
+const Shoping = (props) => {
 
     const [news, setNews] = useState([]);
 
@@ -33,8 +33,8 @@ const Shoping = () => {
             <section className="section bg-light bg-opacity-50">
                 <Container>
                     <CommonTitle
-                        title="Shop insights feeds"
-                        dicription="Shopping Insights gives marketers a 360-degree view of a product's popularity. Harnessing search volume data for more than 7,000 popular products (and counting)"
+                        title={props.t('insights-feeds')}
+                        dicription={props.t('insights-feeds-desc')}
                     />
                     <Row className="mt-5">
                         {
@@ -65,7 +65,7 @@ const Shoping = () => {
                         }
 
                         <div className="mt-4 text-center">
-                            <Link to="#" className="btn btn-soft-primary btn-hover">View More Articles <i className="bi bi-arrow-right ms-2"></i></Link>
+                            <Link to="#" className="btn btn-soft-primary btn-hover" data-key="t-view-more-articles">{props.t('view-more-articles')} <i className="bi bi-arrow-right ms-2"></i></Link>
                         </div>
                     </Row>
                 </Container>
@@ -74,4 +74,4 @@ const Shoping = () => {
     )
 }
 
-export default Shoping;
+export default withRouter(withTranslation()(Shoping));

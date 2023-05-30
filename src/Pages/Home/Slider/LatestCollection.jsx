@@ -8,15 +8,16 @@ import { CommonTitle } from "../../../Components/Homepage";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-const LastestCollection = () => {
+import { withTranslation } from "react-i18next";
+import withRouter from "../../../Components/withRouter";
+const LastestCollection = (props) => {
     return (
         <>
             <section className="section pb-0">
                 <Container>
                     <CommonTitle
-                        title="Latest Arrival"
-                        dicription="What you wear is how you present yourself to the world, especially today, when human contacts are so quick. Fashion is instant language." />
+                        title={props.t('latest-arrival')}
+                        dicription={props.t('latest-arrival-desc')} />
                     <Row>
                         <Col lg={12}>
                             <Swiper modules={[Navigation, Autoplay]}
@@ -57,14 +58,17 @@ const LastestCollection = () => {
                                                 <Card.Body >
                                                     <div>
                                                         <Link to="product-details">
-                                                            <h6 className="fs-15 lh-base text-truncate mb-0">{item.title}</h6>
+                                                            <h6 className="fs-15 lh-base text-truncate mb-0" data-key={`t-${item.title}`}>{props.t(`${item.title}`)}</h6>
                                                         </Link>
                                                         <div className="mt-3">
-                                                            <span className="float-end">{item.ratting}<i className="ri-star-half-fill text-warning align-bottom"></i></span>
-                                                            <h5 className="mb-0">{item.price} <span className="text-muted fs-12"><del>{item.deletePrice}</del></span></h5>
+                                                            <span className="float-end" data-key={`t-${item.ratting}`}>{props.t(`${item.ratting}`)}<i className="ri-star-half-fill text-warning align-bottom"></i></span>
+                                                            <h5 className="mb-0" data-key={`t-${item.price}`}>{props.t(`${item.price}`)} <span className="text-muted fs-12"><del data-key={`t-${item.deletePrice}`}>{props.t(`${item.deletePrice}`)}</del></span></h5>
                                                         </div>
                                                         <div className="mt-3">
-                                                            <Link to='/shop/shopingcard' className="btn btn-primary btn-sm"><i className="mdi mdi-cart me-1"></i> Add to cart</Link>
+                                                            <Link to='/shop/shopingcard' className="btn btn-primary btn-sm" data-key="t-add-to-card">
+                                                                <i className="mdi mdi-cart me-1"></i> 
+                                                                {props.t('add-to-card')}
+                                                                </Link>
                                                         </div>
                                                     </div>
                                                 </Card.Body>
@@ -81,4 +85,4 @@ const LastestCollection = () => {
     )
 }
 
-export default LastestCollection;
+export default  withRouter(withTranslation()(LastestCollection));

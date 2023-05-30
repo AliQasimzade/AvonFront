@@ -5,8 +5,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
+import { withTranslation } from "react-i18next";
+import withRouter from "../../../Components/withRouter";
 import { CommonTitle } from "../../../Components/Homepage";
-const CollectionSlider = () => {
+const CollectionSlider = (props) => {
 
     const [comments, setComments] = useState([]);
     const [brands, setBrands] = useState([])
@@ -51,12 +53,9 @@ const CollectionSlider = () => {
             <section className="section">
                 <Container>
                     <CommonTitle
-                        title="What Customers Say About Us"
-                        dicription="A customer is a person or business that buys goods or services from another business. Customers are crucial because they generate revenue." />
+                        title={props.t('customers-say')}
+                        dicription={props.t('customers-say-desc')} />
                     <Row>
-
-
-
                         <Col lg={12}>
                             <Swiper className="testi-slider swiper-pointer-events swiper-backface-hidden"
                                 wrapperClass="my-5"
@@ -122,4 +121,4 @@ const CollectionSlider = () => {
     )
 }
 
-export default CollectionSlider;
+export default withRouter(withTranslation()(CollectionSlider));

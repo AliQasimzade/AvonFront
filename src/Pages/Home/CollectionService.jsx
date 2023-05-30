@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { CommonService } from "../../Components/CommonService";
-
+import { withTranslation } from "react-i18next";
+import withRouter from "../../Components/withRouter";
 //img
 import featuresimg3 from '../../assets/images/ecommerce/features/img-3.jpg';
 import featuresimg1 from '../../assets/images/ecommerce/features/img-1.jpg';
 import { CommonTitle } from "../../Components/Homepage";
 
-const Service = () => {
+const Service = (props) => {
     return (
         <>
             <CommonService />
@@ -45,12 +46,12 @@ const Service = () => {
             </section>
             <Container >
                 <CommonTitle
-                    title="Top Picks Products Of The Week"
-                    dicription="This ranges from women and men's outfits to children's clothing, shoes, accessories, and more. People love their clothes, and fashion isn't going anywhere!"
+                    title={props.t('top-picks-section-title')}
+                    dicription={props.t('top-picks-section-desc')}
                 />
             </Container>
         </ >
     )
 }
 
-export default Service;
+export default withRouter(withTranslation()(Service));
