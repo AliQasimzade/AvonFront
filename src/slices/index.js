@@ -2,9 +2,11 @@ import { combineReducers } from "@reduxjs/toolkit";
 
 //front
 import LayoutReducer from "./layouts/reducer";
+import user from "./layouts/user";
 
-const rootreducer = combineReducers({
-    Layout: LayoutReducer
+const rootReducer = combineReducers({
+    Layout: LayoutReducer,
+    User: user
 })
 
-export default rootreducer;
+export default rootReducer;

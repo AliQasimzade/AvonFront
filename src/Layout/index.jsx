@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from "react-bootstrap";
-import { changeLayoutMood, changeThemeMood } from '../slices/thunk';
+import { changeLayoutMood, changeThemeMood } from '../slices/layouts/thunk';
 import TopBar from './TopBar';
 import Footer from './Footer';
 import Header from "./Header";
