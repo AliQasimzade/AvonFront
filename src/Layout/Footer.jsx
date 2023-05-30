@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -11,6 +11,27 @@ import americanexpress from "../assets/images/ecommerce/payment/american-express
 import paypal from "../assets/images/ecommerce/payment/paypal.png";
 
 const Footer = () => {
+
+    const [category, setCategory] = useState([]);
+
+    useEffect(() => {
+        getCategory();
+    }, [])
+
+    const getCategory = async () => {
+        try {
+            const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false");
+            if (response.ok) {
+                const data = await response.json();
+                setCategory(data);
+            } else {
+                console.error("Error:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+    console.log(category);
     return (
         <>
             <section className="section footer-landing pb-0">
@@ -47,11 +68,18 @@ const Footer = () => {
                                     <div className="mt-lg-0 mt-4">
                                         <h5 className="footer-title">Categories</h5>
                                         <ul className="list-unstyled footer-link mt-3">
-                                            <li><Link to="#">Men</Link></li>
-                                            <li><Link to="#">Jewellery</Link></li>
-                                            <li><Link to="#">Accesories</Link></li>
-                                            <li><Link to="#">Clothing</Link></li>
-                                            <li><Link to="#">Beauty Items</Link></li>
+                                            {
+                                                category.slice(0, 5).map((cat, ind) => (
+                                                    <li key={ind}>
+                                                        <Link to={`category/${cat.name}`}>{cat.name}</Link>
+                                                    </li>
+                                                ))
+                                            }
+                                            {category.length > 5 && (
+                                                <li>
+                                                    <Link to="/categories">Bütün kateqoriyalara bax</Link>
+                                                </li>
+                                            )}
                                         </ul>
                                     </div>
                                 </Col>
@@ -99,7 +127,7 @@ const Footer = () => {
 
                     <Row className="footer-border-alt mt-4 align-items-center fs-15">
                         <Col sm={6}>
-                        © AVON.NET.AZ  {new Date().getFullYear()}.  Müəllif hüquqları qorunur. Hazırladı  <a href="https://rgagency.org/" className="text-reset text-decoration-none">RG Agency</a>
+                            © AVON.NET.AZ  {new Date().getFullYear()}.  Müəllif hüquqları qorunur. Hazırladı  <a href="https://rgagency.org/" className="text-reset text-decoration-none">RG Agency</a>
                         </Col>
                         <Col sm={6}>
                             <div className="text-sm-end d-none d-sm-block">
