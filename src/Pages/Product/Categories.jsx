@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Col, Container, Row, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,14 +6,13 @@ import { Navigation, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { withTranslation } from "react-i18next";
+import withRouter from "../../Components/withRouter";
 //img
 import profileBg from "../../assets/images/profile-bg.jpg";
-import instagram1 from '../../assets/images/ecommerce/instagram/img-1.jpg';
-import instagram2 from '../../assets/images/ecommerce/instagram/img-2.jpg';
-import instagram5 from "../../assets/images/ecommerce/instagram/img-5.jpg";
 //component
 import { CommonProduct, DefauilOffer } from "../../Components/ProductSilde";
-import { catagoriesData, ellipsCategories, sliderCategories } from "../../Common/data";
+import { sliderCategories } from "../../Common/data";
 import { CommonService } from "../../Components/CommonService";
 
 export const TopCategoies = ({ title }) => {
@@ -29,7 +28,43 @@ export const TopCategoies = ({ title }) => {
     )
 }
 
-const Categories = () => {
+const Categories = (props) => {
+    const [category, setCategory] = useState([])
+    const [products, setProducts] = useState([])
+    useEffect(() => {
+        fetchCategory();
+        fetchProducts();
+    }, [])
+
+
+    const fetchCategory = async () => {
+        try {
+            const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/SubCatigories/Manage/GetAll?isDeleted=false");
+            if (response.ok) {
+                const data = await response.json();
+                setCategory(data);
+            } else {
+                console.error("Error:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+    const fetchProducts = async () => {
+        try {
+            const res = await fetch('http://avontest0910-001-site1.atempurl.com/api/Products/Manage/GetAll?isDeleted=false');
+            if (res.ok) {
+                const data = await res.json();
+                setProducts(data);
+            } else {
+                console.error("Error:", res.statusText)
+            }
+        } catch (error) {
+            console.error("Error", error)
+        }
+    }
+
+
     return (
         <>
             <section className="section ecommerce-about" style={{ backgroundImage: `url(${profileBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -38,31 +73,32 @@ const Categories = () => {
                     <Row className="justify-content-center">
                         <Col lg={6}>
                             <div className="text-center">
-                                <h1 className="text-white lh-base text-capitalize">Categories</h1>
-                                <p className="text-white-75 fs-15 mb-0">Our all categories wise product available here.</p>
+                                <h1 className="text-white lh-base text-capitalize" data-key="t-category">{props.t('category')}</h1>
+                                <p className="text-white-75 fs-15 mb-0" data-key="t-category-desc">{props.t('category-desc')}</p>
                             </div>
                         </Col>
                     </Row>
                 </Container>
             </section>
-            <section className="section">
+            <section className="mt-5">
                 <Container>
-                    <TopCategoies title="Classic" />
-                    <Row className="justify-content-center">
+                    <TopCategoies title={props.t('category')} />
+                    <Row>
+
                         {
-                            (catagoriesData || [])?.map((item, inx) => {
+                            category?.map((cat, ind) => {
                                 return (
-                                    <Col lg={3} md={6} key={inx}>
-                                        <Card className="card-animate text-center">
-                                            <Card.Body className="p-4">
-                                                <Image src={item.img} alt="" className="avatar-xl" />
-                                                <div className="mt-4">
-                                                    <Link to='/product-list/defualt' className="stretched-link">
-                                                        <h5 className="fs-15 mb-0">{item.title}</h5>
-                                                    </Link>
-                                                </div>
-                                            </Card.Body>
-                                        </Card>
+                                    <Col lg={2} md={3} sm={6} key={ind}>
+                                        <div className="text-center">
+                                            <Image src={cat.image} alt=""
+                                                className={` bg-${cat.colorCode}-subtle border border-2 border-${cat.colorCode} border-opacity-10 p-4`} fluid roundedCircle />
+                                            <div className="mt-4">
+                                                <Link to="#">
+                                                    <h5 className="mb-2 fs-15">{cat.name}</h5>
+                                                </Link>
+                                                <p className="text-muted fs-12">{cat.productSubCategories} Products</p>
+                                            </div>
+                                        </div>
                                     </Col>
                                 )
                             })
@@ -75,32 +111,6 @@ const Categories = () => {
                     <TopCategoies title="Default" />
                 </Container>
                 <CommonProduct cxxl="4" cmd="6" />
-            </section>
-            <section>
-                <Container>
-                    <TopCategoies title="Ellips" />
-                    <Row>
-                        {
-                            (ellipsCategories || [])?.map((item, inx) => {
-                                return (
-                                    <Col lg={2} md={3} sm={6} key={inx}>
-                                        <div className="text-center">
-                                            <Image src={item.img} alt=""
-                                                className={` bg-${item.bg}-subtle border border-2 border-${item.bg} border-opacity-10 p-4`} fluid roundedCircle />
-                                            <div className="mt-4">
-                                                <Link to="#">
-                                                    <h5 className="mb-2 fs-15">{item.title}</h5>
-                                                </Link>
-                                                <p className="text-muted fs-12">{item.product} Products</p>
-                                            </div>
-                                        </div>
-                                    </Col>
-                                )
-                            })
-                        }
-
-                    </Row>
-                </Container>
             </section>
             <section className="section pb-0">
                 <Container>
@@ -134,6 +144,29 @@ const Categories = () => {
                                 <div className="swiper-button-next"></div>
                                 <div className="swiper-button-prev"></div>
                                 <div className="swiper-wrapper py-4">
+
+{/* mehsullar bura gelir */}
+                                    {/* {
+                                        products.map((prd, ind) => {
+                                            return (
+                                                <SwiperSlide key={ind}>
+                                                    <Card className="card-animate overflow-hidden">
+                                                        <div className={`bg-${item.bg}-subtle rounded-top py-4`}>
+                                                            <div className="gallery-product">
+                                                                <Image src={item.img} alt="" style={{ maxHeight: "215px", maxWidth: "100%" }} className="mx-auto d-block" />
+                                                            </div>
+                                                        </div>
+                                                        <Card.Body className="text-center">
+                                                            <Link to='/product-list' className="stretched-link">
+                                                                <h6 className="fs-16 lh-base text-truncate">{item.title}</h6>
+                                                            </Link>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </SwiperSlide>
+                                            )
+                                        })
+                                    } */}
+
                                     {(sliderCategories || []).map((item, key) => (
                                         <SwiperSlide key={key}>
                                             <Card className="card-animate overflow-hidden">
@@ -156,7 +189,7 @@ const Categories = () => {
                     </Row>
                 </Container>
             </section>
-            <section className="section">
+            {/* <section className="section">
                 <Container>
                     <TopCategoies title="Masonry" />
                     <Row className="g-2">
@@ -196,11 +229,11 @@ const Categories = () => {
                         </Col>
                     </Row>
                 </Container>
-            </section>
+            </section> */}
             <DefauilOffer />
             <CommonService />
         </>
     )
 }
 
-export default Categories;
+export default withRouter(withTranslation()(Categories));

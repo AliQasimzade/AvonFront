@@ -18,15 +18,6 @@ import WishList from "../Pages/Shop/WhishList";
 
 //../pages /product / grid
 import Defaultgrid from "../Pages/Product/Grid/Default";
-import ProductSidebar from "../Pages/Product/Grid/ProductSideBar";
-import RightSidebar from "../Pages/Product/Grid/RightSidebar";
-import Nosider from "../Pages/Product/Grid/Nosidebar";
-
-//../pages /product / list
-import Listdefault from "../Pages/Product/List/Default";
-import LeftsideBar from "../Pages/Product/List/LeftSideBar";
-import Leftrightsidebar from "../Pages/Product/List/Leftrightsidebar";
-import Listnoslider from "../Pages/Product/List/Listnosider";
 
 //../pages /user
 import MyAccount from "../Pages/User/MyAccount";
@@ -102,15 +93,6 @@ const authProtectedRoutes = [
     //Product
     //grid
     { path: "/products-grid/Default", component: <Defaultgrid /> },
-    { path: "/products-grid/sidebar-banner", component: <ProductSidebar /> },
-    { path: "/products-grid/right", component: <RightSidebar /> },
-    { path: "/products-grid", component: <Nosider /> },
-    //list
-    { path: "/product-list/defualt", component: <Listdefault /> },
-    { path: "/product-list/left", component: <LeftsideBar /> },
-    { path: "/product-list/right", component: <Leftrightsidebar /> },
-    { path: "/product-list", component: <Listnoslider /> },
-
 
     //Productdetails
     { path: "/product-details", component: <Productdetails /> },
