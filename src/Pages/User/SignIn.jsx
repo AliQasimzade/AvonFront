@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import axios from "axios";
 
 //img
 import logodark from "../../assets/images/logo-dark.png";
@@ -12,6 +13,9 @@ import auth1 from "../../assets/images/auth/img-1.png";
 const Signin = () => {
     const passwordtype = 'password';
     const [password, setPassword] = useState('');
+    const [userid, setUserid] = useState("")
+    const [token, setToken] = useState("")
+    const navigato = useNavigate()
     const formik = useFormik({
         initialValues: {
             username: "",
@@ -28,7 +32,13 @@ const Signin = () => {
         }),
 
         onSubmit: (values) => {
-            // console.log("value", values.password);
+            axios.post("http://avontest0910-001-site1.atempurl.com/api/Account/Login", values).then(rest=> {
+                const parse = rest.data.split("+");
+                const userId = parse[0].split(':')[1];
+                const tok = parse[1].split(':')[1];
+                setUserid(userId)
+                setToken(tok)
+            })
         },
     });
 
