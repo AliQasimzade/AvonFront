@@ -19,7 +19,7 @@ const Passwordreset = () => {
         }),
         onSubmit: async (values) => {
             try {
-                const response = await fetch(`http://avontest0910-001-site1.atempurl.com/api/Account/passwordreset?userName=${values.email}`, {
+                const response = await fetch(`http://avontest0910-001-site1.dtempurl.com/api/Account/passwordreset?userName=${values.email}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

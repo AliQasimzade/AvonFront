@@ -66,7 +66,7 @@ const SignUp = () => {
                             console.log('File available at', downloadURL);
 
                             const formData = { ...values, profileImage: downloadURL };
-                            axios.post('http://avontest0910-001-site1.atempurl.com/api/Account/register', formData)
+                            axios.post('http://avontest0910-001-site1.dtempurl.com/api/Account/register', formData)
                                 .then((response) => {
                                     console.log("Response from API:", response.data);
                                 })

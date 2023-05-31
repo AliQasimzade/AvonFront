@@ -22,7 +22,7 @@ const Header = (props) => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false');
+            const response = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Categories/Manage/GetAll?isDeleted=false');
             setCategories(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -36,7 +36,7 @@ const Header = (props) => {
     }, [])
     const fetchDataBrendler = async () => {
         try {
-            const res = await axios.get('http://avontest0910-001-site1.atempurl.com/api/Brands/Manage/GetAll?isDeleted=false');
+            const res = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Brands/Manage/GetAll?isDeleted=false');
             setBrendler(res.data)
         } catch (err) {
             console.error('error', err)
@@ -121,7 +121,7 @@ const Header = (props) => {
                                 <Link to="/" className="d-block p-3 h-auto text-center"> <Image src={AvonLogo} alt="" height="25" /></Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/dashboard" className="nav-link" data-key="t-home">{props.t('home')}</Link>
+                                <Link to="/" className="nav-link" data-key="t-home">{props.t('home')}</Link>
                             </li>
                             <li className="nav-item dropdown dropdown-hover dropdown-mega-full">
                                 <Link to="/#" className="nav-link dropdown-toggle" data-key="t-catalog" role="button" data-bs-toggle="dropdown" aria-expanded="false">{props.t('catalog')}</Link>
@@ -256,19 +256,7 @@ const Header = (props) => {
                                             <li className="dropdown dropdown-hover">
                                                 <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-grid-view">{props.t('grid-view')}</Link>
                                                 <ul className="dropdown-menu submenu">
-                                                    <li><Link className="nav-link" to='/products-grid/Default' data-key="t-defualt">{props.t('defualt')}</Link></li>
-                                                    <li><Link className="nav-link" to='/products-grid/sidebar-banner' data-key="t-sidebar-with-banner">{props.t('sidebar-with-banner')}</Link></li>
-                                                    <li><Link className="nav-link" to='/products-grid/right' data-key="t-right-sidebar">{props.t('right-sidebar')}</Link></li>
-                                                    <li><Link className="nav-link" to='/products-grid' data-key="t-no-sidebar">{props.t('no-sidebar')}</Link></li>
-                                                </ul>
-                                            </li>
-                                            <li className="dropdown dropdown-hover">
-                                                <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-list-view">{props.t('list-view')}</Link>
-                                                <ul className="dropdown-menu submenu">
-                                                    <li><Link className="nav-link" to='/product-list/defualt' data-key="t-defualt">{props.t('defualt')}</Link></li>
-                                                    <li><Link className="nav-link" to='/product-list/left' data-key="t-left-sidebar">{props.t('left-sidebar')}</Link></li>
-                                                    <li><Link className="nav-link" to='/product-list/right' data-key="t-right-sidebar">{props.t('right-sidebar')}</Link></li>
-                                                    <li><Link className="nav-link" to='/product-list' data-key="t-no-sidebar">{props.t('no-sidebar')}</Link></li>
+                                                    <li><Link className="nav-link" to='/products' data-key="t-defualt">{props.t('defualt')}</Link></li>
                                                 </ul>
                                             </li>
                                             <li><Link className="nav-link" to='/product-details' data-key="t-product-details">{props.t('product-details')}</Link></li>

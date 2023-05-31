@@ -18,6 +18,7 @@ import WishList from "../Pages/Shop/WhishList";
 
 //../pages /product / grid
 import Defaultgrid from "../Pages/Product/Grid/Default";
+import RightSidebar from "../Pages/Product/Grid/RightSidebar";
 
 //../pages /user
 import MyAccount from "../Pages/User/MyAccount";
@@ -75,8 +76,6 @@ const authProtectedRoutes = [
     { path: "/home", component: <Home /> },
     //catalog
     { path: "/catalog/clothing", component: <Catalog /> },
-    { path: "/product-list/left", component: <LeftsideBar /> },
-    { path: "/products-grid/right", component: <RightSidebar /> },
 
     //shop
     { path: "/shop/address", component: <ShopIndex /> },
@@ -92,7 +91,8 @@ const authProtectedRoutes = [
     //pages
     //Product
     //grid
-    { path: "/products-grid/Default", component: <Defaultgrid /> },
+    { path: "/products", component: <Defaultgrid /> },
+
 
     //Productdetails
     { path: "/product-details", component: <Productdetails /> },

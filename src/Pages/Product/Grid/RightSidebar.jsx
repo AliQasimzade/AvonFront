@@ -1,21 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { Container, Form } from 'react-bootstrap';
+import EmailClothe from '../../../Pages/Catalog/EmailClothe';
+import { CommonService } from '../../../Components/CommonService';
+import { ProductGrid, ProductSide } from '../../../Components/ProductSilde';
+import ProductFilter from './ProductFilter';
+import { product } from '../../../Common/data';
 
-import { product } from "../../../Common/data";
-import { CommonService } from "../../../Components/CommonService";
-import { ProductGrid } from "../../../Components/ProductSilde";
-import EmailClothe from "../../../Pages/Catalog/EmailClothe";
-import { Container, Form } from "react-bootstrap";
-import ProductFilter from "../Grid/ProductFilter";
-import ListProductData from "../../../Components/ListProductData";
-
-const Leftrightsidebar = () => {
+const RightSidebar = () => {
     const [select, setSelect] = useState(product);
     const handleSelect = (event) => {
         setSelect(product?.filter((sort) => sort.sortBy === event.value || sort === "all"))
     }
     return (
         <>
-            <ProductGrid title="Product List Right Sidebar" />
+            <ProductGrid title="Product Grid Right Sidebar" />
             <section className='position-relative section'>
                 <Container>
                     <div className='ecommerce-product gap-4'>
@@ -31,16 +29,16 @@ const Leftrightsidebar = () => {
                                     </Form.Select>
                                 </div>
                             </div>
-                            <ListProductData listnoslider={select} />
+                            <ProductSide cid="product-grid-right" fileter={select} />
                         </div>
-                        <ProductFilter name="sidebar small-sidebar flex-shrink-0" setSelect={setSelect} />
+                        < ProductFilter name="sidebar small-sidebar flex-shrink-0" setSelect={setSelect} />
                     </div>
                 </Container>
             </section>
             <EmailClothe />
             <CommonService />
-        </>
-    );
+        </ >
+    )
 }
 
-export default Leftrightsidebar;
+export default RightSidebar;

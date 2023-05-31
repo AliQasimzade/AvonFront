@@ -8,7 +8,11 @@ import "swiper/css/pagination";
 import { withTranslation } from "react-i18next";
 import withRouter from "../../../Components/withRouter";
 import { CommonTitle } from "../../../Components/Homepage";
+import { useSelector } from "react-redux";
 const CollectionSlider = (props) => {
+
+    const reviews = useSelector((state) => state.Comments)
+    console.log(reviews);
 
     const [comments, setComments] = useState([]);
     const [brands, setBrands] = useState([])
@@ -22,7 +26,7 @@ const CollectionSlider = (props) => {
 
     const fetchComments = async () => {
         try {
-            const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/Comments/Manage/GetAll?isDeleted=false&isAccepted=false");
+            const response = await fetch("http://avontest0910-001-site1.dtempurl.com/api/Comments/Manage/GetAll?isDeleted=false&isAccepted=false");
             if (response.ok) {
                 const data = await response.json();
                 setComments(data);
@@ -36,7 +40,7 @@ const CollectionSlider = (props) => {
 
     const fetchBrands = async () => {
         try {
-            const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/Brands/GetAll");
+            const response = await fetch("http://avontest0910-001-site1.dtempurl.com/api/Brands/GetAll");
             if (response.ok) {
                 const data = await response.json();
                 setBrands(data);

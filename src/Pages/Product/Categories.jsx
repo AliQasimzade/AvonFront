@@ -39,7 +39,7 @@ const Categories = (props) => {
 
     const fetchCategory = async () => {
         try {
-            const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/SubCatigories/Manage/GetAll?isDeleted=false");
+            const response = await fetch("http://avontest0910-001-site1.dtempurl.com/api/SubCatigories/Manage/GetAll?isDeleted=false");
             if (response.ok) {
                 const data = await response.json();
                 setCategory(data);
@@ -52,7 +52,7 @@ const Categories = (props) => {
     };
     const fetchProducts = async () => {
         try {
-            const res = await fetch('http://avontest0910-001-site1.atempurl.com/api/Products/Manage/GetAll?isDeleted=false');
+            const res = await fetch('http://avontest0910-001-site1.dtempurl.com/api/Products/Manage/GetAll?isDeleted=false');
             if (res.ok) {
                 const data = await res.json();
                 setProducts(data);
