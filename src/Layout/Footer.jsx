@@ -17,22 +17,22 @@ const Footer = (props) => {
     const [category, setCategory] = useState([]);
 
     useEffect(() => {
-        getCategory();
+        // getCategory();
     }, [])
 
-    const getCategory = async () => {
-        try {
-            const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false");
-            if (response.ok) {
-                const data = await response.json();
-                setCategory(data);
-            } else {
-                console.error("Error:", response.statusText);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    }
+    // const getCategory = async () => {
+    //     try {
+    //         const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false");
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             setCategory(data);
+    //         } else {
+    //             console.error("Error:", response.statusText);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error:", error);
+    //     }
+    // }
     console.log(category);
     return (
         <>

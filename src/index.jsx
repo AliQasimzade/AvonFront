@@ -7,7 +7,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage'
 import rootReducer from './slices/index';
-import { createStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
 const persistConfig = {
   key: 'root',
@@ -15,7 +15,12 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-let store = createStore(persistedReducer)
+let store = configureStore({
+  reducer:{
+    persistedReducer
+  },
+  middleware:[]
+})
 let persistor = persistStore(store)
 
 const root = ReactDOM.createRoot(
