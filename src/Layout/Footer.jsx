@@ -17,12 +17,12 @@ const Footer = (props) => {
     const [category, setCategory] = useState([]);
 
     useEffect(() => {
-        getCategory();
+        // getCategory();
     }, [])
 
     const getCategory = async () => {
         try {
-            const response = await fetch("http://avontest0910-001-site1.dtempurl.com/api/Categories/Manage/GetAll?isDeleted=false");
+            const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false");
             if (response.ok) {
                 const data = await response.json();
                 setCategory(data);
@@ -33,6 +33,7 @@ const Footer = (props) => {
             console.error("Error:", error);
         }
     }
+    console.log(category);
     return (
         <>
             <section className="section footer-landing pb-0">

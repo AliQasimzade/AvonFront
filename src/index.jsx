@@ -2,22 +2,37 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
 import App from './App';
-import rootreducer from './slices';
+import { persistStore, persistReducer } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react';
+import storage from 'redux-persist/lib/storage'
+import rootreducer from './slices/index';
+import { configureStore } from '@reduxjs/toolkit';
 
-const store = configureStore({ reducer: rootreducer, devTools: true })
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootreducer);
+let store = configureStore({
+  reducer:{
+    persistedReducer
+  },
+  middleware:[]
+})
+let persistor = persistStore(store)
 
 const root = ReactDOM.createRoot(
   document.getElementById('root')
 );
 root.render(
   <Provider store={store}>
-    <>
+    <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </>
-  </Provider>
+    </PersistGate>
+  </Provider >
 );
 

@@ -17,12 +17,12 @@ const Header = (props) => {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        fetchData();
+        // fetchData();
     }, []);
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Categories/Manage/GetAll?isDeleted=false');
+            const response = await axios.get('http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false');
             setCategories(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
