@@ -6,6 +6,7 @@ import subcategoriesReducer from "./layouts/subcategories";
 import commentsReducer from './layouts/comments';
 import LayoutReducer from "./layouts/reducer";
 import user from "./layouts/user";
+import accont from "./layouts/accont";
 
 const rootreducer = combineReducers({
     Layout: LayoutReducer,
@@ -14,6 +15,8 @@ const rootreducer = combineReducers({
     Subcategories: subcategoriesReducer,
     Brands: brandsReducer,
     Comments: commentsReducer,
-    User: user
+    User: user,
+    Accont: accont
+
 })
 export default rootreducer;

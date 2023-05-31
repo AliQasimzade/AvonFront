@@ -14,9 +14,15 @@ const User = createSlice({
         },
         changeToken(state, action) {
             state.token = action.payload
-        }
+        },
+        logoutToken(state){
+            state.token = ""
+        },
+        logoutUserId(state){
+            state.userId = ""
+        },
     }
 })
 
-export const { changeUserId, changeToken } = User.actions;
+export const { changeUserId, changeToken, logoutToken,logoutUserId } = User.actions;
 export default User.reducer;

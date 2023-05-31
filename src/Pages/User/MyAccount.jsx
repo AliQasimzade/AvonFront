@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Container, Row, Tab, Nav, Card, Table, Form, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //img
 import usersavatar1 from "../../assets/images/users/avatar-1.jpg";
@@ -9,8 +9,22 @@ import profilebg from "../../assets/images/profile-bg.jpg";
 import { orderHistorys, wishlishProduct } from "../../Common/data";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
-
+import { logoutUser } from "../../slices/layouts/accont";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { logoutToken, logoutUserId } from "../../slices/layouts/user";
 const MyAccount = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const logOut = ()=>{
+        dispatch(logoutUser())
+        dispatch(logoutToken())
+        dispatch(logoutUserId())
+        navigate("/home")
+
+    }
+    const userAccountInfo = useSelector(state => state.persistedReducer.Accont.user);
+    console.log(userAccountInfo);
     return (
         <>
             <section className="position-relative">
@@ -23,11 +37,14 @@ const MyAccount = () => {
                         <Col lg={12} >
                             <div className="pt-3">
                                 <div className="mt-n5 d-flex gap-3 flex-wrap align-items-end">
-                                    <Image src={usersavatar1} alt="" className="avatar-xl p-1 bg-light mt-n3" rounded />
+                                    {
+                                        <Image src={userAccountInfo?.profileImage.length > 0 ? userAccountInfo?.profileImage : "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"} alt="" className="avatar-xl p-1 bg-light mt-n3" rounded />
+                                    }
+
                                     <div>
-                                        <h5 className="fs-18">Raquel Murillo</h5>
+                                        <h5 className="fs-18">{userAccountInfo?.name}</h5>
                                         <div className="text-muted">
-                                            <i className="bi bi-geo-alt"></i> Phoenix, USA
+                                            <i className="bi bi-geo-alt"></i>{userAccountInfo?.otherAddress}
                                         </div>
                                     </div>
                                     <div className="ms-md-auto">
@@ -60,7 +77,7 @@ const MyAccount = () => {
                                                 <Nav.Link as="a" eventKey="setting" className="fs-15" role="presentation"><i className="bi bi-gear align-middle me-1"></i> Settings</Nav.Link>
                                             </Nav.Item >
                                             <Nav.Item as='li'>
-                                                <Nav.Link as="a" className="fs-15" href='/auth-logout-basic'><i className="bi bi-box-arrow-right align-middle me-1"></i> Logout</Nav.Link>
+                                                <Nav.Link as="a" className="fs-15" href='/auth-logout-basic' onClick={logOut}><i className="bi bi-box-arrow-right align-middle me-1"></i> Logout</Nav.Link>
                                             </Nav.Item>
                                         </Nav>
                                     </Card.Body>
@@ -98,7 +115,7 @@ const MyAccount = () => {
                                                                                 Mobile / Phone Number
                                                                             </td>
                                                                             <td className="fw-medium">
-                                                                                +(253) 01234 5678
+                                                                                {userAccountInfo?.phoneNumber}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -106,7 +123,8 @@ const MyAccount = () => {
                                                                                 Email Address
                                                                             </td>
                                                                             <td className="fw-medium">
-                                                                                raque@rgagency.org
+                                                                                {userAccountInfo?.email}
+
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -114,7 +132,7 @@ const MyAccount = () => {
                                                                                 Location
                                                                             </td>
                                                                             <td className="fw-medium">
-                                                                                Phoenix, USA
+                                                                                {userAccountInfo?.otherAddress}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -122,7 +140,7 @@ const MyAccount = () => {
                                                                                 Since Member
                                                                             </td>
                                                                             <td className="fw-medium">
-                                                                                Aug, 2022
+                                                                                { new Date (userAccountInfo?.createdTime).toLocaleDateString()}
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -424,7 +442,7 @@ const MyAccount = () => {
                                                                             </div>
                                                                             <div className="flex-shrink-0">
                                                                                 <div className="form-check form-switch">
-                                                                                <Form.Check type="switch" />
+                                                                                    <Form.Check type="switch" />
                                                                                 </div>
                                                                             </div>
                                                                         </li>
@@ -436,7 +454,7 @@ const MyAccount = () => {
                                                                             </div>
                                                                             <div className="flex-shrink-0">
                                                                                 <div className="form-check form-switch">
-                                                                                <Form.Check type="switch" />
+                                                                                    <Form.Check type="switch" />
                                                                                 </div>
                                                                             </div>
                                                                         </li>
@@ -448,7 +466,7 @@ const MyAccount = () => {
                                                                             </div>
                                                                             <div className="flex-shrink-0">
                                                                                 <div className="form-check form-switch">
-                                                                                <Form.Check type="switch" />
+                                                                                    <Form.Check type="switch" />
                                                                                 </div>
                                                                             </div>
                                                                         </li>
@@ -460,7 +478,7 @@ const MyAccount = () => {
                                                                             </div>
                                                                             <div className="flex-shrink-0">
                                                                                 <div className="form-check form-switch">
-                                                                                <Form.Check type="switch" />
+                                                                                    <Form.Check type="switch" />
                                                                                 </div>
                                                                             </div>
                                                                         </li>

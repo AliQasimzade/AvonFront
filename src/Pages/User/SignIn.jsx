@@ -9,20 +9,23 @@ import axios from "axios";
 import logodark from "../../assets/images/logo-dark.png";
 import logolight from "../../assets/images/logo-light.png";
 import auth1 from "../../assets/images/auth/img-1.png";
-
+import { useDispatch } from "react-redux";
+import { changeAccont } from "../../slices/layouts/accont";
 const Signin = () => {
     const passwordtype = 'password';
     const [password, setPassword] = useState('');
     const [userid, setUserid] = useState("")
     const [token, setToken] = useState("")
     const navigato = useNavigate()
+    const dispatch = useDispatch()
+
     const formik = useFormik({
         initialValues: {
-            username: "",
+            userName: "",
             password: "",
         },
         validationSchema: Yup.object({
-            username: Yup.string().required("This field is required"),
+            userName: Yup.string().required("This field is required"),
             password: Yup.string()
                 .min(8, 'Password must be at least 8 characters')
                 .matches(RegExp('(.*[a-z].*)'), 'At least lowercase letter')
@@ -32,13 +35,18 @@ const Signin = () => {
         }),
 
         onSubmit: (values) => {
-            axios.post("http://avontest0910-001-site1.atempurl.com/api/Account/Login", values).then(rest=> {
+            axios.post("http://avontest0910-001-site1.dtempurl.com/api/Account/Login", values).then(rest=> {
                 const parse = rest.data.split("+");
                 const userId = parse[0].split(':')[1];
                 const tok = parse[1].split(':')[1];
                 setUserid(userId)
                 setToken(tok)
+                console.log(userid);
+                axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Account/Profile?id=${userId}`)
+                .then((res) => dispatch(changeAccont({...res.data})))
+                navigato("/home")
             })
+            
         },
     });
 
@@ -98,18 +106,18 @@ const Signin = () => {
                                             <div className="p-2">
                                                 <Form action="#" onSubmit={formik.handleSubmit} >
                                                     <div className="mb-3">
-                                                        <Form.Label htmlFor="username" >Username</Form.Label>
+                                                        <Form.Label htmlFor="userName" >Username</Form.Label>
                                                         <Form.Control
                                                             type="text"
-                                                            name="username"
-                                                            id="username"
+                                                            name="userName"
+                                                            id="userName"
                                                             placeholder="Enter username"
-                                                            value={formik.values.username}
+                                                            value={formik.values.userName}
                                                             onChange={formik.handleChange}
                                                             onBlur={formik.handleBlur}
                                                         />
-                                                        {formik.errors.username && formik.touched.username ? (
-                                                            <span className="text-danger">{formik.errors.username}</span>
+                                                        {formik.errors.userName && formik.touched.userName ? (
+                                                            <span className="text-danger">{formik.errors.userName}</span>
                                                         ) : null}
                                                     </div>
                                                     <div className="mb-3">

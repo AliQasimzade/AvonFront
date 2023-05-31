@@ -10,9 +10,19 @@ import Eimg2 from "../assets/images/ecommerce/img-2.jpg";
 import { CardModal, SearchModal } from "../Components/MainModal";
 import { withTranslation } from "react-i18next";
 import withRouter from "../Components/withRouter";
-
+import { useDispatch, useSelector } from "react-redux";
+import { IoLogIn } from "react-icons/io5"
+import { logoutUser } from "../slices/layouts/accont";
+import { logoutToken, logoutUserId } from "../slices/layouts/user";
 const Header = (props) => {
+    const userData = useSelector(state => state.persistedReducer.Accont.user);
 
+    const dispatch = useDispatch()
+    const logOut = ()=>{
+        dispatch(logoutUser())
+        dispatch(logoutToken())
+        dispatch(logoutUserId())
+    }
     // kateqoriyalar
     const [categories, setCategories] = useState([])
 
@@ -42,7 +52,7 @@ const Header = (props) => {
             console.error('error', err)
         }
     }
-        // brendler bitdi
+    // brendler bitdi
 
 
 
@@ -370,21 +380,25 @@ const Header = (props) => {
                         </Dropdown>
 
                         <div className="dropdown header-item dropdown-hover-end">
-                            <Dropdown>
-                                <Dropdown.Toggle id="page-header-user-dropdown" bsPrefix="btn" className="btn btn-icon btn-topbar btn-link rounded-circle" as="a">
-                                    <Image className="rounded-circle header-profile-user" src={avtar1} alt="Header Avatar" />
-                                </Dropdown.Toggle>
+                            {
+                                userData?.email ? <Dropdown>
+                                    <Dropdown.Toggle id="page-header-user-dropdown" bsPrefix="btn" className="btn btn-icon btn-topbar btn-link rounded-circle" as="a">
 
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href='/shop/orderhistory'><i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Order History</span></Dropdown.Item>
-                                    <Dropdown.Item href='/shop/order'><i className="bi bi-truck text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Track Orders</span></Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3"><i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Dashboard</span></Dropdown.Item>
-                                    <Dropdown.Item href='/ecommerce-faq'><i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Help</span></Dropdown.Item>
-                                    <Dropdown.Item href='/account'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balance : <b>$8451.36</b></span></Dropdown.Item>
-                                    <Dropdown.Item href='/account'><span className="badge bg-success-subtle text-success mt-1 float-end">New</span><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></Dropdown.Item>
-                                    <Dropdown.Item href='/auth-logout-basic'><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                                    <Image className="rounded-circle header-profile-user" src={userData?.profileImage} alt="Header Avatar" />
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu >
+                                        <Dropdown.Item href='/shop/orderhistory'><i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Order History</span></Dropdown.Item>
+                                        <Dropdown.Item href='/shop/order'><i className="bi bi-truck text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Track Orders</span></Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3"><i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Dashboard</span></Dropdown.Item>
+                                        <Dropdown.Item href='/ecommerce-faq'><i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Help</span></Dropdown.Item>
+                                        <Dropdown.Item href='/account'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balance : <b>$8451.36</b></span></Dropdown.Item>
+                                        <Dropdown.Item href='/account'><span className="badge bg-success-subtle text-success mt-1 float-end">New</span><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></Dropdown.Item>
+                                        <Dropdown.Item href='/home' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown> : <Link to={"/auth-signin-basic"}>< IoLogIn style={{fontSize:"23px", color:"black"}} /></Link>
+                            }
+
                         </div>
                     </div>
                 </Container>
