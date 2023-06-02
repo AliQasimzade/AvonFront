@@ -1,0 +1,33 @@
+.hamburger_manu_icon{
+display: none;
+}
+.X_menu {
+    display: none;
+}
+@media screen and (max-width: 991px) {
+    .navbar_responsive {
+        transform: translateX(0px) !important;
+        width: 100% !important;
+        display: flex;
+        justify-content: center;
+    }
+    .hamburger_manu_icon{
+        display: block;
+        }
+    .menu-none{
+        transform: translateX(-250px) !important;
+    }
+    .navbar_responsive_flex {
+        display: flex !important;
+        flex-direction: column !important;
+        row-gap: 20px;
+        width: 65% !important;
+
+    }
+
+    .X_menu {
+        display: block;
+        font-size: 20px;
+        color: darkred;
+    }
+}

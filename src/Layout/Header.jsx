@@ -4,7 +4,8 @@ import { Container, Dropdown, Button, Row, Col, Card, Image, Navbar, Nav } from 
 import axios from 'axios';
 //img
 import AvonLogo from "../assets/images/avonLogo.png";
-import avtar1 from "../assets/images/users/avatar-1.jpg";
+// import avtar1 from "../assets/images/users/avatar-1.jpg";
+import "./header.css"
 import img1 from "../assets/images/ecommerce/img-1.jpg";
 import Eimg2 from "../assets/images/ecommerce/img-2.jpg";
 import { CardModal, SearchModal } from "../Components/MainModal";
@@ -18,7 +19,7 @@ const Header = (props) => {
     const userData = useSelector(state => state.persistedReducer.Accont.user);
 
     const dispatch = useDispatch()
-    const logOut = ()=>{
+    const logOut = () => {
         dispatch(logoutUser())
         dispatch(logoutToken())
         dispatch(logoutUserId())
@@ -27,12 +28,12 @@ const Header = (props) => {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        // fetchData();
+        fetchData();
     }, []);
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false');
+            const response = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Categories/Manage/GetAll?isDeleted=false');
             setCategories(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -111,25 +112,36 @@ const Header = (props) => {
         return false;
     };
 
+    const [isActive, setIsActive] = useState(false);
+    const menu = () => {
+        // 👇️ toggle isActive state on click
+        setIsActive(current => !current);
+    };
     return (
         <>
             <Navbar className="navbar-expand-lg ecommerce-navbar is-sticky" id="navbar">
                 <Container >
+                    <div className="hamburger_manu_icon">
+                        <i className="bi bi-list fs-20 " onClick={menu}></i>
+                    </div>
                     <Navbar.Brand href="/" className="d-none d-lg-block">
                         <div className="logo-dark">
                             <Image src={AvonLogo} alt="" height="25" />
                         </div>
-
                     </Navbar.Brand>
-                    <Button className="btn btn-soft-primary btn-icon d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    {/* <Button className="btn btn-soft-primary btn-icon d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i className="bi bi-list fs-20"></i>
-                    </Button>
-
-                    <Navbar.Collapse id="navbarSupportedContent">
-                        <Nav as="ul" className="mx-lg-auto mb-2 mb-lg-0" id="navigation-menu">
-                            <li className="nav-item d-block d-lg-none">
-                                <Link to="/" className="d-block p-3 h-auto text-center"> <Image src={AvonLogo} alt="" height="25" /></Link>
-                            </li>
+                    </Button> */}
+                    <Navbar.Collapse className={isActive ? 'navbar_responsive' : ''} id="xMode">
+                        <Nav as="ul" className="mx-lg-auto mb-2 mb-lg-0 navbar_responsive_flex " id="navigation-menu">
+                            <div className="d-flex w-100 align-items-center justify-content-between">
+                                <li className="nav-item d-block d-lg-none">
+                                    <Link to="/" className="d-block p-3 h-auto text-center"> <Image src={AvonLogo} alt="" height="25" /></Link>
+                                </li>
+                                <li className="X_menu">
+                                    <i class="bi bi-x-lg" onClick={menu}></i>
+                                </li>
+                            </div>
                             <li className="nav-item">
                                 <Link to="/" className="nav-link" data-key="t-home">{props.t('home')}</Link>
                             </li>
@@ -189,165 +201,12 @@ const Header = (props) => {
                                     </Row>
                                 </div>
                             </li>
-
-                            <li className="nav-item dropdown dropdown-hover">
-                                <Link className="nav-link dropdown-toggle" to="/#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-shop">{props.t("shop")}</Link>
-                                <div className="dropdown-menu dropdown-mega-menu-xl dropdown-menu-center p-0">
-                                    <Row className="g-0 g-lg-4">
-                                        <Col lg={5} className="d-none d-lg-block">
-                                            <Card className="rounded-start rounded-0 border-0 h-100 mb-0 overflow-hidden" style={{ backgroundImage: `url(${Eimg2})`, backgroundSize: "cover" }}>
-                                                <div className="bg-overlay bg-primary" style={{ opacity: 0.90 }}></div>
-                                                <Card.Body className="d-flex align-items-center justify-content-center position-relative">
-                                                    <div className="text-center">
-                                                        <h6 className="card-title text-white">Welcome to RGAgency</h6>
-                                                        <p className="text-white-75">See all the products at once.</p>
-                                                        <Link to="/#" className="btn btn-light btn-sm btn-hover">Shop Now <i className="ph-arrow-right align-middle"></i></Link>
-                                                    </div>
-                                                </Card.Body>
-                                            </Card>
-                                        </Col>
-                                        <Col lg={7}>
-                                            <Row className="g-0 g-lg-4">
-                                                <Col lg={6}>
-                                                    <div className="py-3">
-                                                        <ul className="dropdown-menu-list list-unstyled mb-0">
-                                                            <li>
-                                                                <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key="t-checkout-pages">{props.t("checkout-pages")}</p>
-                                                            </li>
-                                                            <li className="nav-item">
-                                                                <Link to='/shop/address' className="nav-link" data-key="t-address">{props.t("address")}</Link>
-                                                            </li>
-                                                            <li className="nav-item">
-                                                                <Link to='/shop/order' className="nav-link" data-key="t-track-order">{props.t("track-order")}</Link>
-                                                            </li>
-                                                            <li className="nav-item">
-                                                                <Link to='/shop/payment' className="nav-link" data-key="t-payment">{props.t("payment")}</Link>
-                                                            </li>
-                                                            <li className="nav-item">
-                                                                <Link to='/shop/review' className="nav-link" data-key="t-review">{props.t("review")}</Link>
-                                                            </li>
-                                                            <li className="nav-item">
-                                                                <Link to='/shop/confirm' className="nav-link" data-key="t-confirmation">{props.t("confirmation")}</Link>
-                                                            </li>
-                                                            <li className="nav-item">
-                                                                <Link to='/shop/orderhistory' className="nav-link" data-key="t-my-orders-order-history">{props.t("my-orders-order-history")}</Link>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </Col>
-                                                <Col lg={6}>
-                                                    <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                        <li>
-                                                            <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key="t-support">{props.t("support")}</p>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <Link to='/shop/shopingcard' className="nav-link" data-key="t-shopping-cart">{props.t("shopping-cart")}</Link>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <Link to='/shop/checkout' className="nav-link" data-key="t-checkout">{props.t("checkout")}</Link>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <Link to='/shop/wishList' className="nav-link" data-key="t-wishlist">{props.t("wishlist")}</Link>
-                                                        </li>
-                                                    </ul>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                </div>
+                            <li className="nav-item">
+                                <Link className="nav-link" to='/shop/address' data-key="t-contact">{props.t('shop')}</Link>
                             </li>
-
-                            <li className="nav-item dropdown dropdown-hover">
-                                <Link className="nav-link dropdown-toggle" data-key="t-pages" to="/#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{props.t('pages')}</Link>
-                                <ul className="dropdown-menu dropdown-menu-md dropdown-menu-center dropdown-menu-list submenu">
-                                    <li className="nav-item dropdown dropdown-hover">
-                                        <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-products">{props.t('products')}</Link>
-                                        <ul className="dropdown-menu submenu">
-                                            <li className="dropdown dropdown-hover">
-                                                <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-grid-view">{props.t('grid-view')}</Link>
-                                                <ul className="dropdown-menu submenu">
-                                                    <li><Link className="nav-link" to='/products' data-key="t-defualt">{props.t('defualt')}</Link></li>
-                                                </ul>
-                                            </li>
-                                            <li><Link className="nav-link" to='/product-details' data-key="t-product-details">{props.t('product-details')}</Link></li>
-                                        </ul>
-                                    </li>
-                                    <Dropdown className="nav-item dropdown-hover">
-                                        <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-users">{props.t('users')}</Link>
-                                        <ul className="dropdown-menu submenu">
-                                            <li><Link className="nav-link" to='/account' data-key="t-my-account">{props.t('my-account')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-signin-basic' data-key="t-sign-in">{props.t('sign-up')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-signup-basic' data-key="t-sign-up">{props.t('sign-in')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-pass-reset-basic' data-key="t-passowrd-reset">{props.t('passowrd-reset')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-pass-change-basic' data-key="t-create-password">{props.t('create-password')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-success-msg-basic' data-key="t-success-message">{props.t('success-message')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-twostep-basic' data-key="t-two-step-verify">{props.t('two-step-verify')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-logout-basic' data-key="t-logout">{props.t('logout')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-404' data-key="t-error-404">{props.t('error-404')}</Link></li>
-                                            <li><Link className="nav-link" to='/auth-500' data-key="t-error-500">{props.t('error-500')}</Link></li>
-                                            <li><Link className="nav-link" to='/coming-soon' data-key="t-coming-soon">{props.t('coming-soon')}</Link></li>
-                                        </ul>
-                                    </Dropdown>
-                                    <li className="nav-item">
-                                        <Link to='/products-category' className="nav-link" data-key="t-categories">{props.t('categories')}</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/about-us' className="nav-link" data-key="t-about">{props.t('about')}</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/purchase-guide' className="nav-link" data-key="t-purchase-guide">{props.t('purchase-guide')}</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/terms-conditions' className="nav-link" data-key="t-terms-of-service">{props.t('terms-of-service')}</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/privacy-policy' className="nav-link" data-key="t-privacy-policy">{props.t('privacy-policy')}</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/store-locator' className="nav-link" data-key="t-store-locator">{props.t('store-locator')}</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/ecommerce-faq' className="nav-link" data-key="t-faq">{props.t('faq')}</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/invoice' className="nav-link" data-key="t-invoice">{props.t('invoice')}</Link>
-                                    </li>
-                                    <li className="nav-item dropdown dropdown-hover">
-                                        <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-email-template">{props.t('email-template')}</Link>
-                                        <ul className="dropdown-menu submenu ">
-                                            <li><Link className="nav-link" to='/email-black-friday' data-key="t-black-friday">{props.t('black-friday')}</Link></li>
-                                            <li><Link className="nav-link" to='/email-flash-sale' data-key="t-flash-sale">{props.t('flash-sale')}</Link></li>
-                                            <li><Link className="nav-link" to='/email-order-success' data-key="t-order-success">{props.t('order-success')}</Link></li>
-                                            <li><Link className="nav-link" to='/email-order-success-2' data-key="t-order-success-2">{props.t('order-success-2')}</Link></li>
-                                        </ul>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="../components/index" className="nav-link" target="_blank" data-key="t-components">Components</Link>
-                                    </li>
-                                    <Dropdown className="nav-item dropdown-hover">
-                                        <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-multi-level">{props.t('multi-level')}</Link>
-                                        <ul className="dropdown-menu submenu">
-                                            <li><Link className="nav-link" to="/#" data-key="t-level-1.1">{props.t('level-1.1')}</Link></li>
-                                            <li><Link className="nav-link" to="/#" data-key="t-level-1.2">{props.t('level-1.2')}</Link></li>
-                                            <li className="dropdown dropdown-hover">
-                                                <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-level-1.3">{props.t('level-1.3')}</Link>
-                                                <ul className="dropdown-menu submenu">
-                                                    <li><Link className="nav-link" to="/#" data-key="t-level-2.1">{props.t('level-2.1')}</Link></li>
-                                                    <li><Link className="nav-link" to="/#" data-key="t-level-2.2">{props.t('level-2.2')}</Link></li>
-                                                    <li className="dropdown dropdown-hover">
-                                                        <Link to="/#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-key="t-level-2.3">{props.t('level-2.3')}</Link>
-                                                        <ul className="dropdown-menu submenu">
-                                                            <li><Link className="nav-link" to="/#" data-key="t-level-3.1">{props.t('level-3.1')}</Link></li>
-                                                            <li><Link className="nav-link" to="/#" data-key="t-level-3.2">{props.t('level-3.2')}</Link></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </Dropdown>
-                                </ul>
+                            <li className="nav-item">
+                                <Link className="nav-link" to='/about-us' data-key="t-contact">{props.t('about')}</Link>
                             </li>
-
                             <li className="nav-item">
                                 <Link className="nav-link" to='/contact' data-key="t-contact">{props.t('contact')}</Link>
                             </li>
@@ -384,7 +243,7 @@ const Header = (props) => {
                                 userData?.email ? <Dropdown>
                                     <Dropdown.Toggle id="page-header-user-dropdown" bsPrefix="btn" className="btn btn-icon btn-topbar btn-link rounded-circle" as="a">
 
-                                    <Image className="rounded-circle header-profile-user" src={userData?.profileImage} alt="Header Avatar" />
+                                        <Image className="rounded-circle header-profile-user" src={userData?.profileImage} alt="Header Avatar" />
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu >
@@ -396,7 +255,7 @@ const Header = (props) => {
                                         <Dropdown.Item href='/account'><span className="badge bg-success-subtle text-success mt-1 float-end">New</span><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></Dropdown.Item>
                                         <Dropdown.Item href='/home' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></Dropdown.Item>
                                     </Dropdown.Menu>
-                                </Dropdown> : <Link to={"/auth-signin-basic"}>< IoLogIn style={{fontSize:"23px", color:"black"}} /></Link>
+                                </Dropdown> : <Link to={"/auth-signin-basic"}>< IoLogIn style={{ fontSize: "23px", color: "black" }} /></Link>
                             }
 
                         </div>

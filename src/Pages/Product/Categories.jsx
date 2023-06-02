@@ -93,7 +93,7 @@ const Categories = (props) => {
                                             <Image src={cat.image} alt=""
                                                 className={` bg-${cat.colorCode}-subtle border border-2 border-${cat.colorCode} border-opacity-10 p-4`} fluid roundedCircle />
                                             <div className="mt-4">
-                                                <Link to="#">
+                                                <Link to={`/catalog/${cat.name}`}>
                                                     <h5 className="mb-2 fs-15">{cat.name}</h5>
                                                 </Link>
                                                 <p className="text-muted fs-12">{cat.productSubCategories} Products</p>

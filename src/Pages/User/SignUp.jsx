@@ -1,18 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button, Card, Col, Container, Form, Row, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import storage from "../../Components/Firebase";
 import axios from "axios";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import avonLogo from "../../assets/images/avonLogo.png"
+import { storage } from "../../firebase/firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
-//img
-import logodark from "../../assets/images/logo-dark.png";
-import logolight from "../../assets/images/logo-light.png";
-import auth1 from "../../assets/images/auth/img-1.png";
+
+
 
 const SignUp = () => {
+    const fileRef = useRef(null)
+    const [profileImage, setProfileImage] = useState('')
+    const addStoreImage = () => {
+        formik.setFieldValue(
+            "profileImage",
+            fileRef.current.files[0]
+        );
+  console.log(fileRef.current.name);
+    const file = fileRef.current.files[0];
+    const storageRef = ref(storage, fileRef.current.name);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+        },
+        (error) => {
+          alert(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log(downloadURL);
+            setProfileImage(downloadURL);
+          });
+        }
+      );
+    }
+   
+
+
+
     const [passwordtype, setPasswordtype] = useState(false);
     const formik = useFormik({
         initialValues: {
@@ -24,7 +57,7 @@ const SignUp = () => {
             idForReferal: "",
             password: "",
             repeatPassword: "",
-            profileImage: null,
+            profileImage: profileImage,
         },
         validationSchema: Yup.object({
             name: Yup.string().required("Please enter your name"),
@@ -89,83 +122,23 @@ const SignUp = () => {
     return (
         <>
             <section className="auth-page-wrapper position-relative bg-light min-vh-100 d-flex align-items-center justify-content-between">
-                <div className="auth-header position-fixed top-0 start-0 end-0 bg-body">
-                    <Container fluid>
-                        <Row className="justify-content-between align-items-center">
-                            <Col xs={2}>
-                                <Link className="navbar-brand mb-2 mb-sm-0" to="index.html">
-                                    <Image
-                                        src={logodark}
-                                        className="card-logo card-logo-dark"
-                                        alt="logo dark"
-                                        height={22}
-                                    />
-                                    <Image
-                                        src={logolight}
-                                        className="card-logo card-logo-light"
-                                        alt="logo light"
-                                        height={22}
-                                    />
-                                </Link>
-                            </Col>
-                            <Col className="col-auto">
-                                <ul className="list-unstyled hstack gap-2 mb-0">
-                                    <li className="me-md-3">
-                                        <Link
-                                            to="#"
-                                            className="text-body fw-medium fs-15"
-                                        >
-                                            Become a Selling
-                                        </Link>
-                                    </li>
-                                    <li className="d-none d-md-block">
-                                        <Link
-                                            to="#"
-                                            className="btn btn-soft-secondary"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            <i className="bi bi-google-play align-middle me-1" />{" "}
-                                            Download App
-                                        </Link>
-                                    </li>
-                                    <li className="d-none d-md-block">
-                                        <Link
-                                            to="#"
-                                            className="btn btn-soft-primary"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            <i className="bi bi-apple align-middle me-1" />{" "}
-                                            Download App
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </Col>
-                        </Row>
-                    </Container>
-                </div>
                 <div className="w-100">
                     <Container>
                         <Row className="justify-content-center">
                             <Col lg={12}>
                                 <div className="auth-card mx-lg-3">
                                     <Card className="border-0 mb-0">
-                                        <Card.Header className="bg-primary border-0">
-                                            <Row>
-                                                <Col lg={4} xs={3}>
-                                                    <Image src={auth1} alt="" className="img-fluid" />
+                                        <Card.Header className="border-0 ">
+                                            <Row className="d-flex justify-content-center">
+                                                <Col lg={6} xs={3}>
+                                                    <Image src={avonLogo} alt="" className="img-fluid" />
                                                 </Col>
-                                                <Col lg={8} xs={9}>
-                                                    <h1 className="text-white text-capitalize lh-base fw-lighter">
-                                                        Let's get started with RGAgency Store
-                                                    </h1>
-                                                </Col>
+
                                             </Row>
                                         </Card.Header>
                                         <Card.Body>
                                             <p className="text-muted fs-15">
-                                                Get your free RGAgency account now
+                                                Get your free AVON account now
                                             </p>
                                             <div className="p-2">
                                                 <Form
@@ -351,12 +324,8 @@ const SignUp = () => {
                                                                 type="file"
                                                                 id="profileImage"
                                                                 name="profileImage"
-                                                                onChange={(event) => {
-                                                                    formik.setFieldValue(
-                                                                        "profileImage",
-                                                                        event.currentTarget.files[0]
-                                                                    );
-                                                                }}
+                                                                ref={fileRef}
+                                                                onChange={() => addStoreImage( )}
                                                             />
                                                         </div>
                                                         <div className="mt-4">

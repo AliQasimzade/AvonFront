@@ -13,7 +13,9 @@ import withRouter from "../../../Components/withRouter";
 const LastestCollection = (props) => {
     return (
         <>
+        
             <section className="section pb-0">
+
                 <Container>
                     <CommonTitle
                         title={props.t('latest-arrival')}

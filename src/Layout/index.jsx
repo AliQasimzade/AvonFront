@@ -7,43 +7,43 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 const Layout = (props) => {
+
+  
   const dispatch = useDispatch();
-  const footerModeType = useSelector(
-    (state) => state.persistedReducer.Layout.footerModeType
-  );
-  const layoutThemeMode = useSelector(
-    (state) => state.persistedReducer.Layout.layoutThemeMode
-  );
+  const { footerModeType, layoutThemeMode } = useSelector((state) => ({
+    footerModeType: state.persistedReducer.Layout.footerModeType,
+    layoutThemeMode: state.persistedReducer.Layout.layoutThemeMode
+}));
   console.log(footerModeType,layoutThemeMode);
  
 
 
   const footertheme = props.isLight ? "light" : "dark";
 
-  //change them mode
-  // const handleThemeMood = (value) => {
-  //     if (changeThemeMood) {
-  //         dispatch(changeThemeMood(value))
-  //     }
-  // }
 
-  //top arrow icone function
+  const handleThemeMood = (value) => {
+      if (changeThemeMood) {
+          dispatch(changeThemeMood(value))
+      }
+  }
+
+  
   const ScrollbarTop = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   };
 
   useEffect(() => {
-    // if (footerModeType || layoutThemeMode) {
-    //     dispatch(changeLayoutMood(footertheme));
-    //     dispatch(changeThemeMood(layoutThemeMode));
-    // }
-  }, []);
+    if (footerModeType || layoutThemeMode) {
+        dispatch(changeLayoutMood(footertheme));
+        dispatch(changeThemeMood(layoutThemeMode));
+    }
+  }, [layoutThemeMode, dispatch, footertheme, footerModeType]);
 
   return (
     <>
       <TopBar />
-      <Header />
+      <Header handleMood={handleThemeMood} />
       {props.children}
       <Footer />
       <Button

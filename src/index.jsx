@@ -6,8 +6,10 @@ import App from './App';
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage'
+import thunk from 'redux-thunk';
 import rootreducer from './slices/index';
 import { configureStore } from '@reduxjs/toolkit';
+
 
 const persistConfig = {
   key: 'root',
@@ -16,10 +18,10 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootreducer);
 let store = configureStore({
-  reducer:{
+  reducer: {
     persistedReducer
   },
-  middleware:[]
+  middleware: [thunk]
 })
 let persistor = persistStore(store)
 

@@ -6,9 +6,7 @@ import * as Yup from 'yup';
 import axios from "axios";
 
 //img
-import logodark from "../../assets/images/logo-dark.png";
-import logolight from "../../assets/images/logo-light.png";
-import auth1 from "../../assets/images/auth/img-1.png";
+import avonLogo from "../../assets/images/avonLogo.png"
 import { useDispatch } from "react-redux";
 import { changeAccont } from "../../slices/layouts/accont";
 const Signin = () => {
@@ -56,53 +54,21 @@ const Signin = () => {
     return (
         <>
             <section className="auth-page-wrapper position-relative bg-light min-vh-100 d-flex align-items-center justify-content-between">
-                <div className="auth-header position-fixed top-0 start-0 end-0 bg-body">
-                    <Container fluid>
-                        <Row className="justify-content-between align-items-center">
-                            <Col xs={2}>
-                                <Link className="navbar-brand mb-2 mb-sm-0" to='/'>
-                                    <Image src={logodark} className="card-logo card-logo-dark" alt="logo dark" height={22} />
-                                    <Image src={logolight} className="card-logo card-logo-light" alt="logo light" height={22} />
-                                </Link>
-                            </Col>{/*-end col*/}
-                            <Col className="col-auto">
-                                <ul className="list-unstyled hstack gap-2 mb-0">
-                                    <li className="me-md-3">
-                                        <Link to="#" className="text-body fw-medium fs-15">Become a Selling</Link>
-                                    </li>
-                                    <li className="d-none d-md-block">
-                                        <Link to="#" className="btn btn-soft-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-google-play align-middle me-1" /> Download App
-                                        </Link>
-                                    </li>
-                                    <li className="d-none d-md-block">
-                                        <Link to="#" className="btn btn-soft-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-apple align-middle me-1" /> Download App
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </Col>
-                        </Row>{/*end row*/}
-                    </Container>{/*end container-fluid*/}
-                </div>
                 <div className="w-100">
                     <Container>
                         <Row className="justify-content-center">
                             <Col lg={6}>
                                 <div className="auth-card mx-lg-3">
                                     <Card className="border-0 mb-0">
-                                        <Card.Header className="bg-primary border-0">
+                                        <Card.Header className=" border-0">
                                             <Row >
-                                                <Col lg={4} xs={3}>
-                                                    <Image src={auth1} alt="" className="img-fluid" />
-                                                </Col>
-                                                <Col lg={8} xs={9} >
-                                                    <h1 className="text-white lh-base fw-lighter">Join Our RGAgency Store</h1>
+                                                <Col lg={12} xs={2}>
+                                                    <Image src={avonLogo} alt="" className="img-fluid" />
                                                 </Col>
                                             </Row>
                                         </Card.Header>
                                         <Card.Body>
-                                            <p className="text-muted fs-15">Sign in to continue to RGAgency.</p>
+                                            <p className="text-muted fs-15">Sign in to continue to AVON.</p>
                                             <div className="p-2">
                                                 <Form action="#" onSubmit={formik.handleSubmit} >
                                                     <div className="mb-3">
@@ -152,15 +118,9 @@ const Signin = () => {
                                                         <div className="signin-other-title">
                                                             <h5 className="fs-13 mb-4 title">Sign In with</h5>
                                                         </div>
-                                                        <div className="pt-2 hstack gap-2 justify-content-center">
-                                                            <Button className="btn btn-soft-primary btn-icon"><i className="ri-facebook-fill fs-16" /></Button>
-                                                            <Button className="btn btn-soft-danger btn-icon"><i className="ri-google-fill fs-16" /></Button>
-                                                            <Button className="btn btn-soft-dark btn-icon"><i className="ri-github-fill fs-16" /></Button>
-                                                            <Button className="btn btn-soft-info btn-icon"><i className="ri-twitter-fill fs-16" /></Button>
-                                                        </div>
                                                     </div>
                                                 </Form>
-                                                <div className="text-center mt-5">
+                                                <div className="text-center mt-22">
                                                     <p className="mb-0">Don't have an account ? <Link to='/auth-signup-basic' className="fw-semibold text-secondary text-decoration-underline"> SignUp</Link> </p>
                                                 </div>
                                             </div>

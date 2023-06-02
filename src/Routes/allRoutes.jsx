@@ -71,6 +71,7 @@ import Invoice from "../Pages/Product/Invoice";
 import ContactUs from "../Pages/ContactUs/Contact";
 //
 import NotFound from "../Pages/NotFound/NotFound"
+import SubCatProduct from "../Pages/Product/SubCatProduct";
 
 const authProtectedRoutes = [
     { path: "/home", component: <Home /> },
@@ -153,6 +154,8 @@ const publicRoutes = [
     { path: "/auth-500", component: <Error500 /> },
     //Comingsoon
     { path: "/coming-soon", component: <Comingsoon /> },
+
+    { path: "/catalog/:name", component: < SubCatProduct/> },
 
     //email
     //Blackfriday
