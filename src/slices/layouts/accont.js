@@ -8,7 +8,7 @@ const Accont = createSlice({
     initialState,
     reducers: {
         changeAccont(state, action) {
-            state.user = {...state.user, ...action.payload}
+            state.user = {...action.payload}
 
         },
         logoutUser(state) {

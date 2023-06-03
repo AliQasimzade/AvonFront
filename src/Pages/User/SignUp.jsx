@@ -325,7 +325,7 @@ const SignUp = () => {
                                                                 id="profileImage"
                                                                 name="profileImage"
                                                                 ref={fileRef}
-                                                                onChange={() => addStoreImage( )}
+                                                                onChange={() => addStoreImage()}
                                                             />
                                                         </div>
                                                         <div className="mt-4">

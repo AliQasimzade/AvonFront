@@ -1,9 +1,15 @@
-.hamburger_manu_icon{
-display: none;
+.hamburger_manu_icon {
+    display: none;
 }
+
 .X_menu {
     display: none;
 }
+
+.dropdown_responsive {
+    display: none;
+}
+
 @media screen and (max-width: 991px) {
     .navbar_responsive {
         transform: translateX(0px) !important;
@@ -11,12 +17,15 @@ display: none;
         display: flex;
         justify-content: center;
     }
-    .hamburger_manu_icon{
+
+    .hamburger_manu_icon {
         display: block;
-        }
-    .menu-none{
+    }
+
+    .menu-none {
         transform: translateX(-250px) !important;
     }
+
     .navbar_responsive_flex {
         display: flex !important;
         flex-direction: column !important;
@@ -29,5 +38,13 @@ display: none;
         display: block;
         font-size: 20px;
         color: darkred;
+    }
+
+    .responsive_catalog_none {
+        display: none;
+    }
+
+    .dropdown_responsive {
+        display: block;
     }
 }

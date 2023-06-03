@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Dropdown, Button, Row, Col, Card, Image, Navbar, Nav } from "react-bootstrap";
+import { Container, Dropdown, Button, Row, Col, Card, Image, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import axios from 'axios';
 //img
 import AvonLogo from "../assets/images/avonLogo.png";
@@ -124,7 +124,7 @@ const Header = (props) => {
                     <div className="hamburger_manu_icon">
                         <i className="bi bi-list fs-20 " onClick={menu}></i>
                     </div>
-                    <Navbar.Brand href="/" className="d-none d-lg-block">
+                    <Navbar.Brand href="/" onClick={menu} className="d-none d-lg-block">
                         <div className="logo-dark">
                             <Image src={AvonLogo} alt="" height="25" />
                         </div>
@@ -143,9 +143,58 @@ const Header = (props) => {
                                 </li>
                             </div>
                             <li className="nav-item">
-                                <Link to="/" className="nav-link" data-key="t-home">{props.t('home')}</Link>
+                                <Link onClick={menu} to="/" className="nav-link" data-key="t-home">{props.t('home')}</Link>
                             </li>
-                            <li className="nav-item dropdown dropdown-hover dropdown-mega-full">
+
+
+
+                            {/* hamburvger catalog menu */}
+                            <li className="nav-item dropdown_responsive">
+                            <NavDropdown
+                                data-key="t-catalog"
+                                id="nav-dropdown-dark-example"
+                                title={props.t('catalog')}
+                                
+                            >
+                                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">
+                                    {categories.map((category, index) => (
+                                        <Col lg={2} key={index}>
+                                            <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                                                <li>
+                                                    <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key={`t-${category.name}`}>
+                                                        {category.name}
+                                                    </p>
+                                                </li>
+                                                {category.subCategories.map((subcategory, subIndex) => (
+                                                    <li className="nav-item" key={subIndex}>
+                                                        <Link to={`/catalog/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
+                                                            {props.t(subcategory.name)}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </Col>
+                                    ))}</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.3">
+                                    <div className="p-3">
+                                        <p className="mb-3 text-uppercase fs-11 fw-medium text-muted" data-key="t-top-brands">{props.t("top-brands")}</p>
+                                        <Row className="g-2">
+                                            {brendler.map((brend) => (
+                                                <Col key={brend.id} lg={4}>
+                                                    <Link title={brend.name} to={`/${brend}`} className="d-block p-2 border border-dashed text-center rounded-3">
+                                                        <Image src={brend.image} alt={brend.name} className="avatar-sm" />
+                                                    </Link>
+                                                </Col>
+                                            ))}
+                                        </Row>
+                                    </div>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            </li>
+
+                            <li className="nav-item dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
                                 <Link to="/#" className="nav-link dropdown-toggle" data-key="t-catalog" role="button" data-bs-toggle="dropdown" aria-expanded="false">{props.t('catalog')}</Link>
 
                                 <div className="dropdown-menu p-0">
@@ -155,12 +204,12 @@ const Header = (props) => {
                                                 <div className="bg-overlay bg-light bg-opacity-25"></div>
                                                 <Card.Body className="d-flex align-items-center justify-content-center">
                                                     <div className="text-center">
-                                                        <Link to="/#" className="btn btn-secondary btn-hover"><i className="ph-storefront align-middle me-1"></i> <span data-key="t-shop-now">{props.t("shop-now")}</span></Link>
+                                                        <Link className="btn btn-secondary btn-hover"><i className="ph-storefront align-middle me-1"></i> <span data-key="t-shop-now">{props.t("shop-now")}</span></Link>
                                                     </div>
                                                 </Card.Body>
                                             </Card>
                                         </Col>
-                                        <Col lg={10} className="d-none d-lg-block">
+                                        <Col lg={10} className="d-none d-lg-block responsive_catalog_none">
                                             <Row className="g-0 g-lg-4">
                                                 {/* kateqoriyalar */}
                                                 {categories.map((category, index) => (
@@ -202,13 +251,13 @@ const Header = (props) => {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='/shop/address' data-key="t-contact">{props.t('shop')}</Link>
+                                <Link onClick={menu} className="nav-link" to='/shop/address' data-key="t-contact">{props.t('shop')}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='/about-us' data-key="t-contact">{props.t('about')}</Link>
+                                <Link onClick={menu} className="nav-link" to='/about-us' data-key="t-contact">{props.t('about')}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='/contact' data-key="t-contact">{props.t('contact')}</Link>
+                                <Link onClick={menu} className="nav-link" to='/contact' data-key="t-contact">{props.t('contact')}</Link>
                             </li>
                         </Nav>
                     </Navbar.Collapse>

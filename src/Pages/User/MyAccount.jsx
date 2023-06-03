@@ -1,6 +1,7 @@
-import React from "react";
-import { Col, Container, Row, Tab, Nav, Card, Table, Form, Image } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import { Col, Container, Row, Tab, Nav, Card, Table, Form, Image, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 //img
 import usersavatar1 from "../../assets/images/users/avatar-1.jpg";
@@ -9,14 +10,18 @@ import profilebg from "../../assets/images/profile-bg.jpg";
 import { orderHistorys, wishlishProduct } from "../../Common/data";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
-import { logoutUser } from "../../slices/layouts/accont";
+import { changeAccont, logoutUser } from "../../slices/layouts/accont";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { logoutToken, logoutUserId } from "../../slices/layouts/user";
+import { useFormik } from "formik";
+import axios from "axios";
+import { storage } from "../../firebase/firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 const MyAccount = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const logOut = ()=>{
+    const logOut = () => {
         dispatch(logoutUser())
         dispatch(logoutToken())
         dispatch(logoutUserId())
@@ -24,7 +29,97 @@ const MyAccount = () => {
 
     }
     const userAccountInfo = useSelector(state => state.persistedReducer.Accont.user);
-    console.log(userAccountInfo);
+    const fileRef = useRef(null)
+    const [proImg, setProfileImage] = useState('')
+    const addStoreImage = () => {
+        formik.setFieldValue(
+            "profileImage",
+            fileRef.current.files[0]
+        );
+        console.log(fileRef.current.name);
+        const file = fileRef.current.files[0];
+        const storageRef = ref(storage, fileRef.current.name);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+            },
+            (error) => {
+                alert(error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log(downloadURL);
+                    setProfileImage(downloadURL);
+                });
+            }
+        );
+    }
+    const formik = useFormik({
+        initialValues: {
+            id: userAccountInfo?.id,
+            name: userAccountInfo?.name,
+            surname: userAccountInfo?.surname,
+            profileImage: proImg,
+            email: userAccountInfo?.email,
+            address: userAccountInfo?.otherAddress,
+            phone: userAccountInfo?.phoneNumber
+        },
+        validationSchema: Yup.object({
+            name: Yup.string().required("Please enter your name"),
+            surname: Yup.string().required("Please enter your surname"),
+            address: Yup.string().required("Please enter your address"),
+            email: Yup.string().email().required("Please enter a valid email"),
+            phone: Yup.string().required("Please enter your phone number"),
+            profileImage: Yup.mixed().required(),
+        }),
+        onSubmit: async (values, { setSubmitting, setErrors }) => {
+            setSubmitting(true);
+            try {
+                const profileImage = values.profileImage;
+                const imageRef = ref(storage, 'avatars/' + profileImage.name);
+                const uploadTask = uploadBytesResumable(imageRef, profileImage);
+
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                    },
+                    (error) => {
+                        setErrors({ file: 'Error uploading profile image' });
+                        console.error('Error uploading profile image:', error);
+                    },
+                    async () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                            console.log('File available at', downloadURL);
+
+                            const formData = { ...values, profileImage: downloadURL };
+                            axios.post('http://avontest0910-001-site1.dtempurl.com/api/Account/UpdateProfile', formData)
+                                .then((response) => {
+                                    console.log("Response from API:", response.data);
+                                    axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Account/MyAccount?id=${userAccountInfo?.id}`)
+                                    .then((res) => dispatch(changeAccont(res.data[0]))).then(()=>location.reload())
+                                })
+                                .catch((error) => {
+                                    console.error("Error posting data:", error);
+                                })
+                                .finally(() => {
+                                    setSubmitting(false);
+                                });
+                        });
+                    }
+                );
+            } catch (error) {
+                setSubmitting(false);
+                setErrors({ file: 'Error uploading profile image' });
+                console.error('Error uploading profile image:', error);
+            }
+        }
+    })
     return (
         <>
             <section className="position-relative">
@@ -107,7 +202,7 @@ const MyAccount = () => {
                                                                                 Customer Name
                                                                             </td>
                                                                             <td className="fw-medium">
-                                                                                Raquel Murillo
+                                                                                {userAccountInfo?.name} {userAccountInfo?.surname}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -140,7 +235,7 @@ const MyAccount = () => {
                                                                                 Since Member
                                                                             </td>
                                                                             <td className="fw-medium">
-                                                                                { new Date (userAccountInfo?.createdTime).toLocaleDateString()}
+                                                                                {new Date(userAccountInfo?.createdTime).toLocaleDateString()}
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -156,10 +251,10 @@ const MyAccount = () => {
                                                                         <Card.Body >
                                                                             <div className="float-end clearfix"> <Link to='/shop/address' className="badge badge-soft-primary"><i className="ri-pencil-fill align-bottom me-1"></i> Edit</Link> </div>
                                                                             <div>
-                                                                                <p className="mb-3 fw-semibold fs-12 d-block text-muted text-uppercase">Home Address</p>
-                                                                                <h6 className="fs-14 mb-2 d-block">Raquel Murillo</h6>
-                                                                                <span className="text-muted fw-normal text-wrap mb-1 d-block">144 Cavendish Avenue, Indianapolis, IN 46251</span>
-                                                                                <span className="text-muted fw-normal d-block">Mo. +(253) 01234 5678</span>
+                                                                                <p className="mb-3 fw-semibold fs-12 d-block text-muted text-uppercase"></p>
+                                                                                <h6 className="fs-14 mb-2 d-block">R{userAccountInfo?.name}</h6>
+                                                                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{userAccountInfo?.otherAddress}</span>
+                                                                                <span className="text-muted fw-normal d-block">{userAccountInfo?.phoneNumber}</span>
                                                                             </div>
                                                                         </Card.Body>
                                                                     </Card>
@@ -307,62 +402,87 @@ const MyAccount = () => {
                                                 <Col lg={12}>
                                                     <Card>
                                                         <Card.Body>
-                                                            <Form action="#">
+                                                            <Form className="needs-validation"
+                                                                action="#"
+                                                                onSubmit={formik.handleSubmit}>
                                                                 <Row>
                                                                     <Col lg={12} >
                                                                         <h5 className="fs-16 text-decoration-underline mb-4">Persional Details</h5>
                                                                     </Col>
                                                                     <Col lg={6}>
                                                                         <div className="mb-3">
-                                                                            <Form.Label htmlFor="firstnameInput" >First Name</Form.Label>
-                                                                            <Form.Control type="text" id="firstnameInput" placeholder="Enter your firstname" defaultValue="Raquel" />
+                                                                            <Form.Label htmlFor="name" >Name</Form.Label>
+                                                                            <Form.Control type="text"
+                                                                                id="name"
+                                                                                name="name"
+                                                                                placeholder="Enter your name"
+                                                                                value={formik.values.name}
+                                                                                onChange={formik.handleChange}
+                                                                                onBlur={formik.handleBlur} />
                                                                         </div>
                                                                     </Col>
                                                                     <Col lg={6}>
                                                                         <div className="mb-3">
-                                                                            <Form.Label htmlFor="lastnameInput">Last Name</Form.Label>
-                                                                            <Form.Control type="text" id="lastnameInput" placeholder="Enter your lastname" defaultValue="Murillo" />
+                                                                            <Form.Label htmlFor="surname">surName</Form.Label>
+                                                                            <Form.Control type="text" id="surname"
+                                                                                name="surname"
+                                                                                placeholder="Enter your name"
+                                                                                value={formik.values.surname}
+                                                                                onChange={formik.handleChange}
+                                                                                onBlur={formik.handleBlur} />
                                                                         </div>
                                                                     </Col>
                                                                     <Col lg={6}>
                                                                         <div className="mb-3">
-                                                                            <Form.Label htmlFor="phonenumberInput">Phone Number</Form.Label>
-                                                                            <Form.Control type="text" id="phonenumberInput" placeholder="Enter your phone number" defaultValue="+(253) 01234 5678" />
+                                                                            <Form.Label htmlFor="phone">Phone Number</Form.Label>
+                                                                            <Form.Control type="text" id="phone"
+                                                                                name="phone"
+                                                                                placeholder="phone"
+                                                                                value={formik.values.phone}
+                                                                                onChange={formik.handleChange}
+                                                                                onBlur={formik.handleBlur} />
                                                                         </div>
                                                                     </Col>
                                                                     <Col lg={6}>
                                                                         <div className="mb-3">
-                                                                            <Form.Label htmlFor="emailInput">Email Address</Form.Label>
-                                                                            <Form.Control type="email" id="emailInput" placeholder="Enter your email" defaultValue="raque@rgagency.org" />
+                                                                            <Form.Label htmlFor="email">Email Address</Form.Label>
+                                                                            <Form.Control type="email" id="email"
+                                                                                name="email"
+                                                                                placeholder="email"
+                                                                                value={formik.values.email}
+                                                                                onChange={formik.handleChange}
+                                                                                onBlur={formik.handleBlur} />
                                                                         </div>
                                                                     </Col>
                                                                     <Col lg={4}>
                                                                         <div className="mb-3">
-                                                                            <Form.Label htmlFor="cityInput">City</Form.Label>
-                                                                            <Form.Control type="text" id="cityInput" placeholder="City" defaultValue="Phoenix" />
+                                                                            <Form.Label htmlFor="address">address</Form.Label>
+                                                                            <Form.Control type="text" id="address"
+                                                                                name="address"
+                                                                                placeholder="address"
+                                                                                value={formik.values.address}
+                                                                                onChange={formik.handleChange}
+                                                                                onBlur={formik.handleBlur} />
                                                                         </div>
                                                                     </Col>
-                                                                    <Col lg={4}>
-                                                                        <div className="mb-3">
-                                                                            <Form.Label htmlFor="countryInput">Country</Form.Label>
-                                                                            <Form.Control type="text" id="countryInput" placeholder="Country" defaultValue="USA" />
-                                                                        </div>
+                                                                    <Col lg={6}>
+                                                                        <button type="submit">Submit</button>
                                                                     </Col>
-                                                                    <Col lg={4}>
-                                                                        <div className="mb-3">
-                                                                            <Form.Label htmlFor="zipcodeInput">Zip Code</Form.Label>
-                                                                            <Form.Control type="text" minLength={5} maxLength={6} id="zipcodeInput" placeholder="Enter zipcode" defaultValue="90011" />
-                                                                        </div>
-                                                                    </Col>
-                                                                    <Col lg={12}>
-                                                                        <div className="mb-3 pb-2">
-                                                                            <Form.Label htmlFor="exampleFormControlTextarea">Description</Form.Label>
-                                                                            <Form.Control as="textarea" id="exampleFormControlTextarea" placeholder="Enter your description" rows={3} defaultValue="Hi I'm Raquel Murillo, It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is European languages are members of the same family."></Form.Control>
-                                                                        </div>
+                                                                    <Col lg={6}>
+                                                                        <Form.Label htmlFor="profileImage">
+                                                                            Profile Image
+                                                                        </Form.Label>
+                                                                        <Form.Control
+                                                                         id="profileImage"
+                                                                         name="profileImage"
+                                                                            type="file"
+                                                                            ref={fileRef}
+                                                                            onChange={() => addStoreImage()}
+                                                                        />
                                                                     </Col>
                                                                 </Row>
                                                             </Form>
-                                                            <div className="mb-3" id="changePassword">
+                                                            {/* <div className="mb-3" id="changePassword">
                                                                 <h5 className="fs-16 text-decoration-underline mb-4">Change Password</h5>
                                                                 <form action="#">
                                                                     <Row className="g-2">
@@ -391,8 +511,8 @@ const MyAccount = () => {
                                                                         </Col>
                                                                     </Row>
                                                                 </form>
-                                                            </div>
-                                                            <div className="mb-3" id="privacy">
+                                                            </div> */}
+                                                            {/* <div className="mb-3" id="privacy">
                                                                 <h5 className="fs-16 text-decoration-underline mb-4">Privacy Policy</h5>
                                                                 <div className="mb-3">
                                                                     <h5 className="fs-15 mb-2">Security:</h5>
@@ -484,10 +604,10 @@ const MyAccount = () => {
                                                                         </li>
                                                                     </ul>
                                                                 </div>
-                                                            </div>
-                                                            <div className="text-sm-end">
+                                                            </div> */}
+                                                            {/* <div className="text-sm-end">
                                                                 <Link to="#" className="btn btn-secondary d-block d-sm-inline-block"><i className="ri-edit-box-line align-middle me-2"></i> Update Profile</Link>
-                                                            </div>
+                                                            </div> */}
                                                         </Card.Body>
                                                     </Card>
                                                 </Col>
