@@ -45,6 +45,8 @@ const Layout = (props) => {
       <TopBar />
       <Header handleMood={handleThemeMood} />
       {props.children}
+
+      
       <Footer />
       <Button
         onClick={ScrollbarTop}
