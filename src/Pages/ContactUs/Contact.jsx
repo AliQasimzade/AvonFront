@@ -30,8 +30,6 @@ const ContactUs = () => {
           try {
             const response = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Settings/Manage/GetAll?isDeleted=false');
             setContact(response.data);
-            console.log(contact);
-            
           } catch (error) {
             console.log(error.message);
           }
@@ -59,25 +57,57 @@ const ContactUs = () => {
                     <Row>
                         <Col lg={4}>
                             {
-                                (contact || [])?.map((item, idx) => {
-                                    return (
-                                        <Card key={idx} className="border border-opacity-25">
+                               contact.length > 0 &&
+                               <div>
+                                     <Card  className="border border-opacity-25">
                                             <Card.Body className="p-4">
                                                 <div className="d-flex">
                                                     <div className="avatar-sm flex-shrink-0">
-                                                        <div className={`avatar-title bg-${item.color}-subtle text-${item.color} rounded fs-17`}>
-                                                            <i className={`${item.icon}`}></i>
+                                                        <div className="avatar-title rounded fs-17">
+                                                            <i className="bi bi-geo-alt-fill"></i>
                                                         </div>
                                                     </div>
                                                     <div className="ms-3 flex-grow-1">
-                                                        <h5 className="fs-17 lh-base mb-2">{item.key}</h5>
-                                                        <p className="text-muted fs-14 mb-0">{item.value}</p>
+                                                        <h5 className="fs-17 lh-base mb-2">{contact[8].key}</h5>
+                                                        <p className="text-muted fs-14 mb-0">{contact[8].value}</p>
                                                     </div>
                                                 </div>
                                             </Card.Body>
                                         </Card>
-                                    )
-                                })
+
+                                        <Card  className="border border-opacity-25">
+                                            <Card.Body className="p-4">
+                                                <div className="d-flex">
+                                                    <div className="avatar-sm flex-shrink-0">
+                                                        <div className="avatar-title rounded fs-17">
+                                                            <i className="bi bi-telephone-fill"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div className="ms-3 flex-grow-1">
+                                                        <h5 className="fs-17 lh-base mb-2">{contact[0].key}</h5>
+                                                        <p className="text-muted fs-14 mb-0">{contact[0].value}</p>
+                                                    </div>
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
+
+                                        <Card  className="border border-opacity-25">
+                                            <Card.Body className="p-4">
+                                                <div className="d-flex">
+                                                    <div className="avatar-sm flex-shrink-0">
+                                                        <div className="avatar-title rounded fs-17">
+                                                            <i className="bi bi-envelope-fill"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div className="ms-3 flex-grow-1">
+                                                        <h5 className="fs-17 lh-base mb-2">{contact[3].key}</h5>
+                                                        <p className="text-muted fs-14 mb-0">{contact[3].value}</p>
+                                                    </div>
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
+                               </div>
+                  
                             }
                         </Col>
 
@@ -184,15 +214,19 @@ const ContactUs = () => {
                     <Row className="g-0">
                         <Col lg={12}>
                             <div className="map">
-                                <iframe
+                                {
+                                    contact.length > 0 &&
+                                    <iframe
                                     title="map"
-                                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3024.4645962375394!2d-74.01354043428768!3d40.7077878458095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sSoHo%2094%20Broadway%20St%20New%20York%2C%20NY%201001!5e0!3m2!1sen!2sin!4v1669110084163!5m2!1sen!2sin"
+                                    src= {contact[9].value}
                                     className="w-100"
                                     height="400"
                                     style={{ border: 0 }}
                                     loading="lazy"
                                     referrerPolicy="no-referrer-when-downgrade"
                                 />
+                                }
+                              
                             </div>
                         </Col>
                     </Row>
