@@ -32,21 +32,25 @@ const Collection = () => {
     return (
         <>
             <section className="position-relative">
-                {
-                    slider.map((foto, ind) => {
-                        return (
-                            <Carousel key={ind} id="ecommerceHero" data-bs-ride="carousel">
-                                <Carousel.Item >
-                                    <div style={{ maxWidth: "1600px", height: "100vh", marginTop:"70px"}} className="ecommerce-home bg-danger-subtle">
+
+
+                <Carousel id="ecommerceHero" data-bs-ride="carousel">
+                    {
+                        slider.map((foto, ind) => {
+                            return (
+                                <Carousel.Item key={ind} >
+                                    <div style={{ maxWidth: "1600px", height: "100vh", marginTop: "70px" }} className="ecommerce-home bg-danger-subtle">
                                         <Link style={{ display: "block", width: "100%" }} to={foto.link}>
                                             <img style={{ width: "100%", height: "100%" }} src={foto.image} />
                                         </Link>
                                     </div>
                                 </Carousel.Item>
-                            </Carousel>
-                        )
-                    })
-                }
+                            )
+                        })
+                    }
+                </Carousel>
+
+
             </section>
         </ >
     )

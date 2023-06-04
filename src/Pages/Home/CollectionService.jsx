@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { CommonService } from "../../Components/CommonService";
@@ -8,39 +8,38 @@ import withRouter from "../../Components/withRouter";
 import featuresimg3 from '../../assets/images/ecommerce/features/img-3.jpg';
 import featuresimg1 from '../../assets/images/ecommerce/features/img-1.jpg';
 import { CommonTitle } from "../../Components/Homepage";
+import axios from "axios";
+
 
 const Service = (props) => {
+    const [slidertwo, setSlidertwo] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://avontest0910-001-site1.dtempurl.com/api/SliderTwos/Manage/GetAll?page=1&IsMAIN=false').then((response) => {
+            setSlidertwo(response.data);
+        });
+    }, []);
     return (
         <>
             <CommonService />
             <section className="section pt-0">
                 <Container>
                     <Row >
-                        <Col lg={6}>
-                            <Link to='#' className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden position-relative d-block">
-                                <Image src={featuresimg3} fluid rounded alt="" />
-                                <div className="bg-overlay blue"></div>
-                                <div className="product-content p-4">
-                                    <p className="text-uppercase text-white mb-2">Up to 50-70%</p>
-                                    <h1 className="text-white lh-base fw-medium ff-secondary"> Women's Sportwere Sales</h1>
-                                    <div className="product-btn mt-4 text-white">
-                                        Shop Now <i className="bi bi-arrow-right ms-2"></i>
-                                    </div>
-                                </div>
-                            </Link>
-                        </Col>
-                        <Col lg={6}>
-                            <Link to="#" className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden position-relative d-block">
-                                <Image src={featuresimg1} fluid rounded alt="" />
-                                <div className="product-content p-4">
-                                    <p className="text-uppercase fw-medium text-secondary mb-2">Summer Sales</p>
-                                    <h1 className="lh-base ff-secondary text-dark">Trendy Fashion Clothes</h1>
-                                    <div className="product-btn mt-4">
-                                        Shop Now <i className="bi bi-arrow-right ms-2"></i>
-                                    </div>
-                                </div>
-                            </Link>
-                        </Col>
+
+                        {
+                            slidertwo.map((twoData, index) => {
+                                if (index < 4) {
+                                    return (
+                                        <Col lg={6} className="mt-4" key={twoData.id}>
+                                            <Link to={twoData.link} className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden position-relative d-block">
+                                                <Image src={twoData.image} fluid rounded alt="..." style={{ width: "100%", height: "350px" }} />
+                                            </Link>
+                                        </Col>
+                                    )
+                                }
+
+                            })
+                        }
                     </Row>
                 </Container>
             </section>
