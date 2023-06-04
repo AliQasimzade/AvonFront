@@ -33,7 +33,7 @@ const Footer = (props) => {
             console.error("Error:", error);
         }
     }
-    console.log(category);
+    // console.log(category);
     return (
         <>
             <section className="section footer-landing pb-0">

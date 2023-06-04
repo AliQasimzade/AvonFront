@@ -1,0 +1,16 @@
+#ecommerceHero .carousel-control-prev {
+    left: -83px !important;
+}
+
+#ecommerceHero .carousel-control-next {
+    right: -83px !important;
+}
+@media screen and (max-width: 768px) {
+    #ecommerceHero .carousel-control-prev {
+        display: none;
+    }
+    
+    #ecommerceHero .carousel-control-next {
+        display: none;
+    }
+}

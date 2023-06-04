@@ -96,7 +96,7 @@ const authProtectedRoutes = [
 
 
     //Productdetails
-    { path: "/product-details", component: <Productdetails /> },
+    { path: "/product-details/:code", component: <Productdetails /> },
 
     //user
     //My Account

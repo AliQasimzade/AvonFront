@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, OverlayTrigger, Row, Tab, Tooltip, Nav, Table, ProgressBar, Breadcrumb, Form, Image, Card } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,10 +21,20 @@ import avatar5 from "../../assets/images/users/avatar-5.jpg";
 import avatar1 from "../../assets/images/users/avatar-1.jpg";
 import avatar3 from '../../assets/images/users/avatar-3.jpg';
 import avatar8 from "../../assets/images/users/avatar-8.jpg";
-
+import { useParams } from "react-router-dom";
+import axios from "axios";
 const Productdetails = () => {
     const [sliderImg, setSliderImg] = useState(sliderProduct);
     const [count, setCount] = useState(0);
+    const { code } = useParams();
+
+    const [proDetail, setproDetail] = useState([])
+    useEffect(() => {
+        axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/ProductGetForBaseCode?Code=${code}`).then((res) => {
+            setproDetail(res)
+        })
+    }, [])
+    console.log(code);
 
     const handleSetImg = (id) => {
         setSliderImg(sliderProduct.filter((selectImg) => selectImg.id === id));
@@ -51,7 +61,7 @@ const Productdetails = () => {
             <section
                 className="ecommerce-about"
                 style={{
-                    backgroundImage: `url(${profileBg})`,
+                    backgroundImage: `url(${proDetail.image})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center"
                 }}
@@ -92,11 +102,11 @@ const Productdetails = () => {
                                                 transitionDuration: "0ms"
                                             }}
                                         >
-                                            {(sliderProduct || [])?.map((item, idx) => {
+                                            {(proDetail.productImages || [])?.map((item, idx) => {
                                                 return (
                                                     <div key={idx} className="swiper-slide swiper-slide-thumb-active swiper-slide-visible swiper-slide-next" role="group" aria-label={`${item.id} / 5 `} style={{ height: "105px", marginBottom: "10px" }}>
                                                         <div className="product-thumb rounded cursor-pointer">
-                                                            <Image src={item.img} alt="" fluid onClick={() => handleSetImg(item.id)} />
+                                                            <Image src={item.image} alt="" fluid onClick={() => handleSetImg(item.id)} />
                                                         </div>
                                                     </div>
                                                 )
@@ -125,11 +135,11 @@ const Productdetails = () => {
                                             className="swiper productSwiper2 swiper-backface-hidden"
                                         >
                                             {
-                                                (sliderImg || [])?.map((item) => {
+                                                (proDetail.productImages || [])?.map((item) => {
                                                     return (
                                                         <SwiperSlide key={item.id}>
-                                                            <div className="swiper-slide swiper-slide-duplicate" data-swiper-slide-index={item.id} role="group" aria-label={`${item.id} / 5`} style={{ width: "458px", marginRight: "10px" }}>
-                                                                <Image src={item.img} alt="" fluid />
+                                                            <div className="swiper-slide swiper-slide-duplicate" data-swiper-slide-index={item.id} role="group" aria-label={`${item.id} / ${proDetail.productImages.length}`} style={{ width: "458px", marginRight: "10px" }}>
+                                                                <Image src={item.image} alt="" fluid />
                                                             </div>
                                                         </SwiperSlide>
                                                     )
@@ -172,13 +182,16 @@ const Productdetails = () => {
                                 <div className="mb-4">
                                     <div className="d-flex gap-3 mb-2">
                                         <div className="fs-15 text-warning">
-                                            <i className="ri-star-fill align-bottom" />
-                                            <i className="ri-star-fill align-bottom" />
-                                            <i className="ri-star-fill align-bottom" />
-                                            <i className="ri-star-fill align-bottom" />
-                                            <i className="ri-star-half-fill align-bottom" />
+                                            {/* {
+                                                proDetail.comments.length > 0 ? <span className="float-end">{proDetail.comments.map((retinhg) => retinhg.star).reduce((acc, item) => acc + item, 0) / proDetail.comments.length}:<p>retingi yoxdur</p>
+                                                    <i className="ri-star-half-fill text-warning align-bottom"></i>
+                                                </span> :
+                                                    <span className="float-end">retingi yoxdur
+                                                        <i className="ri-star-half-fill text-warning align-bottom"></i>
+                                                    </span>
+                                                
+                                            } */}
                                         </div>
-                                        <span className="fw-medium"> (50 Review)</span>
                                     </div>
                                     <h4 className="lh-base mb-1">
                                         Opinion Striped Round Neck Green T-shirt

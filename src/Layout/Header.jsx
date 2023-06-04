@@ -139,7 +139,7 @@ const Header = (props) => {
                                     <Link to="/" className="d-block p-3 h-auto text-center"> <Image src={AvonLogo} alt="" height="25" /></Link>
                                 </li>
                                 <li className="X_menu">
-                                    <i class="bi bi-x-lg" onClick={menu}></i>
+                                    <i className="bi bi-x-lg" onClick={menu}></i>
                                 </li>
                             </div>
                             <li className="nav-item">
@@ -251,7 +251,7 @@ const Header = (props) => {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <Link onClick={menu} className="nav-link" to='/shop/address' data-key="t-contact">{props.t('shop')}</Link>
+                                <Link onClick={menu} className="nav-link" to='/products' data-key="t-contact">{props.t('shop')}</Link>
                             </li>
                             <li className="nav-item">
                                 <Link onClick={menu} className="nav-link" to='/about-us' data-key="t-contact">{props.t('about')}</Link>

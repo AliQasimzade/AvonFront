@@ -43,12 +43,12 @@ const Service = (props) => {
                     </Row>
                 </Container>
             </section>
-            <Container >
+            {/* <Container >
                 <CommonTitle
                     title={props.t('top-picks-section-title')}
                     dicription={props.t('top-picks-section-desc')}
                 />
-            </Container>
+            </Container> */}
         </ >
     )
 }
