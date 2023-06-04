@@ -1,4 +1,5 @@
-import React from "react";
+import React , {useState , useEffect} from "react";
+import axios from "axios";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
@@ -9,19 +10,35 @@ const ContactUs = () => {
         initialValues: {
             name: "",
             email: "",
-            subject: "",
+            number: "",
             message: "",
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Please Enter Your Name'),
             email: Yup.string().email().matches(/^(?!.*@[^,]*,)/).required("Please Enter Your Email"),
-            subject: Yup.string().required('Please Enter Your Subject'),
+            number: Yup.string().required('Please Enter Your number'),
             message: Yup.string().required("Please Enter Your some message")
         }),
         onSubmit: (values) => {
             // console.log("value", values);
         },
     });
+
+    const [contact, setContact] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Settings/Manage/GetAll?isDeleted=false');
+            setContact(response.data);
+            console.log(contact);
+            
+          } catch (error) {
+            console.log(error.message);
+          }
+        };
+    
+        fetchData();
+      }, []);
 
     return (
         <>
@@ -42,7 +59,7 @@ const ContactUs = () => {
                     <Row>
                         <Col lg={4}>
                             {
-                                (contactdetails || [])?.map((item, idx) => {
+                                (contact || [])?.map((item, idx) => {
                                     return (
                                         <Card key={idx} className="border border-opacity-25">
                                             <Card.Body className="p-4">
@@ -53,8 +70,8 @@ const ContactUs = () => {
                                                         </div>
                                                     </div>
                                                     <div className="ms-3 flex-grow-1">
-                                                        <h5 className="fs-17 lh-base mb-2">{item.title}</h5>
-                                                        <p className="text-muted fs-14 mb-0">{item.describe}</p>
+                                                        <h5 className="fs-17 lh-base mb-2">{item.key}</h5>
+                                                        <p className="text-muted fs-14 mb-0">{item.value}</p>
                                                     </div>
                                                 </div>
                                             </Card.Body>
@@ -112,12 +129,12 @@ const ContactUs = () => {
                                         </Col>
                                         <Col lg={12}>
                                             <div className="form-group mt-3">
-                                                <Form.Label htmlFor="subjectInput">Subject<span className="text-danger">*</span></Form.Label>
+                                                <Form.Label htmlFor="numberInput">Number<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
-                                                    type="text"
-                                                    id="subjectInput"
-                                                    placeholder="Enter Subject.."
-                                                    name="subject"
+                                                    type="number"
+                                                    id="numberInput"
+                                                    placeholder="Enter Number.."
+                                                    name="number"
                                                     value={formik.values.subject}
                                                     onChange={formik.handleChange}
                                                     onBlur={formik.handleBlur}

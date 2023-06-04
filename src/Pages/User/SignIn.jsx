@@ -59,14 +59,14 @@ const Signin = () => {
                         <Row className="justify-content-center">
                             <Col lg={6}>
                                 <div className="auth-card mx-lg-3">
-                                    <Card className="border-0 mb-0">
-                                        <Card.Header className=" border-0">
-                                            <Row >
-                                                <Col lg={12} xs={2}>
+                                    <Card className="border-0 mb-0 p-4">
+                                        <Card className=" border-0">
+                                            <Row className="justify-content-center">
+                                                <Col lg={8} xs={4}>
                                                     <Image src={avonLogo} alt="" className="img-fluid" />
                                                 </Col>
                                             </Row>
-                                        </Card.Header>
+                                        </Card>
                                         <Card.Body>
                                             <p className="text-muted fs-15">Sign in to continue to AVON.</p>
                                             <div className="p-2">

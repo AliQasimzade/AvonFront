@@ -1,27 +1,22 @@
-import React from "react";
+import React , {useState,  useEffect}from "react";
 import { Col, Row, Container, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import withRouter from "../../Components/withRouter";
-//img
-import Img1 from '../../assets/images/ecommerce/instagram/img-1.jpg';
-import Img2 from '../../assets/images/ecommerce/instagram/img-2.jpg';
-import Img3 from '../../assets/images/ecommerce/instagram/img-3.jpg';
-import Img4 from '../../assets/images/ecommerce/instagram/img-4.jpg';
-import Img5 from '../../assets/images/ecommerce/instagram/img-5.jpg';
-import Img6 from '../../assets/images/ecommerce/instagram/img-6.jpg';
+import axios from "axios";
 import { CommonTitle } from "../../Components/Homepage";
 
-export const folloImg = [
-    { id: 1, img: Img1 },
-    { id: 2, img: Img2 },
-    { id: 3, img: Img3 },
-    { id: 4, img: Img4 },
-    { id: 5, img: Img5 },
-    { id: 6, img: Img6 },
-]
+
 
 const FollowUs = (props) => {
+    const [slider, setSlider] = useState([]);
+    useEffect(() => {
+        axios.get("http://avontest0910-001-site1.dtempurl.com/api/SliderTwos/Manage/GetAll?isDeleted=false&IsMAIN=false").then((data) => {
+            setSlider(data.data)
+           console.log(slider);
+        });
+    }, []);
+
     return (
         <>
             <section className="section pb-0">
@@ -34,13 +29,12 @@ const FollowUs = (props) => {
                 <div className="position-relative">
                     <Row className="g-0 mt-5">
                         {
-                            (folloImg || [])?.map((item, ind) => {
+                            (slider || [])?.map((item, ind) => {
                                 return (
                                     <Col key={ind}>
                                         <div className="insta-img">
-                                            <Link to="#" className="stretched-link">
-                                                <Image src={item.img} alt="" fluid />
-                                                <i className="ri-instagram-line"></i>
+                                            <Link to={item.link} className="stretched-link">
+                                                <Image src={item.image} alt="" fluid />
                                             </Link>
                                         </div>
                                     </Col>

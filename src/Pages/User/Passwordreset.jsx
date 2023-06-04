@@ -5,8 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from 'yup';
 import axios from "axios";
 //img
-import logodark from "../../assets/images/logo-dark.png";
-import logolight from "../../assets/images/logo-light.png";
+import avonLogo from "../../assets/images/avonLogo.png"
 import auth1 from "../../assets/images/auth/img-1.png";
 
 const Passwordreset = () => {
@@ -47,27 +46,11 @@ const Passwordreset = () => {
                         <Row className="justify-content-between align-items-center">
                             <Col xs={2}>
                                 <Link className="navbar-brand mb-2 mb-sm-0" to="index.html">
-                                    <Image src={logodark} className="card-logo card-logo-dark" alt="logo dark" height={22} />
-                                    <Image src={logolight} className="card-logo card-logo-light" alt="logo light" height={22} />
+                                    <Image src={avonLogo} className="card-logo card-logo-dark" alt="logo dark" height={22} />
+                                    <Image src={avonLogo} className="card-logo card-logo-light" alt="logo light" height={22} />
                                 </Link>
                             </Col>{/*-end col*/}
-                            <Col className="col-auto">
-                                <ul className="list-unstyled hstack gap-2 mb-0">
-                                    <li className="me-md-3">
-                                        <Link to="#" className="text-body fw-medium fs-15">Become a Selling</Link>
-                                    </li>
-                                    <li className="d-none d-md-block">
-                                        <Link to="#" className="btn btn-soft-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-google-play align-middle me-1" /> Download App
-                                        </Link>
-                                    </li>
-                                    <li className="d-none d-md-block">
-                                        <Link to="#" className="btn btn-soft-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-apple align-middle me-1" /> Download App
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </Col>
+                        
                         </Row>{/*end row*/}
                     </Container>{/*end container-fluid*/}
                 </div>
@@ -76,17 +59,15 @@ const Passwordreset = () => {
                         <Row className="justify-content-center">
                             <Col lg={6}>
                                 <div className="auth-card mx-lg-3">
-                                    <Card className="border-0 mb-0">
-                                        <Card.Header className="bg-primary border-0">
-                                            <Row>
-                                                <Col lg={4} xs={3}>
-                                                    <Image src={auth1} alt="" className="img-fluid" />
+                                    <Card className="border-0 mb-0 p-4">
+                                        <Card className="border-0">
+                                            <Row className="justify-content-center">
+                                                <Col lg={8} xs={4}>
+                                                    <Image src={avonLogo} alt="" className="img-fluid" />
                                                 </Col>
-                                                <Col lg={8} xs={9}>
-                                                    <h1 className="text-white lh-base fw-lighter">Forgot Password?</h1>
-                                                </Col>
+                                                
                                             </Row>
-                                        </Card.Header>
+                                        </Card>
                                         <Card.Body>
                                             <p className="text-muted fs-15">Reset password with RGAgency.</p>
                                             <Alert className="alert-borderless alert-warning text-center mb-2 mx-2" role="alert">

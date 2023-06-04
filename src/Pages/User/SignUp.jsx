@@ -262,7 +262,8 @@ const SignUp = () => {
                                                         </div>
                                                         <div className="mb-3 col-12 col-lg-6">
                                                             <Form.Label htmlFor="password-input">
-                                                                Password
+                                                                Password{" "}
+                                                                <span className="text-danger">*</span>
                                                             </Form.Label>
                                                             <div className="position-relative auth-pass-inputgroup">
                                                                 <Form.Control
@@ -295,7 +296,8 @@ const SignUp = () => {
                                                         </div>
                                                         <div className="mb-3 col-12 col-lg-6">
                                                             <Form.Label htmlFor="repeatPassword">
-                                                                Repeat Password
+                                                                Repeat Password {" "}
+                                                                <span className="text-danger">*</span>
                                                             </Form.Label>
                                                             <div className="position-relative auth-pass-inputgroup">
                                                                 <Form.Control
