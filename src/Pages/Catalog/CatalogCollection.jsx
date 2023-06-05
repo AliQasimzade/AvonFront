@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState, useMemo, useEffect } from "react";
 import { Form, Row, Col, Card, Button, Image } from 'react-bootstrap';
-;
+import "./Catalog.css"
 import ReactPaginate from 'react-paginate';
 import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai"
@@ -27,6 +27,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
         axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/Manage/GetAll?isDelete=false`).then(res => {
             setCurrentpages(res.data)
             setSearchFilterProducts(res.data)
+            console.log(res.data[0].productImages);
         })
     }, [])
     const pageNumbers = [];
@@ -34,6 +35,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     const endOffset = itemOffset + perPageData;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = currentpages.slice(itemOffset, endOffset);
+    console.log(currentItems);
     const pageCount = Math.ceil(currentpages.length / perPageData);
     useEffect(() => {
         if (pageNumbers.length && pageNumbers.length < currentPage) {
@@ -85,7 +87,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                     <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
                                         <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
                                             <div className="bg-light bg-opacity-50 rounded py-4 position-relative">
-                                                <Image src={item.image} alt="" style={{ maxHeight: `${cheight || ''}`, maxWidth: "100%" }}
+                                                <Image src={item.productImages[0]?.image} alt="" style={{ maxHeight: `${cheight || ''}`, maxWidth: "100%" }}
                                                     className="mx-auto d-block rounded-2" />
                                                 <div className="action vstack gap-2">
                                                     <Button color="danger" className="avatar-xs p-0 btn-soft-warning custom-toggle product-action" data-bs-toggle="button"  >
@@ -184,7 +186,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
 
 
-                                                    <Link to={`/product-details/${item.code}`}>
+                                                    <Link to={`/product-details/${item.skuId}`}>
                                                         <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">{item?.name}</h6>
                                                     </Link>
                                                     <div className="mt-2">

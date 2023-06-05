@@ -92,11 +92,11 @@ const authProtectedRoutes = [
     //pages
     //Product
     //grid
-    { path: "/products", component: <Defaultgrid /> },
+    { path: "/products", component: <Defaultgrid />},
 
 
     //Productdetails
-    { path: "/product-details/:code", component: <Productdetails /> },
+    { path: "/product-details/:skuId", component: <Productdetails /> },
 
     //user
     //My Account

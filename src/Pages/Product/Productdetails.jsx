@@ -14,7 +14,6 @@ import { descriptionData, productInterestedCard, productprogress, sliderProduct 
 import { BrandedProduct } from '../../Components/ShopTopBar';
 import { CommonService } from "../../Components/CommonService";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-
 //img
 import profileBg from "../../assets/images/profile-bg.jpg";
 import avatar5 from "../../assets/images/users/avatar-5.jpg";
@@ -24,21 +23,25 @@ import avatar8 from "../../assets/images/users/avatar-8.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 const Productdetails = () => {
-    const [sliderImg, setSliderImg] = useState(sliderProduct);
-    const [count, setCount] = useState(0);
-    const { code } = useParams();
-
     const [proDetail, setproDetail] = useState([])
+    const [sliderImg, setSliderImg] = useState([]);
+    const [count, setCount] = useState(0);
+    const { skuId } = useParams();
+    console.log(skuId);
+   
     useEffect(() => {
-        axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/ProductGetForBaseCode?Code=${code}`).then((res) => {
-            setproDetail(res)
+        axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/Manage/ProductGetForSkuId?SkuId=${skuId}`).then((res) => {
+            setproDetail(res.data.product)
+            console.log(res.data.product);
+            setSliderImg(res.data.product.productImages )
+            console.log(res.data.product.productImages);
         })
     }, [])
-    console.log(code);
+
 
     const handleSetImg = (id) => {
-        setSliderImg(sliderProduct.filter((selectImg) => selectImg.id === id));
-        console.log("sliderImg", sliderImg);
+        console.log(id);
+        setSliderImg(proDetail.productImages.filter((selectImg, index) => index === id));   
     }
 
     //tooltip
@@ -104,10 +107,11 @@ const Productdetails = () => {
                                         >
                                             {(proDetail.productImages || [])?.map((item, idx) => {
                                                 return (
-                                                    <div key={idx} className="swiper-slide swiper-slide-thumb-active swiper-slide-visible swiper-slide-next" role="group" aria-label={`${item.id} / 5 `} style={{ height: "105px", marginBottom: "10px" }}>
+                                                    <div key={idx} className="swiper-slide swiper-slide-thumb-active swiper-slide-visible swiper-slide-next" role="group" aria-label={`${idx} / ${proDetail.productImages.length} `} style={{ height: "105px", marginBottom: "10px" }}>
                                                         <div className="product-thumb rounded cursor-pointer">
-                                                            <Image src={item.image} alt="" fluid onClick={() => handleSetImg(item.id)} />
+                                                            <Image src={item?.image} alt="" fluid onClick={() => handleSetImg(idx)} />
                                                         </div>
+
                                                     </div>
                                                 )
                                             })}
@@ -135,10 +139,10 @@ const Productdetails = () => {
                                             className="swiper productSwiper2 swiper-backface-hidden"
                                         >
                                             {
-                                                (proDetail.productImages || [])?.map((item) => {
+                                                (sliderImg || [])?.map((item, idx) => {
                                                     return (
-                                                        <SwiperSlide key={item.id}>
-                                                            <div className="swiper-slide swiper-slide-duplicate" data-swiper-slide-index={item.id} role="group" aria-label={`${item.id} / ${proDetail.productImages.length}`} style={{ width: "458px", marginRight: "10px" }}>
+                                                        <SwiperSlide key={idx}>
+                                                            <div className="swiper-slide swiper-slide-duplicate" data-swiper-slide-index={idx} role="group" aria-label={`${idx} / ${proDetail.productImages.length}`} style={{ width: "458px", marginRight: "10px" }}>
                                                                 <Image src={item.image} alt="" fluid />
                                                             </div>
                                                         </SwiperSlide>
@@ -194,25 +198,37 @@ const Productdetails = () => {
                                         </div>
                                     </div>
                                     <h4 className="lh-base mb-1">
-                                        Opinion Striped Round Neck Green T-shirt
+                                        {proDetail.name}
                                     </h4>
                                     <p className="text-muted mb-4">
-                                        The best part about stripped t shirt denim &amp; white sneakers or
-                                        wear it with a cool chinos and blazer to dress up  <Link to={"#"} className="link-info">
+                                        {proDetail.description}  <Link to={"#"} className="link-info">
                                             Read More
                                         </Link>
                                     </p>
                                     <h5 className="fs-24 mb-4">
-                                        $185.79
+                                        {proDetail.salePrice}
                                         <span className="text-muted fs-14">
-                                            <del>$280.99</del>
+                                            <del>{proDetail.salePrice-(proDetail.salePrice*proDetail.discountPrice/100)}</del>
+
                                         </span>
-                                        <span className="fs-14 ms-2 text-danger"> (50% off)</span>
+                                        <span className="fs-14 ms-2 text-danger"> ( {proDetail.discountPrice}  off)</span>
                                     </h5>
                                     <ul className="list-unstyled vstack gap-2">
                                         <li>
-                                            <i className="bi bi-check2-circle me-2 align-middle text-success" />
-                                            In stock
+                                            {
+                                                proDetail.inStock ==false ?
+                                                <div>
+                                                     <i className="bi bi-check2-circle me-2 align-middle text-success" />
+                                                     In stock
+                                                </div>
+                                                : 
+                                                <div>
+                                                    <i class="bi bi-x-circle me-2 align-middle text-danger"></i>
+                                                    out of stock
+                                                </div>
+                                                
+                                            }
+                                           
                                         </li>
                                         <li>
                                             <i className="bi bi-check2-circle me-2 align-middle text-success" />

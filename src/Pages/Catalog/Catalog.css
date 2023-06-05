@@ -1,0 +1,19 @@
+.previous.disabled  , .next{
+    background-color: #ef476f;
+    padding: 7px 10px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.previous.disabled a , .next a{
+    color: white;
+
+}
+ul[role="navigation"] {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+}
