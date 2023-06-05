@@ -106,3 +106,37 @@ export const getMyAccount = async (userId) => {
     }
 }
 
+
+export const getProfile = async (userId) => {
+    try {
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}Account/Profile?id=${userId}`);
+
+        if(request.status !== 200) {
+            throw new Error('Sorğuda xəta baş verdi')
+        }else {
+           const response = request.data;
+           return response
+        }
+         
+    } catch (error) {
+       return error.message
+    }
+}
+
+
+export const getUsersWithTeam = async (referalId, day, month,year) => {
+     try {
+
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}Account/Manage/UsersWithTeam?referalId=${referalId}&day=${day}&month=${month}&year=${year}`);
+
+        if(request.status != 200) {
+            throw new Error('Sorğuda xəta baş verdi')
+        }else {
+            const response = request.data;
+            return response
+        }
+
+     }catch(error) {
+        return error.message
+     }
+}

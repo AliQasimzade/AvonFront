@@ -1,60 +1,54 @@
 import { Link } from "react-router-dom";
 import React, { useState, useMemo, useEffect } from "react";
 import { Form, Row, Col, Card, Button, Image } from 'react-bootstrap';
-import { filterProduct } from "../../Common/data";
-import Pagination from "../../Components/Pagination";
-
-const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight, filterList }) => {
+;
+import ReactPaginate from 'react-paginate';
+import axios from "axios";
+import { AiFillExclamationCircle } from "react-icons/ai"
+const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     //select
     const [select, setSelect] = useState("all");
     const pagination = true;
+    const [itemOffset, setItemOffset] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
     const [currentpages, setCurrentpages] = useState([]);
+    const [searchFilterProducts, setSearchFilterProducts] = useState([])
     const perPageData = 9;
-    const handleClick = (e) => {
-        setCurrentPage(Number(e.target.id));
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * perPageData) % currentpages.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
     };
-    const indexOfLast = currentPage * perPageData;
-    const indexOfFirst = indexOfLast - perPageData;
-    const currentdata = useMemo(() => filterList.slice(indexOfFirst, indexOfLast), [filterList, indexOfFirst, indexOfLast]);
+
 
     useEffect(() => {
-        setCurrentpages(currentdata)
-    }, [currentPage, filterList, currentdata])
+        axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/Manage/GetAll?isDelete=false`).then(res => {
+            setCurrentpages(res.data)
+            setSearchFilterProducts(res.data)
+        })
+    }, [])
     const pageNumbers = [];
 
-    for (let i = 1; i <= Math.ceil(filterList.length / perPageData); i++) {
-        pageNumbers.push(i);
-    }
-    const handleprevPage = () => {
-        let prevPage = currentPage - 1;
-        setCurrentPage(prevPage);
-    };
-    const handlenextPage = () => {
-        let nextPage = currentPage + 1;
-        setCurrentPage(nextPage);
-    };
+    const endOffset = itemOffset + perPageData;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    const currentItems = currentpages.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(currentpages.length / perPageData);
     useEffect(() => {
         if (pageNumbers.length && pageNumbers.length < currentPage) {
             setCurrentPage(pageNumbers.length)
         }
     }, [currentPage, pageNumbers.length]);
 
-    //change icon
-    const LikeIcone = (event) => {
-        if (event.closest("button").classList.contains("active")) {
-            event.closest("button").classList.remove("active")
-        } else {
-            event.closest("button").classList.add("active");
-        }
-    }
-
     //select value
     const selectValue = (value) => {
         setSelect(value);
-        setCurrentpages(
-            filterProduct?.filter((e) => e.category === select || select === 'all')
-        )
+        setSearchFilterProducts(setCurrentpages.filter(product => {
+            if (product.name.toLowerCase().includes(value.toLowerCase())) {
+                return product
+            }
+        }))
     }
 
     return (
@@ -82,211 +76,147 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight, filterList }) => {
                 </div>
                 <Row id="product-grid">
                     {select &&
-                        (currentpages && currentpages.length > 0 ?
-                            (currentpages || [])?.map((item) => {
-                                return (
-                                    !cxl ?
-                                        <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
-                                            <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
-                                                <div className="bg-light bg-opacity-50 rounded py-4 position-relative">
-                                                    <Image src={item.img} alt="" style={{ maxHeight: `${cheight || ''}`, maxWidth: "100%" }}
-                                                        className="mx-auto d-block rounded-2" />
-                                                    <div className="action vstack gap-2">
-                                                        <Button color="danger" className="avatar-xs p-0 btn-soft-warning custom-toggle product-action" data-bs-toggle="button" onClick={(e) => LikeIcone(e.target)} >
-                                                            <span className="icon-on"><i className="ri-heart-line"></i></span>
-                                                            <span className="icon-off"><i className="ri-heart-fill"></i></span>
-                                                        </Button>
-                                                    </div>
-                                                    {
-                                                        item?.presentag && <div className="avatar-xs label">
-                                                            <div className="avatar-title bg-danger rounded-circle fs-11">{item?.presentag}</div>
-                                                        </div>
-                                                    }
-                                                </div>
-                                                <div className="pt-4">
-                                                    <div>
-                                                        {
-                                                            item?.color ?
-                                                                <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                        (currentItems && currentItems.length > 0 ?
+                            (currentItems || [])?.map((item) => {
 
-                                                                    <li>
-                                                                        <Form.Control type="radio" name="sizes1" id="product-color-12" />
-                                                                        <Form.Label className={`avatar-xxs btn btn-${item?.color[0] || ''} p-0 d-flex align-items-center justify-content-center rounded-circle fs-${item.font || 0}`} htmlFor="product-color-12">{item.size ? item.size[0] : ''}</Form.Label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <Form.Control type="radio" name="sizes1" id="product-color-13" />
-                                                                        <Form.Label className={`avatar-xxs btn btn-${item?.color[1] || ''} p-0 d-flex align-items-center justify-content-center rounded-circle fs-${item.font || 0}`} htmlFor="product-color-13">{item.size ? item.size[1] : ''}</Form.Label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <Form.Control type="radio" name="sizes1" id="product-color-14" />
-                                                                        <Form.Label className={`avatar-xxs btn btn-${item?.color[2] || ''} p-0 d-flex align-items-center justify-content-center rounded-circle fs-${item.font || 0}`} htmlFor="product-color-14">{item.size ? item.size[2] : ''}</Form.Label>
-                                                                    </li>
-                                                                    <li> <Form.Control type="radio" name="sizes1" id="product-color-15" />
-                                                                        <Form.Label className={`avatar-xxs btn btn-${item?.color[3] || ''} p-0 d-flex align-items-center justify-content-center rounded-circle fs-${item.font || 0}`} htmlFor="product-color-15">{item.size ? item.size[3] : ''}</Form.Label>
-                                                                    </li>
+                                return (
+                                    !cxl &&
+
+                                    <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
+                                        <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
+                                            <div className="bg-light bg-opacity-50 rounded py-4 position-relative">
+                                                <Image src={item.image} alt="" style={{ maxHeight: `${cheight || ''}`, maxWidth: "100%" }}
+                                                    className="mx-auto d-block rounded-2" />
+                                                <div className="action vstack gap-2">
+                                                    <Button color="danger" className="avatar-xs p-0 btn-soft-warning custom-toggle product-action" data-bs-toggle="button"  >
+                                                        <span className="icon-on"><i className="ri-heart-line"></i></span>
+                                                        <span className="icon-off"><i className="ri-heart-fill"></i></span>
+                                                    </Button>
+                                                </div>
+                                                {
+                                                    item?.discountPrice && <div className="avatar-xs label">
+                                                        <div className="avatar-title bg-danger rounded-circle fs-11">{item?.discountPrice}%</div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div className="pt-4">
+                                                <div>
+                                                    {
+                                                        item.variant.type == "color" ?
+                                                            (item.variant.vFeatures.length > 0) ? (
+
+                                                                <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                                                                    {
+                                                                        item.variant.vFeatures.map((color) => (
+
+                                                                            <li key={color.id}>
+                                                                                <Form.Control type="radio" name="sizes1" id="product-color-12" />
+                                                                                <Form.Label className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `} htmlFor="product-color-12" style={{ backgroundColor: `${color.variable}` }}></Form.Label>
+                                                                            </li>
+
+
+                                                                        ))}
                                                                 </ul>
-                                                                :
+
+
+                                                            ) : (
                                                                 <div className="avatar-xxs mb-3">
                                                                     <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                                                        <i className={`${item?.icone}`}></i>
+                                                                        <AiFillExclamationCircle />
+
                                                                     </div>
                                                                 </div>
+                                                            ) : item.variant.type == "size" ?
+                                                                (item.variant.vFeatures.length > 0) ? (
+
+                                                                    <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                                                                        {
+                                                                            item.variant.vFeatures.map((color) => (
+
+                                                                                <li key={color.id}>
+                                                                                    <Form.Control type="radio" name="sizes1" id="product-color-12" />
+                                                                                    <Form.Label className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `} htmlFor="product-color-12" >{color.variable}</Form.Label>
+                                                                                </li>
+
+
+                                                                            ))}
+                                                                    </ul>
+
+
+                                                                ) : (
+                                                                    <div className="avatar-xxs mb-3">
+                                                                        <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                                                            <AiFillExclamationCircle />
+                                                                        </div>
+                                                                    </div>
+                                                                ) : item.variant.type == "size" ?
+                                                                    (item.variant.vFeatures.length > 0) ? (
+
+                                                                        <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                                                                            {
+                                                                                item.variant.vFeatures.map((color) => (
+
+                                                                                    <li key={color.id}>
+                                                                                        <Form.Control type="radio" name="sizes1" id="product-color-12" />
+                                                                                        <Form.Label className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `} htmlFor="product-color-12" >{color.variable}</Form.Label>
+                                                                                    </li>
+
+
+                                                                                ))}
+                                                                        </ul>
+
+
+                                                                    ) : (
+                                                                        <div className="avatar-xxs mb-3">
+                                                                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                                                                <AiFillExclamationCircle />
+
+                                                                            </div>
+                                                                        </div>
+                                                                    ) : <div className="avatar-xxs mb-3">
+                                                                        <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                                                            <AiFillExclamationCircle />
+                                                                        </div>
+                                                                    </div>
+
+                                                    }
+
+
+
+
+                                                    <Link to={`/product-details/${item.code}`}>
+                                                        <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">{item?.name}</h6>
+                                                    </Link>
+                                                    <div className="mt-2">
+                                                        {
+                                                            (item.comments.length>0) ? <span className="float-end">{item?.comments.map((retinhg) => retinhg.star).reduce((acc, item) => acc + item, 0) / item?.comments.length}:<p>retingi yoxdur</p>
+                                                                <i className="ri-star-half-fill text-warning align-bottom"></i>
+                                                            </span> :
+                                                                <span className="float-end">retingi yoxdur
+                                                                    <i className="ri-star-half-fill text-warning align-bottom"></i>
+                                                                </span>
                                                         }
 
+                                                        {
+                                                            (item?.discountPrice > 0) ? <>
+                                                                <h5 className="text-secondary mb-0">{item?.salePrice - (item?.salePrice / 100 * item?.discountPrice)}
+                                                                    <span className="text-muted fs-12"><del>{item?.salePrice}</del></span></h5>
+                                                            </>
+                                                                :
+                                                                <h5 className="text-secondary mb-0">{item?.salePrice}</h5>
+                                                        }
 
-
-                                                        <Link to="#">
-                                                            <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">{item?.title}</h6>
+                                                    </div>
+                                                    <div className="tn mt-3">
+                                                        <Link to="#" className="btn btn-primary btn-hover w-100 add-btn">
+                                                            <i className="mdi mdi-cart me-1"></i> Add To Cart
                                                         </Link>
-                                                        <div className="mt-2">
-                                                            <span className="float-end">{item?.ratting}
-                                                                <i className="ri-star-half-fill text-warning align-bottom"></i>
-                                                            </span>
-                                                            <h5 className="text-secondary mb-0">{item?.price}
-                                                                <span className="text-muted fs-12"><del>{item?.deleteproce}</del></span></h5>
-                                                        </div>
-                                                        <div className="tn mt-3">
-                                                            <Link to="#" className="btn btn-primary btn-hover w-100 add-btn">
-                                                                <i className="mdi mdi-cart me-1"></i> Add To Cart
-                                                            </Link>
-                                                        </div>
                                                     </div>
                                                 </div>
-                                            </Card>
-                                        </Col>
-                                        :
-                                        (
-                                            <Card className="ribbon-box">
-                                                <div className="ribbon ribbon-danger ribbon-shape">{item.dic}% OFF</div>
-                                                <Card.Body>
-                                                    <Row>
-                                                        <Col className="col-md-4">
-                                                            <div className="bg-light p-2 rounded-2 h-100">
-                                                                <Image
-                                                                    src={item.img}
-                                                                    alt=""
-                                                                    className="img-fluid"
-                                                                />
-                                                            </div>
-                                                        </Col>
-                                                        <Col className="col-md">
-                                                            <div>
-                                                                <div className="mb-2">
-                                                                    <span className="me-2"> {item.rating}</span>
-                                                                    <span>
-                                                                        <i className="ri-star-fill text-warning align-bottom" />
-                                                                    </span>
-                                                                </div>
-                                                                <Link to="#">
-                                                                    <h4 className="fs-16">{item.title}</h4>
-                                                                </Link>
-                                                                <p className="text-muted mb-3">
-                                                                    T-Shirt house best black boys T-Shirt fully cotton material &amp;
-                                                                    all size available hirt fully cotton material &amp; all size
-                                                                    available.
-                                                                </p>
-                                                                <div className="d-flex gap-1">
-                                                                    <h5 className="text-secondary mb-0">
-                                                                        ${item.price}
-                                                                        <span className="text-muted fs-13">
-                                                                            <del>${item.deletprice}</del>
-                                                                        </span>
-                                                                    </h5>
-                                                                    <span className={`badge badge-soft-${item.bg} align-middle ms-1`}>
-                                                                        {item.stock}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="mt-3">
-                                                                <div className="d-flex gap-4">
-                                                                    {
-                                                                        item?.color ?
-                                                                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-0 flex-wrap">
-                                                                                <li>
-                                                                                    <Form.Control type="radio" name="color1" id="product-color-12" />
-                                                                                    <Form.Label
-                                                                                        className={`avatar-xxs btn btn-${item.color[0]} p-0 d-flex align-items-center justify-content-center rounded-circle`}
-                                                                                        htmlFor="product-color-12"
-                                                                                    />
-                                                                                </li>
-                                                                                <li>
-                                                                                    <Form.Control type="radio" name="color1" id="product-color-13" />
-                                                                                    <Form.Label
-                                                                                        className={`avatar-xxs btn btn-${item.color[1]} p-0 d-flex align-items-center justify-content-center rounded-circle`}
-                                                                                        htmlFor="product-color-13"
-                                                                                    />
-                                                                                </li>
-                                                                                <li>
-                                                                                    <Form.Control type="radio" name="color1" id="product-color-14" />
-                                                                                    <Form.Label
-                                                                                        className={`avatar-xxs btn btn-${item.color[2]} p-0 d-flex align-items-center justify-content-center rounded-circle`}
-                                                                                        htmlFor="product-color-14"
-                                                                                    />
-                                                                                </li>
-                                                                            </ul>
-                                                                            :
-                                                                            item.size ?
-                                                                                <ul className="clothe-size list-unstyled hstack gap-2 mb-0 flex-wrap">
-                                                                                    <li>
+                                            </div>
+                                        </Card>
+                                    </Col>
 
-                                                                                        <Form.Control type="radio" name="sizes1" id="product-size-15" />
-                                                                                        <Form.Label
-                                                                                            className="avatar-xxs btn btn-soft-primary text-uppercase p-0 fs-12 d-flex align-items-center justify-content-center rounded-circle"
-                                                                                            htmlFor="product-size-15"
-                                                                                        >
-                                                                                            {item.size ? item.size[0] : ''}
-                                                                                        </Form.Label>
-                                                                                    </li>
-                                                                                    <li>
-
-                                                                                        <Form.Control type="radio" name="sizes1" id="product-size-16" />
-                                                                                        <Form.Label
-                                                                                            className="avatar-xxs btn btn-soft-primary text-uppercase p-0 fs-12 d-flex align-items-center justify-content-center rounded-circle"
-                                                                                            htmlFor="product-size-16"
-                                                                                        >
-                                                                                            {item.size ? item.size[1] : ''}
-                                                                                        </Form.Label>
-                                                                                    </li>
-                                                                                    <li>
-
-                                                                                        <Form.Control type="radio" name="sizes1" id="product-size-17" />
-                                                                                        <Form.Label
-                                                                                            className="avatar-xxs btn btn-soft-primary text-uppercase p-0 fs-12 d-flex align-items-center justify-content-center rounded-circle"
-                                                                                            htmlFor="product-size-17"
-                                                                                        >
-                                                                                            {item.size ? item.size[2] : ''}
-                                                                                        </Form.Label>
-                                                                                    </li>
-                                                                                </ul>
-                                                                                :
-
-                                                                                <div className="avatar-xxs mb-3">
-                                                                                    <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                                                                        <i className={`${item?.icone}`}></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                    }
-
-
-                                                                </div>
-                                                            </div>
-                                                            <div className="mt-3 hstack gap-2 justify-content-end">
-
-                                                                <Link to='/shop/shopingcard' className="btn btn-primary">
-
-                                                                    <i className="ri-shopping-cart-2-fill align-bottom me-1" /> Add To
-                                                                    Cart
-                                                                </Link>
-                                                                <Link to="#" className="btn btn-soft-secondary">
-
-                                                                    <i className="ri-eye-fill align-bottom" />
-                                                                </Link>
-                                                            </div>
-                                                        </Col>
-                                                    </Row>
-                                                </Card.Body>
-                                            </Card>
-                                        )
                                 )
                             })
 
@@ -310,14 +240,14 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight, filterList }) => {
                     }
                 </Row >
 
-                <Pagination
-                    pagination={pagination}
-                    pageNumbers={pageNumbers}
-                    currentpages={currentpages}
-                    currentPage={currentPage}
-                    handleprevPage={handleprevPage}
-                    handleClick={handleClick}
-                    handlenextPage={handlenextPage}
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
                 />
             </div >
         </ >

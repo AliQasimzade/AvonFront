@@ -11,6 +11,7 @@ const RightSidebar = () => {
     const handleSelect = (event) => {
         setSelect(product?.filter((sort) => sort.sortBy === event.value || sort === "all"))
     }
+    useState
     return (
         <>
             <ProductGrid title="Product Grid Right Sidebar" />

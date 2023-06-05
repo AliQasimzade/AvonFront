@@ -9,12 +9,13 @@ import axios from "axios";
 import avonLogo from "../../assets/images/avonLogo.png"
 import { useDispatch } from "react-redux";
 import { changeAccont } from "../../slices/layouts/accont";
+import { changeToken, changeUserId } from "../../slices/layouts/user";
 const Signin = () => {
     const passwordtype = 'password';
     const [password, setPassword] = useState('');
     const [userid, setUserid] = useState("")
     const [token, setToken] = useState("")
-    const navigato = useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const formik = useFormik({
@@ -39,10 +40,11 @@ const Signin = () => {
                 const tok = parse[1].split(':')[1];
                 setUserid(userId)
                 setToken(tok)
-                console.log(userid);
-                axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Account/Profile?id=${userId}`)
+                dispatch(changeUserId(userId))
+                dispatch(changeToken(tok))
+                axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Account/MyAccount?id=${userId}`)
                 .then((res) => dispatch(changeAccont({...res.data})))
-                navigato("/home")
+                navigate("/home")
             })
             
         },

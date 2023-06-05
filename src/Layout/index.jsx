@@ -14,7 +14,7 @@ const Layout = (props) => {
     footerModeType: state.persistedReducer.Layout.footerModeType,
     layoutThemeMode: state.persistedReducer.Layout.layoutThemeMode
 }));
-  console.log(footerModeType,layoutThemeMode);
+  // console.log(footerModeType,layoutThemeMode);
  
 
 
