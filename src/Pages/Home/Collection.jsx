@@ -2,12 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
-//img
-// import img1 from "../../assets/images/ecommerce/home/img-1.png";
-// import img2 from "../../assets/images/ecommerce/home/img-2.png";
-// import img3 from "../../assets/images/ecommerce/home/img-6.jpg";
-
 const Collection = () => {
 
     const [slider, setSlider] = useState([]);

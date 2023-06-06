@@ -5,6 +5,7 @@ import "./Catalog.css"
 import ReactPaginate from 'react-paginate';
 import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai"
+import { useSelector } from "react-redux";
 const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     //select
     const [select, setSelect] = useState("all");
@@ -25,7 +26,8 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
     useEffect(() => {
         axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/Manage/GetAll?isDelete=false`).then(res => {
-            setCurrentpages(res.data)
+            setCurrentpages(res.data || []);
+
             setSearchFilterProducts(res.data)
             console.log(res.data[0].productImages);
         })
@@ -33,9 +35,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     const pageNumbers = [];
 
     const endOffset = itemOffset + perPageData;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = currentpages.slice(itemOffset, endOffset);
-    console.log(currentItems);
     const pageCount = Math.ceil(currentpages.length / perPageData);
     useEffect(() => {
         if (pageNumbers.length && pageNumbers.length < currentPage) {
@@ -52,6 +52,34 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
             }
         }))
     }
+
+    const user = useSelector((state) => state.persistedReducer.User);
+    const [cartItems, setCartItems] = useState([]);
+
+    const addToCart = (product) => {
+        console.log(product);
+        if (user && user.userId) {
+            setCartItems((prevCartItems) => [...prevCartItems, product]);
+            addToCartAPI(product.productId, user.userId);
+        } else {
+            console.error("User or userId is undefined.");
+        }
+    };
+
+    const addToCartAPI = async (productId, userId) => {
+        try {
+            const url = `http://avontest0910-001-site1.dtempurl.com/api/Baskets/AddBasket?productId=${productId}&appUserId=${userId}`;
+            await axios.post(url);
+            console.log("Sebete elave olundu");
+        } catch (error) {
+            console.error("Sebete elave olmadi, be niye? ", error);
+        }
+    };
+
+
+
+
+
 
     return (
         <>
@@ -80,11 +108,11 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                     {select &&
                         (currentItems && currentItems.length > 0 ?
                             (currentItems || [])?.map((item) => {
-
+                                console.log(item);
                                 return (
                                     !cxl &&
 
-                                    <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
+                                    <Col key={item.skuId} xxl={cxxl} lg={clg} md={cmd}>
                                         <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
                                             <div className="bg-light bg-opacity-50 rounded py-4 position-relative">
                                                 <Image src={item.productImages[0]?.image} alt="" style={{ maxHeight: `${cheight || ''}`, maxWidth: "100%" }}
@@ -191,7 +219,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                                     </Link>
                                                     <div className="mt-2">
                                                         {
-                                                            (item.comments.length>0) ? <span className="float-end">{item?.comments.map((retinhg) => retinhg.star).reduce((acc, item) => acc + item, 0) / item?.comments.length}:<p>retingi yoxdur</p>
+                                                            (item.comments.length > 0) ? <span className="float-end">{item?.comments.map((retinhg) => retinhg.star).reduce((acc, item) => acc + item, 0) / item?.comments.length}:<p>retingi yoxdur</p>
                                                                 <i className="ri-star-half-fill text-warning align-bottom"></i>
                                                             </span> :
                                                                 <span className="float-end">retingi yoxdur
@@ -210,9 +238,12 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
                                                     </div>
                                                     <div className="tn mt-3">
-                                                        <Link to="#" className="btn btn-primary btn-hover w-100 add-btn">
+                                                        <button
+                                                            className="btn btn-primary btn-hover w-100 add-btn"
+                                                            onClick={() => addToCart(item)}
+                                                        >
                                                             <i className="mdi mdi-cart me-1"></i> Add To Cart
-                                                        </Link>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

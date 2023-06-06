@@ -4,10 +4,8 @@ import { Container, Dropdown, Button, Row, Col, Card, Image, Navbar, Nav, NavDro
 import axios from 'axios';
 //img
 import AvonLogo from "../assets/images/avonLogo.png";
-// import avtar1 from "../assets/images/users/avatar-1.jpg";
 import "./header.css"
 import img1 from "../assets/images/ecommerce/img-1.jpg";
-import Eimg2 from "../assets/images/ecommerce/img-2.jpg";
 import { CardModal, SearchModal } from "../Components/MainModal";
 import { withTranslation } from "react-i18next";
 import withRouter from "../Components/withRouter";
@@ -15,48 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoLogIn } from "react-icons/io5"
 import { logoutUser } from "../slices/layouts/accont";
 import { logoutToken, logoutUserId } from "../slices/layouts/user";
+import { getAllBrands, getAllCategories } from "../services/getRequests";
 const Header = (props) => {
     const userData = useSelector(state => state.persistedReducer.Accont.user[0]);
-
-    const dispatch = useDispatch()
-    const logOut = () => {
-        dispatch(logoutUser())
-        dispatch(logoutToken())
-        dispatch(logoutUserId())
-    }
     // kateqoriyalar
     const [categories, setCategories] = useState([])
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Categories/Manage/GetAll?isDeleted=false');
-            setCategories(response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-    // kateqoriyalar bitdi
-
     const [brendler, setBrendler] = useState([]);
-    useEffect(() => {
-        fetchDataBrendler();
-    }, [])
-    const fetchDataBrendler = async () => {
-        try {
-            const res = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Brands/Manage/GetAll?isDeleted=false');
-            setBrendler(res.data)
-        } catch (err) {
-            console.error('error', err)
-        }
-    }
-    // brendler bitdi
-
-
-
     //search modal
     const [show, setShow] = useState(false);
 
@@ -68,6 +30,41 @@ const Header = (props) => {
 
     const handlecardClose = () => setCard(false);
     const handlecardShow = () => setCard(true);
+
+
+
+    const dispatch = useDispatch()
+    const logOut = () => {
+        dispatch(logoutUser())
+        dispatch(logoutToken())
+        dispatch(logoutUserId())
+    }
+
+    useEffect(() => {
+        fetchCategories();
+        fetchDataBrendler();
+    }, []);
+
+    const fetchCategories = async () => {
+        try {
+            const response = await getAllCategories();
+            setCategories(response);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const fetchDataBrendler = async () => {
+        try {
+            const res = await getAllBrands();
+            setBrendler(res)
+        } catch (err) {
+            console.error('error', err)
+        }
+    }
+
+
+
 
     useEffect(() => {
         const pathname = props.router.location.pathname;
@@ -150,48 +147,49 @@ const Header = (props) => {
 
                             {/* hamburvger catalog menu */}
                             <li className="nav-item dropdown_responsive">
-                            <NavDropdown
-                                data-key="t-catalog"
-                                id="nav-dropdown-dark-example"
-                                title={props.t('catalog')}
-                                
-                            >
-                                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">
-                                    {categories.map((category, index) => (
-                                        <Col lg={2} key={index}>
-                                            <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                <li>
-                                                    <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key={`t-${category.name}`}>
-                                                        {category.name}
-                                                    </p>
-                                                </li>
-                                                {category.subCategories.map((subcategory, subIndex) => (
-                                                    <li className="nav-item" key={subIndex}>
-                                                        <Link to={`/catalog/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
-                                                            {props.t(subcategory.name)}
-                                                        </Link>
+                                <NavDropdown
+                                    data-key="t-catalog"
+                                    id="nav-dropdown-dark-example"
+                                    title={props.t('catalog')}
+
+                                >
+                                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                                    <NavDropdown.Item href="#action/3.2">
+                                        {categories.map((category, index) => (
+                                            <Col lg={2} key={index}>
+                                                <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                                                    <li>
+                                                        <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key={`t-${category.name}`}>
+                                                            {category.name}
+                                                        </p>
                                                     </li>
+                                                    {category.subCategories.map((subcategory, subIndex) => (
+                                                        <li className="nav-item" key={subIndex}>
+                                                            <Link to={`/catalog/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
+                                                                {props.t(subcategory.name)}
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </Col>
+                                        ))}
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item href="#action/3.3">
+                                        <div className="p-3">
+                                            <p className="mb-3 text-uppercase fs-11 fw-medium text-muted" data-key="t-top-brands">{props.t("top-brands")}</p>
+                                            <Row className="g-2">
+                                                {brendler.map((brend) => (
+                                                    <Col key={brend.id} lg={4}>
+                                                        <Link title={brend.name} to={`/${brend}`} className="d-block p-2 border border-dashed text-center rounded-3">
+                                                            <Image src={brend.image} alt={brend.name} className="avatar-sm" />
+                                                        </Link>
+                                                    </Col>
                                                 ))}
-                                            </ul>
-                                        </Col>
-                                    ))}</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.3">
-                                    <div className="p-3">
-                                        <p className="mb-3 text-uppercase fs-11 fw-medium text-muted" data-key="t-top-brands">{props.t("top-brands")}</p>
-                                        <Row className="g-2">
-                                            {brendler.map((brend) => (
-                                                <Col key={brend.id} lg={4}>
-                                                    <Link title={brend.name} to={`/${brend}`} className="d-block p-2 border border-dashed text-center rounded-3">
-                                                        <Image src={brend.image} alt={brend.name} className="avatar-sm" />
-                                                    </Link>
-                                                </Col>
-                                            ))}
-                                        </Row>
-                                    </div>
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                                            </Row>
+                                        </div>
+                                    </NavDropdown.Item>
+                                </NavDropdown>
                             </li>
 
                             <li className="nav-item dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
@@ -300,12 +298,12 @@ const Header = (props) => {
                                         <Dropdown.Item href='/shop/order'><i className="bi bi-truck text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Track Orders</span></Dropdown.Item>
                                         <Dropdown.Item href="#/action-3"><i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Dashboard</span></Dropdown.Item>
                                         <Dropdown.Item href='/ecommerce-faq'><i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Help</span></Dropdown.Item>
-                                        <Dropdown.Item href='/account'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balance : <b>$8451.36</b></span></Dropdown.Item>
+                                        <Dropdown.Item href='/account'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balance : <b>₼8451.36</b></span></Dropdown.Item>
                                         <Dropdown.Item href='/account'><span className="badge bg-success-subtle text-success mt-1 float-end">New</span><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></Dropdown.Item>
                                         <Dropdown.Item href='/home' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown> : <Link to={"/auth-signin-basic"}>< IoLogIn style={{ fontSize: "23px", color: "black" }} />
-                                <span className="ms-2 text-black">Giris et</span>
+                                    <span className="ms-2 text-black">Giris et</span>
                                 </Link>
                             }
 

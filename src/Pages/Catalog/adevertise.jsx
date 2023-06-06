@@ -20,7 +20,7 @@ const Adevertise = () => {
                                 <Image src={img16} alt="" className="img-fluid d-block mx-auto" />
                             </div>
                             <div className="mt-4 text-center">
-                                <h4 className="text-dark mb-3">$63.00 <span className="text-muted fs-12"><del>$123.99</del></span></h4>
+                                <h4 className="text-dark mb-3">₼63.00 <span className="text-muted fs-12"><del>₼123.99</del></span></h4>
                                 <Link to="#" className="stretched-link"><h5 className="mb-4">Ninja Pro Max Smartwatch</h5></Link>
                             </div>
                             <ProgressBar variant="primary" now={60} className=' progress animated-progress custom-progress' />

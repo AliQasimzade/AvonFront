@@ -108,9 +108,9 @@ const ListProductData = ({ listnoslider }) => {
                                                         <div className="d-flex gap-1">
 
                                                             <h5 className="text-secondary mb-0">
-                                                                $266.24
+                                                                ₼266.24
                                                                 <span className="text-muted fs-13">
-                                                                    <del>$354.99</del>
+                                                                    <del>₼354.99</del>
                                                                 </span>
                                                             </h5>
                                                             <span className="badge badge-soft-danger align-middle ms-1">

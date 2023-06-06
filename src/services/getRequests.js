@@ -1,5 +1,50 @@
 import axios from "axios";
 
+
+export const getAllCategories = async () => {
+    try {
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}Categories/Manage/GetAll?isDeleted=false`)
+        if (request.status !== 200) {
+            throw new Error('Sorğuda xəta baş verdi')
+        } else {
+            const response = request.data;
+            return response
+        }
+    } catch (error) {
+        return error.message
+    }
+}
+
+export const getAllSubCategories = async () => {
+    try {
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}SubCatigories/Manage/GetAll?isDeleted=false`)
+        if (request.status !== 200) {
+            throw new Error('Sorğuda xəta baş verdi')
+        } else {
+            const response = request.data;
+            return response
+        }
+    } catch (error) {
+        return error.message
+    }
+}
+
+
+export const getAllBrands = async () => {
+    try {
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}Brands/Manage/GetAll?isDeleted=false`)
+        if (request.status !== 200) {
+            throw new Error('Sorğuda xəta baş verdi')
+        } else {
+            const response = request.data;
+            return response
+        }
+    } catch (error) {
+        return error.message
+    }
+}
+
+
 export const getAllOfferWeeks = async () => {
     try {
         const request = await axios.get(`${process.env.REACT_APP_BASE_URL}OfferOfWeeks/Manage/GetAll?isDeleted=false`)

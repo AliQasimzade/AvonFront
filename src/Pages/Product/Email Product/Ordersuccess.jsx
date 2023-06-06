@@ -62,7 +62,7 @@ const Ordersuccess = () => {
                                     <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 400, fontFamily: "'Inter', sans-serif" }}>Qty 5</h6>
                                 </td>
                                 <td style={{ padding: "12px 5px", verticalAlign: "top", textAlign: "end" }}>
-                                    <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$599.99</h6>
+                                    <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>₼599.99</h6>
                                 </td>
                             </tr>
                                 <tr>
@@ -80,7 +80,7 @@ const Ordersuccess = () => {
                                         <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 400, fontFamily: "'Inter', sans-serif" }}>Qty 1</h6>
                                     </td>
                                     <td style={{ padding: "12px 5px", verticalAlign: "top", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$62.40</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>₼62.40</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -98,7 +98,7 @@ const Ordersuccess = () => {
                                         <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 400, fontFamily: "'Inter', sans-serif" }}>Qty 3</h6>
                                     </td>
                                     <td style={{ padding: "12px 5px", verticalAlign: "top", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$43.00</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>₼43.00</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -106,7 +106,7 @@ const Ordersuccess = () => {
                                         Subtotal
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end", borderTop: "1px solid #e9ebec" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$334.97</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>₼334.97</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -114,7 +114,7 @@ const Ordersuccess = () => {
                                         Shipping Charge
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$9.50</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>₼9.50</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -122,7 +122,7 @@ const Ordersuccess = () => {
                                         Taxs (18.00%)
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$15.26</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>₼15.26</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -130,7 +130,7 @@ const Ordersuccess = () => {
                                         Discount (RGAgency50)
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$50.00</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>₼50.00</h6>
 
                                     </td></tr>
                                 <tr>
@@ -138,7 +138,7 @@ const Ordersuccess = () => {
                                         Total Amount
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end", borderTop: "1px solid #e9ebec" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>$338.95</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>₼338.95</h6>
                                     </td>
                                 </tr>
                             </tbody></Table>
@@ -207,7 +207,7 @@ const Ordersuccess = () => {
                                     <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 400, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>Qty 5</h6>
                                 </td>
                                 <td style={{ padding: "12px 5px", verticalAlign: "top", textAlign: "end" }}>
-                                    <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$599.99</h6>
+                                    <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>₼599.99</h6>
                                 </td>
                             </tr>
                                 <tr>
@@ -225,7 +225,7 @@ const Ordersuccess = () => {
                                         <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 400, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>Qty 1</h6>
                                     </td>
                                     <td style={{ padding: "12px 5px", verticalAlign: "top", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$62.40</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>₼62.40</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -243,7 +243,7 @@ const Ordersuccess = () => {
                                         <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 400, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>Qty 3</h6>
                                     </td>
                                     <td style={{ padding: "12px 5px", verticalAlign: "top", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$43.00</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>₼43.00</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -251,7 +251,7 @@ const Ordersuccess = () => {
                                         Subtotal
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end", borderTop: "1px solid #ffffff14" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$334.97</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>₼334.97</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -259,7 +259,7 @@ const Ordersuccess = () => {
                                         Shipping Charge
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$9.50</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>₼9.50</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -267,7 +267,7 @@ const Ordersuccess = () => {
                                         Taxs (18.00%)
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$15.26</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>₼15.26</h6>
                                     </td>
                                 </tr>
                                 <tr>
@@ -275,7 +275,7 @@ const Ordersuccess = () => {
                                         Discount (RGAgency50)
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$50.00</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>₼50.00</h6>
 
                                     </td></tr>
                                 <tr>
@@ -283,7 +283,7 @@ const Ordersuccess = () => {
                                         Total Amount
                                     </td>
                                     <td style={{ padding: "12px 8px", fontSize: "15px", textAlign: "end", borderTop: "1px solid #ffffff14" }}>
-                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>$338.95</h6>
+                                        <h6 style={{ fontSize: "15px", margin: "0px", fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#fafafa" }}>₼338.95</h6>
                                     </td>
                                 </tr>
                             </tbody></Table>

@@ -27,7 +27,9 @@ const Shoping = (props) => {
             console.error("Error:", error);
         }
     };
-
+    const desc = (data) => {
+        return { __html: data }
+    }
     return (
         <>
             <section className="section bg-light bg-opacity-50">
@@ -54,8 +56,8 @@ const Shoping = (props) => {
                                                 </div>
                                                 <div className="mt-3">
                                                     <Link to="#"><h5 className="fs-17 lh-base">{item.name}</h5></Link>
-                                                    <p className="text-muted fs-15 mt-2">{item.content}</p>
-                                                    <Link to="#" className="link-effect link-info">Continue Reading <i className="bi bi-arrow-right ms-2"></i></Link>
+                                                    <div className="text-muted fs-15 mt-2" dangerouslySetInnerHTML={desc(item.content)}></div>
+                                                    <Link to="#" className="link-effect link-info">Oxumağa davam edin <i className="bi bi-arrow-right ms-2"></i></Link>
                                                 </div>
                                             </Card.Body>
                                         </Card>

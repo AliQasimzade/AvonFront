@@ -31,7 +31,7 @@ const recentlyOrder = [
         img: Product12,
         color: ["secondary", "dark", "danger", "light"],
         title: 'Carven Lounge Chair Red',
-        price: '$209.99',
+        price: '₼209.99',
         ratting: '4.1',
     },
     {
@@ -39,7 +39,7 @@ const recentlyOrder = [
         img: Product7,
         icone: "ri-error-warning-line",
         title: 'Innovative education book',
-        price: '$96.26',
+        price: '₼96.26',
         ratting: '4.7',
     },
     {
@@ -48,8 +48,8 @@ const recentlyOrder = [
         presentag: '20%',
         color: ["secondary", "info"],
         title: 'Ninja Pro Max Smartwatch',
-        price: '$247.27',
-        deleteproce: '$309.09',
+        price: '₼247.27',
+        deleteproce: '₼309.09',
         ratting: '3.5',
     },
     {
@@ -57,7 +57,7 @@ const recentlyOrder = [
         img: Product2,
         color: ["success"],
         title: 'Opinion Striped Round Neck Green T-shirt',
-        price: '$126.99',
+        price: '₼126.99',
         ratting: '4.1',
     }
 ]

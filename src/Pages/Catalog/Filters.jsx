@@ -4,11 +4,13 @@ import Nouislider from "nouislider-react";
 import { Collapse, Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { filterProduct } from "../../Common/data";
+import { getAllSubCategories } from "../../services/getRequests";
 
 const Filters = ({ name, setFilterlist }) => {
     let newList = [];
     const [mincost, setMincost] = useState(0);
     const [maxcost, setMaxcost] = useState(2000);
+    const [categories, setCategories] = useState([])
     //Collapse
     //colors
     const [open, setOpen] = useState(false);
@@ -69,10 +71,24 @@ const Filters = ({ name, setFilterlist }) => {
         setMincost(value[0]);
         setMaxcost(value[1]);
     }
+    useEffect(() => {
+        fetchCat();
 
+    }, [])
     useEffect(() => {
         onUpDate([mincost, maxcost]);
     }, [mincost, maxcost]);
+
+
+    const fetchCat = async () => {
+        try {
+            const data = await getAllSubCategories();
+            setCategories(data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <>
@@ -81,99 +97,47 @@ const Filters = ({ name, setFilterlist }) => {
                     <Card.Header>
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
-                                <h5 className="fs-16">Filters</h5>
+                                <h5 className="fs-16">Filterlə</h5>
                             </div>
                             <div className="flex-shrink-0">
-                                <Link to="#" className="text-decoration-underline" id="clearall">Clear All</Link>
+                                <Link to="#" className="text-decoration-underline" id="clearall">Təmizlə</Link>
                             </div>
                         </div>
                         <div className="search-box">
-                            <Form.Control className="" id="searchProductList" autoComplete="off" placeholder="Search Products..." />
+                            <Form.Control className="" id="searchProductList" autoComplete="off" placeholder="Məhsul axtar..." />
                             <i className="ri-search-line search-icon"></i>
                         </div>
                     </Card.Header>
                     <div className="accordion accordion-flush filter-accordion">
                         <Card.Body className="border-bottom">
                             <div>
-                                <p className="text-muted text-uppercase fs-12 fw-medium mb-3">Products</p>
+                                <p className="text-muted text-uppercase fs-12 fw-medium mb-3">Kateqoriyalar</p>
                                 <ul className="list-unstyled mb-0 filter-list">
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Grocery")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Grocery</h5>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Fashion")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Fashion</h5>
-                                            </div>
-                                            <div className="flex-shrink-0 ms-2">
-                                                <span className="badge bg-light text-muted">5</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Watches")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Watches</h5>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Electronics")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Electronics</h5>
-                                            </div>
-                                            <div className="flex-shrink-0 ms-2">
-                                                <span className="badge bg-light text-muted">5</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Furniture")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Furniture</h5>
-                                            </div>
-                                            <div className="flex-shrink-0 ms-2">
-                                                <span className="badge bg-light text-muted">6</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Automotive")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Automotive Accessories</h5>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Appliances")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Appliances</h5>
-                                            </div>
-                                            <div className="flex-shrink-0 ms-2">
-                                                <span className="badge bg-light text-muted">7</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Kids")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Kids</h5>
-                                            </div>
-                                        </Link>
-                                    </li>
+                                    {
+                                        categories.map((cat) => {
+                                            console.log(cat);
+                                            return (
+                                                <li key={cat.id}>
+                                                    <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct(`${cat.name}`)}>
+                                                        <div className="flex-grow-1">
+                                                            <h5 className="fs-13 mb-0 listname">{cat.name}</h5>
+                                                        </div>
+                                                        <div className="flex-shrink-0 ms-2">
+                                                            <span className="badge bg-light text-muted">{cat.productSubCategories.length}</span>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                            )
+                                        })
+                                    }
                                 </ul>
                             </div>
                         </Card.Body>
 
                         <Card.Body className="border-bottom">
-                            <p className="text-muted text-uppercase fs-12 fw-medium mb-4">Price</p>
+                            <p className="text-muted text-uppercase fs-12 fw-medium mb-4">Qiymət</p>
                             <Nouislider
-                                range={{ min: 0, max: 2000 }}
+                                range={{ min: 0, max: 10000 }}
                                 start={[mincost, maxcost]}
                                 connect
                                 onSlide={onUpDate}
@@ -181,9 +145,9 @@ const Filters = ({ name, setFilterlist }) => {
                                 id="product-price-range"
                             />
                             <div className="formCost d-flex gap-2 align-items-center mt-3">
-                                <Form.Control className="form-control-sm" id="MinCost" value={`$ ${mincost}`} onChange={(e) => setMincost(e.target.value)} />
+                                <Form.Control className="form-control-sm" id="MinCost" value={`₼ ${mincost}`} onChange={(e) => setMincost(e.target.value)} />
                                 <span className="fw-semibold text-muted">to</span>
-                                <Form.Control className=" form-control-sm" type="text" id="maxCost" value={`$ ${maxcost}`} onChange={(e) => setMaxcost(e.target.value)} />
+                                <Form.Control className=" form-control-sm" type="text" id="maxCost" value={`₼ ${maxcost}`} onChange={(e) => setMaxcost(e.target.value)} />
                             </div>
 
                         </Card.Body>

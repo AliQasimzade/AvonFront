@@ -12,7 +12,7 @@ const Catalog = () => {
             <Clothing />
             <Deals />
             <EmailClothe />
-           < CommonService />
+            <CommonService />
         </>
     );
 }

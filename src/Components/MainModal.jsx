@@ -159,9 +159,9 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                                             <span className="fw-medium">World's most expensive t shirt</span>
                                                             <p className="text-muted mb-0">Graphic Print Men &amp; Women Sweatshirt</p>
                                                         </td>
-                                                        <td>$266.24</td>
+                                                        <td>₼266.24</td>
                                                         <td>03</td>
-                                                        <td className="text-end">$798.72</td>
+                                                        <td className="text-end">₼798.72</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">02</th>
@@ -169,9 +169,9 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                                             <span className="fw-medium">Ninja Pro Max Smartwatch</span>
                                                             <p className="text-muted mb-0">large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor</p>
                                                         </td>
-                                                        <td>$247.27</td>
+                                                        <td>₼247.27</td>
                                                         <td>01</td>
-                                                        <td className="text-end">$247.27</td>
+                                                        <td className="text-end">₼247.27</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">03</th>
@@ -179,9 +179,9 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                                             <span className="fw-medium">Girls Mint Green &amp; Off-White Open Toe Flats</span>
                                                             <p className="text-muted mb-0">Fabric:Synthetic · Colour:Green · Shoe Type:Sandals</p>
                                                         </td>
-                                                        <td>$24.07</td>
+                                                        <td>₼24.07</td>
                                                         <td>05</td>
-                                                        <td className="text-end">$120.35</td>
+                                                        <td className="text-end">₼120.35</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">04</th>
@@ -189,9 +189,9 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                                             <span className="fw-medium">Carven Lounge Chair Red</span>
                                                             <p className="text-muted mb-0">Carven Fabric Lounge Chair in Red Color</p>
                                                         </td>
-                                                        <td>$209.99</td>
+                                                        <td>₼209.99</td>
                                                         <td>01</td>
-                                                        <td className="text-end">$209.99</td>
+                                                        <td className="text-end">₼209.99</td>
                                                     </tr>
                                                 </tbody>
                                             </Table>
@@ -201,23 +201,23 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                                 <tbody>
                                                     <tr>
                                                         <td>Sub Total</td>
-                                                        <td className="text-end">$1376.33</td>
+                                                        <td className="text-end">₼1376.33</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Estimated Tax (12.5%)</td>
-                                                        <td className="text-end">$172.04</td>
+                                                        <td className="text-end">₼172.04</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Discount <small className="text-muted">(TONER50)</small></td>
-                                                        <td className="text-end">- $206.45</td>
+                                                        <td className="text-end">- ₼206.45</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Shipping Charge</td>
-                                                        <td className="text-end">$65.00</td>
+                                                        <td className="text-end">₼65.00</td>
                                                     </tr>
                                                     <tr className="border-top border-top-dashed fs-15">
                                                         <th scope="row">Total Amount</th>
-                                                        <th className="text-end">$1406.92</th>
+                                                        <th className="text-end">₼1406.92</th>
                                                     </tr>
                                                 </tbody>
                                             </Table>
