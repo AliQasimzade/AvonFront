@@ -45,6 +45,7 @@ import axios from "axios";
 const Productdetails = () => {
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
+  const [features, setFeatures] = useState([])
   const [count, setCount] = useState(0);
   const { skuId } = useParams();
   console.log(skuId);
@@ -56,7 +57,13 @@ const Productdetails = () => {
       )
       .then((res) => {
         setproDetail(res.data.product);
-        console.log(res.data.product);
+        // console.log(res.data.product);
+       axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/ProductGetForBaseCode?Code=${res.data.code}`)
+       .then(res => {
+        console.log(res.data);
+        setFeatures(res.data)
+       })
+
         setSliderImg(res.data.product.productImages);
       });
   }, []);
@@ -310,34 +317,20 @@ const Productdetails = () => {
                         :
                       </h6>
                       <ul className="clothe-size list-unstyled hstack gap-2 mb-0 flex-wrap">
-                        {proDetail?.variant?.type == "color"
-                          ? proDetail?.variant?.vFeatures.map((vf) => (
-                              <li>
-                                <Form.Control
-                                  type="radio"
-                                  name="sizes"
-                                  id="product-color-2"
-                                />
-                                <Form.Label
-                                  style={{ backgroundColor: vf.variable }}
-                                  className="avatar-xs btn  p-0 d-flex align-items-center justify-content-center rounded-circle"
-                                  htmlFor="product-color-2"
-                                />
-                              </li>
-                            ))
-                          : proDetail?.variant?.vFeatures.map((vd) => (
-                              <li>
-                                <Form.Control
-                                  type="radio"
-                                  name="sizes"
-                                  id="product-color-3"
-                                />
-                                <Form.Label
-                                  className="avatar-xs btn btn-light p-0 d-flex align-items-center justify-content-center rounded-circle"
-                                  htmlFor="product-color-3"
-                                />
-                              </li>
-                            ))}
+                      {features.length > 0 ? features.map((feature, index) => (
+                          <li key={index}>
+                          <Form.Control
+                            type="radio"
+                            name="sizes"
+                            id="product-color-2"
+                          />
+                          <Form.Label
+                            style={{ backgroundColor: feature.colorCode }}
+                            className="avatar-xs btn  p-0 d-flex align-items-center justify-content-center rounded-circle"
+                            htmlFor="product-color-2"
+                          />
+                        </li>
+                      ) ) : <h1>Cesidi yoxdur</h1>}
                       </ul>
                     </div>
                   </Col>
