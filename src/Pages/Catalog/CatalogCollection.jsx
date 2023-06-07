@@ -53,7 +53,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
         }))
     }
 
-    const user = useSelector((state) => state.persistedReducer.User);
+    const user = useSelector((state) => state.persistedReducer.User.userId);
     const [cartItems, setCartItems] = useState([]);
 
     const addToCart = (product) => {
@@ -96,9 +96,9 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 <Form.Select className="form-select w-md" id="sort-elem"
                                     onChange={(e) => selectValue(e.target.value)}
                                 >
-                                    <option value="all">All</option>
-                                    <option value="lowtohigh">Low to High</option>
-                                    <option value="hightolow">High to Low</option>
+                                    <option value="all">Hamısı</option>
+                                    <option value="lowtohigh">Ucuzdan bahaya</option>
+                                    <option value="hightolow">Bahadan ucuza</option>
                                 </Form.Select>
                             </div>
                         </div>
@@ -111,7 +111,6 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 console.log(item);
                                 return (
                                     !cxl &&
-
                                     <Col key={item.skuId} xxl={cxxl} lg={clg} md={cmd}>
                                         <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
                                             <div className="bg-light bg-opacity-50 rounded py-4 position-relative">
@@ -134,26 +133,19 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                                     {
                                                         item.variant.type == "color" ?
                                                             (item.variant.vFeatures.length > 0) ? (
-
                                                                 <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                                                                     {
                                                                         item.variant.vFeatures.map((color) => (
-
                                                                             <li key={color.id}>
                                                                                 <Form.Control type="radio" name="sizes1" id="product-color-12" />
                                                                                 <Form.Label className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `} htmlFor="product-color-12" style={{ backgroundColor: `${color.variable}` }}></Form.Label>
                                                                             </li>
-
-
                                                                         ))}
                                                                 </ul>
-
-
                                                             ) : (
                                                                 <div className="avatar-xxs mb-3">
                                                                     <div className="avatar-title bg-light text-muted rounded cursor-pointer">
                                                                         <AiFillExclamationCircle />
-
                                                                     </div>
                                                                 </div>
                                                             ) : item.variant.type == "size" ?
