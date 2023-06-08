@@ -6,11 +6,14 @@ import ReactPaginate from "react-paginate";
 import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import {FaCheck} from "react-icons/fa"
 
 const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   //select
   const [select, setSelect] = useState("all");
   const [selectItem, setSelectItem] = useState([]);
+  const [count, setCount] = useState(0);
+  console.log(count);
   console.log(selectItem);
   const pagination = true;
   const [itemOffset, setItemOffset] = useState(0);
@@ -29,7 +32,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   };
 
   useEffect(() => {
-    axios.get(`  http://localhost:3000/products`).then((res) => {
+    axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/GetAll?count=30&isDelete=false`).then((res) => {
       setCurrentpages(
         res.data
           .map((product) => {
@@ -151,10 +154,10 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                               </span>
                             </Button>
                           </div>
-                          {item?.discountPrice && (
+                          {item?.relationOfBaseCode[count] && (
                             <div className="avatar-xs label">
                               <div className="avatar-title bg-danger rounded-circle fs-11">
-                                {item?.discountPrice}%
+                                {item?.relationOfBaseCode[count].discountPrice}%
                               </div>
                             </div>
                           )}
@@ -162,25 +165,26 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                         <div className="pt-4">
                           <div>
                             {item.variant.type == "color" ? (
-                              item.variant.vFeatures.length > 0 ? (
+                              item.relationOfBaseCode.length > 0 ? (
                                 <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                                  {item.variant.vFeatures.map((color) => (
-                                    <li key={color.id}>
+                                  {item.relationOfBaseCode.map((color,index) => (
+                                    <li key={index}>
                                       <Form.Control
                                         type="radio"
                                         name="sizes1"
-                                        id={`product-color-${color.id}`}
+                                        id={`product-color-${color.skuId}`}
                                         onClick={() => {
                                           handleSKUChange(color.skuId);
+                                          setCount(index)
                                         }}
                                       />
                                       <Form.Label
                                         className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                        htmlFor={`product-color-${color.id}`}
+                                        htmlFor={`product-color-${color.skuId}`}
                                         style={{
-                                          backgroundColor: `${color.variable}`,
-                                        }}
-                                      ></Form.Label>
+                                          backgroundColor: `${color.colorCode}`,
+                                        }}  
+                                      >{color.colorCode == null && <FaCheck/>}</Form.Label>
                                     </li>
                                   ))}
                                 </ul>
@@ -192,10 +196,10 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 </div>
                               )
                             ) : item.variant.type == "size" ? (
-                              item.variant.vFeatures.length > 0 ? (
+                              item.relationOfBaseCode.length > 0 ? (
                                 <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                                  {item.variant.vFeatures.map((color) => (
-                                    <li key={color.id}>
+                                  {item.relationOfBaseCode.map((color) => (
+                                    <li key={color.skuId}>
                                       <Form.Control
                                         type="radio"
                                         name="sizes1"
@@ -221,9 +225,9 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 </div>
                               )
                             ) : item.variant.type == "size" ? (
-                              item.variant.vFeatures.length > 0 ? (
+                              item.relationOfBaseCode.length > 0 ? (
                                 <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                                  {item.variant.vFeatures.map((color) => (
+                                  {item.relationOfBaseCode.map((color) => (
                                     <li key={color.id}>
                                       <Form.Control
                                         type="radio"
@@ -263,13 +267,13 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                               </h6>
                             </Link>
                             <div className="mt-2">
-                              {item.comments.length > 0 ? (
+                              {item.relationOfBaseCode[count].comments.length > 0 ? (
                                 <span className="float-end">
-                                  {item?.comments
+                                  {item.relationOfBaseCode[count].comments
                                     .map((retinhg) => retinhg.star)
                                     .reduce((acc, item) => acc + item, 0) /
-                                    item?.comments.length}
-                                  :<p>retingi yoxdur</p>
+                                    item.relationOfBaseCode[count].comments.length}
+                                  :
                                   <i className="ri-star-half-fill text-warning align-bottom"></i>
                                 </span>
                               ) : (
@@ -279,20 +283,20 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 </span>
                               )}
 
-                              {item?.discountPrice > 0 ? (
+                              {item?.relationOfBaseCode[count].discountPrice > 0 ? (
                                 <>
                                   <h5 className="text-secondary mb-0">
-                                    {item?.salePrice -
-                                      (item?.salePrice / 100) *
-                                        item?.discountPrice}
+                                    {item?.relationOfBaseCode[count].salePrice -
+                                      (item?.relationOfBaseCode[count].salePrice / 100) *
+                                        item?.relationOfBaseCode[count].discountPrice}
                                     <span className="text-muted fs-12">
-                                      <del>{item?.salePrice}</del>
+                                      <del>{item?.relationOfBaseCode[count].salePrice}</del>
                                     </span>
                                   </h5>
                                 </>
                               ) : (
                                 <h5 className="text-secondary mb-0">
-                                  {item?.salePrice}
+                                  {item?.relationOfBaseCode[count].salePrice}
                                 </h5>
                               )}
                             </div>
@@ -303,7 +307,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                   addToCart(
                                     selectItem.length > 0
                                       ? selectItem
-                                      : item.skuId
+                                      : item.relationOfBaseCode[count].skuId
                                   )
                                 }
                               >
