@@ -45,6 +45,7 @@ import axios from "axios";
 const Productdetails = () => {
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
+  const [features, setFeatures] = useState([])
   const [count, setCount] = useState(0);
   const { skuId } = useParams();
   console.log(skuId);
@@ -56,11 +57,19 @@ const Productdetails = () => {
       )
       .then((res) => {
         setproDetail(res.data.product);
-        console.log(res.data.product);
+        // console.log(res.data.product);
+       axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/ProductGetForBaseCode?Code=${res.data.code}`)
+       .then(res => {
+        console.log(res.data);
+        setFeatures(res.data)
+       })
+
         setSliderImg(res.data.product.productImages);
       });
   }, []);
-
+ const desc = (data) => {
+        return { __html: data }
+    }
   const handleSetImg = (id) => {
     console.log(id);
     setSliderImg(
@@ -241,7 +250,7 @@ const Productdetails = () => {
                     </div>
                   </div>
                   <h4 className="lh-base mb-1">{proDetail.name}</h4>
-                  <p className="text-muted mb-4">{proDetail.description}</p>
+                  <p className="text-muted mb-4" dangerouslySetInnerHTML={desc(proDetail.description)}></p>
                   <h5 className="fs-24 mb-4">
                     {proDetail.salePrice}
                     <span className="text-muted fs-14">
@@ -298,48 +307,156 @@ const Productdetails = () => {
                 </div>
                 <Row className="gy-3">
                   <Col md={6}>
-                    <div>
-                      <h6 className="fs-14 fw-medium text-muted">
-                        {proDetail?.variant?.type == "color"
-                          ? "Colors"
-                          : proDetail?.variant?.type == "size"
-                          ? "Sizes"
-                          : proDetail?.variant?.type == "weight"
-                          ? "Weights"
-                          : "Images"}
-                        :
-                      </h6>
-                      <ul className="clothe-size list-unstyled hstack gap-2 mb-0 flex-wrap">
-                        {proDetail?.variant?.type == "color"
-                          ? proDetail?.variant?.vFeatures.map((vf) => (
-                              <li>
-                                <Form.Control
-                                  type="radio"
-                                  name="sizes"
-                                  id="product-color-2"
-                                />
-                                <Form.Label
-                                  style={{ backgroundColor: vf.variable }}
-                                  className="avatar-xs btn  p-0 d-flex align-items-center justify-content-center rounded-circle"
-                                  htmlFor="product-color-2"
-                                />
-                              </li>
-                            ))
-                          : proDetail?.variant?.vFeatures.map((vd) => (
-                              <li>
-                                <Form.Control
-                                  type="radio"
-                                  name="sizes"
-                                  id="product-color-3"
-                                />
-                                <Form.Label
-                                  className="avatar-xs btn btn-light p-0 d-flex align-items-center justify-content-center rounded-circle"
-                                  htmlFor="product-color-3"
-                                />
-                              </li>
-                            ))}
-                      </ul>
-                    </div>
+                  <div>
+                            {item.variant.type == "color" ? (
+                              item.relationOfBaseCode.length > 0 ? (
+                                <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                                  {item.relationOfBaseCode.map((color,index) => (
+                                    <li key={index}>
+                                      <Form.Control
+                                        type="radio"
+                                        name="sizes1"
+                                        id={`product-color-${color.skuId}`}
+                                        onClick={() => {
+                                          handleSKUChange(color.skuId);
+                                          setCount(index)
+                                        }}
+                                      />
+                                      <Form.Label
+                                        className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                        htmlFor={`product-color-${color.skuId}`}
+                                        style={{
+                                          backgroundColor: `${color.colorCode}`,
+                                        }}  
+                                      >{color.colorCode == null && <FaCheck/>}</Form.Label>
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
+                              )
+                            ) : item.variant.type == "file" ? (
+                              item.relationOfBaseCode.length > 0 ? (
+                                <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                                  {item.relationOfBaseCode.map((color) => (
+                                    <li key={color.skuId}>
+                                      <Form.Control
+                                        type="radio"
+                                        name="sizes1"
+                                        id={`product-color-${color.skuId}`}
+                                        onClick={() => {
+                                          setSelectItem(color.skuId);
+                                        }}
+                                      />
+                                      <Form.Label
+                                        className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                        htmlFor={`product-color-${color.skuId}`}
+                                        style={{
+                                          backgroundImage: `url(${color.colorCode})`,
+                                        }}  
+                                      >
+                                        {color.colorCode == null && <FaCheck/>}
+                                      </Form.Label>
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
+                              )
+                            ) : item.variant.type == "size" ? (
+                              item.relationOfBaseCode.length > 0 ? (
+                                <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                                  {item.relationOfBaseCode.map((color) => (
+                                    <li key={color.id}>
+                                      <Form.Control
+                                        type="radio"
+                                        name="sizes1"
+                                        id={`product-color-${color.id}`}
+                                        onClick={() => {
+                                          setSelectItem(color.skuId);
+                                        }}
+                                      />
+                                      <Form.Label
+                                        className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                        htmlFor="product-color-12"
+                                      >
+                                        {color.variable}
+                                      </Form.Label>
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
+                              )
+                            ) : (
+                              <div className="avatar-xxs mb-3">
+                                <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                  <AiFillExclamationCircle />
+                                </div>
+                              </div>
+                            )}
+
+                            <Link to={`/product-details/${item.skuId}`}>
+                              <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">
+                                {item?.name}
+                              </h6>
+                            </Link>
+                            <div className="mt-2">
+                              {item.relationOfBaseCode[count].comments.length > 0 ? (
+                                <span className="float-end">
+                                  {item.relationOfBaseCode[count].comments
+                                    .map((retinhg) => retinhg.star)
+                                    .reduce((acc, item) => acc + item, 0) /
+                                    item.relationOfBaseCode[count].comments.length}
+                                  :
+                                  <i className="ri-star-half-fill text-warning align-bottom"></i>
+                                </span>
+                              ) : (
+                                <span className="float-end">
+                                  retingi yoxdur
+                                  <i className="ri-star-half-fill text-warning align-bottom"></i>
+                                </span>
+                              )}
+
+                              {item?.relationOfBaseCode[count].discountPrice > 0 ? (
+                                <>
+                                  <h5 className="text-secondary mb-0">
+                                    {item?.relationOfBaseCode[count].salePrice -
+                                      (item?.relationOfBaseCode[count].salePrice / 100) *
+                                        item?.relationOfBaseCode[count].discountPrice}
+                                    <span className="text-muted fs-12">
+                                      <del>{item?.relationOfBaseCode[count].salePrice}</del>
+                                    </span>
+                                  </h5>
+                                </>
+                              ) : (
+                                <h5 className="text-secondary mb-0">
+                                  {item?.relationOfBaseCode[count].salePrice}
+                                </h5>
+                              )}
+                            </div>
+                            <div className="tn mt-3">
+                              <Link
+                                className="btn btn-primary btn-hover w-100 add-btn"
+                                
+                              >
+                                <i className="mdi mdi-cart me-1"></i> Add To
+                                Cart
+                              </Link>
+                            </div>
+                          </div>
                   </Col>
                 </Row>
               </div>

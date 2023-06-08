@@ -1,25 +1,13 @@
 import React, { useState } from "react";
 import CatalogCollection from "../Pages/Catalog/CatalogCollection";
 import Filters from "../Pages/Catalog/Filters";
-import { filterProduct } from "../Common/data";
-
-const Index = ({ name, cxxl, clg, cmd,cxl }) => {
-    const [filterList, setFilterlist] = useState(filterProduct);
-    return (
-        <>
-            <Filters
-                setFilterlist={setFilterlist}
-                name={name}
-            />
-            <CatalogCollection
-                filterList={filterList}
-                cxxl={cxxl}
-                clg={clg}
-                cmd={cmd}
-                cxl={cxl}
-            />
-        </>
-    );
-}
+const Index = ({ name, cxxl, clg, cmd, cxl }) => {
+  return (
+    <>
+      <Filters name={name} />
+      <CatalogCollection cxxl={cxxl} clg={clg} cmd={cmd} cxl={cxl} />
+    </>
+  );
+};
 
 export default Index;

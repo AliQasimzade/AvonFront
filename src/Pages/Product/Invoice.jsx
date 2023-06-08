@@ -127,23 +127,23 @@ const Invoice = () => {
                                                     <tbody>
                                                         <tr>
                                                             <td>Sub Total</td>
-                                                            <td className="text-end">$1376.33</td>
+                                                            <td className="text-end">₼1376.33</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Estimated Tax (12.5%)</td>
-                                                            <td className="text-end">$172.04</td>
+                                                            <td className="text-end">₼172.04</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Discount <small className="text-muted">(TONER50)</small></td>
-                                                            <td className="text-end">- $206.45</td>
+                                                            <td className="text-end">- ₼206.45</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Shipping Charge</td>
-                                                            <td className="text-end">$65.00</td>
+                                                            <td className="text-end">₼65.00</td>
                                                         </tr>
                                                         <tr className="border-top border-top-dashed fs-15">
                                                             <th scope="row">Total Amount</th>
-                                                            <th className="text-end">$1406.92</th>
+                                                            <th className="text-end">₼1406.92</th>
                                                         </tr>
                                                     </tbody>
                                                 </Table>

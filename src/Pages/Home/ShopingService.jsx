@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Carousel, Col, Container, Image, Row } from "react-bootstrap";
 import Countdown from "react-countdown";
 import "./ShopingService.css";
-import axios from "axios";
 import { getAllOfferWeeks } from "../../services/getRequests";
 const Shopping = () => {
   const [offerOfWeeks, setofferOfWeeks] = useState([]);
@@ -17,6 +16,9 @@ const Shopping = () => {
     getOffers();
   }, []);
 
+  const desc = (data) => {
+    return { __html: data }
+  }
   const options = { year: "numeric", month: "long", day: "numeric" };
   const renderers = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -63,8 +65,8 @@ const Shopping = () => {
                         <h1 className="lh-base fw-semibold mb-3 text-capitalize">
                           {offerOfWeeksData.title2}
                         </h1>
-                        <p className="fs-16 mt-2">
-                          {offerOfWeeksData.description}
+                        <p className="fs-16 mt-2" dangerouslySetInnerHTML={desc(offerOfWeeksData.description)}>
+                          
                         </p>
                         <Row>
                           <Col lg={10}>

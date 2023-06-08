@@ -41,7 +41,7 @@ const Deals = () => {
                     <Row >
                         <Col lg={12}>
                             <div className="d-flex align-items-center justify-content-between mb-4 pb-1">
-                                <h3 className="flex-grow-1 mb-0">Deals Of The Day</h3>
+                                <h3 className="flex-grow-1 mb-0">Günün təklifləri</h3>
                                 <div className="flex-shrink-0">
                                     <Link to="#" className="link-effect link-success">All Deals
                                         <i className="ri-arrow-right-line ms-1 align-bottom"></i>

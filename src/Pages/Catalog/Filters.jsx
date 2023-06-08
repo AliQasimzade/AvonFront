@@ -5,10 +5,15 @@ import { Collapse, Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { filterProduct } from "../../Common/data";
 
-const Filters = ({ name, setFilterlist }) => {
+import { useSelector } from "react-redux";
+const Filters = ({ name }) => {
     let newList = [];
     const [mincost, setMincost] = useState(0);
     const [maxcost, setMaxcost] = useState(2000);
+
+    const subs = useSelector(state => state.persistedReducer.Subcategories)
+    console.log(subs);
+    const [categories, setCategories] = useState([])
     //Collapse
     //colors
     const [open, setOpen] = useState(false);
@@ -21,58 +26,7 @@ const Filters = ({ name, setFilterlist }) => {
     //Rating
     const [rating, setRating] = useState(false);
 
-    //colors
-    const handleColor = (value) => {
-        (filterProduct || [])?.map((item) => {
-            return item.color?.filter((color) => {
-                if (color === value) {
-                    newList.push(item)
-                    setFilterlist(newList);
 
-                }
-                return item;
-            })
-        })
-    }
-
-    //size
-    const handleSize = (e) => {
-        (filterProduct || [])?.map((item) => {
-            return item.size?.filter((size) => {
-                if (size === e.target.value.toUpperCase()) {
-                    newList.push(item)
-                    setFilterlist(newList)
-                }
-                return item;
-            })
-
-        })
-    }
-
-    // products
-    const handleProduct = (value) => {
-        setFilterlist(filterProduct?.filter((product) => product.products === value))
-    }
-
-    //dicount
-    const handleDic = (e) => {
-        setFilterlist(filterProduct?.filter((discount) => discount.dic === e.value))
-    }
-
-    //ratting
-    const hanleRat = (value) => {
-        setFilterlist(filterProduct?.filter((rat) => rat.ratting.toString().startsWith(value)))
-    }
-
-    //nouislider
-    const onUpDate = (value) => {
-        setMincost(value[0]);
-        setMaxcost(value[1]);
-    }
-
-    useEffect(() => {
-        onUpDate([mincost, maxcost]);
-    }, [mincost, maxcost]);
 
     return (
         <>
@@ -81,275 +35,59 @@ const Filters = ({ name, setFilterlist }) => {
                     <Card.Header>
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
-                                <h5 className="fs-16">Filters</h5>
+                                <h5 className="fs-16">Filterlə</h5>
                             </div>
                             <div className="flex-shrink-0">
-                                <Link to="#" className="text-decoration-underline" id="clearall">Clear All</Link>
+                                <Link to="#" className="text-decoration-underline" id="clearall">Təmizlə</Link>
                             </div>
                         </div>
                         <div className="search-box">
-                            <Form.Control className="" id="searchProductList" autoComplete="off" placeholder="Search Products..." />
+                            <Form.Control className="" id="searchProductList" autoComplete="off" placeholder="Məhsul axtar..." />
                             <i className="ri-search-line search-icon"></i>
                         </div>
                     </Card.Header>
                     <div className="accordion accordion-flush filter-accordion">
                         <Card.Body className="border-bottom">
                             <div>
-                                <p className="text-muted text-uppercase fs-12 fw-medium mb-3">Products</p>
+                                <p className="text-muted text-uppercase fs-12 fw-medium mb-3">Kateqoriyalar</p>
                                 <ul className="list-unstyled mb-0 filter-list">
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Grocery")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Grocery</h5>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Fashion")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Fashion</h5>
-                                            </div>
-                                            <div className="flex-shrink-0 ms-2">
-                                                <span className="badge bg-light text-muted">5</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Watches")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Watches</h5>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Electronics")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Electronics</h5>
-                                            </div>
-                                            <div className="flex-shrink-0 ms-2">
-                                                <span className="badge bg-light text-muted">5</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Furniture")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Furniture</h5>
-                                            </div>
-                                            <div className="flex-shrink-0 ms-2">
-                                                <span className="badge bg-light text-muted">6</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Automotive")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Automotive Accessories</h5>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Appliances")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Appliances</h5>
-                                            </div>
-                                            <div className="flex-shrink-0 ms-2">
-                                                <span className="badge bg-light text-muted">7</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-
-                                    <li>
-                                        <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct("Kids")}>
-                                            <div className="flex-grow-1">
-                                                <h5 className="fs-13 mb-0 listname">Kids</h5>
-                                            </div>
-                                        </Link>
-                                    </li>
+                                    {
+                                       subs.length > 0 &&  subs.map((cat) => {
+                                            console.log(cat);
+                                            return (
+                                                <li key={cat.id}>
+                                                    <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct(`${cat.name}`)}>
+                                                        <div className="flex-grow-1">
+                                                            <h5 className="fs-13 mb-0 listname">{cat.name}</h5>
+                                                        </div>
+                                                        <div className="flex-shrink-0 ms-2">
+                                                            <span className="badge bg-light text-muted">{cat.productSubCategories.length}</span>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                            )
+                                        })
+                                    }
                                 </ul>
                             </div>
                         </Card.Body>
 
                         <Card.Body className="border-bottom">
-                            <p className="text-muted text-uppercase fs-12 fw-medium mb-4">Price</p>
+                            <p className="text-muted text-uppercase fs-12 fw-medium mb-4">Qiymət</p>
                             <Nouislider
-                                range={{ min: 0, max: 2000 }}
+                                range={{ min: 0, max: 10000 }}
                                 start={[mincost, maxcost]}
                                 connect
-                                onSlide={onUpDate}
                                 data-slider-color="info"
                                 id="product-price-range"
                             />
                             <div className="formCost d-flex gap-2 align-items-center mt-3">
-                                <Form.Control className="form-control-sm" id="MinCost" value={`$ ${mincost}`} onChange={(e) => setMincost(e.target.value)} />
+                                <Form.Control className="form-control-sm" id="MinCost" value={`₼ ${mincost}`} onChange={(e) => setMincost(e.target.value)} />
                                 <span className="fw-semibold text-muted">to</span>
-                                <Form.Control className=" form-control-sm" type="text" id="maxCost" value={`$ ${maxcost}`} onChange={(e) => setMaxcost(e.target.value)} />
+                                <Form.Control className=" form-control-sm" type="text" id="maxCost" value={`₼ ${maxcost}`} onChange={(e) => setMaxcost(e.target.value)} />
                             </div>
 
                         </Card.Body>
-
-                        <div className="accordion-item">
-                            <h2 className="accordion-header" id="flush-headingColors">
-                                <Button
-                                    onClick={() => setOpen(!open)}
-                                    className="accordion-button bg-transparent shadow-none"
-                                    aria-controls="flush-collapseColors"
-                                    aria-expanded={open}
-                                >
-                                    <span className="text-muted text-uppercase fs-12 fw-medium">Colors</span>
-                                    <span className="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
-                                </Button>
-                            </h2>
-                            <Collapse in={open}>
-                                <div id="flush-collapseColors">
-                                    <div className="accordion-body text-body pt-0" aria-labelledby="flush-headingColors">
-                                        <ul className="clothe-colors list-unstyled hstack gap-3 mb-0 flex-wrap" id="color-filter">
-                                            <li>
-                                                <Form.Control type="radio" name="colors" value="success" id="color-1" onClick={() => handleColor("success")} />
-                                                <Form.Label className="avatar-xs btn btn-success p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="color-1"></Form.Label>
-                                            </li>
-                                            <li>
-                                                <Form.Control type="radio" name="colors" value="info" id="color-2" onClick={() => handleColor("info")} />
-                                                <Form.Label className="avatar-xs btn btn-info p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="color-2"></Form.Label>
-                                            </li>
-                                            <li>
-                                                <Form.Control type="radio" name="colors" value="warning" id="color-3" onClick={() => handleColor("warning")} />
-                                                <Form.Label className="avatar-xs btn btn-warning p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="color-3"></Form.Label>
-                                            </li>
-                                            <li>
-                                                <Form.Control type="radio" name="colors" value="danger" id="color-4" onClick={() => handleColor("danger")} />
-                                                <Form.Label className="avatar-xs btn btn-danger p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="color-4"></Form.Label>
-                                            </li>
-                                            <li>
-                                                <Form.Control type="radio" name="colors" value="primary" id="color-5" onClick={() => handleColor("primary")} />
-                                                <Form.Label className="avatar-xs btn btn-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="color-5"></Form.Label>
-                                            </li>
-                                            <li>
-                                                <Form.Control type="radio" name="colors" value="secondary" id="color-6" onClick={() => handleColor("secondary")} />
-                                                <Form.Label className="avatar-xs btn btn-secondary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="color-6"></Form.Label>
-                                            </li>
-                                            <li>
-                                                <Form.Control type="radio" name="colors" value="dark" id="color-7" onClick={() => handleColor("dark")} />
-                                                <Form.Label className="avatar-xs btn btn-dark p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="color-7"></Form.Label>
-                                            </li>
-                                            <li>
-                                                <Form.Control type="radio" name="colors" value="light" id="color-8" onClick={() => handleColor("light")} />
-                                                <Form.Label className="avatar-xs btn btn-light p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="color-8"></Form.Label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </Collapse>
-                        </div>
-
-                        <div className="accordion-item">
-                            <h2 className="accordion-header" id="flush-headingColors">
-                                <Button
-                                    onClick={() => setSize(!size)}
-                                    className="accordion-button bg-transparent shadow-none"
-                                    aria-controls="flush-collapseSize"
-                                    aria-expanded={size}
-                                >
-                                    <span className="text-muted text-uppercase fs-12 fw-medium">Sizes</span>
-                                    <span className="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
-                                </Button>
-                            </h2>
-                            <Collapse in={size}>
-                                <div id="flush-collapseSize">
-                                    <div className="accordion-collapse collapse show" aria-labelledby="flush-headingSize">
-                                        <div className="accordion-body text-body pt-0">
-                                            <ul className="clothe-size list-unstyled hstack gap-3 mb-0 flex-wrap" id="size-filter">
-                                                <li>
-                                                    <Form.Control type="radio" name="sizes" value="xs" id="sizeXs" />
-                                                    <Form.Label className="avatar-xs btn btn-soft-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="sizeXs">XS</Form.Label>
-                                                </li>
-                                                <li>
-                                                    <Form.Control type="radio" name="sizes" value="s" id="sizeS" onClick={(e) => handleSize(e)} />
-                                                    <Form.Label className="avatar-xs btn btn-soft-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="sizeS">S</Form.Label>
-                                                </li>
-                                                <li>
-                                                    <Form.Control type="radio" name="sizes" value="m" id="sizeM" onClick={(e) => handleSize(e)} />
-                                                    <Form.Label className="avatar-xs btn btn-soft-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="sizeM">M</Form.Label>
-                                                </li>
-                                                <li>
-                                                    <Form.Control type="radio" name="sizes" value="l" id="sizeL" onClick={(e) => handleSize(e)} />
-                                                    <Form.Label className="avatar-xs btn btn-soft-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="sizeL">L</Form.Label>
-                                                </li>
-                                                <li>
-                                                    <Form.Control type="radio" name="sizes" value="xl" id="sizeXl" onClick={(e) => handleSize(e)} />
-                                                    <Form.Label className="avatar-xs btn btn-soft-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="sizeXl">XL</Form.Label>
-                                                </li>
-                                                <li>
-                                                    <Form.Control type="radio" name="sizes" value="2xl" id="size2xl" onClick={(e) => handleSize(e)} />
-                                                    <Form.Label className="avatar-xs btn btn-soft-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="size2xl">2XL</Form.Label>
-                                                </li>
-                                                <li>
-                                                    <Form.Control type="radio" name="sizes" value="3xl" id="size3xl" onClick={(e) => handleSize(e)} />
-                                                    <Form.Label className="avatar-xs btn btn-soft-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="size3xl">3XL</Form.Label>
-                                                </li>
-                                                <li>
-                                                    <Form.Control type="radio" name="sizes" value="4xl" id="size4xl" onClick={(e) => handleSize(e)} />
-                                                    <Form.Label className="avatar-xs btn btn-soft-primary p-0 d-flex align-items-center justify-content-center rounded-circle" htmlFor="size4xl">4XL</Form.Label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Collapse>
-                        </div>
-
-                        <div className="accordion-item">
-                            <h2 className="accordion-header" id="flush-headingBrands">
-                                <Button
-                                    onClick={() => setBrands(!brands)}
-                                    className="accordion-button bg-transparent shadow-none"
-                                    aria-controls="flush-collapseBrands"
-                                    aria-expanded={brands}
-                                >
-                                    <span className="text-muted text-uppercase fs-12 fw-medium">Brands</span>
-                                    <span className="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
-                                </Button>
-                            </h2>
-                            <Collapse in={brands}>
-                                <div id="flush-collapseBrands" >
-                                    <div className="accordion-collapse collapse show" aria-labelledby="flush-headingBrands">
-                                        <div className="accordion-body text-body pt-0">
-                                            <div className="search-box search-box-sm">
-                                                <Form.Control type="text" className=" bg-light border-0" id="searchBrandsList" placeholder="Search Brands..." />
-                                                <i className="ri-search-line search-icon"></i>
-                                            </div>
-                                            <div className="d-flex flex-column gap-2 mt-3 filter-check">
-                                                <div className="form-check">
-                                                    <Form.Check type="checkbox" value="Boat" id="productBrandRadio5" />
-                                                    <Form.Label className="form-check-label" htmlFor="productBrandRadio5">Boat</Form.Label>
-                                                </div>
-                                                <div className="form-check">
-                                                    <Form.Check type="checkbox" value="OnePlus" id="productBrandRadio4" />
-                                                    <Form.Label className="form-check-label" htmlFor="productBrandRadio4">OnePlus</Form.Label>
-                                                </div>
-                                                <div className="form-check">
-                                                    <Form.Check type="checkbox" value="Realme" id="productBrandRadio3" />
-                                                    <Form.Label className="form-check-label" htmlFor="productBrandRadio3">Realme</Form.Label>
-                                                </div>
-                                                <div className="form-check">
-                                                    <Form.Check type="checkbox" value="Sony" id="productBrandRadio2" />
-                                                    <Form.Label className="form-check-label" htmlFor="productBrandRadio2">Sony</Form.Label>
-                                                </div>
-                                                <div className="form-check">
-                                                    <Form.Check type="checkbox" value="JBL" id="productBrandRadio1" />
-                                                    <Form.Label className="form-check-label" htmlFor="productBrandRadio1">JBL</Form.Label>
-                                                </div>
-
-                                                <div>
-                                                    <Button className="btn btn-link text-decoration-none text-uppercase fw-medium p-0">1,235
-                                                        More</Button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Collapse>
-                        </div>
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="flush-headingDiscount">
                                 <Button

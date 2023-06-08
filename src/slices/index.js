@@ -7,6 +7,7 @@ import commentsReducer from './layouts/comments';
 import LayoutReducer from "./layouts/reducer";
 import user from "./layouts/user";
 import accont from "./layouts/accont";
+import basket from "./layouts/basket";
 
 const rootreducer = combineReducers({
     Layout: LayoutReducer,
@@ -16,7 +17,8 @@ const rootreducer = combineReducers({
     Brands: brandsReducer,
     Comments: commentsReducer,
     User: user,
-    Accont: accont
+    Accont: accont,
+    Basket: basket
 
 })
 export default rootreducer;

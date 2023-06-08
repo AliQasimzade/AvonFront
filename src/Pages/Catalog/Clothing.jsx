@@ -16,7 +16,7 @@ const Clothing = () => {
                         <Row className="justify-content-end">
                             <Col xxl={4}>
                                 <div className="text-end py-4 px-5 mx-xxl-5">
-                                    <h1 className="text-white display-5 lh-base text-capitalize ff-secondary mb-3 fst-italic">Original sound listem to nature</h1>
+                                    <h1 className="text-white display-5 lh-base text-capitalize ff-secondary mb-3 fst-italic">Yuxarı banneri</h1>
                                     <div>
                                         <Link to="#" className="link-effect link-light">Show Collections <i className="ri-arrow-right-line align-bottom ms-1"></i></Link>
                                     </div>

@@ -132,23 +132,23 @@ const Trackorder = () => {
                                     <tbody>
                                         <tr>
                                             <td>Sub Total</td>
-                                            <td className="text-end">$1183.57</td>
+                                            <td className="text-end">₼1183.57</td>
                                         </tr>
                                         <tr>
                                             <td>Estimated Tax (12.5%)</td>
-                                            <td className="text-end">$147.95</td>
+                                            <td className="text-end">₼147.95</td>
                                         </tr>
                                         <tr>
                                             <td>Discount <small className="text-muted">(RGAgency15)</small></td>
-                                            <td className="text-end">- $177.54</td>
+                                            <td className="text-end">- ₼177.54</td>
                                         </tr>
                                         <tr>
                                             <td>Shipping Charge</td>
-                                            <td className="text-end">$65.00</td>
+                                            <td className="text-end">₼65.00</td>
                                         </tr>
                                         <tr className="border-top border-top-dashed fs-15">
                                             <th scope="row">Total Amount</th>
-                                            <th className="text-end">$1218.98</th>
+                                            <th className="text-end">₼1218.98</th>
                                         </tr>
                                     </tbody>
                                 </Table>
