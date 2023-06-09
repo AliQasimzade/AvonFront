@@ -13,11 +13,11 @@ const TopProducts = (props) => {
     const fetchedProducts = async () => {
         const data = await getAllProducts(1);
         setSelect(data);
+        console.log(select);
     }
     useEffect(() => {
         fetchedProducts();
     }, [])
-    console.log(select);
     return (
         <>
             <section className="section pt-0">
@@ -44,7 +44,7 @@ const TopProducts = (props) => {
                             show="show"
                         />
                         <div className="mt-4 text-center">
-                            <Link to='/product-list/defualt' className="btn btn-soft-primary btn-hover" data-key="t-view-all-products">{props.t('view-all-products')} <i className="mdi mdi-arrow-right align-middle ms-1"></i></Link>
+                            <Link to='/products' className="btn btn-soft-primary btn-hover" data-key="t-view-all-products">{props.t('view-all-products')} <i className="mdi mdi-arrow-right align-middle ms-1"></i></Link>
                         </div>
                     </Row>
                 </Container>

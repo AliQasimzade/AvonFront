@@ -197,7 +197,7 @@ const Categories = (props) => {
                     <Row className="g-2">
                         <Col lg={7}>
                             <Card className="card-height-100">
-                                <Link to='/product-list/defualt' className="insta-img categrory-box rounded-3">
+                                <Link to='/products' className="insta-img categrory-box rounded-3">
                                     <div className="categrory-content text-center">
                                         <span className="categrory-text text-white fs-18">Electronics</span>
                                     </div>
@@ -209,7 +209,7 @@ const Categories = (props) => {
                             <Row className="g-2">
                                 <Col lg={12}>
                                     <Card className="mb-0">
-                                        <Link to='/product-list/defualt' className="insta-img categrory-box rounded-3">
+                                        <Link to='/products' className="insta-img categrory-box rounded-3">
                                             <div className="categrory-content text-center">
                                                 <span className="categrory-text text-white fs-18">Cosmatics</span>
                                             </div>
@@ -219,7 +219,7 @@ const Categories = (props) => {
                                 </Col>
                                 <Col lg={12}>
                                     <Card className="mb-0">
-                                        <Link to='/product-list/defualt' className="insta-img categrory-box rounded-3">
+                                        <Link to='/products' className="insta-img categrory-box rounded-3">
                                             <div className="categrory-content text-center">
                                                 <span className="categrory-text text-white fs-18">Handbags &amp; Clutches</span>
                                             </div>

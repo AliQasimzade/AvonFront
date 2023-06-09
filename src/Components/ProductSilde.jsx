@@ -22,7 +22,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
     const [currentpages, setCurrentpages] = useState([]);
     const perPageData = 9;
 
-    const handleClick = (e ) => {
+    const handleClick = (e) => {
         setCurrentPage(Number(e.target.id));
     };
     const indexOfLast = currentPage * perPageData;
@@ -31,7 +31,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
     useEffect(() => {
         setCurrentpages(currentdata)
     }, [currentPage, currentdata])
-    const pageNumbers  = [];
+    const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(product.length / perPageData); i++) {
         pageNumbers.push(i);
@@ -51,7 +51,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
     }, [currentPage, pageNumbers.length]);
 
     //product like function
-    const Tooglelike = (event ) => {
+    const Tooglelike = (event) => {
         if (event?.closest("button").classList.contains("active")) {
             event.closest("button").classList.remove("active")
         } else {
@@ -59,7 +59,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
         }
     }
     //product view function
-    const Toogleview = (event ) => {
+    const Toogleview = (event) => {
         if (event?.closest("button").classList.contains("active")) {
             event.closest("button").classList.remove("active")
         } else {
@@ -72,15 +72,16 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
             <Row className={cid || ''} style={{ position: position, height: height }}>
                 {
                     fileter && fileter.length > 0 ?
-                        (fileter || [])?.map((item , inx ) => {
+                        (fileter || [])?.map((item, inx) => {
                             return (
-                                <Col key={inx} xxl={cxxl || ''} lg={4} md={6} className={`element-item seller ${item.category}`} data-category={item.category}>
+                                <Col key={inx} xxl={cxxl || ''} lg={4} md={6} className={`element-item seller ${item.productSubCategories[0].subCategory.name}`} data-category={item.productSubCategories[0].subCategory.name}>
                                     <Card className="overflow-hidden">
                                         <div className={`bg-${item.bg}-subtle rounded-top py-4`}>
-                                            <div className="gallery-product">
-                                                <Image src={item.img} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
+                                            <div className="gallery-product" style={{height:'200px', display:'flex', alignItems:'center' }}>
+                                                <Image src={item.posterImage} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
                                             </div>
-                                            <p className="fs-11 fw-medium badge bg-primary py-2 px-3 product-lable mb-0">{item.best || ''}</p>
+                                            {/* yuxarisindaki filter olmadigina gore buda qaldi */}
+                                            {/* <p className="fs-11 fw-medium badge bg-primary py-2 px-3 product-lable mb-0">{item.best || ''}</p> */}
                                             <div className="gallery-product-actions">
                                                 <div className="mb-2">
                                                     <Button type="button" variant="danger" className="btn-sm custom-toggle" data-bs-toggle="button" onClick={(e) => Tooglelike(e.target)}>
@@ -97,17 +98,23 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                                                 </div>
                                             </div>
                                             <div className="product-btn px-3">
-                                                <Link to='/shop/shopingcard' className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Add to cart</Link>
+                                                <Link to={`/product-details/${item.skuId}`} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Ətraflı bax</Link>
                                             </div>
                                         </div>
                                         <Card.Body className="card-body">
                                             <div>
-                                                <Link to='/product-details'>
-                                                    <h6 className="fs-15 lh-base text-truncate mb-0">{item.title}</h6>
+                                                <Link to={`/product-details/${item.skuId}`}>
+                                                    <h6 className="fs-15 lh-base text-truncate mb-0">{item.name}</h6>
                                                 </Link>
                                                 <div className="mt-3">
-                                                    <span className="float-end">{item.ratting} <i className="ri-star-half-fill text-warning align-bottom"></i></span>
-                                                    <h5 className="mb-0">{item.price} <span className="text-muted fs-12"><del>{item.deletePrice || ''}</del></span></h5>
+                                                    <span className="float-end">5 <i className="ri-star-half-fill text-warning align-bottom"></i></span>
+                                                    {
+                                                        item.discountPrice > 0 ? (
+                                                            <h5 className="mb-0">{item.discountPrice > 0 ? (item.salePrice - (item.salePrice * item.discountPrice) / 100) : item.salePrice} ₼<span className="text-muted fs-12"><del>{item.salePrice} ₼</del></span></h5>
+                                                        ) : (
+                                                            <h5 className="mb-0">{item.salePrice} ₼</h5>
+                                                        )
+                                                    }
                                                 </div>
                                             </div>
                                         </Card.Body>
@@ -148,7 +155,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
     )
 }
 
-export const ProductGrid = ({ title } ) => {
+export const ProductGrid = ({ title }) => {
     return (
         <>
             <section className="ecommerce-about" style={{ backgroundImage: `url(${profilebg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -172,7 +179,7 @@ export const ProductGrid = ({ title } ) => {
     )
 }
 
-export const ProductSelector = ({ handleratting, handledicount, handlecategory } ) => {
+export const ProductSelector = ({ handleratting, handledicount, handlecategory }) => {
     return (
         <>
             <Row >
@@ -255,7 +262,7 @@ export const ProductSelector = ({ handleratting, handledicount, handlecategory }
     )
 }
 
-export const Selectores = ({ setSelect, searchProducts } ) => {
+export const Selectores = ({ setSelect, searchProducts }) => {
     return (
         <Row className="align-items-center mb-4">
             <Col className="col-md-auto">
@@ -282,7 +289,7 @@ export const Selectores = ({ setSelect, searchProducts } ) => {
     )
 }
 
-export const CommonProduct = ({ cxxl, clg, cmd } ) => {
+export const CommonProduct = ({ cxxl, clg, cmd }) => {
     return (
         <Container fluid>
             <Row className="g-3">
@@ -353,7 +360,7 @@ export const DefauilOffer = () => {
     )
 }
 
-export const PublishedProduct = ({ title, dicription } ) => {
+export const PublishedProduct = ({ title, dicription }) => {
     return (
         <>
             <section className="term-condition bg-primary">
