@@ -89,9 +89,9 @@ export const getAllSliderTwos = async () => {
     }
 }
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (page) => {
     try {
-        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}Products/GetAll`)
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}Products/GetAll?page=${page}&count=30&isDelete=false`)
         if (request.status !== 200) {
             throw new Error('Sorğuda xəta baş verdi')
         } else {

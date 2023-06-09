@@ -42,6 +42,7 @@ import avatar3 from "../../assets/images/users/avatar-3.jpg";
 import avatar8 from "../../assets/images/users/avatar-8.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { AiFillExclamationCircle } from "react-icons/ai";
 const Productdetails = () => {
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
@@ -336,9 +337,87 @@ const Productdetails = () => {
                               </li>
                               ))}
                             </ul>
+                          ):(
+                            <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
                           )
-                        )
-                      }
+                          
+
+                        ): proDetail?.variant?.type == "size" ?(
+                          proDetail.relationOfBaseCode.length > 0 ?(
+                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                              {proDetail.relationOfBaseCode.map((color, index) =>(
+                              <li key={index}>
+                                <Form.Control
+                                type="radio"
+                                name="size1"
+                                id={`product-color-${color.skuId}`}
+                                >
+                                  <Form.Label
+                                  className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                  htmlFor={`product-color-${color.skuId}`}
+                                  >
+                                    {color.colorCode == null ? (
+                                            <FaCheck />
+                                          ):<span>{color.colorCode}</span> }
+
+                                  </Form.Label>
+                                </Form.Control>
+                              </li>
+                              ))}
+                            </ul>
+                          ):(
+                            <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
+                          )
+                          
+
+                        ): proDetail?.variant?.type == "file" ?(
+                          proDetail.relationOfBaseCode.length > 0 ?(
+                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                              {proDetail.relationOfBaseCode.map((color, index) =>(
+                              <li key={index}>
+                                <Form.Control
+                                type="radio"
+                                name="size1"
+                                id={`product-color-${color.skuId}`}
+                                >
+                                  <Form.Label
+                                   className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                   htmlFor={`product-color-${color.skuId}`}
+                                   style={{
+                                     backgroundImage: `url(${color.colorCode})`,
+                                   }}
+                                  >
+                                     {color.colorCode == null && (
+                                            <FaCheck />
+                                          )}
+
+                                  </Form.Label>
+                                </Form.Control>
+                              </li>
+                              ))}
+                            </ul>
+                          ):(
+                            <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
+                          )
+                        ):(
+                          <div className="avatar-xxs mb-3">
+                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                              <AiFillExclamationCircle />
+                            </div>
+                          </div>
+                      )}
                     
                     </div>
                   </Col>

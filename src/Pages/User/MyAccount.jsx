@@ -11,6 +11,8 @@ import {
   Image,
   Button,
 } from "react-bootstrap";
+
+import userProfile from "../../assets/images/users/user-dummy-img.jpg"
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { getUsersWithTeam } from "../../services/getRequests";
@@ -203,9 +205,9 @@ const MyAccount = () => {
                   {
                     <Image
                       src={
-                        userAccountInfo?.profileImage.length > 0
+                        userAccountInfo?.profileImage.includes('https')
                           ? userAccountInfo?.profileImage
-                          : "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+                          : userProfile
                       }
                       alt=""
                       className="avatar-xl p-1 bg-light mt-n3"
