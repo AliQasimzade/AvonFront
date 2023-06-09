@@ -43,6 +43,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   const handleSKUChange = (a) => {
     setSelectItem(a);
   };
+  console.log(selectItem);
   const addToCart = async (skuId, appUserId) => {
     const res = await AddToBasket(skuId, appUserId)
     console.log(res);

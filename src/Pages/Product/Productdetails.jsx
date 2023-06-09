@@ -42,6 +42,7 @@ import avatar3 from "../../assets/images/users/avatar-3.jpg";
 import avatar8 from "../../assets/images/users/avatar-8.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { AiFillExclamationCircle } from "react-icons/ai";
 const Productdetails = () => {
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
@@ -57,19 +58,10 @@ const Productdetails = () => {
       )
       .then((res) => {
         setproDetail(res.data.product);
-        // console.log(res.data.product);
-       axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/ProductGetForBaseCode?Code=${res.data.code}`)
-       .then(res => {
-        console.log(res.data);
-        setFeatures(res.data)
-       })
-
-        setSliderImg(res.data.product.productImages);
+      console.log(res.data);
       });
   }, []);
- const desc = (data) => {
-        return { __html: data }
-    }
+
   const handleSetImg = (id) => {
     console.log(id);
     setSliderImg(
@@ -250,7 +242,7 @@ const Productdetails = () => {
                     </div>
                   </div>
                   <h4 className="lh-base mb-1">{proDetail.name}</h4>
-                  <p className="text-muted mb-4" dangerouslySetInnerHTML={desc(proDetail.description)}></p>
+                  <p className="text-muted mb-4">{proDetail.description}</p>
                   <h5 className="fs-24 mb-4">
                     {proDetail.salePrice}
                     <span className="text-muted fs-14">
@@ -307,156 +299,127 @@ const Productdetails = () => {
                 </div>
                 <Row className="gy-3">
                   <Col md={6}>
-                  <div>
-                            {item.variant.type == "color" ? (
-                              item.relationOfBaseCode.length > 0 ? (
-                                <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                                  {item.relationOfBaseCode.map((color,index) => (
-                                    <li key={index}>
-                                      <Form.Control
-                                        type="radio"
-                                        name="sizes1"
-                                        id={`product-color-${color.skuId}`}
-                                        onClick={() => {
-                                          handleSKUChange(color.skuId);
-                                          setCount(index)
-                                        }}
-                                      />
-                                      <Form.Label
-                                        className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                        htmlFor={`product-color-${color.skuId}`}
-                                        style={{
-                                          backgroundColor: `${color.colorCode}`,
-                                        }}  
-                                      >{color.colorCode == null && <FaCheck/>}</Form.Label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <div className="avatar-xxs mb-3">
-                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                    <AiFillExclamationCircle />
-                                  </div>
-                                </div>
-                              )
-                            ) : item.variant.type == "file" ? (
-                              item.relationOfBaseCode.length > 0 ? (
-                                <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                                  {item.relationOfBaseCode.map((color) => (
-                                    <li key={color.skuId}>
-                                      <Form.Control
-                                        type="radio"
-                                        name="sizes1"
-                                        id={`product-color-${color.skuId}`}
-                                        onClick={() => {
-                                          setSelectItem(color.skuId);
-                                        }}
-                                      />
-                                      <Form.Label
-                                        className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                        htmlFor={`product-color-${color.skuId}`}
-                                        style={{
-                                          backgroundImage: `url(${color.colorCode})`,
-                                        }}  
-                                      >
-                                        {color.colorCode == null && <FaCheck/>}
-                                      </Form.Label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <div className="avatar-xxs mb-3">
-                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                    <AiFillExclamationCircle />
-                                  </div>
-                                </div>
-                              )
-                            ) : item.variant.type == "size" ? (
-                              item.relationOfBaseCode.length > 0 ? (
-                                <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                                  {item.relationOfBaseCode.map((color) => (
-                                    <li key={color.id}>
-                                      <Form.Control
-                                        type="radio"
-                                        name="sizes1"
-                                        id={`product-color-${color.id}`}
-                                        onClick={() => {
-                                          setSelectItem(color.skuId);
-                                        }}
-                                      />
-                                      <Form.Label
-                                        className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                        htmlFor="product-color-12"
-                                      >
-                                        {color.variable}
-                                      </Form.Label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <div className="avatar-xxs mb-3">
-                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                    <AiFillExclamationCircle />
-                                  </div>
-                                </div>
-                              )
-                            ) : (
-                              <div className="avatar-xxs mb-3">
-                                <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                  <AiFillExclamationCircle />
-                                </div>
-                              </div>
-                            )}
+                    <div>
+                      <h6 className="fs-14 fw-medium text-muted">
+                        {proDetail?.variant?.type == "color"
+                          ? "Colors"
+                          : proDetail?.variant?.type == "size"
+                          ? "Sizes"
+                          : proDetail?.variant?.type == "weight"
+                          ? "Weights"
+                          : "Images"}
+                        :
+                      </h6>
+                      {
+                        proDetail?.variant?.type == "color" ?(
+                          proDetail.relationOfBaseCode.length > 0 ?(
+                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                              {proDetail.relationOfBaseCode.map((color, index) =>(
+                              <li key={index}>
+                                <Form.Control
+                                type="radio"
+                                name="size1"
+                                id={`product-color-${color.skuId}`}
+                                >
+                                  <Form.Label
+                                  className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                  htmlFor={`product-color-${color.skuId}`}
+                                  style={{
+                                    backgroundColor: `${color.colorCode}`,
+                                  }}
+                                  >
+                                    {color.colorCode == null && (
+                                            <FaCheck />
+                                          )}
 
-                            <Link to={`/product-details/${item.skuId}`}>
-                              <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">
-                                {item?.name}
-                              </h6>
-                            </Link>
-                            <div className="mt-2">
-                              {item.relationOfBaseCode[count].comments.length > 0 ? (
-                                <span className="float-end">
-                                  {item.relationOfBaseCode[count].comments
-                                    .map((retinhg) => retinhg.star)
-                                    .reduce((acc, item) => acc + item, 0) /
-                                    item.relationOfBaseCode[count].comments.length}
-                                  :
-                                  <i className="ri-star-half-fill text-warning align-bottom"></i>
-                                </span>
-                              ) : (
-                                <span className="float-end">
-                                  retingi yoxdur
-                                  <i className="ri-star-half-fill text-warning align-bottom"></i>
-                                </span>
-                              )}
+                                  </Form.Label>
+                                </Form.Control>
+                              </li>
+                              ))}
+                            </ul>
+                          ):(
+                            <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
+                          )
+                          
 
-                              {item?.relationOfBaseCode[count].discountPrice > 0 ? (
-                                <>
-                                  <h5 className="text-secondary mb-0">
-                                    {item?.relationOfBaseCode[count].salePrice -
-                                      (item?.relationOfBaseCode[count].salePrice / 100) *
-                                        item?.relationOfBaseCode[count].discountPrice}
-                                    <span className="text-muted fs-12">
-                                      <del>{item?.relationOfBaseCode[count].salePrice}</del>
-                                    </span>
-                                  </h5>
-                                </>
-                              ) : (
-                                <h5 className="text-secondary mb-0">
-                                  {item?.relationOfBaseCode[count].salePrice}
-                                </h5>
-                              )}
-                            </div>
-                            <div className="tn mt-3">
-                              <Link
-                                className="btn btn-primary btn-hover w-100 add-btn"
-                                
-                              >
-                                <i className="mdi mdi-cart me-1"></i> Add To
-                                Cart
-                              </Link>
+                        ): proDetail?.variant?.type == "size" ?(
+                          proDetail.relationOfBaseCode.length > 0 ?(
+                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                              {proDetail.relationOfBaseCode.map((color, index) =>(
+                              <li key={index}>
+                                <Form.Control
+                                type="radio"
+                                name="size1"
+                                id={`product-color-${color.skuId}`}
+                                >
+                                  <Form.Label
+                                  className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                  htmlFor={`product-color-${color.skuId}`}
+                                  >
+                                    {color.colorCode == null ? (
+                                            <FaCheck />
+                                          ):<span>{color.colorCode}</span> }
+
+                                  </Form.Label>
+                                </Form.Control>
+                              </li>
+                              ))}
+                            </ul>
+                          ):(
+                            <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
+                          )
+                          
+
+                        ): proDetail?.variant?.type == "file" ?(
+                          proDetail.relationOfBaseCode.length > 0 ?(
+                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                              {proDetail.relationOfBaseCode.map((color, index) =>(
+                              <li key={index}>
+                                <Form.Control
+                                type="radio"
+                                name="size1"
+                                id={`product-color-${color.skuId}`}
+                                >
+                                  <Form.Label
+                                   className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                   htmlFor={`product-color-${color.skuId}`}
+                                   style={{
+                                     backgroundImage: `url(${color.colorCode})`,
+                                   }}
+                                  >
+                                     {color.colorCode == null && (
+                                            <FaCheck />
+                                          )}
+
+                                  </Form.Label>
+                                </Form.Control>
+                              </li>
+                              ))}
+                            </ul>
+                          ):(
+                            <div className="avatar-xxs mb-3">
+                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                    <AiFillExclamationCircle />
+                                  </div>
+                                </div>
+                          )
+                        ):(
+                          <div className="avatar-xxs mb-3">
+                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                              <AiFillExclamationCircle />
                             </div>
                           </div>
+                      )}
+                    
+                    </div>
                   </Col>
                 </Row>
               </div>

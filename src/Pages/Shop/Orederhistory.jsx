@@ -1,11 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Container, Row, Table, Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { orderHistorys } from "../../Common/data";
 import { Shoptopbar } from "../../Components/ShopTopBar";
 import { CommonService } from "../../Components/CommonService";
 import { InvoiceModal } from "../../Components/MainModal";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Orderhistory = () => {
     document.title = "Order History | RGAgency - React FrontEnd";
@@ -13,6 +14,8 @@ const Orderhistory = () => {
     const [modal, setModal] = useState(false);
     const handleInvoice = () => setModal(true);
     const handleClose = () => setModal(false);
+    const orders = useSelector((state) => state.persistedReducer.Accont.user[0].orders);
+    console.log(orders);
 
     return (
         <>
@@ -36,11 +39,11 @@ const Orderhistory = () => {
                                         </thead>
                                         <tbody>
                                             {
-                                                (orderHistorys || [])?.map((item, inx) => {
+                                                (orders || [])?.map((item, inx) => {
                                                     return (
                                                         <tr key={inx}>
                                                             <td>
-                                                                <Link to="#" className="text-body">{item.orderId}</Link>
+                                                                <Link to="#" className="text-body">{item.deliveryAdressId}</Link>
                                                             </td>
                                                             <td>
                                                                 <div className="d-flex gap-3">
@@ -58,9 +61,9 @@ const Orderhistory = () => {
                                                                 </div>
                                                             </td>
                                                             <td><span className="text-muted">{item.data}</span></td>
-                                                            <td className="fw-medium">${item.amount}</td>
+                                                            <td className="fw-medium">${item.totalAmount}</td>
                                                             <td>
-                                                                <span className={`badge badge-soft-${item.bg}`}>{item.status}</span>
+                                                                <span className={`badge bg-danger`}>{item.status}</span>
                                                             </td>
                                                             <td>
                                                                 <Link to="#invoiceModal" data-bs-toggle="modal" className="btn btn-secondary btn-sm" onClick={handleInvoice}>Invoice</Link>
