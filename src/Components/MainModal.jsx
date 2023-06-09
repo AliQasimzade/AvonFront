@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import SimpleBar from "simplebar-react";
 //img
 import modalImg from "../assets/images/subscribe.png";
-import logodark from "../assets/images/logo-dark.png";
-import logolight from '../assets/images/logo-light.png';
+import logodark from "../assets/images/avonLogo.png";
+import logolight from '../assets/images/avonLogo.png';
 import avatar1 from "../assets/images/users/avatar-1.jpg";
 import avatar7 from "../assets/images/users/avatar-7.jpg";
 
 //component
 import { productData } from "../Common/data";
 import DeleteModal from "../Components/DeleteModal";
+import { useSelector } from "react-redux";
 
 //go to one page to another page opne modal
 export const MainModal = ({ location }) => {
@@ -58,15 +59,18 @@ export const MainModal = ({ location }) => {
 //===============================================
 
 //invoice modal
-export const InvoiceModal = ({ modal, handleClose }) => {
+export const InvoiceModal = ({ modal, handleClose, selectedOrder,selectedInvoice }) => {
+console.log(selectedOrder?.orderItems.reduce((acc, item) => acc + (item.count * item.salePrice), 0));
+    const userData = useSelector(state => state.persistedReducer.Accont.user[0]);
+
     const InvoicePrint = () => {
         window.print();
     }
     return (
         <>
-            <Modal show={modal} onHide={handleClose} animation={true} dialogClassName="modal-custom-size" id='invoiceModal' aria-labelledby="invoiceModalLabel">
+           {selectedOrder != null &&  <Modal show={modal} onHide={handleClose} animation={true} dialogClassName="modal-custom-size" id='invoiceModal' aria-labelledby="invoiceModalLabel">
                 <Modal.Header closeButton>
-                    <h1 className="modal-title fs-5" id="invoiceModalLabel">Invoice #TTB30280001</h1>
+                    <h1 className="modal-title fs-5" id="invoiceModalLabel">Invoice #{selectedInvoice}</h1>
                 </Modal.Header>
                 <Modal.Body>
                     <Card className="mb-0" id="demo">
@@ -79,8 +83,7 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                             <Image src={logolight} className="card-logo card-logo-light" alt="logo light" height="26" />
                                             <div className="mt-sm-5 mt-4">
                                                 <h6 className="text-muted text-uppercase fw-semibold fs-14">Address</h6>
-                                                <p className="text-muted mb-1" id="address-details">Phoenix, USA</p>
-                                                <p className="text-muted mb-0" id="zip-code"><span>Zip-code:</span> 90201</p>
+                                                <p className="text-muted mb-1" id="address-details"><span>{selectedOrder?.city}</span>, <span>{selectedOrder.streetAddres}</span></p>
                                             </div>
 
                                         </div>
@@ -97,22 +100,22 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                         <Row className="g-3">
                                             <Col lg={3} xs={6}>
                                                 <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">Invoice No</p>
-                                                <h5 className="fs-15 mb-0">#TTB<span id="invoice-no">30280001</span></h5>
+                                                <h5 className="fs-15 mb-0">#{selectedInvoice}</h5>
                                             </Col>
 
                                             <Col lg={3} xs={6}>
                                                 <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">Date</p>
-                                                <h5 className="fs-15 mb-0"><span id="invoice-date">14 Jan, 2023</span> <small className="text-muted" id="invoice-time">12:22PM</small></h5>
+                                                <h5 className="fs-15 mb-0"><span id="invoice-date">{new Date(selectedOrder?.createdAt).toLocaleDateString('en-EN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span> <small className="text-muted" id="invoice-time">{new Date(selectedOrder?.createdAt).toLocaleDateString('en-EN', {hour:'numeric', minute:"numeric"})}</small></h5>
                                             </Col>
 
                                             <Col lg={3} xs={6}>
                                                 <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">Payment Status</p>
-                                                <span className="badge badge-soft-success" id="payment-status">Paid</span>
+                                                <span className={`badge badge-soft-${selectedOrder?.status == "Gözləmədə" ? 'warning' : selectedOrder?.status == 'Qəbul' ? 'success' : 'danger'}`} id="payment-status">{selectedOrder?.status}</span>
                                             </Col>
 
                                             <Col lg={3} xs={6}>
                                                 <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">Total Amount</p>
-                                                <h5 className="fs-15 mb-0">$<span id="total-amount">1406.92</span></h5>
+                                                <h5 className="fs-15 mb-0">₼<span id="total-amount">{selectedOrder?.totalAmount}</span></h5>
                                             </Col>
 
                                         </Row>
@@ -121,19 +124,11 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                 <Col lg={12}>
                                     <Card.Body className="p-4 border-top border-top-dashed">
                                         <Row className="g-3">
-                                            <Col xs={6}>
+                                            <Col xs={12}>
                                                 <h6 className="text-muted text-uppercase fw-semibold fs-14 mb-3">Billing Address</h6>
-                                                <p className="fw-medium mb-2 fs-16" id="billing-name">Raquel Murillo</p>
-                                                <p className="text-muted mb-1" id="billing-address-line-1">4430 Holt Street, Miami, Florida-33169</p>
-                                                <p className="text-muted mb-1"><span>Phone: +</span><span id="billing-phone-no">(123) 561-238-1000</span></p>
-                                                <p className="text-muted mb-0"><span>Tax: </span><span id="billing-tax-no">65-498700</span> </p>
-                                            </Col>
-
-                                            <Col xs={6}>
-                                                <h6 className="text-muted text-uppercase fw-semibold fs-14 mb-3">Shipping Address</h6>
-                                                <p className="fw-medium mb-2 fs-16" id="shipping-name">Raquel Murillo</p>
-                                                <p className="text-muted mb-1" id="shipping-address-line-1">4430 Holt Street, Miami, Florida-33169</p>
-                                                <p className="text-muted mb-1"><span>Phone: +</span><span id="shipping-phone-no">(123) 561-238-1000</span></p>
+                                                <p className="fw-medium mb-2 fs-16" id="billing-name">{userData?.name}, {userData?.surname}</p>
+                                                <p className="text-muted mb-1" id="billing-address-line-1"> {userData?.otherAddress}</p>
+                                                <p className="text-muted mb-1"><span>Phone: +</span><span id="billing-phone-no">{userData?.phoneNumber}</span></p>
                                             </Col>
 
                                         </Row>
@@ -149,50 +144,24 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                                         <th scope="col">Product Details</th>
                                                         <th scope="col">Rate</th>
                                                         <th scope="col">Quantity</th>
+                                                        <th scope="col">Discount Price</th>
                                                         <th scope="col" className="text-end">Amount</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="products-list">
-                                                    <tr>
-                                                        <th scope="row">01</th>
+                                                    {selectedOrder?.orderItems.length > 0 && selectedOrder?.orderItems.map((item, index) => (
+                                                        <tr key={index}>
+                                                        <th scope="row">{index + 1}</th>
                                                         <td className="text-start">
-                                                            <span className="fw-medium">World's most expensive t shirt</span>
-                                                            <p className="text-muted mb-0">Graphic Print Men &amp; Women Sweatshirt</p>
+                                                            <span className="fw-medium">{item.product.name}</span>
                                                         </td>
-                                                        <td>₼266.24</td>
-                                                        <td>03</td>
-                                                        <td className="text-end">₼798.72</td>
+                                                        <td>₼{item.product.salePrice}</td>
+                                                        <td>{item.count}</td>
+                                                        <td>{item.discountPrice}</td>
+
+                                                        <td className="text-end">₼{Number(item.product.salePrice * item.count).toFixed(2)}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <th scope="row">02</th>
-                                                        <td className="text-start">
-                                                            <span className="fw-medium">Ninja Pro Max Smartwatch</span>
-                                                            <p className="text-muted mb-0">large display of 40mm (1.6″ inch), 27 sports mode, SpO2 monitor</p>
-                                                        </td>
-                                                        <td>₼247.27</td>
-                                                        <td>01</td>
-                                                        <td className="text-end">₼247.27</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">03</th>
-                                                        <td className="text-start">
-                                                            <span className="fw-medium">Girls Mint Green &amp; Off-White Open Toe Flats</span>
-                                                            <p className="text-muted mb-0">Fabric:Synthetic · Colour:Green · Shoe Type:Sandals</p>
-                                                        </td>
-                                                        <td>₼24.07</td>
-                                                        <td>05</td>
-                                                        <td className="text-end">₼120.35</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">04</th>
-                                                        <td className="text-start">
-                                                            <span className="fw-medium">Carven Lounge Chair Red</span>
-                                                            <p className="text-muted mb-0">Carven Fabric Lounge Chair in Red Color</p>
-                                                        </td>
-                                                        <td>₼209.99</td>
-                                                        <td>01</td>
-                                                        <td className="text-end">₼209.99</td>
-                                                    </tr>
+                                                    ))}
                                                 </tbody>
                                             </Table>
                                         </div>
@@ -201,23 +170,19 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                                                 <tbody>
                                                     <tr>
                                                         <td>Sub Total</td>
-                                                        <td className="text-end">₼1376.33</td>
+                                                        <td className="text-end">₼{selectedOrder?.orderItems.reduce((acc, item) => acc + (item.count * item.salePrice), 0)}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Estimated Tax (12.5%)</td>
-                                                        <td className="text-end">₼172.04</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Discount <small className="text-muted">(TONER50)</small></td>
+                                                        <td>Discount <small className="text-muted"></small></td>
                                                         <td className="text-end">- ₼206.45</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Shipping Charge</td>
-                                                        <td className="text-end">₼65.00</td>
+                                                        <td className="text-end">₼5</td>
                                                     </tr>
                                                     <tr className="border-top border-top-dashed fs-15">
                                                         <th scope="row">Total Amount</th>
-                                                        <th className="text-end">₼1406.92</th>
+                                                        <th className="text-end">₼{selectedOrder?.totalAmount + 5}</th>
                                                     </tr>
                                                 </tbody>
                                             </Table>
@@ -250,7 +215,7 @@ export const InvoiceModal = ({ modal, handleClose }) => {
                         </Row>
                     </Card>
                 </Modal.Body>
-            </Modal>
+            </Modal>}
         </>
     )
 }

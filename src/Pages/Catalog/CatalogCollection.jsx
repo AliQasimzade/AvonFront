@@ -30,6 +30,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
         }
       })
       .filter(Boolean);
+      console.log(findDefaults);
       const allPros = [...products, ...findDefaults]
     setProducts(allPros);
     setCount(Array.from({ length: allPros.length }).fill(0))
