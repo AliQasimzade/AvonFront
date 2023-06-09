@@ -31,6 +31,7 @@ const ContactUs = () => {
           try {
             const response = await axios.get('http://avontest0910-001-site1.dtempurl.com/api/Settings/Manage/GetAll?isDeleted=false');
             setContact(response.data);
+            console.log(response.data);
           } catch (error) {
             console.log(error.message);
           }
@@ -46,8 +47,8 @@ const ContactUs = () => {
                     <Row className="justify-content-center">
                         <Col lg={5}>
                             <div className="text-center">
-                                <h1 className="text-white">Contact Us</h1>
-                                <p className="fs-16 mb-0 text-white-75">Let's start something great together. Get in touch with one of the team today!</p>
+                                <h1 className="text-white">Bizimlə əlaqə saxlayın</h1>
+                                <p className="fs-16 mb-0 text-white-75">Gəlin birlikdə möhtəşəm bir şeyə başlayaq. Bu gün komandadan biri ilə əlaqə saxlayın!</p>
                             </div>
                         </Col>
                     </Row>
@@ -69,8 +70,8 @@ const ContactUs = () => {
                                                         </div>
                                                     </div>
                                                     <div className="ms-3 flex-grow-1">
-                                                        <h5 className="fs-17 lh-base mb-2">{contact[8].key}</h5>
-                                                        <p className="text-muted fs-14 mb-0">{contact[8].value}</p>
+                                                        <h5 className="fs-17 lh-base mb-2">{contact[5].key.toUpperCase()}</h5>
+                                                        <p className="text-muted fs-14 mb-0">{contact[5].value}</p>
                                                     </div>
                                                 </div>
                                             </Card.Body>
@@ -128,7 +129,7 @@ const ContactUs = () => {
                                                     name="name"
                                                     id="nameInput"
                                                     type="text"
-                                                    placeholder="Enter name"
+                                                    placeholder="Adı daxil edin"
                                                     value={formik.values.name}
                                                     onBlur={formik.handleBlur}
                                                     onChange={formik.handleChange} />
@@ -146,7 +147,7 @@ const ContactUs = () => {
                                                     name="email"
                                                     id="emailInput"
                                                     type="email"
-                                                    placeholder="Enter email"
+                                                    placeholder="Poçt ünvanını daxil edin"
                                                     value={formik.values.email}
                                                     onChange={formik.handleChange}
                                                     onBlur={formik.handleBlur}
@@ -164,7 +165,7 @@ const ContactUs = () => {
                                                 <Form.Control
                                                     type="number"
                                                     id="numberInput"
-                                                    placeholder="Enter Number.."
+                                                    placeholder="Nömrənizi daxil edin"
                                                     name="number"
                                                     value={formik.values.subject}
                                                     onChange={formik.handleChange}
@@ -185,7 +186,7 @@ const ContactUs = () => {
                                                     name="message"
                                                     id="messageInput"
                                                     rows={4}
-                                                    placeholder="Mesaj"
+                                                    placeholder="Mesajınızı daxil edin"
                                                     value={formik.values.message}
                                                     onChange={formik.handleChange}
                                                     onBlur={formik.handleBlur}
@@ -210,7 +211,7 @@ const ContactUs = () => {
                     </Row>
                 </Container>
             </section >
-            <section>
+            {/* <section>
                 <Container fluid className="px-0">
                     <Row className="g-0">
                         <Col lg={12}>
@@ -232,7 +233,7 @@ const ContactUs = () => {
                         </Col>
                     </Row>
                 </Container>
-            </section>
+            </section> */}
         </ >
     )
 }

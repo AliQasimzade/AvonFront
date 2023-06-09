@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,memo } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { withTranslation } from "react-i18next";
@@ -156,4 +156,4 @@ const Footer = (props) => {
     )
 }
 
-export default withRouter(withTranslation()(Footer));
+export default memo(withRouter(withTranslation()(Footer)));
