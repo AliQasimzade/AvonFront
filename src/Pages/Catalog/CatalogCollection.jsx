@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Card, Button, Image } from "react-bootstrap";
 import "./Catalog.css";
 import { AiFillExclamationCircle } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { FaCheck } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getAllProducts } from "../../services/getRequests";
+import { getAllProducts,getAllBasket } from "../../services/getRequests";
 import { AddToBasket } from "../../services/postRequests";
 import {Helmet} from "react-helmet-async"
+import { getAllBaskets } from "../../slices/layouts/basket";
+
 const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
   const [select, setSelect] = useState("all");
@@ -18,7 +20,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const userId = useSelector((state) => state.persistedReducer.User.userId);
-  console.log(userId);
+  const dispatch = useDispatch();
 
   const getProducts = async () => {
     const res = await getAllProducts(currentPage);
@@ -46,7 +48,11 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   };
   console.log(selectItem);
   const addToCart = async (skuId, appUserId) => {
-    const res = await AddToBasket(skuId, appUserId)
+    const res = await AddToBasket(skuId, appUserId);
+    const re = await getAllBasket(appUserId)
+    console.log(re);
+    dispatch(getAllBaskets(re))
+
     console.log(res);
   };
 
@@ -316,7 +322,8 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 onClick={() => {
                                   if (userId) {
                                     addToCart(
-                                      item.relationOfBaseCode[count[i]].skuId
+                                      item.relationOfBaseCode[count[i]].skuId,
+                                      userId
                                     );
                                   } else {
                                     toast.error("Zəhmət olmasa giris edin", {
