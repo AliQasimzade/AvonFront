@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,memo } from "react";
 import { Link } from "react-router-dom";
 import { Container, Dropdown, Button, Row, Col, Card, Image, Navbar, Nav, NavDropdown } from "react-bootstrap";
-import axios from 'axios';
-//img
 import AvonLogo from "../assets/images/avonLogo.png";
 import "./header.css"
-import img1 from "../assets/images/ecommerce/img-1.jpg";
+import img1 from "../assets/images/users/user-dummy-img.jpg";
 import { CardModal, SearchModal } from "../Components/MainModal";
 import { withTranslation } from "react-i18next";
 import withRouter from "../Components/withRouter";
@@ -249,8 +247,8 @@ const Header = (props) => {
                                     </Row>
                                 </div>
                             </li>
-                            <li className="nav-item">
-                                <Link onClick={menu} className="nav-link" to='/products' data-key="t-contact">{props.t('shop')}</Link>
+                            <li className="nav-item" style={{color:'#A530B0 !important'}}>
+                                <Link onClick={menu} className="nav-link"  to='/products' data-key="t-contact">{props.t('shop')}</Link>
                             </li>
                             <li className="nav-item">
                                 <Link onClick={menu} className="nav-link" to='/about-us' data-key="t-contact">{props.t('about')}</Link>
@@ -291,7 +289,7 @@ const Header = (props) => {
                                 userData?.email ? <Dropdown>
                                     <Dropdown.Toggle id="page-header-user-dropdown" bsPrefix="btn" className="btn btn-icon btn-topbar btn-link rounded-circle" as="a">
 
-                                        <Image className="rounded-circle header-profile-user" src={userData?.profileImage} alt="Header Avatar" />
+                                        <Image className="rounded-circle header-profile-user" src={userData?.profileImage.includes('https') ? userData?.profileImage : img1} alt="Header Avatar" />
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu >
@@ -303,8 +301,8 @@ const Header = (props) => {
                                         <Dropdown.Item href='/account'><span className="badge bg-success-subtle text-success mt-1 float-end">New</span><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></Dropdown.Item>
                                         <Dropdown.Item href='/home' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></Dropdown.Item>
                                     </Dropdown.Menu>
-                                </Dropdown> : <Link to={"/auth-signin-basic"}>< IoLogIn style={{ fontSize: "23px", color: "black" }} />
-                                    <span className="ms-2 text-black">Giris et</span>
+                                </Dropdown> : <Link to={"/auth-signin-basic"} style={{color:'#A530B0 !important'}}>< IoLogIn style={{ fontSize: "23px", color: "#A530B0" }} />
+                                    <span className="ms-2" style={{color:'#A530B0 !important'}}>Giris et</span>
                                 </Link>
                             }
 
@@ -317,4 +315,4 @@ const Header = (props) => {
     )
 };
 
-export default withRouter(withTranslation()(Header));
+export default memo(withRouter(withTranslation()(Header)));

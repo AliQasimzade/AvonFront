@@ -1,104 +1,61 @@
 import { Link } from "react-router-dom";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Card, Button, Image } from "react-bootstrap";
 import "./Catalog.css";
-import ReactPaginate from "react-paginate";
 import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { FaCheck } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { getAllProducts } from "../../services/getRequests";
+import { AddToBasket } from "../../services/postRequests";
 
 const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
-  //select
+
   const [select, setSelect] = useState("all");
   const [selectItem, setSelectItem] = useState([]);
   const [count, setCount] = useState([]);
-  console.log(count);
-  console.log(selectItem);
-  const pagination = true;
-  const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentpages, setCurrentpages] = useState([]);
-  const [searchFilterProducts, setSearchFilterProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const userId = useSelector((state) => state.persistedReducer.User.userId);
   console.log(userId);
-  const perPageData = 9;
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * perPageData) % currentpages.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
-  };
 
-  useEffect(() => {
-    axios
-      .get(
-        `http://avontest0910-001-site1.dtempurl.com/api/Products/GetAll?count=30&isDelete=false`
-      )
-      .then((res) => {
-        const findDefaults = res.data
-          .map((product) => {
-            if (product.isDefault == true) {
-              return product;
-            }
-          })
-          .filter(Boolean);
-        setCurrentpages(findDefaults);
-        setSearchFilterProducts(res.data);
-        setCount(Array.from({ length: findDefaults.length }).fill(0));
-        console.log(res.data[0].productImages);
-      });
-  }, []);
-  const pageNumbers = [];
-
-  const endOffset = itemOffset + perPageData;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = currentpages.slice(itemOffset, endOffset);
-  console.log(currentItems);
-  const pageCount = Math.ceil(currentpages.length / perPageData);
-  useEffect(() => {
-    if (pageNumbers.length && pageNumbers.length < currentPage) {
-      setCurrentPage(pageNumbers.length);
-    }
-  }, [currentPage, pageNumbers.length]);
-
-  //select value
-  const selectValue = (value) => {
-    setSelect(value);
-    setSearchFilterProducts(
-      setCurrentpages.filter((product) => {
-        if (product.name.toLowerCase().includes(value.toLowerCase())) {
+  const getProducts = async () => {
+    const res = await getAllProducts(currentPage);
+    console.log(res);
+    const findDefaults = res
+      .map((product) => {
+        if (product.isDefault == true) {
           return product;
         }
       })
-    );
+      .filter(Boolean);
+      const allPros = [...products, ...findDefaults]
+    setProducts(allPros);
+    setCount(Array.from({ length: allPros.length }).fill(0))
   };
+
+  useEffect(() => {
+    getProducts();
+  }, [currentPage]);
+
 
   const handleSKUChange = (a) => {
     setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId) => {
-    console.log(skuId);
-
-    try {
-      const response = await axios.post(
-        `http://avontest0910-001-site1.dtempurl.com/api/Baskets/AddBasket?skuId=${skuId}&appUserId=${appUserId}`,
-        {
-          skuId: selectItem,
-          appUserId: userId,
-        }
-      );
-      console.log(response);
-    } catch (error) {}
+    const res = await AddToBasket(skuId, appUserId)
+    console.log(res);
   };
 
   return (
     <>
       <div className="flex-grow-1">
+        <ToastContainer />
         <div className="d-flex align-items-center gap-2 mb-4">
           <p className="text-muted flex-grow-1 mb-0">
-            <span>{currentpages.length}</span> results
+            <span>{products.length}</span> results
           </p>
 
           <div className="flex-shrink-0">
@@ -112,7 +69,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                 <Form.Select
                   className="form-select w-md"
                   id="sort-elem"
-                  onChange={(e) => selectValue(e.target.value)}
+                
                 >
                   <option value="all">All</option>
                   <option value="lowtohigh">Low to High</option>
@@ -124,8 +81,8 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
         </div>
         <Row id="product-grid">
           {select &&
-            (currentItems && currentItems.length > 0 ? (
-              (currentItems || [])?.map((item, i) => {
+            (products && products.length > 0 ? (
+              (products || [])?.map((item, i) => {
                 console.log(item);
                 return (
                   !cxl && (
@@ -352,11 +309,24 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                             <div className="tn mt-3">
                               <Link
                                 className="btn btn-primary btn-hover w-100 add-btn"
-                                onClick={() =>
-                                  addToCart(
-                                    item.relationOfBaseCode[count[i]].skuId
-                                  )
-                                }
+                                onClick={() => {
+                                  if (userId) {
+                                    addToCart(
+                                      item.relationOfBaseCode[count[i]].skuId
+                                    );
+                                  } else {
+                                    toast.error("Zəhmət olmasa giris edin", {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      progress: undefined,
+                                      theme: "light",
+                                    });
+                                  }
+                                }}
                               >
                                 <i className="mdi mdi-cart me-1"></i> Add To
                                 Cart
@@ -387,16 +357,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
               </>
             ))}
         </Row>
-
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-        />
+        <Button onClick={() => setCurrentPage(currentPage + 1)}>Daha Çoxu</Button>
       </div>
     </>
   );

@@ -12,7 +12,7 @@ const Filters = ({ name }) => {
     const [maxcost, setMaxcost] = useState(2000);
 
     const subs = useSelector(state => state.persistedReducer.Subcategories)
-    console.log(subs);
+
     const [categories, setCategories] = useState([])
     //Collapse
     //colors
@@ -53,7 +53,7 @@ const Filters = ({ name }) => {
                                 <ul className="list-unstyled mb-0 filter-list">
                                     {
                                        subs.length > 0 &&  subs.map((cat) => {
-                                            console.log(cat);
+                                            
                                             return (
                                                 <li key={cat.id}>
                                                     <Link to="#" className="d-flex py-1 align-items-center" onClick={() => handleProduct(`${cat.name}`)}>
@@ -82,9 +82,9 @@ const Filters = ({ name }) => {
                                 id="product-price-range"
                             />
                             <div className="formCost d-flex gap-2 align-items-center mt-3">
-                                <Form.Control className="form-control-sm" id="MinCost" value={`₼ ${mincost}`} onChange={(e) => setMincost(e.target.value)} />
+                                <Form.Control className="form-control-sm" id="MinCost" value={mincost} onChange={(e) => setMincost(Number(e.target.value))} />
                                 <span className="fw-semibold text-muted">to</span>
-                                <Form.Control className=" form-control-sm" type="text" id="maxCost" value={`₼ ${maxcost}`} onChange={(e) => setMaxcost(e.target.value)} />
+                                <Form.Control className=" form-control-sm" type="text" id="maxCost" value={maxcost} onChange={(e) => setMaxcost(Number(e.target.value))} />
                             </div>
 
                         </Card.Body>
@@ -106,33 +106,33 @@ const Filters = ({ name }) => {
                                         <div className="accordion-body text-body pt-1">
                                             <div className="d-flex flex-column gap-2 filter-check" id="discount-filter">
                                                 <div className="form-check">
-                                                    <Form.Check type="checkbox" value="50" id="productdiscountRadio6" onClick={(e) => handleDic(e.target)} />
+                                                    <Form.Check type="checkbox" value="50" id="productdiscountRadio6" />
                                                     <Form.Label className="form-check-label" htmlFor="productdiscountRadio6">50% or more</Form.Label>
                                                 </div>
                                                 <div className="form-check">
-                                                    <Form.Check type="checkbox" value="40" id="productdiscountRadio5" onClick={(e) => handleDic(e.target)} />
+                                                    <Form.Check type="checkbox" value="40" id="productdiscountRadio5" />
                                                     <Form.Label className="form-check-label" htmlFor="productdiscountRadio5">40% or more</Form.Label>
                                                 </div>
                                                 <div className="form-check">
-                                                    <Form.Check type="checkbox" value="30" id="productdiscountRadio4" onClick={(e) => handleDic(e.target)} />
+                                                    <Form.Check type="checkbox" value="30" id="productdiscountRadio4" />
                                                     <Form.Label className="form-check-label" htmlFor="productdiscountRadio4">
                                                         30% or more
                                                     </Form.Label>
                                                 </div>
                                                 <div className="form-check">
-                                                    <Form.Check type="checkbox" value="20" id="productdiscountRadio3" onClick={(e) => handleDic(e.target)} />
+                                                    <Form.Check type="checkbox" value="20" id="productdiscountRadio3" />
                                                     <Form.Label className="form-check-label" htmlFor="productdiscountRadio3">
                                                         20% or more
                                                     </Form.Label>
                                                 </div>
                                                 <div className="form-check">
-                                                    <Form.Check type="checkbox" value="10" id="productdiscountRadio2" onClick={(e) => handleDic(e.target)} />
+                                                    <Form.Check type="checkbox" value="10" id="productdiscountRadio2" />
                                                     <Form.Label className="form-check-label" htmlFor="productdiscountRadio2">
                                                         10% or more
                                                     </Form.Label>
                                                 </div>
                                                 <div className="form-check">
-                                                    <Form.Check type="checkbox" value="0" id="productdiscountRadio1" onClick={(e) => handleDic(e.target)} />
+                                                    <Form.Check type="checkbox" value="0" id="productdiscountRadio1" />
                                                     <Form.Label className="form-check-label" htmlFor="productdiscountRadio1">
                                                         Less than 10%
                                                     </Form.Label>
@@ -159,7 +159,7 @@ const Filters = ({ name }) => {
                                     <div className="accordion-body text-body">
                                         <div className="d-flex flex-column gap-2 filter-check" id="rating-filter">
                                             <div className="form-check">
-                                                <Form.Check type="checkbox" value="4" id="productratingRadio4" onClick={() => hanleRat('4')} />
+                                                <Form.Check type="checkbox" value="4" id="productratingRadio4"  />
                                                 <Form.Label className="form-check-label" htmlFor="productratingRadio4">
                                                     <span className="text-muted">
                                                         <i className="mdi mdi-star text-warning"></i>
@@ -171,7 +171,7 @@ const Filters = ({ name }) => {
                                                 </Form.Label>
                                             </div>
                                             <div className="form-check">
-                                                <Form.Check type="checkbox" value="3" id="productratingRadio3" onClick={() => hanleRat('3')} />
+                                                <Form.Check type="checkbox" value="3" id="productratingRadio3" />
                                                 <Form.Label className="form-check-label" htmlFor="productratingRadio3">
                                                     <span className="text-muted">
                                                         <i className="mdi mdi-star text-warning"></i>
@@ -183,7 +183,7 @@ const Filters = ({ name }) => {
                                                 </Form.Label>
                                             </div>
                                             <div className="form-check">
-                                                <Form.Check type="checkbox" value="2" id="productratingRadio2" onClick={() => hanleRat('2')} />
+                                                <Form.Check type="checkbox" value="2" id="productratingRadio2"  />
                                                 <Form.Label className="form-check-label" htmlFor="productratingRadio2">
                                                     <span className="text-muted">
                                                         <i className="mdi mdi-star text-warning"></i>
@@ -195,7 +195,7 @@ const Filters = ({ name }) => {
                                                 </Form.Label>
                                             </div>
                                             <div className="form-check">
-                                                <Form.Check type="checkbox" value="1" id="productratingRadio1" onClick={() => hanleRat('1')} />
+                                                <Form.Check type="checkbox" value="1" id="productratingRadio1" />
                                                 <Form.Label className="form-check-label" htmlFor="productratingRadio1">
                                                     <span className="text-muted">
                                                         <i className="mdi mdi-star text-warning"></i>
