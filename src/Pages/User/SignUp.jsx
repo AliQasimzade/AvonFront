@@ -342,7 +342,7 @@ const SignUp = () => {
                                                 <p className="mb-0">
                                                     Already have an account?{" "}
                                                     <Link
-                                                        to="/auth-signin-basic"
+                                                        to="/giris"
                                                         className="fw-semibold text-primary text-decoration-underline"
                                                     >
                                                         Sign in

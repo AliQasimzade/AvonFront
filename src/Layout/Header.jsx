@@ -303,7 +303,7 @@ const Header = (props) => {
                                         <Dropdown.Item href='/account'><span className="badge bg-success-subtle text-success mt-1 float-end">New</span><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></Dropdown.Item>
                                         <Dropdown.Item href='/home' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></Dropdown.Item>
                                     </Dropdown.Menu>
-                                </Dropdown> : <Link to={"/auth-signin-basic"}>< IoLogIn style={{ fontSize: "23px", color: "black" }} />
+                                </Dropdown> : <Link to={"/giris"}>< IoLogIn style={{ fontSize: "23px", color: "black" }} />
                                     <span className="ms-2 text-black">Giris et</span>
                                 </Link>
                             }

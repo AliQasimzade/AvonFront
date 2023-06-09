@@ -96,7 +96,7 @@ const Signin = () => {
                                                     </div>
                                                     <div className="mb-3">
                                                         <div className="float-end">
-                                                            <Link to={"/auth-pass-reset-basic"} className="text-muted" >Forgot password?</Link>
+                                                            <Link to={"/sifreni-sifirla"} className="text-muted" >Forgot password?</Link>
                                                         </div>
                                                         <Form.Label htmlFor="password-input">Password</Form.Label>
                                                         <div className="position-relative auth-pass-inputgroup mb-3">
@@ -129,7 +129,7 @@ const Signin = () => {
                                                     </div>
                                                 </Form>
                                                 <div className="text-center mt-22">
-                                                    <p className="mb-0">Don't have an account ? <Link to='/auth-signup-basic' className="fw-semibold text-secondary text-decoration-underline"> SignUp</Link> </p>
+                                                    <p className="mb-0">Don't have an account ? <Link to='/qeydiyyat' className="fw-semibold text-secondary text-decoration-underline"> SignUp</Link> </p>
                                                 </div>
                                             </div>
                                         </Card.Body>

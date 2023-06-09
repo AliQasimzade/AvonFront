@@ -17,7 +17,7 @@ const Checkout = () => {
                     <Row >
                         <Col lg={12}>
                             <Alert className="alert-danger alert-modern alert-dismissible fade show" role="alert">
-                                <i className="bi bi-box-arrow-in-right icons"></i>Returning customer?<Alert.Link href="auth-signin-basic" className="link-danger"><strong> Click here to login</strong>.</Alert.Link>
+                                <i className="bi bi-box-arrow-in-right icons"></i>Returning customer?<Alert.Link href="giris" className="link-danger"><strong> Click here to login</strong>.</Alert.Link>
                                 <Button className="btn-close" data-bs-dismiss="alert" aria-label="Close"></Button>
                             </Alert>
                         </Col>

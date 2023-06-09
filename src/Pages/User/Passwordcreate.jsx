@@ -5,8 +5,8 @@ import { useFormik } from "formik";
 import * as Yup from 'yup';
 
 //img
-import logodark from "../../assets/images/logo-dark.png";
-import logolight from "../../assets/images/logo-light.png";
+import logodark from "../../assets/images/avonLogo.png";
+import logolight from "../../assets/images/avonLogo.png";
 import auth1 from "../../assets/images/auth/img-1.png";
 
 const Passwordcreate = () => {
@@ -23,14 +23,14 @@ const Passwordcreate = () => {
         },
         validationSchema: Yup.object({
             password: Yup.string()
-                .min(8, 'Password must be at least 8 characters')
-                .matches(RegExp('(.*[a-z].*)'), 'At least lowercase letter')
-                .matches(RegExp('(.*[A-Z].*)'), 'At least uppercase letter')
-                .matches(RegExp('(.*[0-9].*)'), 'At least one number')
-                .required("This field is required"),
+                .min(8, 'Şifrə ən azı 8 simvol olmalıdır')
+                .matches(RegExp('(.*[a-z].*)'), 'Ən azı 1 kiçik hərf')
+                .matches(RegExp('(.*[A-Z].*)'), 'Ən azı 1 böyük hərf')
+                .matches(RegExp('(.*[0-9].*)'), 'Ən azı 1 rəqəm')
+                .required("Bu xana doldurulmalıdır"),
             confirmPassword: Yup.string()
                 .required()
-                .oneOf([Yup.ref("password")], "Passwords do not match"),
+                .oneOf([Yup.ref("password")], "Şifrələr eyni deyil"),
         }),
         onSubmit: (values) => {
             // console.log("value", values);
@@ -61,16 +61,16 @@ const Passwordcreate = () => {
                             <div className="col-auto">
                                 <ul className="list-unstyled hstack gap-2 mb-0">
                                     <li className="me-md-3">
-                                        <Link to="#" className="text-body fw-medium fs-15">Become a Selling</Link>
+                                        <Link to="#" className="text-body fw-medium fs-15">Satış nümayəndəsi ol</Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-google-play align-middle me-1" /> Download App
+                                            <i className="bi bi-google-play align-middle me-1" /> Tətbiqi yüklə
                                         </Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-apple align-middle me-1" /> Download App
+                                            <i className="bi bi-apple align-middle me-1" /> Tətbiqi yüklə
                                         </Link>
                                     </li>
                                 </ul>
@@ -90,21 +90,21 @@ const Passwordcreate = () => {
                                                     <Image src={auth1} alt="" className="img-fluid" />
                                                 </Col>
                                                 <Col lg={8} xs={9}>
-                                                    <h1 className="text-white lh-base fw-lighter">Create New Password</h1>
+                                                    <h1 className="text-white lh-base fw-lighter">Yeni şifrə yarat</h1>
                                                 </Col>
                                             </Row>
                                         </Card.Header>
                                         <Card.Body>
-                                            <p className="text-muted fs-15">Your new password must be different from previous used password.</p>
+                                            <p className="text-muted fs-15">Yeni şifrəniz öncəki şifrənizdən fərqli olmalıdır</p>
                                             <div className="p-2">
-                                                <Form action='/auth-signin-basic' onSubmit={formik.handleSubmit}>
+                                                <Form action='/giris' onSubmit={formik.handleSubmit}>
                                                     <div className="mb-3">
-                                                        <Form.Label htmlFor="password-input">Password</Form.Label>
+                                                        <Form.Label htmlFor="password-input">Yeni şifrəniz</Form.Label>
                                                         <div className="position-relative auth-pass-inputgroup">
                                                             <Form.Control
                                                                 type={password}
                                                                 className="pe-5 password-input"
-                                                                placeholder="Enter password"
+                                                                placeholder="Daxil edin"
                                                                 id="password-input"
                                                                 name="password"
                                                                 onChange={formik.handleChange}
@@ -116,15 +116,15 @@ const Passwordcreate = () => {
                                                             ) : null}
                                                             <Button className="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" id="password-addon" bsPrefix="btn btn-none" onClick={handleTooglePassword}><i className="ri-eye-fill align-middle" /></Button>
                                                         </div>
-                                                        <div id="passwordInput" className="form-text">Your password must be 8-20 characters long.</div>
+                                                        <div id="passwordInput" className="form-text">Şifrəniz 8-20 simvoldan ibarət olmalıdır</div>
                                                     </div>
                                                     <div className="mb-3">
-                                                        <Form.Label htmlFor="confirm-password-input">Confirm Password</Form.Label>
+                                                        <Form.Label htmlFor="confirm-password-input">Yeni şifrənin təkrarı</Form.Label>
                                                         <div className="position-relative auth-pass-inputgroup mb-3">
                                                             <Form.Control
                                                                 type={confirmpassword}
                                                                 className="pe-5 password-input"
-                                                                placeholder="Confirm password"
+                                                                placeholder="Yenidən daxil edin"
                                                                 id="confirm-password-input"
                                                                 name="confirmPassword"
                                                                 value={formik.values.confirmPassword}
@@ -139,15 +139,15 @@ const Passwordcreate = () => {
                                                     </div>
                                                     <div className="form-check form-check-primary">
                                                         <Form.Control className="form-check-input" type="checkbox" id="auth-remember-check" />
-                                                        <Form.Label className="form-check-label" htmlFor="auth-remember-check">Remember me</Form.Label>
+                                                        <Form.Label className="form-check-label" htmlFor="auth-remember-check">Girişimi yaddaşda saxla</Form.Label>
                                                     </div>
                                                     <div className="mt-4">
-                                                        <Button variant="primary" className="w-100" type="submit">Reset Password</Button>
+                                                        <Button variant="primary" className="w-100" type="submit">Şifrəni sıfırla</Button>
                                                     </div>
                                                 </Form>
                                             </div>
                                             <div className="mt-4 text-center">
-                                                <p className="mb-0">Wait, I remember my password... <Link to='/auth-signin-basic' className="fw-semibold text-primary text-decoration-underline"> Click here </Link> </p>
+                                                <p className="mb-0">Gözlə, mən şifrəmi xatırlayıram... <Link to='/giris' className="fw-semibold text-primary text-decoration-underline"> Giriş et </Link> </p>
                                             </div>
                                         </Card.Body>
                                     </Card>
@@ -161,7 +161,7 @@ const Passwordcreate = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
+                                            2021 - {new Date().getFullYear()} Avon Azərbaycan. Hazırladı <i className="mdi mdi-heart text-danger" /> by RGAgency
                                         </p>
                                     </div>
                                 </Col>

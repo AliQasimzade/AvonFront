@@ -135,27 +135,27 @@ const authProtectedRoutes = [
 const publicRoutes = [
     //user
     //Signin
-    { path: "/auth-signin-basic", component: <Signin /> },
+    { path: "/giris", component: <Signin /> },
     //SignUp
-    { path: "/auth-signup-basic", component: <SignUp /> },
+    { path: "/qeydiyyat", component: <SignUp /> },
     //Passwordreset
-    { path: "/auth-pass-reset-basic", component: <Passwordreset /> },
+    { path: "/sifreni-sifirla", component: <Passwordreset /> },
     //Passwordcreate
-    { path: "/auth-pass-change-basic", component: <Passwordcreate /> },
+    { path: "/sifreni-yarat", component: <Passwordcreate /> },
     //Successmsg
     { path: "/auth-success-msg-basic", component: <Successmsg /> },
     //Verifyemail
-    { path: "/auth-twostep-basic", component: <Verifyemail /> },
+    { path: "/emaili-tesdiqle", component: <Verifyemail /> },
     //Logout
-    { path: "/auth-logout-basic", component: <Logout /> },
+    { path: "/cixis", component: <Logout /> },
     //error 404
-    { path: "/auth-404", component: <Error404 /> },
+    { path: "/xeta-404", component: <Error404 /> },
     //error 500
-    { path: "/auth-500", component: <Error500 /> },
+    { path: "/xeta-500", component: <Error500 /> },
     //Comingsoon
     { path: "/coming-soon", component: <Comingsoon /> },
 
-    { path: "/catalog/:name", component: < SubCatProduct/> },
+    { path: "/catalog/:name", component: <SubCatProduct/> },
 
     //email
     //Blackfriday

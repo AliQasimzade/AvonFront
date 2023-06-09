@@ -3,10 +3,8 @@ import { Alert, Card, Col, Container, Form, Row, Button, Image } from "react-boo
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import axios from "axios";
 //img
 import avonLogo from "../../assets/images/avonLogo.png"
-import auth1 from "../../assets/images/auth/img-1.png";
 
 const Passwordreset = () => {
     const formik = useFormik({
@@ -14,7 +12,7 @@ const Passwordreset = () => {
             email: "",
         },
         validationSchema: Yup.object({
-            email: Yup.string().email().required("Please Enter Your Email"),
+            email: Yup.string().email().required("Zəhmət olmasa e-poçt hesabınızı daxil edin"),
         }),
         onSubmit: async (values) => {
             try {
@@ -69,19 +67,19 @@ const Passwordreset = () => {
                                             </Row>
                                         </Card>
                                         <Card.Body>
-                                            <p className="text-muted fs-15">Reset password with RGAgency.</p>
+                                            <p className="text-muted fs-15">Şəxsi hesabınızın şifrəsini sıfırlamaq üçün e-poçt hesabınızı yazın</p>
                                             <Alert className="alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
-                                                Enter your email and instructions will be sent to you!
+                                                E-poçt hesabınızı yazdıqdan sonra şifrə sıfırlanması təlimatı sizə göndəriləcək!
                                             </Alert>
                                             <div className="p-2">
                                                 <Form onSubmit={formik.handleSubmit}>
                                                     <div className="mb-4">
-                                                        <Form.Label htmlFor="email">Email</Form.Label>
+                                                        <Form.Label htmlFor="email">E-poçt</Form.Label>
                                                         <Form.Control
                                                             type="email"
                                                             id="email"
                                                             name="email"
-                                                            placeholder="Enter your email or username"
+                                                            placeholder="E-poçt ünvanınızı və ya istifadəçi adınızı daxil edin"
                                                             value={formik.values.email}
                                                             onChange={formik.handleChange}
                                                             onBlur={formik.handleBlur}
@@ -93,12 +91,12 @@ const Passwordreset = () => {
                                                         }
                                                     </div>
                                                     <div className="text-center mt-4">
-                                                        <Button variant="primary" className="w-100" type="submit">Send Reset Link</Button>
+                                                        <Button variant="primary" className="w-100" type="submit">Sıfırlama linki göndər</Button>
                                                     </div>
                                                 </Form>{/* end form */}
                                             </div>
                                             <div className="mt-4 text-center">
-                                                <p className="mb-0">Wait, I remember my password... <Link to='/auth-signin-basic' className="fw-semibold text-primary text-decoration-underline"> Click here </Link> </p>
+                                                <p className="mb-0">Gözlə, deyəsən şifrəmi xatırlayıram... <Link to='/giris' className="fw-semibold text-primary text-decoration-underline"> Şifrəmi bilirəm </Link> </p>
                                             </div>
                                         </Card.Body>
                                     </Card>
@@ -112,7 +110,7 @@ const Passwordreset = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
+                                            {new Date().getFullYear()} RGAgency. Sevgi ilə hazırladı <i className="mdi mdi-heart text-danger" /> by RGAgency
                                         </p>
                                     </div>
                                 </Col>

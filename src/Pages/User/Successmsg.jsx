@@ -64,7 +64,7 @@ const Successmsg = () => {
                                             </div>
                                             <p className="text-muted fs-15">Aww yeah, you successfully read this important message.</p>
                                             <div>
-                                                <Link to='/auth-signin-basic' className="btn btn-success w-100">Back to Dashboard</Link>
+                                                <Link to='/giris' className="btn btn-success w-100">Back to Dashboard</Link>
                                             </div>
                                         </Card.Body>
                                     </Card>

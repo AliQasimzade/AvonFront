@@ -301,7 +301,7 @@ const MyAccount = () => {
                         <Nav.Link
                           as="a"
                           className="fs-15"
-                          href="/auth-logout-basic"
+                          href="/cixis"
                           onClick={logOut}
                         >
                           <i className="bi bi-box-arrow-right align-middle me-1"></i>{" "}
@@ -699,7 +699,7 @@ const MyAccount = () => {
                                                                         </Col>
                                                                         <Col lg={12}>
                                                                             <div className="mb-3">
-                                                                                <Link to="/auth-pass-reset-basic" className="link-primary text-decoration-underline">Forgot Password ?</Link>
+                                                                                <Link to="/sifreni-sifirla" className="link-primary text-decoration-underline">Forgot Password ?</Link>
                                                                             </div>
                                                                         </Col>
                                                                     </Row>

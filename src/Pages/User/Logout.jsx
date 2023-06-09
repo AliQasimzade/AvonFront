@@ -63,7 +63,7 @@ const Logout = () => {
                                             </div>
                                             <p className="text-muted fs-15">Thank you for using <span className="fw-semibold">RGAgency</span> admin template</p>
                                             <div>
-                                                <Link to='/auth-signin-basic' className="btn btn-primary w-100">Sign In</Link>
+                                                <Link to='/giris' className="btn btn-primary w-100">Sign In</Link>
                                             </div>
                                         </Card.Body>
                                     </Card>
