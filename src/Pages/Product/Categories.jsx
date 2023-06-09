@@ -42,6 +42,7 @@ const Categories = (props) => {
             const response = await fetch("http://avontest0910-001-site1.dtempurl.com/api/SubCatigories/Manage/GetAll?isDeleted=false");
             if (response.ok) {
                 const data = await response.json();
+                console.log(data);
                 setCategory(data);
             } else {
                 console.error("Error:", response.statusText);
@@ -56,6 +57,7 @@ const Categories = (props) => {
             if (res.ok) {
                 const data = await res.json();
                 setProducts(data);
+                console.log(data);
             } else {
                 console.error("Error:", res.statusText)
             }
@@ -96,7 +98,7 @@ const Categories = (props) => {
                                                 <Link to={`/catalog/${cat.name}`}>
                                                     <h5 className="mb-2 fs-15">{cat.name}</h5>
                                                 </Link>
-                                                <p className="text-muted fs-12">{cat.productSubCategories} Products</p>
+                                                <p className="text-muted fs-12">{cat.productSubCategories.length} Products</p>
                                             </div>
                                         </div>
                                     </Col>
@@ -146,26 +148,26 @@ const Categories = (props) => {
                                 <div className="swiper-wrapper py-4">
 
 {/* mehsullar bura gelir */}
-                                    {/* {
+                                    {
                                         products.map((prd, ind) => {
                                             return (
                                                 <SwiperSlide key={ind}>
                                                     <Card className="card-animate overflow-hidden">
-                                                        <div className={`bg-${item.bg}-subtle rounded-top py-4`}>
+                                                        <div className={`bg-${prd.bg}-subtle rounded-top py-4`}>
                                                             <div className="gallery-product">
-                                                                <Image src={item.img} alt="" style={{ maxHeight: "215px", maxWidth: "100%" }} className="mx-auto d-block" />
+                                                                <Image src={prd.img} alt="" style={{ maxHeight: "215px", maxWidth: "100%" }} className="mx-auto d-block" />
                                                             </div>
                                                         </div>
                                                         <Card.Body className="text-center">
                                                             <Link to='/product-list' className="stretched-link">
-                                                                <h6 className="fs-16 lh-base text-truncate">{item.title}</h6>
+                                                                <h6 className="fs-16 lh-base text-truncate">{prd.title}</h6>
                                                             </Link>
                                                         </Card.Body>
                                                     </Card>
                                                 </SwiperSlide>
                                             )
                                         })
-                                    } */}
+                                    }
 
                                     {(sliderCategories || []).map((item, key) => (
                                         <SwiperSlide key={key}>
@@ -189,7 +191,7 @@ const Categories = (props) => {
                     </Row>
                 </Container>
             </section>
-            {/* <section className="section">
+            <section className="section">
                 <Container>
                     <TopCategoies title="Masonry" />
                     <Row className="g-2">
@@ -199,7 +201,7 @@ const Categories = (props) => {
                                     <div className="categrory-content text-center">
                                         <span className="categrory-text text-white fs-18">Electronics</span>
                                     </div>
-                                    <Image src={instagram1} className="img-fluid" alt="" />
+                                    {/* <Image src={instagram1} className="img-fluid" alt="" /> */}
                                 </Link>
                             </Card>
                         </Col>
@@ -211,7 +213,7 @@ const Categories = (props) => {
                                             <div className="categrory-content text-center">
                                                 <span className="categrory-text text-white fs-18">Cosmatics</span>
                                             </div>
-                                            <Image src={instagram2} className="w-100 object-fit-cover" alt="" style={{ maxHeight: "318px" }} />
+                                            {/* <Image src={instagram2} className="w-100 object-fit-cover" alt="" style={{ maxHeight: "318px" }} /> */}
                                         </Link>
                                     </Card>
                                 </Col>
@@ -221,7 +223,7 @@ const Categories = (props) => {
                                             <div className="categrory-content text-center">
                                                 <span className="categrory-text text-white fs-18">Handbags &amp; Clutches</span>
                                             </div>
-                                            <Image src={instagram5} className="w-100 object-fit-cover" alt="" style={{ maxHeight: "318px" }} />
+                                            {/* <Image src={instagram5} className="w-100 object-fit-cover" alt="" style={{ maxHeight: "318px" }} /> */}
                                         </Link>
                                     </Card>
                                 </Col>
@@ -229,7 +231,7 @@ const Categories = (props) => {
                         </Col>
                     </Row>
                 </Container>
-            </section> */}
+            </section>
             <DefauilOffer />
             <CommonService />
         </>
