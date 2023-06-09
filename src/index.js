@@ -9,14 +9,14 @@ import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk';
 import rootreducer from './slices/index';
 import { configureStore } from '@reduxjs/toolkit';
+import {  HelmetProvider } from 'react-helmet-async';
 
+const helmetContext = {};
 
 const persistConfig = {
   key: 'root',
   storage: storage,
 }
-
-
 
 
 const persistedReducer = persistReducer(persistConfig, rootreducer);
@@ -35,7 +35,9 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <HelmetProvider context={helmetContext}>
+          <App />
+        </HelmetProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider >

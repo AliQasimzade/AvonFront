@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Card, Button, Image } from "react-bootstrap";
 import "./Catalog.css";
-import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { FaCheck } from "react-icons/fa";
@@ -10,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAllProducts } from "../../services/getRequests";
 import { AddToBasket } from "../../services/postRequests";
-
+import {Helmet} from "react-helmet-async"
 const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
   const [select, setSelect] = useState("all");
@@ -52,6 +51,9 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
   return (
     <>
+    <Helmet>
+      <title>Məhsullar</title>
+    </Helmet>
       <div className="flex-grow-1">
         <ToastContainer />
         <div className="d-flex align-items-center gap-2 mb-4">
