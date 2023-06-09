@@ -78,22 +78,22 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   const handleSKUChange = async (a) => {
     const data = await a;
     setSelectItem(data);
-    addToCart(data);
   };
   const addToCart = async (skuId, appUserId) => {
     console.log(skuId);
 
-    // try {
-    //     const response = await axios.post(
-    //       `url`,
-    //      {
-    //         skuId:selectItem,
-    //         appUserId: userId
-    //      }
-    //     );
-    //     console.log(response);
-    //   } catch (error) {
-    // }
+    try {
+      const response = await axios.post(
+        `http://avontest0910-001-site1.dtempurl.com/api/Baskets/AddBasket?skuId=${skuId}&appUserId=${appUserId}`,
+        {
+          skuId: skuId,
+          appUserId: userId,
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      alert(error.message)
+    }
   };
 
   return (
@@ -357,9 +357,8 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 className="btn btn-primary btn-hover w-100 add-btn"
                                 onClick={() =>
                                   addToCart(
-                                    selectItem.length > 0
-                                      ? selectItem
-                                      : item.relationOfBaseCode[count[i]].skuId
+                                    item.relationOfBaseCode[count[i]].skuId,
+                                    userId
                                   )
                                 }
                               >
