@@ -3,7 +3,7 @@ import axios from "axios";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { contactdetails } from "../../Common/data";
+import { PostMessageWithAboutUs } from "../../services/postRequests";
 
 const ContactUs = () => {
     const formik = useFormik({
@@ -19,8 +19,9 @@ const ContactUs = () => {
             number: Yup.string().required('Please Enter Your number'),
             message: Yup.string().required("Please Enter Your some message")
         }),
-        onSubmit: (values) => {
-            // console.log("value", values);
+        onSubmit: async (values) => {
+           const res = await PostMessageWithAboutUs(values);
+           console.log(res);
         },
     });
 
@@ -117,12 +118,12 @@ const ContactUs = () => {
                                     <Row>
                                         <Col lg={12}>
                                             <div className="text-center mb-4">
-                                                <h3 className="text-capitalize">Get In Touch with us for more Information</h3>
+                                                <h3 className="text-capitalize">Əlavə məlumat üçün bizimlə əlaqə saxlayın</h3>
                                             </div>
                                         </Col>
                                         <Col lgt={6}>
                                             <div className="form-group mt-3">
-                                                <Form.Label htmlFor="nameInput">Name<span className="text-danger">*</span></Form.Label>
+                                                <Form.Label htmlFor="nameInput">Adı<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     name="name"
                                                     id="nameInput"
@@ -140,7 +141,7 @@ const ContactUs = () => {
                                         </Col>
                                         <Col lg={6}>
                                             <div className="form-group mt-3">
-                                                <Form.Label htmlFor="emailInput">Email<span className="text-danger">*</span></Form.Label>
+                                                <Form.Label htmlFor="emailInput">E-Poçt<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     name="email"
                                                     id="emailInput"
@@ -159,7 +160,7 @@ const ContactUs = () => {
                                         </Col>
                                         <Col lg={12}>
                                             <div className="form-group mt-3">
-                                                <Form.Label htmlFor="numberInput">Number<span className="text-danger">*</span></Form.Label>
+                                                <Form.Label htmlFor="numberInput">Nömrə<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     type="number"
                                                     id="numberInput"
@@ -178,13 +179,13 @@ const ContactUs = () => {
                                         </Col>
                                         <Col lg={12}>
                                             <div className="form-group mt-3">
-                                                <Form.Label htmlFor="messageInput">Message<span className="text-danger">*</span></Form.Label>
+                                                <Form.Label htmlFor="messageInput">Mesaj<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     as="textarea"
                                                     name="message"
                                                     id="messageInput"
                                                     rows={4}
-                                                    placeholder="Enter message..."
+                                                    placeholder="Mesaj"
                                                     value={formik.values.message}
                                                     onChange={formik.handleChange}
                                                     onBlur={formik.handleBlur}
@@ -199,7 +200,7 @@ const ContactUs = () => {
                                         </Col>
                                         <Col lg={12}>
                                             <div className="text-end mt-4">
-                                                <Button type="submit" id="submit" name="submit" variant="primary" >Send Message <i className="bi bi-arrow-right-short align-middle fs-16 ms-1"></i></Button>
+                                                <Button type="submit" id="submit" name="submit" variant="primary" >Mesaj Göndər <i className="bi bi-arrow-right-short align-middle fs-16 ms-1"></i></Button>
                                             </div>
                                         </Col>
                                     </Row>

@@ -9,6 +9,8 @@ import axios from "axios";
 import avonLogo from "../../assets/images/avonLogo.png"
 import { useDispatch } from "react-redux";
 import { changeAccont } from "../../slices/layouts/accont";
+import { getAllBasket } from "../../slices/layouts/basket";
+
 import { changeToken, changeUserId } from "../../slices/layouts/user";
 const Signin = () => {
     const passwordtype = 'password';
@@ -42,7 +44,12 @@ const Signin = () => {
                 dispatch(changeUserId(userId))
                 dispatch(changeToken(tok))
                 axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Account/MyAccount?id=${userId}`)
-                .then((res) => dispatch(changeAccont({...res.data})))
+                .then((res) => {
+                    dispatch(changeAccont({...res.data}))
+                    axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Baskets/GetAll?appUserId=${res.data[0].id}`).then(res => {
+                         dispatch(getAllBasket(res.data))
+                    })
+                })
                 navigate("/home")
             })
             

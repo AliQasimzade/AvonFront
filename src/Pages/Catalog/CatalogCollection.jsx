@@ -6,13 +6,13 @@ import ReactPaginate from "react-paginate";
 import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import {FaCheck} from "react-icons/fa"
+import { FaCheck } from "react-icons/fa";
 
 const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   //select
   const [select, setSelect] = useState("all");
   const [selectItem, setSelectItem] = useState([]);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState([]);
   console.log(count);
   console.log(selectItem);
   const pagination = true;
@@ -32,19 +32,23 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   };
 
   useEffect(() => {
-    axios.get(`http://avontest0910-001-site1.dtempurl.com/api/Products/GetAll?count=30&isDelete=false`).then((res) => {
-      setCurrentpages(
-        res.data
+    axios
+      .get(
+        `http://avontest0910-001-site1.dtempurl.com/api/Products/GetAll?count=30&isDelete=false`
+      )
+      .then((res) => {
+        const findDefaults = res.data
           .map((product) => {
             if (product.isDefault == true) {
               return product;
             }
           })
-          .filter(Boolean)
-      );
-      setSearchFilterProducts(res.data);
-      console.log(res.data[0].productImages);
-    });
+          .filter(Boolean);
+        setCurrentpages(findDefaults);
+        setSearchFilterProducts(res.data);
+        setCount(Array.from({ length: findDefaults.length }).fill(0));
+        console.log(res.data[0].productImages);
+      });
   }, []);
   const pageNumbers = [];
 
@@ -71,25 +75,22 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     );
   };
 
-  const handleSKUChange = async (a) => {
-    const data = await a;
-    setSelectItem(data);
-    addToCart(data);
+  const handleSKUChange = (a) => {
+    setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId) => {
     console.log(skuId);
 
-    // try {
-    //     const response = await axios.post(
-    //       `url`,
-    //      {
-    //         skuId:selectItem,
-    //         appUserId: userId
-    //      }
-    //     );
-    //     console.log(response);
-    //   } catch (error) {
-    // }
+    try {
+      const response = await axios.post(
+        `http://avontest0910-001-site1.dtempurl.com/api/Baskets/AddBasket?skuId=${skuId}&appUserId=${appUserId}`,
+        {
+          skuId: selectItem,
+          appUserId: userId,
+        }
+      );
+      console.log(response);
+    } catch (error) {}
   };
 
   return (
@@ -97,7 +98,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
       <div className="flex-grow-1">
         <div className="d-flex align-items-center gap-2 mb-4">
           <p className="text-muted flex-grow-1 mb-0">
-            Showing 1-12 of 84 results
+            <span>{currentpages.length}</span> results
           </p>
 
           <div className="flex-shrink-0">
@@ -124,7 +125,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
         <Row id="product-grid">
           {select &&
             (currentItems && currentItems.length > 0 ? (
-              (currentItems || [])?.map((item) => {
+              (currentItems || [])?.map((item, i) => {
                 console.log(item);
                 return (
                   !cxl && (
@@ -154,10 +155,14 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                               </span>
                             </Button>
                           </div>
-                          {item?.relationOfBaseCode[count] && (
+                          {item?.relationOfBaseCode[count[i]] && (
                             <div className="avatar-xs label">
                               <div className="avatar-title bg-danger rounded-circle fs-11">
-                                {item?.relationOfBaseCode[count].discountPrice}%
+                                {
+                                  item?.relationOfBaseCode[count[i]]
+                                    .discountPrice
+                                }
+                                %
                               </div>
                             </div>
                           )}
@@ -167,26 +172,39 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                             {item.variant.type == "color" ? (
                               item.relationOfBaseCode.length > 0 ? (
                                 <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                                  {item.relationOfBaseCode.map((color,index) => (
-                                    <li key={index}>
-                                      <Form.Control
-                                        type="radio"
-                                        name="sizes1"
-                                        id={`product-color-${color.skuId}`}
-                                        onClick={() => {
-                                          handleSKUChange(color.skuId);
-                                          setCount(index)
-                                        }}
-                                      />
-                                      <Form.Label
-                                        className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                        htmlFor={`product-color-${color.skuId}`}
-                                        style={{
-                                          backgroundColor: `${color.colorCode}`,
-                                        }}  
-                                      >{color.colorCode == null && <FaCheck/>}</Form.Label>
-                                    </li>
-                                  ))}
+                                  {item.relationOfBaseCode.map(
+                                    (color, index) => (
+                                      <li key={index}>
+                                        <Form.Control
+                                          type="radio"
+                                          name="sizes1"
+                                          id={`product-color-${color.skuId}`}
+                                          onClick={() => {
+                                            handleSKUChange(color.skuId);
+                                            setCount((count) =>
+                                              count.map((c, idx) => {
+                                                if (idx == i) {
+                                                  c = index;
+                                                }
+                                                return c;
+                                              })
+                                            );
+                                          }}
+                                        />
+                                        <Form.Label
+                                          className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                          htmlFor={`product-color-${color.skuId}`}
+                                          style={{
+                                            backgroundColor: `${color.colorCode}`,
+                                          }}
+                                        >
+                                          {color.colorCode == null && (
+                                            <FaCheck />
+                                          )}
+                                        </Form.Label>
+                                      </li>
+                                    )
+                                  )}
                                 </ul>
                               ) : (
                                 <div className="avatar-xxs mb-3">
@@ -195,27 +213,42 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                   </div>
                                 </div>
                               )
-                            ) : item.variant.type == "size" ? (
+                            ) : item.variant.type == "file" ? (
                               item.relationOfBaseCode.length > 0 ? (
                                 <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                                  {item.relationOfBaseCode.map((color) => (
-                                    <li key={color.skuId}>
-                                      <Form.Control
-                                        type="radio"
-                                        name="sizes1"
-                                        id={`product-color-${color.id}`}
-                                        onClick={() => {
-                                          setSelectItem(color.skuId);
-                                        }}
-                                      />
-                                      <Form.Label
-                                        className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                        htmlFor="product-color-12"
-                                      >
-                                        {color.variable}
-                                      </Form.Label>
-                                    </li>
-                                  ))}
+                                  {item.relationOfBaseCode.map(
+                                    (color, index) => (
+                                      <li key={color.skuId}>
+                                        <Form.Control
+                                          type="radio"
+                                          name="sizes1"
+                                          id={`product-color-${color.skuId}`}
+                                          onClick={() => {
+                                            handleSKUChange(color.skuId);
+                                            setCount((count) =>
+                                              count.map((c, idx) => {
+                                                if (idx == i) {
+                                                  c = index;
+                                                }
+                                                return c;
+                                              })
+                                            );
+                                          }}
+                                        />
+                                        <Form.Label
+                                          className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                          htmlFor={`product-color-${color.skuId}`}
+                                          style={{
+                                            backgroundImage: `url(${color.colorCode})`,
+                                          }}
+                                        >
+                                          {color.colorCode == null && (
+                                            <FaCheck />
+                                          )}
+                                        </Form.Label>
+                                      </li>
+                                    )
+                                  )}
                                 </ul>
                               ) : (
                                 <div className="avatar-xxs mb-3">
@@ -267,12 +300,16 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                               </h6>
                             </Link>
                             <div className="mt-2">
-                              {item.relationOfBaseCode[count].comments.length > 0 ? (
+                              {item.relationOfBaseCode[count[i]].comments
+                                .length > 0 ? (
                                 <span className="float-end">
-                                  {item.relationOfBaseCode[count].comments
-                                    .map((retinhg) => retinhg.star)
-                                    .reduce((acc, item) => acc + item, 0) /
-                                    item.relationOfBaseCode[count].comments.length}
+                                  {Number(
+                                    item.relationOfBaseCode[count[i]].comments
+                                      .map((retinhg) => retinhg.star)
+                                      .reduce((acc, item) => acc + item, 0) /
+                                      item.relationOfBaseCode[count[i]].comments
+                                        .length
+                                  ).toFixed(2)}
                                   :
                                   <i className="ri-star-half-fill text-warning align-bottom"></i>
                                 </span>
@@ -283,20 +320,32 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 </span>
                               )}
 
-                              {item?.relationOfBaseCode[count].discountPrice > 0 ? (
+                              {item?.relationOfBaseCode[count[i]]
+                                .discountPrice > 0 ? (
                                 <>
                                   <h5 className="text-secondary mb-0">
-                                    {item?.relationOfBaseCode[count].salePrice -
-                                      (item?.relationOfBaseCode[count].salePrice / 100) *
-                                        item?.relationOfBaseCode[count].discountPrice}
+                                    {Number(
+                                      item?.relationOfBaseCode[count[i]]
+                                        .salePrice -
+                                        (item?.relationOfBaseCode[count[i]]
+                                          .salePrice /
+                                          100) *
+                                          item?.relationOfBaseCode[count[i]]
+                                            .discountPrice
+                                    ).toFixed(2)}
                                     <span className="text-muted fs-12">
-                                      <del>{item?.relationOfBaseCode[count].salePrice}</del>
+                                      <del>
+                                        {
+                                          item?.relationOfBaseCode[count[i]]
+                                            .salePrice
+                                        }
+                                      </del>
                                     </span>
                                   </h5>
                                 </>
                               ) : (
                                 <h5 className="text-secondary mb-0">
-                                  {item?.relationOfBaseCode[count].salePrice}
+                                  {item?.relationOfBaseCode[count[i]].salePrice}
                                 </h5>
                               )}
                             </div>
@@ -305,9 +354,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                 className="btn btn-primary btn-hover w-100 add-btn"
                                 onClick={() =>
                                   addToCart(
-                                    selectItem.length > 0
-                                      ? selectItem
-                                      : item.relationOfBaseCode[count].skuId
+                                    item.relationOfBaseCode[count[i]].skuId
                                   )
                                 }
                               >

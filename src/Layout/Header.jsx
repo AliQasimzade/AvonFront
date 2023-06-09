@@ -16,6 +16,7 @@ import { logoutToken, logoutUserId } from "../slices/layouts/user";
 import { getAllBrands, getAllCategories } from "../services/getRequests";
 const Header = (props) => {
     const userData = useSelector(state => state.persistedReducer.Accont.user[0]);
+    const basket = useSelector(state => state.persistedReducer.Basket.basket);
     // kateqoriyalar
     const [categories, setCategories] = useState([])
     const [brendler, setBrendler] = useState([]);
@@ -269,7 +270,7 @@ const Header = (props) => {
                         <div className="topbar-head-dropdown ms-1 header-item">
                             <Button type="button" className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted" data-bs-toggle="offcanvas" data-bs-target="#ecommerceCart" aria-controls="ecommerceCart" onClick={handlecardShow}>
                                 <i className="ph-shopping-cart fs-18"></i>
-                                <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">4</span>
+                                <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">{basket.length}</span>
                             </Button>
                         </div>
                         {/* <CardModal show={card} handleClose={handlecardClose} /> */}
@@ -298,7 +299,7 @@ const Header = (props) => {
                                         <Dropdown.Item href='/shop/order'><i className="bi bi-truck text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Track Orders</span></Dropdown.Item>
                                         <Dropdown.Item href="#/action-3"><i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Dashboard</span></Dropdown.Item>
                                         <Dropdown.Item href='/ecommerce-faq'><i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Help</span></Dropdown.Item>
-                                        <Dropdown.Item href='/account'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balance : <b>₼8451.36</b></span></Dropdown.Item>
+                                        <Dropdown.Item href='/account'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balance : <b>₼{userData.balance}</b></span></Dropdown.Item>
                                         <Dropdown.Item href='/account'><span className="badge bg-success-subtle text-success mt-1 float-end">New</span><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></Dropdown.Item>
                                         <Dropdown.Item href='/home' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></Dropdown.Item>
                                     </Dropdown.Menu>
