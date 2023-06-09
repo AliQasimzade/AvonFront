@@ -81,7 +81,7 @@ const Signin = () => {
                 });
             });
           setTimeout(() => {
-            navigate("/home");
+            navigate("/ana-sehife");
           }, 1500);
         })
         .catch((err) => {

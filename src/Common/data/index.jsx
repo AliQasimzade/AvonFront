@@ -3,7 +3,6 @@ import { filterProduct, catlogDeals, shopProducDetails } from "./CatalogData";
 import { catagoriesData, ellipsCategories, sliderCategories } from "./CategoriesData";
 import { contactdetails } from "./ContactData";
 import { faqquetion } from "./FAQdata";
-// import { productData } from "./ProductData";
 import { sliderProduct, descriptionData, productInterestedCard, productprogress } from "./ProductDetailData";
 import { service, product, latestProduct, slider, shopingsCollection } from "./Service";
 import { recentlyOrder, shopReviews, orderHistorys, productData, wishlishProduct, wishListCard, selectAddressData } from "./ShopData"

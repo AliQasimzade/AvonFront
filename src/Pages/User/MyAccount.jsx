@@ -38,7 +38,7 @@ const MyAccount = () => {
     dispatch(logoutUser());
     dispatch(logoutToken());
     dispatch(logoutUserId());
-    navigate("/home");
+    navigate("/ana-sehife");
   };
   const userAccountInfo = useSelector(
     (state) => state.persistedReducer.Accont.user[0]

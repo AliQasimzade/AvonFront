@@ -49,7 +49,7 @@ const ContactHelp = ({ cname }) => {
                             <div className="d-flex align-items-center">
                                 <h2 className="text-white mb-0 flex-grow-1">Let us know how we can help you</h2>
                                 <div className="flex-shrink-0">
-                                    <Link to='/contact' className="btn btn-darken-primary btn-hover"><i className="ph-phone align-middle me-1"></i> Contact Us</Link>
+                                    <Link to='/elaqe' className="btn btn-darken-primary btn-hover"><i className="ph-phone align-middle me-1"></i> Contact Us</Link>
                                 </div>
                             </div>
                         </Col>
