@@ -14,6 +14,7 @@ import Pagination from "./Pagination";
 import { ProductNoui } from "./Homepage";
 
 export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) => {
+    console.log(fileter);
     const isdisplay = isnone;
     //pagination
     const pagination = true;

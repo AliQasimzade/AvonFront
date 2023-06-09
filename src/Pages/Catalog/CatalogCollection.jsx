@@ -23,7 +23,6 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
   const getProducts = async () => {
     const res = await getAllProducts(currentPage);
-    console.log(res);
     const findDefaults = res
       .map((product) => {
         if (product.isDefault == true) {

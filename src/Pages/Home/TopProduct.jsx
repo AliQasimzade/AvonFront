@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from 'react-bootstrap';
-import { product } from "../../Common/data";
 import { ProductSide } from "../../Components/ProductSilde";
-
+import { getAllProducts } from "../../services/getRequests";
 import { withTranslation } from "react-i18next";
 import withRouter from "../../Components/withRouter";
+import { useEffect } from "react";
 const TopProducts = (props) => {
 
-    const [select, setSelect] = useState(product);
-    const setCategories = (categories) => {
-        setSelect(product?.filter((filters) => categories === filters.category || categories === "All"))
+    const [select, setSelect] = useState([]);
+
+    const fetchedProducts = async () => {
+        const data = await getAllProducts(1);
+        setSelect(data);
     }
+    useEffect(() => {
+        fetchedProducts();
+    }, [])
+    console.log(select);
     return (
         <>
             <section className="section pt-0">
                 <Container >
                     <Row className="mt-5">
-                        <Col lg={12}>
+
+                        {/* statistika olmadigina gore gelmeyib hele */}
+                        {/* <Col lg={12}>
                             <div className="text-center">
                                 <ul className="list-inline categories-filter animation-nav" id="filter">
                                     <li className="list-inline-item" onClick={() => setCategories("All")}><Link to="#" className="categories active" data-key="t-all-arrival">{props.t('all-arrival')}</Link></li>
@@ -27,7 +35,7 @@ const TopProducts = (props) => {
                                     <li className="list-inline-item" onClick={() => setCategories("arrival")}><Link to="#" className="categories" data-key="t-new-arrival">{props.t('new-arrival')}</Link></li>
                                 </ul>
                             </div>
-                        </Col>
+                        </Col> */}
                         <ProductSide
                             isnone
                             fileter={select}
