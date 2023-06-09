@@ -14,8 +14,6 @@ export const sliderProduct = [
     { id: 4, img: products34 },
     { id: 5, img: products34 },
 ]
-
-
 export const descriptionData = [
     { id: 1, thead: "Type", tdata: "Round Neck" },
     { id: 2, thead: "Sleeve", tdata: "Short Sleeve" },

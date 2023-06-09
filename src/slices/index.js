@@ -8,7 +8,7 @@ import LayoutReducer from "./layouts/reducer";
 import user from "./layouts/user";
 import accont from "./layouts/accont";
 import basket from "./layouts/basket";
-
+import wistliss from "./layouts/wistliss";
 const rootreducer = combineReducers({
     Layout: LayoutReducer,
     Products: productsReducer,
@@ -18,7 +18,7 @@ const rootreducer = combineReducers({
     Comments: commentsReducer,
     User: user,
     Accont: accont,
-    Basket: basket
-
+    Basket: basket,
+    Wisslist: wistliss
 })
 export default rootreducer;
