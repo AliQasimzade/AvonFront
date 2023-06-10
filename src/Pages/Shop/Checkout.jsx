@@ -6,22 +6,35 @@ import { shopProducDetails } from "../../Common/data";
 import { ShopingAddress } from "./ShoppingAddress";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
+
+    const user = useSelector((state)=> state.persistedReducer.User.userId);
+
+
+    
+    console.log(user);
+
+
     document.title = "Checkout | RGAgency - React FrontEnd";
     return (
         <>
             <Shoptopbar title="Checkout" page="Checkout" />
             <section className="section">
                 <Container>
-                    <Row >
-                        <Col lg={12}>
-                            <Alert className="alert-danger alert-modern alert-dismissible fade show" role="alert">
-                                <i className="bi bi-box-arrow-in-right icons"></i>Returning customer?<Alert.Link href="giris" className="link-danger"><strong> Click here to login</strong>.</Alert.Link>
-                                <Button className="btn-close" data-bs-dismiss="alert" aria-label="Close"></Button>
-                            </Alert>
-                        </Col>
-                    </Row>
+                    {
+                        user ? "" : (
+                            <Row >
+                                <Col lg={12}>
+                                    <Alert className="alert-danger alert-modern alert-dismissible fade show" role="alert">
+                                        <i className="bi bi-box-arrow-in-right icons"></i>Hesabınız var?<Alert.Link href="giris" className="link-danger"><strong> Hesabınıza buradan daxil olun</strong>.</Alert.Link>
+                                        <Button className="btn-close" data-bs-dismiss="alert" aria-label="Close"></Button>
+                                    </Alert>
+                                </Col>
+                            </Row>
+                        )
+                    }
                     <Row>
                         <Col lg={8}>
                             <Card>
@@ -30,10 +43,10 @@ const Checkout = () => {
                                         <Table className="align-middle table-borderless table-nowrap text-center mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Product</th>
-                                                    <th scope="col">Rate</th>
-                                                    <th scope="col">Order ID</th>
-                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Məhsul</th>
+                                                    <th scope="col">Qiyməti</th>
+                                                    <th scope="col">Sayı</th>
+                                                    <th scope="col">Yekun qiyməti</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
