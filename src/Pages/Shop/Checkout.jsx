@@ -29,7 +29,7 @@ const Checkout = () => {
             <section className="section">
                 <Container>
                     {
-                        user ? "" : (
+                        !user ? (
                             <Row >
                                 <Col lg={12}>
                                     <Alert className="alert-danger alert-modern alert-dismissible fade show" role="alert">
@@ -38,7 +38,7 @@ const Checkout = () => {
                                     </Alert>
                                 </Col>
                             </Row>
-                        )
+                        ) : ""
                     }
                     <Row>
                         <Col lg={8}>
@@ -63,7 +63,7 @@ const Checkout = () => {
                                                                     <div className="d-flex align-items-center gap-2">
                                                                         <div className="avatar-sm flex-shrink-0">
                                                                             <div className={`avatar-title bg-${item.bg}-subtle rounded-3`}>
-                                                                                <Image src={item.product.posterImage} alt="" style={{width:'80px', height:'113px', objectFit:'cover'}} />
+                                                                                <Image src={item.product.posterImage} alt="" style={{ width: '80px', height: '113px', objectFit: 'cover' }} />
                                                                             </div>
                                                                         </div>
                                                                         <div className="flex-grow-1">
@@ -89,7 +89,7 @@ const Checkout = () => {
                         </Col>
                         <Col lg={4}>
                             <div className="sticky-side-div">
-                                <Shoporder subtotal="510.50" dic="18.00" charge="2.4"  total="630.25" />
+                                <Shoporder subtotal="510.50" dic="18.00" charge="2.4" total="630.25" />
                                 <div className="hstack gap-2 justify-content-between justify-content-end">
                                     <Link to='/shop/shopingcard' className="btn btn-hover btn-soft-info w-100">Back To Cart <i className="ri-arrow-right-line label-icon align-middle ms-1"></i></Link>
                                     <Link to='/shop/payment' className="btn btn-hover btn-primary w-100">Continue Payment</Link>

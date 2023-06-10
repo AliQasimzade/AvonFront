@@ -14,7 +14,12 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
 
 
     const user = useSelector((state) => state.persistedReducer.Accont);
-    console.log(user);
+    console.log(user.user[0]);
+
+
+    const adresParcalama = () => {
+        const unvan = user.user[0].address.split(",")
+    }
 
 
 
@@ -37,8 +42,9 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
                             <Form.Control id="shippingAddress01" name="shippingAddress" type="radio" className="form-check-input" />
                             <Form.Label className="form-check-label" htmlFor="shippingAddress01">
                                 <span className={`${HomeAdd ? "mb-3 text-uppercase fw-semibold d-block" : "d-none"}`}>{HomeAdd || ''}</span>
-                                <span className="fs-14 mb-2 d-block fw-semibold">Witney Blessington</span>
-                                <span className="text-muted fw-normal text-wrap mb-1 d-block">144 Cavendish Avenue, Indianapolis, IN 46251</span>
+
+                                <span className="fs-14 mb-2 d-block fw-semibold">{user.user[0].address}</span>
+                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{user.user[0].address}</span>
                                 <span className="text-muted fw-normal d-block">Mo. 012-345-6789</span>
                             </Form.Label>
                         </div>

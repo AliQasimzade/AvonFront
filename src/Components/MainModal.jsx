@@ -302,7 +302,9 @@ export const InvoiceModal = ({
                                       {item.product.name}
                                     </span>
                                   </td>
-                                  <td>₼{Number(item.product.salePrice).toFixed(2)}</td>
+                                  <td>
+                                    ₼{Number(item.product.salePrice).toFixed(2)}
+                                  </td>
                                   <td>{item.count}</td>
                                   <td>{item.discountPrice}</td>
 
@@ -327,11 +329,11 @@ export const InvoiceModal = ({
                               <td>Sub Total</td>
                               <td className="text-end">
                                 ₼
-                                {selectedOrder?.orderItems.reduce(
+                                {Number(selectedOrder?.orderItems.reduce(
                                   (acc, item) =>
                                     acc + item.count * item.salePrice,
                                   0
-                                )}
+                                )).toFixed(2)}
                               </td>
                             </tr>
                             <tr>
@@ -629,25 +631,14 @@ export const SearchModal = ({ show, handleClose }) => {
 //===================================================
 //card modal
 
-import { updateIncBasket, updateDecBasket } from "../slices/layouts/basket";
 import { useDispatch } from "react-redux";
 
 export const CardModal = ({ show, handleClose }) => {
-  const [productcount, setProductcount] = useState(productData);
-  const [allBasket, setAllBasket] = useState([]);
-  const [charge, setCharge] = useState(0);
-  const [dis, setDis] = useState(0);
-  const [tax, setTax] = useState(0);
-  //delete id
-  const [id, setId] = useState("");
   //modal
   const [removeModel, setRemovemodel] = useState(false);
   const dispatch = useDispatch();
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
   console.log(basket);
-  useEffect(() => {
-    setAllBasket(basket);
-  }, []);
   const RemoveModel = (id) => {
     setRemovemodel(true);
     setId(id);
@@ -659,57 +650,6 @@ export const CardModal = ({ show, handleClose }) => {
 
   const CloseremoveModal = () => setRemovemodel(false);
 
-  const assinged = productcount?.map((M) => M.Total);
-  let subtotal = 0;
-  for (let i = 0; i < assinged.length; i++) {
-    subtotal += Math.round(assinged[i]);
-  }
-
-  useEffect(() => {
-    let dis = (0.15 * subtotal).toFixed(2);
-    let tax = 0.125 * subtotal;
-
-    if (subtotal !== 0) {
-      setCharge(65);
-    } else {
-      setCharge(0);
-    }
-    setDis(dis);
-    setTax(tax);
-  }, [subtotal]);
-
-  const countUP = (item, id) => {
-    console.log(item, id);
-
-    const result = allBasket.map((bas) => {
-      if (bas.product.skuId == id) {
-        bas.productCount = item + 1;
-      }
-      return bas;
-    });
-    console.log(result);
-    setAllBasket(result);
-    dispatch(updateIncBasket(id))
-
-  };
-
-  const countDown = (item, id) => {
-    console.log(item, id);
-    if (item == 0) {
-    } else {
-      const result = allBasket.map((bas) => {
-        if (bas.product.skuId == id) {
-          bas.productCount = item - 1;
-        }
-        return bas;
-      });
-      console.log(result);
-      setAllBasket(result);
-      dispatch(updateDecBasket(id))
-
-
-    }
-  };
 
   return (
     <>
@@ -723,147 +663,67 @@ export const CardModal = ({ show, handleClose }) => {
           <Offcanvas.Title id="ecommerceCartLabel" as="h5">
             My Cart{" "}
             <span className="badge bg-danger align-middle ms-1 cartitem-badge">
-              {allBasket.length}
+              {basket.length}
             </span>
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className=" px-0">
           <SimpleBar className="h-100">
             <ul className="list-group list-group-flush cartlist">
-              {allBasket.length > 0 && allBasket.map((item, inx) => {
-                return (
-                  <li key={inx} className="list-group-item product">
-                    <div className="d-flex gap-3">
-                      <div className="flex-shrink-0">
-                        <div
-                          className={`avatar-md ${item.bg}-subtle `}
-                          style={{ height: "100%" }}
-                        >
+              {basket.length > 0 &&
+                basket.map((item, inx) => {
+                  return (
+                    <li key={inx} className="list-group-item product">
+                      <div className="d-flex gap-3">
+                        <div className="flex-shrink-0">
                           <div
-                            className={`avatar-title bg-${item.bg}-subtle rounded-3`}
+                            className={`avatar-md ${item.bg}-subtle `}
+                            style={{ height: "100%" }}
                           >
-                            <Image
-                              src={item.product.posterImage}
-                              alt=""
-                              className="avatar-sm"
-                            />
+                            <div
+                              className={`avatar-title bg-${item.bg}-subtle rounded-3`}
+                            >
+                              <Image
+                                src={item.product.posterImage}
+                                alt=""
+                                className="avatar-sm"
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex-grow-1">
-                        <Link to="#">
-                          <h5 className="fs-15">{item.product.name}</h5>
-                        </Link>
-                        <div className="d-flex mb-3 gap-2">
-                          <div className="text-muted fw-medium mb-0">
+                        <div className="flex-grow-1">
+                          <Link to="#">
+                            <h5 className="fs-15">{item.product.name}</h5>
+                          </Link>
+                          <div className="d-flex mb-3 gap-2">
+                            <div className="text-muted fw-medium mb-0">
+                              $
+                              <span className="product-price">
+                                {Number(item.product.salePrice).toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="vr"></div>
+                            <span className="text-success fw-medium"></span>
+                          </div>
+                        </div>
+                        <div className="flex-shrink-0 d-flex flex-column justify-content-between align-items-end">
+                          <Button
+                            className="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"
+                            onClick={() => RemoveModel(item.product.skuId)}
+                          >
+                            <i className="ri-close-fill fs-16"></i>
+                          </Button>
+                          <div className="fw-medium mb-0 fs-16">
                             $
-                            <span className="product-price">
-                              {Number(item.product.salePrice).toFixed(2)}
+                            <span className="product-line-price">
+                              {item.product.salePrice.toFixed(2)}
                             </span>
                           </div>
-                          <div className="vr"></div>
-                          <span className="text-success fw-medium"></span>
-                        </div>
-                        <div className="input-step">
-                          <Button
-                            className="minus"
-                            onClick={() =>
-                              countDown(item.productCount, item.product.skuId)
-                            }
-                          >
-                            –
-                          </Button>
-                          <Form.Control
-                            type="number"
-                            className="product-quantity"
-                            value={item.productCount}
-                            min="0"
-                            max="100"
-                            readOnly
-                          />
-                          <Button
-                            className="plus"
-                            onClick={() =>
-                              countUP(item.productCount, item.product.skuId)
-                            }
-                          >
-                            +
-                          </Button>
                         </div>
                       </div>
-                      <div className="flex-shrink-0 d-flex flex-column justify-content-between align-items-end">
-                        <Button
-                          className="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"
-                          onClick={() => RemoveModel(item.product.skuId)}
-                        >
-                          <i className="ri-close-fill fs-16"></i>
-                        </Button>
-                        <div className="fw-medium mb-0 fs-16">
-                          $
-                          <span className="product-line-price">
-                            {item.product.salePrice.toFixed(2)}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex-grow-1">
-                      <Link to="#">
-                        <h5 className="fs-15">{item.product.name}</h5>
-                      </Link>
-                      <div className="d-flex mb-3 gap-2">
-                        <div className="text-muted fw-medium mb-0">
-                          $
-                          <span className="product-price">
-                            {item.product.salePrice}
-                          </span>
-                        </div>
-                        <div className="vr"></div>
-                        <span className="text-success fw-medium"></span>
-                      </div>
-                      <div className="input-step">
-                        <Button
-                          className="minus"
-                          onClick={() =>
-                            countDown(item.productCount, item.product.skuId)
-                          }
-                        >
-                          –
-                        </Button>
-                        <Form.Control
-                          type="number"
-                          className="product-quantity"
-                          value={item.productCount}
-                          min="0"
-                          max="100"
-                          readOnly
-                        />
-                        <Button
-                          className="plus"
-                          onClick={() =>
-                            countUP(item.productCount, item.product.skuId)
-                          }
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="flex-shrink-0 d-flex flex-column justify-content-between align-items-end">
-                      <Button
-                        className="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"
-                        onClick={() => RemoveModel(item.product.skuId)}
-                      >
-                        <i className="ri-close-fill fs-16"></i>
-                      </Button>
-                      <div className="fw-medium mb-0 fs-16">
-                        $
-                        <span className="product-line-price">
-                          {item.product.salePrice.toFixed(2)}
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
+                    </li>
+                  );
+                })}
             </ul>
             <div className="table-responsive mx-2 border-top border-top-dashed">
               <Table className="table table-borderless mb-0 fs-14 fw-semibold">
@@ -872,12 +732,12 @@ export const CardModal = ({ show, handleClose }) => {
                     <td>Sub Total :</td>
                     <td className="text-end cart-subtotal">
                       $
-                      {allBasket.length > 0
-                        ? allBasket.reduce(
+                      {basket.length > 0
+                        ? Number(basket.reduce(
                           (acc, item) =>
                             acc + item.product.salePrice * item.productCount,
                           0
-                        )
+                        )).toFixed(2)
                         : 0}
                     </td>
                   </tr>
@@ -891,18 +751,19 @@ export const CardModal = ({ show, handleClose }) => {
             <h6 className="m-0 fs-16 text-muted">Total:</h6>
             <div className="px-2">
               <h6 className="m-0 fs-16 cart-total">
-                ${subtotal + charge + tax - dis || "0.00"}
+                ${Number(basket.reduce((acc, it) => acc + (it.productCount * it.product.salePrice.toFixed(2)), 0)).toFixed(2)}
               </h6>
             </div>
           </div>
           <Row className="g-2">
             <Col xs={6}>
-              <Button variant="light" className="btn w-100" id="reset-layout">
-                View Cart
-              </Button>
+              <Link to="/shop/shopingcard" onClick={handleClose}>
+                <Button variant="light" className="btn w-100" id="reset-layout">
+                  View Cart
+                </Button></Link>
             </Col>
             <Col xs={6}>
-              <Link to="/shop/checkout" className="btn btn-info w-100">
+              <Link to="/shop/checkout" onClick={handleClose} className="btn btn-info w-100">
                 Continue to Checkout
               </Link>
             </Col>

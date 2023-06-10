@@ -25,14 +25,12 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
   const getProducts = async () => {
     const res = await getAllProducts(currentPage);
-    const findDefaults = res
-      .map((product) => {
+    const findDefaults = res.map((product) => {
         if (product.isDefault == true) {
           return product;
         }
       })
       .filter(Boolean);
-      console.log(findDefaults);
       const allPros = [...products, ...findDefaults]
     setProducts(allPros);
     setCount(Array.from({ length: allPros.length }).fill(0))
@@ -47,12 +45,13 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId) => {
-    const res = await AddToBasket(skuId, appUserId);
+    console.log(skuId);
+    const res = await AddToBasket( appUserId,[{
+      skuId:skuId,
+      count:1
+    }]);
     const re = await getAllBasket(appUserId)
-    console.log(re);
     dispatch(getAllBaskets(re))
-
-    console.log(res);
   };
 
   return (
@@ -89,7 +88,6 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
           {select &&
             (products && products.length > 0 ? (
               (products || [])?.map((item, i) => {
-                console.log(item);
                 return (
                   !cxl && (
                     <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
