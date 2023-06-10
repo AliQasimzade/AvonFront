@@ -47,7 +47,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId) => {
-    const res = await AddToBasket(skuId, appUserId);
+    const res = await AddToBasket(skuId, appUserId, 1);
     const re = await getAllBasket(appUserId)
     console.log(re);
     dispatch(getAllBaskets(re))

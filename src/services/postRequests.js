@@ -18,11 +18,12 @@ export const PostMessageWithAboutUs = async (values) => {
     }
 }
 
-export const AddToBasket = async (skuId, appUserId) => {
+export const AddToBasket = async (skuId, appUserId,count) => {
     try {
-        const request = await axios.post(`${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?skuId=${skuId}&appUserId=${appUserId}`, {
+        const request = await axios.post(`${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?skuId=${skuId}&appUserId=${appUserId}&count=${count}`, {
             skuId,
-            appUserId
+            appUserId,
+            count
         })
         return request.data
     } catch (error) {

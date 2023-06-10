@@ -55,7 +55,12 @@ const MyAccount = () => {
     console.log(res.referalUsers);
   };
   useEffect(() => {
-    getS();
+    if(userAccountInfo) {
+      getS();
+    }else {
+      navigate('/ana-sehife')
+    }
+    
   }, []);
 
   const [searchKeys, setSearchKeys] = useState({

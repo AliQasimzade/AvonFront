@@ -34,17 +34,13 @@ import {
 import { BrandedProduct } from "../../Components/ShopTopBar";
 import { CommonService } from "../../Components/CommonService";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-//img
-import profileBg from "../../assets/images/profile-bg.jpg";
-import avatar5 from "../../assets/images/users/avatar-5.jpg";
-import avatar1 from "../../assets/images/users/avatar-1.jpg";
-import avatar3 from "../../assets/images/users/avatar-3.jpg";
-import avatar8 from "../../assets/images/users/avatar-8.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Productdetails = () => {
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
@@ -53,13 +49,15 @@ const Productdetails = () => {
   const { skuId } = useParams();
   const [sku, setSku] = useState(skuId);
   const userId = useSelector((state) => state.persistedReducer.User.userId);
-  const wisslistProID = useSelector((state) => state.persistedReducer.Wisslist.wisslist)
+  const wisslistProID = useSelector(
+    (state) => state.persistedReducer.Wisslist.wisslist
+  );
   console.log(wisslistProID);
 
   useEffect(() => {
     axios
       .get(
-        `http://avontest0910-001-site1.dtempurl.com/api/Products/Manage/ProductGetForSkuId?SkuId=${sku}`
+        `${process.env.REACT_APP_BASE_URL}Products/Manage/ProductGetForSkuId?SkuId=${sku}`
       )
       .then((res) => {
         setproDetail(res.data.product);
@@ -84,42 +82,104 @@ const Productdetails = () => {
 
   //like button
 
-  // const handleLikeIcone = ( skuId, userId) => {
-  //   if ( wisslistProID.find(wish => wish.productId == proDetail.id) ) {
+  const handleLikeIcone = (skuId) => {
+    if(userId) {
+      if (wisslistProID.find((wish) => wish.productId == proDetail.id)) {
+        axios.post(
+          `${process.env.REACT_APP_BASE_URL}WishLists/AddWishList?skuId=${skuId}&appUserId=${userId}`,
+          {
+            skuId: skuId,
+            appUserId: userId,
+          }
+        );
+        toast.success("İstək siyahısına əlavə olundu", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        axios.post(
+          `${process.env.REACT_APP_BASE_URL}WishLists/RemoveWishList?skuId=${skuId}&appUserId=${userId}`,
+          {
+            skuId: skuId,
+            appUserId: userId,
+          }
+        );
 
-  //     axios.post(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/AddWishList?skuId=${skuId}&appUserId=${userId}`,{
-  //     skuId: skuId,
-  //     appUserId: userId
-  //     })
-  //   } else {
-
-  //     axios.post(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/RemoveWishList?skuId=${skuId}&appUserId=${userId}`,{
-  //     skuId: skuId,
-  //     appUserId: userId
-  //     })
-  //   }
-  // };
-  const hendleClickBasket = async (skuId, userId, count) => {
+        toast.success("İstək siyahısından silindi", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }else {
+      toast.error("Zəhmət olmasa hesabınıza daxil olun", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+  const hendleClickBasket = async (skuId, count) => {
     try {
-      const request = await axios.post(
-        `http://avontest0910-001-site1.dtempurl.com/api/Baskets/AddBasket?skuId=${skuId}&appUserId=${userId}&count=${count}`,
-        {
-          skuId: skuId,
-          appUserId: userId,
-          count: Number(count),
-        }
-      );
-      return request.data;
+      if(userId) {
+        const request = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?skuId=${skuId}&appUserId=${userId}&count=${count}`,
+          {
+            skuId: skuId,
+            appUserId: userId,
+            count: Number(count),
+          }
+        );
+        console.log(request.data) 
+        toast.success("Səbətə əlavə olundu", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }else {
+        throw new Error('Zəhmət olmasa giriş edin')
+      }
     } catch (error) {
-      return error.message;
+      toast.error("Zəhmət olmasa hesabınıza daxil olun", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
   const desc = (data) => {
-    return { __html: data }
-  }
+    return { __html: data };
+  };
   return (
     <>
+    <ToastContainer />
       <section
         className="ecommerce-about"
         style={{
@@ -233,7 +293,7 @@ const Productdetails = () => {
                       <Button
                         variant="success"
                         className="btn btn-hover w-100"
-                        onClick={() => hendleClickBasket(skuId, userId, count)}
+                        onClick={() => hendleClickBasket(skuId, count)}
                       >
                         {" "}
                         <i className="bi bi-basket2 me-2" /> Add To Cart
@@ -242,13 +302,32 @@ const Productdetails = () => {
                         className="btn btn-soft-danger custom-toggle btn-hover"
                         data-bs-toggle="button"
                         aria-pressed="false"
-                        onClick={(ele) => handleLikeIcone(ele.target, skuId, userId)}
-
+                        onClick={(ele) =>
+                          handleLikeIcone(skuId)
+                        }
                       >
-                        <span className="icon-on" style={wisslistProID.find(wish => wish.productId == proDetail.id) ? { display: 'none' } : { display: 'block' }}>
+                        <span
+                          className="icon-on"
+                          style={
+                            wisslistProID.find(
+                              (wish) => wish.productId == proDetail.id
+                            )
+                              ? { display: "none" }
+                              : { display: "block" }
+                          }
+                        >
                           <i className="ri-heart-line" />
                         </span>
-                        <span className="icon-off" style={wisslistProID.find(wish => wish.productId == proDetail.id) ? { display: 'block' } : { display: 'none' }}>
+                        <span
+                          className="icon-off"
+                          style={
+                            wisslistProID.find(
+                              (wish) => wish.productId == proDetail.id
+                            )
+                              ? { display: "block" }
+                              : { display: "none" }
+                          }
+                        >
                           <i className="ri-heart-fill" />
                         </span>
                       </Button>
@@ -277,11 +356,14 @@ const Productdetails = () => {
                     </div>
                   </div>
                   <h4 className="lh-base mb-1">{proDetail.name}</h4>
-                  <p className="text-muted mb-4" dangerouslySetInnerHTML={desc(proDetail.description)}></p>
+                  <p
+                    className="text-muted mb-4"
+                    dangerouslySetInnerHTML={desc(proDetail.description)}
+                  ></p>
                   <h5 className="fs-24 mb-4">
                     {Number(
                       proDetail.salePrice -
-                      (proDetail.salePrice / 100) * proDetail.discountPrice
+                        (proDetail.salePrice / 100) * proDetail.discountPrice
                     ).toFixed(2)}
                     <span className="text-muted fs-14">
                       <del>{proDetail.salePrice}</del>
@@ -331,17 +413,17 @@ const Productdetails = () => {
                         {proDetail?.variant?.type == "color"
                           ? "Colors"
                           : proDetail?.variant?.type == "size"
-                            ? "Sizes"
-                            : proDetail?.variant?.type == "weight"
-                              ? "Weights"
-                              : "Images"}
+                          ? "Sizes"
+                          : proDetail?.variant?.type == "weight"
+                          ? "Weights"
+                          : "Images"}
                         :
                       </h6>
-                      {
-                        proDetail?.variant?.type == "color" ? (
-                          proDetail?.relationOfBaseCode.length > 0 ? (
-                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                              {proDetail?.relationOfBaseCode.map((color, index) => (
+                      {proDetail?.variant?.type == "color" ? (
+                        proDetail?.relationOfBaseCode.length > 0 ? (
+                          <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                            {proDetail?.relationOfBaseCode.map(
+                              (color, index) => (
                                 <li key={index}>
                                   <Form.Control
                                     type="radio"
@@ -355,27 +437,24 @@ const Productdetails = () => {
                                       backgroundColor: `${color.colorCode}`,
                                     }}
                                   >
-                                    {color.colorCode == null && (
-                                      <FaCheck />
-                                    )}
-
+                                    {color.colorCode == null && <FaCheck />}
                                   </Form.Label>
                                 </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <div className="avatar-xxs mb-3">
-                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                <AiFillExclamationCircle />
-                              </div>
+                              )
+                            )}
+                          </ul>
+                        ) : (
+                          <div className="avatar-xxs mb-3">
+                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                              <AiFillExclamationCircle />
                             </div>
-                          )
-
-
-                        ) : proDetail?.variant?.type == "size" ? (
-                          proDetail.relationOfBaseCode.length > 0 ? (
-                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                              {proDetail.relationOfBaseCode.map((color, index) => (
+                          </div>
+                        )
+                      ) : proDetail?.variant?.type == "size" ? (
+                        proDetail.relationOfBaseCode.length > 0 ? (
+                          <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                            {proDetail.relationOfBaseCode.map(
+                              (color, index) => (
                                 <li key={index}>
                                   <Form.Control
                                     type="radio"
@@ -388,25 +467,26 @@ const Productdetails = () => {
                                   >
                                     {color.colorCode == null ? (
                                       <FaCheck />
-                                    ) : <span>{color.colorCode}</span>}
-
+                                    ) : (
+                                      <span>{color.colorCode}</span>
+                                    )}
                                   </Form.Label>
                                 </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <div className="avatar-xxs mb-3">
-                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                <AiFillExclamationCircle />
-                              </div>
+                              )
+                            )}
+                          </ul>
+                        ) : (
+                          <div className="avatar-xxs mb-3">
+                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                              <AiFillExclamationCircle />
                             </div>
-                          )
-
-
-                        ) : proDetail?.variant?.type == "file" ? (
-                          proDetail.relationOfBaseCode.length > 0 ? (
-                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                              {proDetail.relationOfBaseCode.map((color, index) => (
+                          </div>
+                        )
+                      ) : proDetail?.variant?.type == "file" ? (
+                        proDetail.relationOfBaseCode.length > 0 ? (
+                          <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                            {proDetail.relationOfBaseCode.map(
+                              (color, index) => (
                                 <li key={index}>
                                   <Form.Control
                                     type="radio"
@@ -420,21 +500,12 @@ const Productdetails = () => {
                                       backgroundImage: `url(${color.colorCode})`,
                                     }}
                                   >
-                                    {color.colorCode == null && (
-                                      <FaCheck />
-                                    )}
-
+                                    {color.colorCode == null && <FaCheck />}
                                   </Form.Label>
                                 </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <div className="avatar-xxs mb-3">
-                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                <AiFillExclamationCircle />
-                              </div>
-                            </div>
-                          )
+                              )
+                            )}
+                          </ul>
                         ) : (
                           <div className="avatar-xxs mb-3">
                             <div className="avatar-title bg-light text-muted rounded cursor-pointer">
@@ -442,7 +513,13 @@ const Productdetails = () => {
                             </div>
                           </div>
                         )
-                      }
+                      ) : (
+                        <div className="avatar-xxs mb-3">
+                          <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                            <AiFillExclamationCircle />
+                          </div>
+                        </div>
+                      )}
                       {proDetail?.variant?.type == "size" ? (
                         proDetail?.relationOfBaseCode.length > 0 ? (
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
@@ -537,7 +614,6 @@ const Productdetails = () => {
                     <Nav variant="tabs" className="nav-tabs-custom mb-3">
                       <Nav.Item as="li">
                         <Nav.Link as="a" eventKey="Description">
-
                           Description
                         </Nav.Link>
                       </Nav.Item>
@@ -582,8 +658,12 @@ const Productdetails = () => {
                               </tr>
                             </tbody>
                           </Table>
-                          <p className="text-muted fs-15" dangerouslySetInnerHTML={desc(proDetail.description)}>
-                          </p>
+                          <p
+                            className="text-muted fs-15"
+                            dangerouslySetInnerHTML={desc(
+                              proDetail.description
+                            )}
+                          ></p>
                         </div>
                       </Tab.Pane>
                       {/* <Tab.Pane eventKey="Ratings">

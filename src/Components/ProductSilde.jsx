@@ -74,7 +74,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                     fileter && fileter.length > 0 ?
                         (fileter || [])?.map((item, inx) => {
                             return (
-                                <Col key={inx} xxl={cxxl || ''} lg={4} md={6} className={`element-item seller ${item.productSubCategories[0].subCategory.name}`} data-category={item.productSubCategories[0].subCategory.name}>
+                                <Col key={inx} xxl={cxxl || ''} lg={4} md={6} className={`element-item seller ${item.productSubCategories.length > 0 && item.productSubCategories[0]?.subCategory?.name}`} data-category={item.productSubCategories.length > 0 && item.productSubCategories[0]?.subCategory?.name}>
                                     <Card className="overflow-hidden">
                                         <div className={`bg-${item.bg}-subtle rounded-top py-4`}>
                                             <div className="gallery-product" style={{height:'200px', display:'flex', alignItems:'center' }}>
