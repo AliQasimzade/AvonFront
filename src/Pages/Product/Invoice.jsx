@@ -153,7 +153,7 @@ const Invoice = () => {
                                                 <p className="text-muted mb-1">Payment Method: <span className="fw-medium" id="payment-method">Mastercard</span></p>
                                                 <p className="text-muted mb-1">Card Holder: <span className="fw-medium" id="card-holder-name">Raquel Murillo</span></p>
                                                 <p className="text-muted mb-1">Card Number: <span className="fw-medium" id="card-number">xxx xxxx xxxx 1234</span></p>
-                                                <p className="text-muted">Total Amount: <span className="fw-medium">$ </span><span id="card-total-amount">1406.92</span></p>
+                                                <p className="text-muted">Total Amount: <span id="card-total-amount">1406.92</span><span className="fw-medium"> ₼</span></p>
                                             </div>
                                             <div className="mt-4">
                                                 <Alert variant="info">

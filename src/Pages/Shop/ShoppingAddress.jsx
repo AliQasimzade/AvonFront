@@ -14,13 +14,12 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
 
 
     const user = useSelector((state) => state.persistedReducer.Accont);
-    console.log(user.user[0]);
-
 
     const adresParcalama = () => {
         const unvan = user.user[0].address.split(",")
     }
 
+    adresParcalama()
 
 
     return (

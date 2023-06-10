@@ -378,8 +378,9 @@ export const InvoiceModal = ({
                           </span>
                         </p>
                         <p className="text-muted">
-                          Total Amount: <span className="fw-medium">$ </span>
+                          Total Amount: 
                           <span id="card-total-amount">1406.92</span>
+                          <span className="fw-medium"> ₼</span>
                         </p>
                       </div>
                       <div className="mt-4">

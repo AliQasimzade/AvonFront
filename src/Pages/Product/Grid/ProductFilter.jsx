@@ -172,9 +172,9 @@ const Productfilter = ({ name, setSelect }) => {
                                 id="product-price-range"
                             />
                             <div className="formCost d-flex gap-2 align-items-center mt-3">
-                                <Form.Control className="form-control-sm" id="MinCost" value={`$ ${mincost}`} onChange={(e) => setMincost(e.target.value)} />
+                                <Form.Control className="form-control-sm" id="MinCost" value={`${mincost} ₼`} onChange={(e) => setMincost(e.target.value)} />
                                 <span className="fw-semibold text-muted">to</span>
-                                <Form.Control className=" form-control-sm" type="text" id="maxCost" value={`$ ${maxcost}`} onChange={(e) => setMaxcost(e.target.value)} />
+                                <Form.Control className=" form-control-sm" type="text" id="maxCost" value={`${maxcost} ₼`} onChange={(e) => setMaxcost(e.target.value)} />
                             </div>
                         </Card.Body>
 
