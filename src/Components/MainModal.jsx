@@ -309,7 +309,7 @@ export const InvoiceModal = ({
                                       {item.product.name}
                                     </span>
                                   </td>
-                                  <td>₼{item.product.salePrice}</td>
+                                  <td>₼{Number(item.product.salePrice).toFixed(2)}</td>
                                   <td>{item.count}</td>
                                   <td>{item.discountPrice}</td>
 
@@ -636,7 +636,7 @@ export const SearchModal = ({ show, handleClose }) => {
 //===================================================
 //card modal
 
-import { getAllBaskets } from "../slices/layouts/basket";
+import { updateIncBasket,updateDecBasket } from "../slices/layouts/basket";
 import { useDispatch } from "react-redux";
 
 export const CardModal = ({ show, handleClose }) => {
@@ -696,6 +696,7 @@ export const CardModal = ({ show, handleClose }) => {
     });
     console.log(result);
     setAllBasket(result);
+    dispatch(updateIncBasket(id))
 
   };
 
@@ -711,16 +712,13 @@ export const CardModal = ({ show, handleClose }) => {
       });
       console.log(result);
       setAllBasket(result);
+    dispatch(updateDecBasket(id))
+
       
     }
   };
 
-  const handleUpdateBasket = () => {
-    dispatch(getAllBaskets(allBasket));
-    handleClose()
-    location.reload()
-    
-  };
+
   return (
     <>
       <Offcanvas
@@ -736,12 +734,11 @@ export const CardModal = ({ show, handleClose }) => {
               {allBasket.length}
             </span>
           </Offcanvas.Title>
-          <Button onClick={handleUpdateBasket}>Səbəti yenilə</Button>
         </Offcanvas.Header>
         <Offcanvas.Body className=" px-0">
           <SimpleBar className="h-100">
             <ul className="list-group list-group-flush cartlist">
-              {(allBasket || [])?.map((item, inx) => {
+              {allBasket.length > 0 && allBasket.map((item, inx) => {
                 return (
                   <li key={inx} className="list-group-item product">
                     <div className="d-flex gap-3">
@@ -769,7 +766,7 @@ export const CardModal = ({ show, handleClose }) => {
                           <div className="text-muted fw-medium mb-0">
                             $
                             <span className="product-price">
-                              {item.product.salePrice}
+                              {Number(item.product.salePrice).toFixed(2)}
                             </span>
                           </div>
                           <div className="vr"></div>
@@ -837,24 +834,6 @@ export const CardModal = ({ show, handleClose }) => {
                         : 0}
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      Discount <span className="text-muted"></span>:
-                    </td>
-                    <td className="text-end cart-discount">
-                      -$
-                      {allBasket.length > 0
-                        ? allBasket.reduce(
-                            (acc, item) => acc + item.product.discountPrice,
-                            0
-                          )
-                        : 0}
-                    </td>
-                  </tr>
-                  {/* <tr>
-                                        <td>Estimated Tax (12.5%) : </td>
-                                        <td className="text-end cart-tax">${tax || "0.00"}</td>
-                                    </tr> */}
                 </tbody>
               </Table>
             </div>

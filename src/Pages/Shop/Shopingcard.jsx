@@ -5,9 +5,10 @@ import Cardshop from "./Cardshop";
 import { BrandedProduct, Shoptopbar } from "../../Components/ShopTopBar";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
-
 const Shopingcard = () => {
     document.title = "Shop Cart | RGAgency - React Frontend";
+  
+
     return (
         <>
             <Shoptopbar title="Shopping Cart" page="Shopping Cart" />
