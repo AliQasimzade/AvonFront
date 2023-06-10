@@ -286,7 +286,7 @@ export const InvoiceModal = ({
                                 #
                               </th>
                               <th scope="col">Product Details</th>
-                              <th scope="col">Rate</th>
+                              <th scope="col">Product Price-Discount Price</th>
                               <th scope="col">Quantity</th>
                               <th scope="col">Discount Price</th>
                               <th scope="col" className="text-end">
@@ -306,6 +306,8 @@ export const InvoiceModal = ({
                                   </td>
                                   <td>
                                     ₼{Number(item.product.salePrice).toFixed(2)}
+                                    -
+                                    ₼{Number(item.salePrice).toFixed(2)}
                                   </td>
                                   <td>{item.count}</td>
                                   <td>{item.discountPrice}</td>
@@ -313,7 +315,7 @@ export const InvoiceModal = ({
                                   <td className="text-end">
                                     ₼
                                     {Number(
-                                      item.product.salePrice * item.count
+                                      item.salePrice * item.count
                                     ).toFixed(2)}
                                   </td>
                                 </tr>
@@ -342,16 +344,16 @@ export const InvoiceModal = ({
                               <td>
                                 Discount <small className="text-muted"></small>
                               </td>
-                              <td className="text-end">- ₼206.45</td>
+                              <td className="text-end">- ₼{Number(selectedOrder.orderItems.reduce((acc, item) => acc + item.discountPrice, 0)).toFixed(2)}</td>
                             </tr>
                             <tr>
                               <td>Shipping Charge</td>
-                              <td className="text-end">₼5</td>
+                              <td className="text-end">₼{selectedOrder.deliveryAdress.price}</td>
                             </tr>
                             <tr className="border-top border-top-dashed fs-15">
                               <th scope="row">Total Amount</th>
                               <th className="text-end">
-                                ₼{selectedOrder?.totalAmount + 5}
+                                ₼{selectedOrder?.totalAmount + selectedOrder.deliveryAdress.price}
                               </th>
                             </tr>
                           </tbody>
@@ -634,6 +636,7 @@ export const SearchModal = ({ show, handleClose }) => {
 //card modal
 
 import { useDispatch } from "react-redux";
+import { isTemplateMiddle } from "typescript";
 
 export const CardModal = ({ show, handleClose }) => {
   //modal

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Card, Button, Image } from "react-bootstrap";
 import "./Catalog.css";
-import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { useSelector,useDispatch } from "react-redux";
 import { FaCheck } from "react-icons/fa";
@@ -47,9 +46,19 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId) => {
-    const res = await AddToBasket(skuId, appUserId, 1);
+    const res = await AddToBasket(appUserId, [{skuId,count:1}]);
     const re = await getAllBasket(appUserId)
     console.log(re);
+    toast.success("Məhsul səbətə əlavə olundu", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     dispatch(getAllBaskets(re))
 
     console.log(res);

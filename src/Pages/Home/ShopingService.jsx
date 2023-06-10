@@ -10,6 +10,7 @@ const Shopping = () => {
   const getOffers = async () => {
     const res = await getAllOfferWeeks();
     setofferOfWeeks(res);
+    console.log(res);
   };
 
   useEffect(() => {
@@ -17,8 +18,8 @@ const Shopping = () => {
   }, []);
 
   const desc = (data) => {
-    return { __html: data }
-  }
+    return { __html: data };
+  };
   const options = { year: "numeric", month: "long", day: "numeric" };
   const renderers = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -65,17 +66,20 @@ const Shopping = () => {
                         <h1 className="lh-base fw-semibold mb-3 text-capitalize">
                           {offerOfWeeksData.title2}
                         </h1>
-                        <p className="fs-16 mt-2" dangerouslySetInnerHTML={desc(offerOfWeeksData.description)}>
-                          
-                        </p>
+                        <p
+                          className="fs-16 mt-2"
+                          dangerouslySetInnerHTML={desc(
+                            offerOfWeeksData.description
+                          )}
+                        ></p>
                         <Row>
                           <Col lg={10}>
                             <div className="ecommerce-land-countdown mt-3 mb-0">
                               <div className="countdownlist">
                                 <Countdown
-                                  date={`${new Date(
-                                    "Sun Dec 31 2023 14:53:46 GMT+0400 (Azerbaijan Standard Time)"
-                                  ).toLocaleDateString("en-En", options)}`}
+                                  date={
+                                    new Date(offerOfWeeksData.date).toLocaleDateString('en-EN', options)
+                                  }
                                   className="countdownlist"
                                   renderer={renderers}
                                 />

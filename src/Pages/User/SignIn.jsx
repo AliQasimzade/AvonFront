@@ -72,7 +72,7 @@ const Signin = () => {
                 progress: undefined,
                 theme: "light",
               });
-              dispatch(changeAccont({ ...res.data }));
+              dispatch(changeAccont(res.data));
               axios
                 .get(
                   `http://avontest0910-001-site1.dtempurl.com/api/Baskets/GetAll?appUserId=${res.data[0].id}`
