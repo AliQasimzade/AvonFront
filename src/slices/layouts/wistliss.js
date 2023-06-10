@@ -9,7 +9,7 @@ const Wisslist= createSlice({
     initialState,
     reducers: {
         getAllWisslist(state, action) {
-            state.wisslist = [...action.payload]
+            state.wisslist = action.payload
         }
     }
 })

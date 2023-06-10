@@ -38,9 +38,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getAllBaskets } from "../../slices/layouts/basket";
+import { getAllWisslist } from "../../slices/layouts/wistliss";
 const Productdetails = () => {
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
@@ -81,35 +83,25 @@ const Productdetails = () => {
   );
 
   //like button
-
+  const dispatch = useDispatch();
   const handleLikeIcone = (skuId) => {
-    if(userId) {
+    if (userId) {
       if (wisslistProID.find((wish) => wish.productId == proDetail.id)) {
-        axios.post(
-          `${process.env.REACT_APP_BASE_URL}WishLists/AddWishList?skuId=${skuId}&appUserId=${userId}`,
-          {
-            skuId: skuId,
-            appUserId: userId,
-          }
-        );
-        toast.success("İstək siyahısına əlavə olundu", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        axios.post(
-          `${process.env.REACT_APP_BASE_URL}WishLists/RemoveWishList?skuId=${skuId}&appUserId=${userId}`,
-          {
-            skuId: skuId,
-            appUserId: userId,
-          }
-        );
+        axios
+          .post(
+            `${process.env.REACT_APP_BASE_URL}WishLists/RemoveWishList?skuId=${skuId}&appUserId=${userId}`,
+            {
+              skuId: skuId,
+              appUserId: userId,
+            }
+          )
+          .then((res) => {
+            axios
+              .get(
+                `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${userId}`
+              )
+              .then((res) => dispatch(getAllWisslist(res.data)));
+          });
 
         toast.success("İstək siyahısından silindi", {
           position: "top-right",
@@ -121,8 +113,34 @@ const Productdetails = () => {
           progress: undefined,
           theme: "light",
         });
+      } else {
+        axios
+          .post(
+            `${process.env.REACT_APP_BASE_URL}WishLists/AddWishList?skuId=${skuId}&appUserId=${userId}`,
+            {
+              skuId: skuId,
+              appUserId: userId,
+            }
+          )
+          .then((res) => {
+            axios
+              .get(
+                `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${userId}`
+              )
+              .then((res) => dispatch(getAllWisslist(res.data)));
+          });
+        toast.success("İstək siyahısına əlavə olundu", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
-    }else {
+    } else {
       toast.error("Zəhmət olmasa hesabınıza daxil olun", {
         position: "top-right",
         autoClose: 5000,
@@ -137,16 +155,22 @@ const Productdetails = () => {
   };
   const hendleClickBasket = async (skuId, count) => {
     try {
-      if(userId) {
+      if (userId) {
         const request = await axios.post(
           `${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${userId}`,
-          {
-            skuId: skuId,
-            appUserId: userId,
-            count: Number(count),
-          }
+          [
+            {
+              skuId: skuId,
+              appUserId: userId,
+              count: Number(count),
+            },
+          ]
         );
-        console.log(request.data) 
+        console.log(request.data);
+        const re = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userId}`
+        );
+        dispatch(getAllBaskets(re.data));
         toast.success("Səbətə əlavə olundu", {
           position: "top-right",
           autoClose: 5000,
@@ -157,8 +181,8 @@ const Productdetails = () => {
           progress: undefined,
           theme: "light",
         });
-      }else {
-        throw new Error('Zəhmət olmasa giriş edin')
+      } else {
+        throw new Error("Zəhmət olmasa giriş edin");
       }
     } catch (error) {
       toast.error("Zəhmət olmasa hesabınıza daxil olun", {
@@ -179,7 +203,7 @@ const Productdetails = () => {
   };
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <section
         className="ecommerce-about"
         style={{
@@ -302,9 +326,7 @@ const Productdetails = () => {
                         className="btn btn-soft-danger custom-toggle btn-hover"
                         data-bs-toggle="button"
                         aria-pressed="false"
-                        onClick={(ele) =>
-                          handleLikeIcone(skuId)
-                        }
+                        onClick={(ele) => handleLikeIcone(skuId)}
                       >
                         <span
                           className="icon-on"

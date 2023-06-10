@@ -5,8 +5,7 @@ import { Shoporder } from "../../Components/ShopTopBar";
 import DeleteModal from "../../Components/DeleteModal";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getAllBaskets } from "../../slices/layouts/basket";
-import axios from "axios";
+import { updateDecBasket, updateIncBasket } from "../../slices/layouts/basket";
 
 const Cardshop = () => {
   const dispatch = useDispatch();
@@ -26,19 +25,7 @@ const Cardshop = () => {
 
   const countUP = (item, id) => {
     console.log(item, id);
-  
-       axios.post(`${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${userData.id}`, {
-        skuId: id,
-        count:1
-       })
-       .then(res => {
-         console.log(res.data);
-         axios.get(`${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userData.id}`).then(res => {
-          console.log(res.data);
-          dispatch(getAllBaskets(res.data))
-         })
-       })
-
+    dispatch(updateIncBasket(id))
     
   };
 
@@ -46,17 +33,7 @@ const Cardshop = () => {
     console.log(item, id);
     if (item == 0) {
     } else {
-        axios.post(`${process.env.REACT_APP_BASE_URL}Baskets/RemoveBasket?appUserId=${userData.id}`, {
-            skuId: id,
-            count:1
-        })
-           .then(res => {
-             console.log(res.data);
-             axios.get(`${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userData.id}`).then(res => {
-              console.log(res.data);
-              dispatch(getAllBaskets(res.data))
-             })
-           })
+       dispatch(updateDecBasket(id))
     
     }
   };
