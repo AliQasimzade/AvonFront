@@ -48,7 +48,7 @@ const Shoping = (props) => {
                                 return (
                                     <Col lg={4} key={inx}>
                                         <Card className="overflow-hidden">
-                                            <Image src={item.posterImage} className="img-fluid" alt={item.name} />
+                                            <Image src={item.posterImage} style={{height:'335px', objectFit:'cover'}} className="img-fluid" alt={item.name} />
                                             <Card.Body >
                                                 <div className="blog-date bg-body-secondary rounded">
                                                     <h4 className="mb-0">{date.getDay()}</h4>

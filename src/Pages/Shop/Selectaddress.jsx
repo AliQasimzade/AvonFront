@@ -12,7 +12,7 @@ const Selectaddress = () => {
     //delete id
     const [id, setId] = useState('');
 
-    //Home Address
+    //ana-sehife Address
     const [removeModel, setRemovemodel] = useState(false);
     const RemoveModel = (id) => {
         setRemovemodel(!removeModel);

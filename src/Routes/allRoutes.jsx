@@ -67,14 +67,14 @@ import FAQ from "../Pages/Product/FAQ";
 //Invoice
 import Invoice from "../Pages/Product/Invoice";
 
-//contact
+//elaqe
 import ContactUs from "../Pages/ContactUs/Contact";
 //
 import NotFound from "../Pages/NotFound/NotFound"
 import SubCatProduct from "../Pages/Product/SubCatProduct";
 
 const authProtectedRoutes = [
-    { path: "/home", component: <Home /> },
+    { path: "/ana-sehife", component: <Home /> },
     //catalog
     { path: "/catalog/clothing", component: <Catalog /> },
 
@@ -100,12 +100,12 @@ const authProtectedRoutes = [
 
     //user
     //My Account
-    { path: "/account", component: <MyAccount /> },
+    { path: "/hesabim", component: <MyAccount /> },
 
     //categories
-    { path: "/products-category", component: <Categories /> },
+    { path: "/kateqoriyalar", component: <Categories /> },
     //about
-    { path: "/about-us", component: <About /> },
+    { path: "/haqqimizda", component: <About /> },
     //Purchase Guide
     { path: "/purchase-guide", component: <Purchaseguide /> },
     //Terms of Conditions
@@ -118,8 +118,8 @@ const authProtectedRoutes = [
     { path: "/ecommerce-faq", component: <FAQ /> },
     //Invoice
     { path: "/invoice", component: <Invoice /> },
-    //contact us
-    { path: "/contact", component: <ContactUs /> },
+    //elaqe us
+    { path: "/elaqe", component: <ContactUs /> },
 
 
     // this route should be at the end of all other routes
@@ -127,7 +127,7 @@ const authProtectedRoutes = [
     {
         path: "/",
         exact: true,
-        component: <Navigate to="/home" />,
+        component: <Navigate to="/ana-sehife" />,
     },
   
 ]

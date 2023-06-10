@@ -43,24 +43,30 @@ import avatar8 from "../../assets/images/users/avatar-8.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
+import { FaCheck } from "react-icons/fa";
+import { useSelector } from "react-redux";
 const Productdetails = () => {
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
-  const [features, setFeatures] = useState([])
-  const [count, setCount] = useState(0);
+  // const [features, setFeatures] = useState([])
+  const [count, setCount] = useState(1);
   const { skuId } = useParams();
-  console.log(skuId);
+  const [sku, setSku] = useState(skuId);
+  const userId = useSelector((state) => state.persistedReducer.User.userId);
+  const wisslistProID = useSelector((state) => state.persistedReducer.Wisslist.wisslist)
+  console.log(wisslistProID);
 
   useEffect(() => {
     axios
       .get(
-        `http://avontest0910-001-site1.dtempurl.com/api/Products/Manage/ProductGetForSkuId?SkuId=${skuId}`
+        `http://avontest0910-001-site1.dtempurl.com/api/Products/Manage/ProductGetForSkuId?SkuId=${sku}`
       )
       .then((res) => {
         setproDetail(res.data.product);
-      console.log(res.data);
+        console.log(res.data.product);
       });
-  }, []);
+  }, [sku]);
+  count;
 
   const handleSetImg = (id) => {
     console.log(id);
@@ -77,11 +83,35 @@ const Productdetails = () => {
   );
 
   //like button
-  const handleLikeIcone = (event) => {
-    if (event.closest("button").classList.contains("active")) {
-      event.closest("button").classList.remove("active");
-    } else {
-      event.closest("button").classList.add("active");
+
+  // const handleLikeIcone = ( skuId, userId) => {
+  //   if ( wisslistProID.find(wish => wish.productId == proDetail.id) ) {
+
+  //     axios.post(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/AddWishList?skuId=${skuId}&appUserId=${userId}`,{
+  //     skuId: skuId,
+  //     appUserId: userId
+  //     })
+  //   } else {
+
+  //     axios.post(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/RemoveWishList?skuId=${skuId}&appUserId=${userId}`,{
+  //     skuId: skuId,
+  //     appUserId: userId
+  //     })
+  //   }
+  // };
+  const hendleClickBasket = async (skuId, userId, count) => {
+    try {
+      const request = await axios.post(
+        `http://avontest0910-001-site1.dtempurl.com/api/Baskets/AddBasket?skuId=${skuId}&appUserId=${userId}&count=${count}`,
+        {
+          skuId: skuId,
+          appUserId: userId,
+          count: Number(count),
+        }
+      );
+      return request.data;
+    } catch (error) {
+      return error.message;
     }
   };
 
@@ -200,24 +230,25 @@ const Productdetails = () => {
                 <Col lg={12}>
                   <div className="mt-3">
                     <div className="hstack gap-2">
-                      <Button variant="success" className="btn btn-hover w-100">
+                      <Button
+                        variant="success"
+                        className="btn btn-hover w-100"
+                        onClick={() => hendleClickBasket(skuId, userId, count)}
+                      >
                         {" "}
                         <i className="bi bi-basket2 me-2" /> Add To Cart
-                      </Button>
-                      <Button variant="primary" className="btn btn-hover w-100">
-                        {" "}
-                        <i className="bi bi-cart2 me-2" /> Buy Now
                       </Button>
                       <Button
                         className="btn btn-soft-danger custom-toggle btn-hover"
                         data-bs-toggle="button"
                         aria-pressed="false"
-                        onClick={(ele) => handleLikeIcone(ele.target)}
+                        onClick={(ele) => handleLikeIcone(ele.target, skuId, userId)}
+
                       >
-                        <span className="icon-on">
+                        <span className="icon-on" style={wisslistProID.find(wish => wish.productId == proDetail.id) ? { display: 'none' } : { display: 'block' }}>
                           <i className="ri-heart-line" />
                         </span>
-                        <span className="icon-off">
+                        <span className="icon-off" style={wisslistProID.find(wish => wish.productId == proDetail.id) ? { display: 'block' } : { display: 'none' }}>
                           <i className="ri-heart-fill" />
                         </span>
                       </Button>
@@ -248,54 +279,46 @@ const Productdetails = () => {
                   <h4 className="lh-base mb-1">{proDetail.name}</h4>
                   <p className="text-muted mb-4" dangerouslySetInnerHTML={desc(proDetail.description)}></p>
                   <h5 className="fs-24 mb-4">
-                    {proDetail.salePrice}
+                    {Number(
+                      proDetail.salePrice -
+                      (proDetail.salePrice / 100) * proDetail.discountPrice
+                    ).toFixed(2)}
                     <span className="text-muted fs-14">
-                      <del>
-                        {proDetail.salePrice -
-                          (proDetail.salePrice * proDetail.discountPrice) / 100}
-                      </del>
+                      <del>{proDetail.salePrice}</del>
                     </span>
                     <span className="fs-14 ms-2 text-danger">
                       {" "}
                       ( {proDetail.discountPrice} off)
                     </span>
                   </h5>
-                  <ul className="list-unstyled vstack gap-2">
-                    <li>
-                      {proDetail.inStock == false ? (
-                        <div>
-                          <i className="bi bi-check2-circle me-2 align-middle text-success" />
-                          In stock
-                        </div>
-                      ) : (
-                        <div>
-                          <i class="bi bi-x-circle me-2 align-middle text-danger"></i>
-                          out of stock
-                        </div>
-                      )}
-                    </li>
-                  </ul>
                 </div>
                 <div className="d-flex align-items-center mb-4">
                   <h5 className="fs-15 mb-0">Quanty:</h5>
                   <div className="input-step ms-2">
                     <Button
                       className="minus"
-                      onClick={() => setCount(count - 1)}
+                      onClick={() => {
+                        if (count > 1) {
+                          setCount(count - 1);
+                        }
+                      }}
                     >
                       –
                     </Button>
                     <Form.Control
                       type="number"
                       className="product-quantity1"
-                      value={count > 0 ? count : 0}
-                      min={0}
-                      max={100}
-                      readOnly
+                      value={count}
+                      min={1}
+                      max={1000000000}
                     />
                     <Button
                       className="plus"
-                      onClick={() => setCount(count + 1)}
+                      onClick={() => {
+                        if (count < proDetail.stockCount) {
+                          setCount(count + 1);
+                        }
+                      }}
                     >
                       +
                     </Button>
@@ -308,118 +331,188 @@ const Productdetails = () => {
                         {proDetail?.variant?.type == "color"
                           ? "Colors"
                           : proDetail?.variant?.type == "size"
-                          ? "Sizes"
-                          : proDetail?.variant?.type == "weight"
-                          ? "Weights"
-                          : "Images"}
+                            ? "Sizes"
+                            : proDetail?.variant?.type == "weight"
+                              ? "Weights"
+                              : "Images"}
                         :
                       </h6>
                       {
-                        proDetail?.variant?.type == "color" ?(
-                          proDetail?.relationOfBaseCode.length > 0 ?(
+                        proDetail?.variant?.type == "color" ? (
+                          proDetail?.relationOfBaseCode.length > 0 ? (
                             <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                              {proDetail?.relationOfBaseCode.map((color, index) =>(
-                              <li key={index}>
-                                <Form.Control
-                                type="radio"
-                                name="size1"
-                                id={`product-color-${color.skuId}`}
-                                />
+                              {proDetail?.relationOfBaseCode.map((color, index) => (
+                                <li key={index}>
+                                  <Form.Control
+                                    type="radio"
+                                    name="size1"
+                                    id={`product-color-${color.skuId}`}
+                                  />
                                   <Form.Label
-                                  className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                  htmlFor={`product-color-${color.skuId}`}
-                                  style={{
-                                    backgroundColor: `${color.colorCode}`,
-                                  }}
+                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                    htmlFor={`product-color-${color.skuId}`}
+                                    style={{
+                                      backgroundColor: `${color.colorCode}`,
+                                    }}
                                   >
                                     {color.colorCode == null && (
-                                            <FaCheck />
-                                          )}
+                                      <FaCheck />
+                                    )}
 
                                   </Form.Label>
-                              </li>
+                                </li>
                               ))}
                             </ul>
-                          ):(
+                          ) : (
                             <div className="avatar-xxs mb-3">
-                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                    <AiFillExclamationCircle />
-                                  </div>
-                                </div>
+                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                <AiFillExclamationCircle />
+                              </div>
+                            </div>
                           )
-                          
 
-                        ): proDetail?.variant?.type == "size" ?(
-                          proDetail.relationOfBaseCode.length > 0 ?(
+
+                        ) : proDetail?.variant?.type == "size" ? (
+                          proDetail.relationOfBaseCode.length > 0 ? (
                             <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                              {proDetail.relationOfBaseCode.map((color, index) =>(
-                              <li key={index}>
-                                <Form.Control
-                                type="radio"
-                                name="size1"
-                                id={`product-color-${color.skuId}`}
-                                />
+                              {proDetail.relationOfBaseCode.map((color, index) => (
+                                <li key={index}>
+                                  <Form.Control
+                                    type="radio"
+                                    name="size1"
+                                    id={`product-color-${color.skuId}`}
+                                  />
                                   <Form.Label
-                                  className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                  htmlFor={`product-color-${color.skuId}`}
+                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                    htmlFor={`product-color-${color.skuId}`}
                                   >
                                     {color.colorCode == null ? (
-                                            <FaCheck />
-                                          ):<span>{color.colorCode}</span> }
+                                      <FaCheck />
+                                    ) : <span>{color.colorCode}</span>}
 
                                   </Form.Label>
-                              </li>
+                                </li>
                               ))}
                             </ul>
-                          ):(
+                          ) : (
                             <div className="avatar-xxs mb-3">
-                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                    <AiFillExclamationCircle />
-                                  </div>
-                                </div>
+                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                <AiFillExclamationCircle />
+                              </div>
+                            </div>
                           )
-                          
 
-                        ): proDetail?.variant?.type == "file" ?(
-                          proDetail.relationOfBaseCode.length > 0 ?(
+
+                        ) : proDetail?.variant?.type == "file" ? (
+                          proDetail.relationOfBaseCode.length > 0 ? (
                             <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                              {proDetail.relationOfBaseCode.map((color, index) =>(
-                              <li key={index}>
-                                <Form.Control
-                                type="radio"
-                                name="size1"
-                                id={`product-color-${color.skuId}`}
-                                />
+                              {proDetail.relationOfBaseCode.map((color, index) => (
+                                <li key={index}>
+                                  <Form.Control
+                                    type="radio"
+                                    name="size1"
+                                    id={`product-color-${color.skuId}`}
+                                  />
                                   <Form.Label
-                                   className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                   htmlFor={`product-color-${color.skuId}`}
-                                   style={{
-                                     backgroundImage: `url(${color.colorCode})`,
-                                   }}
+                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                    htmlFor={`product-color-${color.skuId}`}
+                                    style={{
+                                      backgroundImage: `url(${color.colorCode})`,
+                                    }}
                                   >
-                                     {color.colorCode == null && (
-                                            <FaCheck />
-                                          )}
+                                    {color.colorCode == null && (
+                                      <FaCheck />
+                                    )}
 
                                   </Form.Label>
-                              </li>
+                                </li>
                               ))}
                             </ul>
-                          ):(
+                          ) : (
                             <div className="avatar-xxs mb-3">
-                                  <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                    <AiFillExclamationCircle />
-                                  </div>
-                                </div>
+                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                <AiFillExclamationCircle />
+                              </div>
+                            </div>
                           )
-                        ):(
+                        ) : (
                           <div className="avatar-xxs mb-3">
                             <div className="avatar-title bg-light text-muted rounded cursor-pointer">
                               <AiFillExclamationCircle />
                             </div>
                           </div>
+                        )
+                      }
+                      {proDetail?.variant?.type == "size" ? (
+                        proDetail?.relationOfBaseCode.length > 0 ? (
+                          <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                            {proDetail?.relationOfBaseCode.map(
+                              (color, index) => (
+                                <li key={index}>
+                                  <Form.Control
+                                    type="radio"
+                                    name="size1"
+                                    id={`product-color-${color?.skuId}`}
+                                  />
+                                  <Form.Label
+                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                    htmlFor={`product-color-${color?.skuId}`}
+                                  >
+                                    {color.colorCode == null ? (
+                                      <FaCheck />
+                                    ) : (
+                                      <span>{color.colorCode}</span>
+                                    )}
+                                  </Form.Label>
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        ) : (
+                          <div className="avatar-xxs mb-3">
+                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                              <AiFillExclamationCircle />
+                            </div>
+                          </div>
+                        )
+                      ) : proDetail?.variant?.type == "file" ? (
+                        proDetail.relationOfBaseCode.length > 0 ? (
+                          <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                            {proDetail.relationOfBaseCode.map(
+                              (color, index) => (
+                                <li key={index}>
+                                  <Form.Control
+                                    type="radio"
+                                    name="size1"
+                                    id={`product-color-${color.skuId}`}
+                                  />
+                                  <Form.Label
+                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                    htmlFor={`product-color-${color.skuId}`}
+                                    style={{
+                                      backgroundImage: `url(${color.colorCode})`,
+                                    }}
+                                  >
+                                    {color.colorCode == null && <FaCheck />}
+                                  </Form.Label>
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        ) : (
+                          <div className="avatar-xxs mb-3">
+                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                              <AiFillExclamationCircle />
+                            </div>
+                          </div>
+                        )
+                      ) : (
+                        <div className="avatar-xxs mb-3">
+                          <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                            <AiFillExclamationCircle />
+                          </div>
+                        </div>
                       )}
-                    
                     </div>
                   </Col>
                 </Row>
@@ -444,15 +537,15 @@ const Productdetails = () => {
                     <Nav variant="tabs" className="nav-tabs-custom mb-3">
                       <Nav.Item as="li">
                         <Nav.Link as="a" eventKey="Description">
-                          
+
                           Description
                         </Nav.Link>
                       </Nav.Item>
-                      <Nav.Item as="li">
+                      {/* <Nav.Item as="li">
                         <Nav.Link as="a" eventKey="Ratings">
                           Ratings Reviews
                         </Nav.Link>
-                      </Nav.Item>
+                      </Nav.Item> */}
                     </Nav>
                     <Tab.Content>
                       <Tab.Pane eventKey="Description">
@@ -463,21 +556,29 @@ const Productdetails = () => {
                         >
                           <Table className="table-sm table-borderless align-middle">
                             <tbody>
-                              {(descriptionData || [])?.map((item, idx) => {
-                                return (
-                                  <tr key={idx}>
-                                    <th>{item.thead}</th>
-                                    <td>{item.tdata}</td>
-                                  </tr>
-                                );
-                              })}
                               <tr>
-                                <th>Color</th>
-                                <td>
-                                  <div className="avatar-xs">
-                                    <div className="avatar-title rounded" />
-                                  </div>
-                                </td>
+                                <th>Type</th>
+                                <td>{proDetail?.variant?.type}</td>
+                              </tr>
+                              <tr>
+                                <th>uzunluq</th>
+                                <td>{proDetail?.uzunluq}</td>
+                              </tr>
+                              <tr>
+                                <th>width</th>
+                                <td>{proDetail?.width}</td>
+                              </tr>
+                              <tr>
+                                <th>heigth</th>
+                                <td>{proDetail?.heigth}</td>
+                              </tr>
+                              <tr>
+                                <th>veight</th>
+                                <td>{proDetail?.veight}</td>
+                              </tr>
+                              <tr>
+                                <th>variant.name</th>
+                                <td>{proDetail?.variant?.name}</td>
                               </tr>
                             </tbody>
                           </Table>
@@ -485,7 +586,7 @@ const Productdetails = () => {
                           </p>
                         </div>
                       </Tab.Pane>
-                      <Tab.Pane eventKey="Ratings">
+                      {/* <Tab.Pane eventKey="Ratings">
                         <div
                           className="tab-pane show"
                           id="profile2"
@@ -495,20 +596,10 @@ const Productdetails = () => {
                             <div className="d-flex flex-wrap gap-4 justify-content-between align-items-center mt-4">
                               <div className="flex-shrink-0">
                                 <h5 className="fs-15 mb-3 fw-medium">
-                                  Total Rating's
-                                </h5>
-                                <h2 className="fw-bold mb-3">10.14k</h2>
-                                <p className="text-muted mb-0">
-                                  Growth in reviews on this year
-                                </p>
-                              </div>
-                              <hr className="vr" />
-                              <div className="flex-shrink-0">
-                                <h5 className="fs-15 mb-3 fw-medium">
                                   Average Rating
                                 </h5>
                                 <h2 className="fw-bold mb-3">
-                                  5.6
+                                  
                                   <span className="fs-16 align-middle text-warning ms-2">
                                     <i className="ri-star-fill" />
                                     <i className="ri-star-fill" />
@@ -848,7 +939,7 @@ const Productdetails = () => {
                             </div>
                           </div>
                         </div>
-                      </Tab.Pane>
+                      </Tab.Pane> */}
                     </Tab.Content>
                   </Col>
                 </Row>

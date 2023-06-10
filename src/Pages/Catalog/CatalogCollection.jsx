@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Card, Button, Image } from "react-bootstrap";
 import "./Catalog.css";
+import axios from "axios";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { useSelector,useDispatch } from "react-redux";
 import { FaCheck } from "react-icons/fa";
@@ -24,7 +25,6 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
   const getProducts = async () => {
     const res = await getAllProducts(currentPage);
-    console.log(res);
     const findDefaults = res
       .map((product) => {
         if (product.isDefault == true) {
@@ -46,7 +46,6 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   const handleSKUChange = (a) => {
     setSelectItem(a);
   };
-  console.log(selectItem);
   const addToCart = async (skuId, appUserId) => {
     const res = await AddToBasket(skuId, appUserId);
     const re = await getAllBasket(appUserId)
@@ -58,9 +57,6 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
   return (
     <>
-    <Helmet>
-      <title>Məhsullar</title>
-    </Helmet>
       <div className="flex-grow-1">
         <ToastContainer />
         <div className="d-flex align-items-center gap-2 mb-4">
@@ -98,7 +94,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                   !cxl && (
                     <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
                       <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
-                        <div className="bg-light bg-opacity-50 rounded py-4 position-relative">
+                        <div className="bg-light bg-opacity-50 rounded py-4 position-relative" style={{height:'250px'}}>
                           <Image
                             src={item.productImages[0]?.image}
                             alt=""
@@ -162,6 +158,8 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                           className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
                                           htmlFor={`product-color-${color.skuId}`}
                                           style={{
+                                            width:'50px',
+                                            height:'50px',
                                             backgroundColor: `${color.colorCode}`,
                                           }}
                                         >
@@ -299,20 +297,20 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                           100) *
                                           item?.relationOfBaseCode[count[i]]
                                             .discountPrice
-                                    ).toFixed(2)}
+                                    ).toFixed(2)} ₼
                                     <span className="text-muted fs-12">
                                       <del>
                                         {
                                           item?.relationOfBaseCode[count[i]]
                                             .salePrice
-                                        }
+                                        } ₼
                                       </del>
                                     </span>
                                   </h5>
                                 </>
                               ) : (
                                 <h5 className="text-secondary mb-0">
-                                  {item?.relationOfBaseCode[count[i]].salePrice}
+                                  {item?.relationOfBaseCode[count[i]].salePrice} ₼
                                 </h5>
                               )}
                             </div>
@@ -326,7 +324,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                       userId
                                     );
                                   } else {
-                                    toast.error("Zəhmət olmasa giris edin", {
+                                    toast.error("Zəhmət olmasa hesabınıza daxil olun", {
                                       position: "top-right",
                                       autoClose: 5000,
                                       hideProgressBar: false,

@@ -10,12 +10,28 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { withTranslation } from "react-i18next";
 import withRouter from "../../../Components/withRouter";
+import { useState } from "react";
+import { getAllProducts } from "../../../services/getRequests";
+import { useEffect } from "react";
 const LastestCollection = (props) => {
+
+    const [latestProduct, setLatestProduct] = useState([]);
+
+    const fetchProducts = async () => {
+        const data = await getAllProducts(1);
+        setLatestProduct(data);
+    }
+    useEffect(() => {
+        fetchProducts();
+    }, [])
+
+    console.log(latestProduct);
+
+
     return (
         <>
-        
-            <section className="section pb-0">
 
+            <section className="section pb-0">
                 <Container>
                     <CommonTitle
                         title={props.t('latest-arrival')}
@@ -52,25 +68,31 @@ const LastestCollection = (props) => {
                                     {(latestProduct || []).map((item, key) => (
                                         <SwiperSlide className="swiper-slide" key={key}>
                                             <Card className="overflow-hidden">
-                                                <div className={`bg-${item.bg}-subtle rounded-top py-4`}>
-                                                    <div className="gallery-product">
-                                                        <Image src={item.img} alt="" style={{ maxHeight: "215px", maxWidth: "100%" }} className="mx-auto d-block" />
+                                                <div className="rounded-top py-4">
+                                                    <div className="gallery-product" style={{ height: '200px', display:'flex', alignItems:'center' }}>
+                                                        <Image src={item.posterImage} alt="" style={{ maxHeight: "215px", maxWidth: "100%" }} className="mx-auto d-block" />
                                                     </div>
                                                 </div>
                                                 <Card.Body >
                                                     <div>
                                                         <Link to="product-details">
-                                                            <h6 className="fs-15 lh-base text-truncate mb-0" data-key={`t-${item.title}`}>{props.t(`${item.title}`)}</h6>
+                                                            <h6 className="fs-15 lh-base text-truncate mb-0" data-key={`t-${item.name}`}>{props.t(`${item.name}`)}</h6>
                                                         </Link>
                                                         <div className="mt-3">
-                                                            <span className="float-end" data-key={`t-${item.ratting}`}>{props.t(`${item.ratting}`)}<i className="ri-star-half-fill text-warning align-bottom"></i></span>
-                                                            <h5 className="mb-0" data-key={`t-${item.price}`}>{props.t(`${item.price}`)} <span className="text-muted fs-12"><del data-key={`t-${item.deletePrice}`}>{props.t(`${item.deletePrice}`)}</del></span></h5>
+                                                            <span className="float-end">5 <i className="ri-star-half-fill text-warning align-bottom"></i></span>
+                                                            {
+                                                                item.discountPrice > 0 ? (
+                                                                    <h5 className="mb-0">{item.discountPrice > 0 ? (item.salePrice - (item.salePrice * item.discountPrice) / 100) : item.salePrice} ₼<span className="text-muted fs-12"><del>{item.salePrice} ₼</del></span></h5>
+                                                                ) : (
+                                                                    <h5 className="mb-0">{item.salePrice} ₼</h5>
+                                                                )
+                                                            }
                                                         </div>
                                                         <div className="mt-3">
-                                                            <Link to='/shop/shopingcard' className="btn btn-primary btn-sm" data-key="t-add-to-card">
-                                                                <i className="mdi mdi-cart me-1"></i> 
-                                                                {props.t('add-to-card')}
-                                                                </Link>
+                                                            <Link to={`/product-details/${item.skuId}`} className="btn btn-primary btn-sm">
+                                                                <i className="mdi mdi-cart me-1"></i>
+                                                                Ətrafı bax
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </Card.Body>
@@ -87,4 +109,4 @@ const LastestCollection = (props) => {
     )
 }
 
-export default  withRouter(withTranslation()(LastestCollection));
+export default withRouter(withTranslation()(LastestCollection));

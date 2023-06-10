@@ -22,6 +22,7 @@ import { changeAccont } from "../../slices/layouts/accont";
 import { getAllBaskets } from "../../slices/layouts/basket";
 
 import { changeToken, changeUserId } from "../../slices/layouts/user";
+import { getAllWisslist } from "../../slices/layouts/wistliss";
 const Signin = () => {
   const passwordtype = "password";
   const [password, setPassword] = useState("password");
@@ -79,9 +80,11 @@ const Signin = () => {
                 .then((res) => {
                   dispatch(getAllBaskets(res.data));
                 });
+              axios.get(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${res.data[0].id}`)
+              .then((res) => {dispatch(getAllWisslist(res.data))})
             });
           setTimeout(() => {
-            navigate("/home");
+            navigate("/ana-sehife");
           }, 1500);
         })
         .catch((err) => {
