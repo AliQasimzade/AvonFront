@@ -651,7 +651,7 @@ export const CardModal = ({ show, handleClose }) => {
   const [removeModel, setRemovemodel] = useState(false);
   const dispatch = useDispatch();
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
-  console.log(basket);
+  console.log(basket);  
   useEffect(() => {
     setAllBasket(basket);
   }, []);
@@ -688,7 +688,7 @@ export const CardModal = ({ show, handleClose }) => {
   const countUP = (item, id) => {
     console.log(item, id);
 
-    const result = basket.map((bas) => {
+    const result = allBasket.map((bas) => {
       if (bas.product.skuId == id) {
         bas.productCount = item + 1;
       }
@@ -696,13 +696,14 @@ export const CardModal = ({ show, handleClose }) => {
     });
     console.log(result);
     setAllBasket(result);
+
   };
 
   const countDown = (item, id) => {
     console.log(item, id);
     if (item == 0) {
     } else {
-      const result = basket.map((bas) => {
+      const result = allBasket.map((bas) => {
         if (bas.product.skuId == id) {
           bas.productCount = item - 1;
         }
@@ -710,6 +711,7 @@ export const CardModal = ({ show, handleClose }) => {
       });
       console.log(result);
       setAllBasket(result);
+      
     }
   };
 

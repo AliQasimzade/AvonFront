@@ -12,6 +12,7 @@ import { IoLogIn } from "react-icons/io5"
 import { logoutUser } from "../slices/layouts/accont";
 import { logoutToken, logoutUserId } from "../slices/layouts/user";
 import { getAllBrands, getAllCategories } from "../services/getRequests";
+import { getAllBaskets } from "../slices/layouts/basket";
 const Header = (props) => {
     const userData = useSelector(state => state.persistedReducer.Accont.user[0]);
     const basket = useSelector(state => state.persistedReducer.Basket.basket);
@@ -37,6 +38,7 @@ const Header = (props) => {
         dispatch(logoutUser())
         dispatch(logoutToken())
         dispatch(logoutUserId())
+        dispatch(getAllBaskets([]))
     }
 
     useEffect(() => {
