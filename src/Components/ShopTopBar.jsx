@@ -27,20 +27,10 @@ export const Shoptopbar = ({ title, page }) => {
     )
 }
 
-export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
+export const Shoporder = ({ dic, subtotal, charge, total }) => {
     return (
         <>
-            <Card>
-                <Card.Body>
-                    <div className="text-center">
-                        <h6 className="mb-3 fs-15">Have a <span className="fw-semibold">promo</span> code ?</h6>
-                    </div>
-                    <div className="hstack gap-3 px-3 mx-n3">
-                        <Form.Control className="me-auto" type="text" placeholder="Enter coupon code" defaultValue="RGAgency15" aria-label="Add Promo Code here..." />
-                        <Button variant="primary" className="w-xs">Apply</Button>
-                    </div>
-                </Card.Body>
-            </Card>
+            
             <Card className="overflow-hidden">
                 <Card.Header className="border-bottom-dashed">
                     <h5 className="card-title mb-0 fs-15">Order Summary</h5>
@@ -60,10 +50,6 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                                 <tr>
                                     <td>Shipping Charge :</td>
                                     <td className="text-end cart-shipping">${charge || "0.00"}</td>
-                                </tr>
-                                <tr>
-                                    <td>Estimated Tax (12.5%) : </td>
-                                    <td className="text-end cart-tax">${tax || "0.00"}</td>
                                 </tr>
                                 <tr className="table-active">
                                     <th>Total (USD) :</th>

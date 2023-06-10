@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import DeleteModal from "../../Components/DeleteModal";
-
+import { useSelector } from "react-redux";
 export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
     //modal
     const [removeModel, setRemovemodel] = useState(false);
@@ -11,6 +11,13 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
     const deleteData = () => {
         setId(true);
     }
+
+
+    const user = useSelector((state) => state.persistedReducer.Accont);
+    console.log(user);
+
+
+
     return (
         <>
             <div className="mt-4 pt-2">
@@ -20,12 +27,11 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
                     </div>
                     <div className="flex-shrink-0">
                         <Link to={"/shop/address"} className="badge badge-soft-secondary link-secondary">
-                            Add Address
+                            Ünvan əlavə et
                         </Link>
                     </div>
                 </div>
                 <Row className="gy-3">
-
                     <Col lg={6} xs={12}>
                         <div className="form-check card-radio">
                             <Form.Control id="shippingAddress01" name="shippingAddress" type="radio" className="form-check-input" />

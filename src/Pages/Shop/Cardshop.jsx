@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import { productData } from "../../Common/data";
 import { Shoporder } from "../../Components/ShopTopBar";
 import DeleteModal from "../../Components/DeleteModal";
-
+import { useSelector,useDispatch } from "react-redux";
+import { updateIncBasket,updateDecBasket } from "../../slices/layouts/basket";
 const Cardshop = () => {
     const [productcount, setProductcount] = useState(productData);
     const [charge, setCharge] = useState(0);
     const [dis, setDis] = useState(0);
     const [tax, setTax] = useState(0);
+    const dispatch = useDispatch();
+    const basket = useSelector(state => state.persistedReducer.Basket.basket);
+
     //delete id
     const [id, setId] = useState('');
     //modal
@@ -61,30 +65,30 @@ const Cardshop = () => {
                     </div>
                 </div>
                 {
-                    (productcount || [])?.map((item, inx) => {
+                basket.length > 0 && basket.map((item, inx) => {
                         return (
                             <Card key={inx} className="product">
                                 <Card.Body className="p-4">
                                     <Row className="gy-3">
                                         <Col className="col-sm-auto">
                                             <div className="avatar-lg h-100">
-                                                <div className={`avatar-title bg-${item.bg}-subtle rounded py-3`}>
-                                                    <Image src={item.img} alt="" className="avatar-md" />
+                                                <div className={`avatar-title bg-subtle rounded py-3`}>
+                                                    <Image src={item.product.posterImage} alt="" className="avatar-md" />
                                                 </div>
                                             </div>
                                         </Col>
                                         <Col className="col-sm">
                                             <Link to="#">
-                                                <h5 className="fs-16 lh-base mb-1">{item.title}</h5>
+                                                <h5 className="fs-16 lh-base mb-1">{item.product.name}</h5>
                                             </Link>
                                             <ul className="list-inline text-muted fs-13 mb-3">
                                                 <li className="list-inline-item">Color : <span className="fw-medium">{item.Color}</span></li>
                                                 {item.Size && <li className="list-inline-item">Size : <span className="fw-medium">{item.Size || ''}</span></li>}
                                             </ul>
                                             <div className="input-step">
-                                                <Button className="minus" onClick={() => countDown(item)}>–</Button>
-                                                <Form.Control type="number" className="product-quantity" value={item.num} min="0" max="100" readOnly />
-                                                <Button className="plus" onClick={() => countUP(item)}>+</Button>
+                                                <Button className="minus" onClick={() => countDown(item.productCount, item.product.skuId)}>–</Button>
+                                                <Form.Control type="number" className="product-quantity" value={item.productCount} min="0" max="100" readOnly />
+                                                <Button className="plus" onClick={() => countUP(item.productCount, item.product.skuId)}>+</Button>
                                             </div>
                                         </Col>
                                         <Col className="col-sm-auto">
