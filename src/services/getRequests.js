@@ -185,3 +185,22 @@ export const getUsersWithTeam = async (referalId, day, month,year) => {
         return error.message
      }
 }
+
+
+
+
+export const getAllBasket = async (userId) => {
+    try {
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userId}`)
+        if (request.status !== 200) {
+            throw new Error('Sorğuda xəta baş verdi')
+        } else {
+            const response = request.data;
+            return response
+        }
+
+
+    } catch (error) {
+        return error.message
+    }
+}

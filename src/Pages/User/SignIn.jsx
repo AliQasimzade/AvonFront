@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import avonLogo from "../../assets/images/avonLogo.png";
 import { useDispatch } from "react-redux";
 import { changeAccont } from "../../slices/layouts/accont";
-import { getAllBasket } from "../../slices/layouts/basket";
+import { getAllBaskets } from "../../slices/layouts/basket";
 
 import { changeToken, changeUserId } from "../../slices/layouts/user";
 import { getAllWisslist } from "../../slices/layouts/wistliss";
@@ -78,7 +78,7 @@ const Signin = () => {
                   `http://avontest0910-001-site1.dtempurl.com/api/Baskets/GetAll?appUserId=${res.data[0].id}`
                 )
                 .then((res) => {
-                  dispatch(getAllBasket(res.data));
+                  dispatch(getAllBaskets(res.data));
                 });
               axios.get(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${res.data[0].id}`)
               .then((res) => {dispatch(getAllWisslist(res.data))})

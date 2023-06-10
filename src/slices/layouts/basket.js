@@ -8,11 +8,12 @@ const Basket = createSlice({
     name: "Basket",
     initialState,
     reducers: {
-        getAllBasket(state, action) {
-            state.basket = [...action.payload]
-        }
+        getAllBaskets(state, action) {
+            state.basket = action.payload
+        },
+        
     }
 })
 
-export const { getAllBasket } = Basket.actions;
+export const { getAllBaskets } = Basket.actions;
 export default Basket.reducer;

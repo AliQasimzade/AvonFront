@@ -55,9 +55,7 @@ const Productdetails = () => {
   const userId = useSelector((state) => state.persistedReducer.User.userId);
   const wisslistProID = useSelector((state) => state.persistedReducer.Wisslist.wisslist)
   console.log(wisslistProID);
-  const desc = (data) => {
-    return { __html: data };
-  };
+
   useEffect(() => {
     axios
       .get(
@@ -88,13 +86,13 @@ const Productdetails = () => {
 
   // const handleLikeIcone = ( skuId, userId) => {
   //   if ( wisslistProID.find(wish => wish.productId == proDetail.id) ) {
-      
+
   //     axios.post(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/AddWishList?skuId=${skuId}&appUserId=${userId}`,{
   //     skuId: skuId,
   //     appUserId: userId
   //     })
   //   } else {
-      
+
   //     axios.post(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/RemoveWishList?skuId=${skuId}&appUserId=${userId}`,{
   //     skuId: skuId,
   //     appUserId: userId
@@ -117,6 +115,9 @@ const Productdetails = () => {
     }
   };
 
+  const desc = (data) => {
+    return { __html: data }
+  }
   return (
     <>
       <section
@@ -242,12 +243,12 @@ const Productdetails = () => {
                         data-bs-toggle="button"
                         aria-pressed="false"
                         onClick={(ele) => handleLikeIcone(ele.target, skuId, userId)}
-                        
+
                       >
-                        <span className="icon-on" style={wisslistProID.find(wish => wish.productId == proDetail.id) ? {display:'none'} : {display:'block'}}>
-                          <i className="ri-heart-line"/>
+                        <span className="icon-on" style={wisslistProID.find(wish => wish.productId == proDetail.id) ? { display: 'none' } : { display: 'block' }}>
+                          <i className="ri-heart-line" />
                         </span>
-                        <span className="icon-off" style={wisslistProID.find(wish => wish.productId == proDetail.id) ? {display:'block'} : {display:'none'}}>
+                        <span className="icon-off" style={wisslistProID.find(wish => wish.productId == proDetail.id) ? { display: 'block' } : { display: 'none' }}>
                           <i className="ri-heart-fill" />
                         </span>
                       </Button>
@@ -264,31 +265,23 @@ const Productdetails = () => {
                 <div className="mb-4">
                   <div className="d-flex gap-3 mb-2">
                     <div className="fs-15 text-warning">
-                      {/* {proDetail?.comments?.length > 0 ? (
-                        <span className="float-end">
-                          {Number(
-                            proDetail?.comments
-                              ?.map((retinhg) => retinhg.star)
-                              .reduce((acc, item) => acc + item, 0) /
-                              proDetail?.comments?.length
-                          ).toFixed(2)}
-                          :
-                          <i className="ri-star-half-fill text-warning align-bottom"></i>
-                        </span>
-                      ) : (
-                        <span className="float-end">
-                          yoxu blet
-                          <i className="ri-star-half-fill text-warning align-bottom"></i>
-                        </span>
-                      )} */}
+                      {/* {
+                                                proDetail?.comments.length > 0 ? <span className="float-end">{proDetail?.comments.map((retinhg) => retinhg.star).reduce((acc, item) => acc + item, 0) / proDetail.comments.length}:<p>retingi yoxdur</p>
+                                                    <i className="ri-star-half-fill text-warning align-bottom"></i>
+                                                </span> :
+                                                    <span className="float-end">retingi yoxdur
+                                                        <i className="ri-star-half-fill text-warning align-bottom"></i>
+                                                    </span>
+                                                
+                                            } */}
                     </div>
                   </div>
                   <h4 className="lh-base mb-1">{proDetail.name}</h4>
-                  <p className="text-muted mb-4">{proDetail?.variant?.name}</p>
+                  <p className="text-muted mb-4" dangerouslySetInnerHTML={desc(proDetail.description)}></p>
                   <h5 className="fs-24 mb-4">
                     {Number(
                       proDetail.salePrice -
-                        (proDetail.salePrice / 100) * proDetail.discountPrice
+                      (proDetail.salePrice / 100) * proDetail.discountPrice
                     ).toFixed(2)}
                     <span className="text-muted fs-14">
                       <del>{proDetail.salePrice}</del>
@@ -338,41 +331,110 @@ const Productdetails = () => {
                         {proDetail?.variant?.type == "color"
                           ? "Colors"
                           : proDetail?.variant?.type == "size"
-                          ? "Sizes"
-                          : proDetail?.variant?.type == "weight"
-                          ? "Weights"
-                          : "Images"}
+                            ? "Sizes"
+                            : proDetail?.variant?.type == "weight"
+                              ? "Weights"
+                              : "Images"}
                         :
                       </h6>
-                      {proDetail?.variant?.type == "color" ? (
-                        proDetail.relationOfBaseCode.length > 0 ? (
-                          <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                            {proDetail.relationOfBaseCode.map(
-                              (color, index) => (
-                                <Link
-                                  to={`/product-details/${color.skuId}`}
-                                  onClick={() => setSku(color.skuId)}
-                                >
-                                  <li key={index}>
-                                    <Form.Control
-                                      type="radio"
-                                      name="name1"
-                                      id={`product-color-${color.skuId}`}
-                                    />
-                                    <Form.Label
-                                      className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                      htmlFor={`product-color-${color.skuId}`}
-                                      style={{
-                                        backgroundColor: `${color.colorCode}`,
-                                      }}
-                                    >
-                                      {color.colorCode == null && <FaCheck />}
-                                    </Form.Label>
-                                  </li>
-                                </Link>
-                              )
-                            )}
-                          </ul>
+                      {
+                        proDetail?.variant?.type == "color" ? (
+                          proDetail?.relationOfBaseCode.length > 0 ? (
+                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                              {proDetail?.relationOfBaseCode.map((color, index) => (
+                                <li key={index}>
+                                  <Form.Control
+                                    type="radio"
+                                    name="size1"
+                                    id={`product-color-${color.skuId}`}
+                                  />
+                                  <Form.Label
+                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                    htmlFor={`product-color-${color.skuId}`}
+                                    style={{
+                                      backgroundColor: `${color.colorCode}`,
+                                    }}
+                                  >
+                                    {color.colorCode == null && (
+                                      <FaCheck />
+                                    )}
+
+                                  </Form.Label>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <div className="avatar-xxs mb-3">
+                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                <AiFillExclamationCircle />
+                              </div>
+                            </div>
+                          )
+
+
+                        ) : proDetail?.variant?.type == "size" ? (
+                          proDetail.relationOfBaseCode.length > 0 ? (
+                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                              {proDetail.relationOfBaseCode.map((color, index) => (
+                                <li key={index}>
+                                  <Form.Control
+                                    type="radio"
+                                    name="size1"
+                                    id={`product-color-${color.skuId}`}
+                                  />
+                                  <Form.Label
+                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                    htmlFor={`product-color-${color.skuId}`}
+                                  >
+                                    {color.colorCode == null ? (
+                                      <FaCheck />
+                                    ) : <span>{color.colorCode}</span>}
+
+                                  </Form.Label>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <div className="avatar-xxs mb-3">
+                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                <AiFillExclamationCircle />
+                              </div>
+                            </div>
+                          )
+
+
+                        ) : proDetail?.variant?.type == "file" ? (
+                          proDetail.relationOfBaseCode.length > 0 ? (
+                            <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
+                              {proDetail.relationOfBaseCode.map((color, index) => (
+                                <li key={index}>
+                                  <Form.Control
+                                    type="radio"
+                                    name="size1"
+                                    id={`product-color-${color.skuId}`}
+                                  />
+                                  <Form.Label
+                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                    htmlFor={`product-color-${color.skuId}`}
+                                    style={{
+                                      backgroundImage: `url(${color.colorCode})`,
+                                    }}
+                                  >
+                                    {color.colorCode == null && (
+                                      <FaCheck />
+                                    )}
+
+                                  </Form.Label>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <div className="avatar-xxs mb-3">
+                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
+                                <AiFillExclamationCircle />
+                              </div>
+                            </div>
+                          )
                         ) : (
                           <div className="avatar-xxs mb-3">
                             <div className="avatar-title bg-light text-muted rounded cursor-pointer">
@@ -380,7 +442,8 @@ const Productdetails = () => {
                             </div>
                           </div>
                         )
-                      ) : proDetail?.variant?.type == "size" ? (
+                      }
+                      {proDetail?.variant?.type == "size" ? (
                         proDetail?.relationOfBaseCode.length > 0 ? (
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail?.relationOfBaseCode.map(
@@ -472,9 +535,9 @@ const Productdetails = () => {
                 <Row>
                   <Col sm={12}>
                     <Nav variant="tabs" className="nav-tabs-custom mb-3">
-                      <Nav.Item >
-                        <Nav.Link>
-                          {" "}
+                      <Nav.Item as="li">
+                        <Nav.Link as="a" eventKey="Description">
+
                           Description
                         </Nav.Link>
                       </Nav.Item>
@@ -519,12 +582,8 @@ const Productdetails = () => {
                               </tr>
                             </tbody>
                           </Table>
-                          <p
-                            className="text-muted fs-15"
-                            dangerouslySetInnerHTML={desc(
-                              proDetail.description
-                            )}
-                          ></p>
+                          <p className="text-muted fs-15" dangerouslySetInnerHTML={desc(proDetail.description)}>
+                          </p>
                         </div>
                       </Tab.Pane>
                       {/* <Tab.Pane eventKey="Ratings">
@@ -852,6 +911,7 @@ const Productdetails = () => {
                                       name="your-name"
                                       placeholder="Title"
                                       type="text"
+                                      defaultValue={"title"}
                                     />
                                   </div>
                                   <div className="mb-3">
@@ -860,7 +920,7 @@ const Productdetails = () => {
                                       name="your-commemt"
                                       placeholder="Enter your comments & reviews"
                                       rows={4}
-                                      defaultValue={""}
+                                      defaultValue={"sknd"}
                                     />
                                   </div>
                                   <div className="text-end">
