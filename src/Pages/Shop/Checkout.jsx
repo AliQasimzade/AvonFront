@@ -85,7 +85,6 @@ const Checkout = () => {
                                 </Card.Body>
                             </Card>
                             <ShopingAddress title="Çatıdırlma ünvanı seçin və ya əlavə edin" HomeAdd="Ev ünvanı" officeAdd="İkinci ünvan" />
-                            <ShopingAddress title="Ödəniş ünvanı" />
                         </Col>
                         <Col lg={4}>
                             <div className="sticky-side-div">

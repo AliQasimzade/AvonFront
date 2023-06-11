@@ -397,7 +397,7 @@ const MyAccount = () => {
                                       <div className="float-end clearfix">
                                         {" "}
                                         <Link
-                                          to="/shop/address"
+                                          to="/hesabim/unvanlarim"
                                           className="badge badge-soft-primary"
                                         >
                                           <i className="ri-pencil-fill align-bottom me-1"></i>{" "}
@@ -425,7 +425,7 @@ const MyAccount = () => {
                                       <div className="float-end clearfix">
                                         {" "}
                                         <Link
-                                          to="/shop/address"
+                                          to="/hesabim/unvanlarim"
                                           className="badge badge-soft-primary"
                                         >
                                           <i className="ri-pencil-fill align-bottom me-1"></i>{" "}
@@ -550,7 +550,7 @@ const MyAccount = () => {
                                   <i className="ri-arrow-right-line align-bottom"></i>
                                 </Link>
                                 <Link
-                                  to="/shop/checkout"
+                                  to="/resmilesdirme"
                                   className="btn btn-hover btn-primary"
                                 >
                                   Check Out{" "}

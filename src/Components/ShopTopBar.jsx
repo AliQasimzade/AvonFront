@@ -63,7 +63,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                   </td>
                   <td className="text-end cart-discount">-$0</td>
                 </tr>
-                {pathname === "/shop/checkout" && (
+                {pathname === "/resmilesdirme" && (
                   <tr>
                     <td>Shipping Charge :</td>
                     <td className="text-end cart-shipping">

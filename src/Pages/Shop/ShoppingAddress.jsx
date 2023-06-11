@@ -15,12 +15,7 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
 
     const user = useSelector((state) => state.persistedReducer.Accont);
 
-    const adresParcalama = () => {
-        const unvan = user.user[0].address.split(",")
-    }
-
-    adresParcalama()
-
+    console.log(user);
 
     return (
         <>
@@ -30,7 +25,7 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
                         <h5 className="mb-0">{title || ''}</h5>
                     </div>
                     <div className="flex-shrink-0">
-                        <Link to={"/shop/address"} className="badge badge-soft-secondary link-secondary">
+                        <Link to={"/hesabim/unvanlarim"} className="badge badge-soft-secondary link-secondary">
                             Ünvan əlavə et
                         </Link>
                     </div>
@@ -42,17 +37,17 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
                             <Form.Label className="form-check-label" htmlFor="shippingAddress01">
                                 <span className={`${HomeAdd ? "mb-3 text-uppercase fw-semibold d-block" : "d-none"}`}>{HomeAdd || ''}</span>
 
-                                <span className="fs-14 mb-2 d-block fw-semibold">{user.user[0].address}</span>
-                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{user.user[0].address}</span>
-                                <span className="text-muted fw-normal d-block">Mo. 012-345-6789</span>
+                                <span className="fs-14 mb-2 d-block fw-semibold">{user.user[0].address.split(",")}</span>
+                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{user.user[0].address.split(",")}</span>
+                                <span className="text-muted fw-normal d-block">{user.user[0].address.split(",")}</span>
                             </Form.Label>
                         </div>
                         <div className="d-flex flex-wrap p-2 py-1 bg-light rounded-bottom border mt-n1">
                             <div>
-                                <Link to='/shop/address' className="d-block text-body p-1 px-2"><i className="ri-pencil-fill text-muted align-bottom me-1"></i> Edit</Link>
+                                <Link to='/hesabim/unvanlarim' className="d-block text-body p-1 px-2"><i className="ri-pencil-fill text-muted align-bottom me-1"></i> Edit</Link>
                             </div>
                             <div>
-                                <Link to="#removeAddressModal" className="d-block text-body p-1 px-2" data-bs-toggle="modal" onClick={RemoveModel}>
+                                <Link to="/hesabim/unvanlarim" className="d-block text-body p-1 px-2">
                                     <i className="ri-delete-bin-fill text-muted align-bottom me-1"></i> Remove</Link>
                             </div>
                         </div>
@@ -62,14 +57,14 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
                             <Form.Control id="shippingAddress02" name="shippingAddress" type="radio" className="form-check-input" />
                             <Form.Label className="form-check-label" htmlFor="shippingAddress02">
                                 <span className={`${officeAdd ? "mb-3 text-uppercase fw-semibold d-block" : "d-none"}`}>{officeAdd || ''}</span>
-                                <span className="fs-14 mb-2 d-block fw-semibold">Edwin Adenike</span>
-                                <span className="text-muted fw-normal text-wrap mb-1 d-block">2971 Westheimer Road, Santa Ana, IL 80214</span>
-                                <span className="text-muted fw-normal d-block">Mo. 012-345-6789</span>
+                                <span className="fs-14 mb-2 d-block fw-semibold">{user.user[0].otherAddress.split(",")}</span>
+                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{user.user[0].otherAddress.split(",")}</span>
+                                <span className="text-muted fw-normal d-block">{user.user[0].otherAddress.split(",")}</span>
                             </Form.Label>
                         </div>
                         <div className="d-flex flex-wrap p-2 py-1 bg-light rounded-bottom border mt-n1">
                             <div>
-                                <Link to='/shop/address' className="d-block text-body p-1 px-2"><i className="ri-pencil-fill text-muted align-bottom me-1"></i> Edit</Link>
+                                <Link to='/hesabim/unvanlarim' className="d-block text-body p-1 px-2"><i className="ri-pencil-fill text-muted align-bottom me-1"></i> Edit</Link>
                             </div>
                             <div>
                                 <Link to="#removeAddressModal" className="d-block text-body p-1 px-2" data-bs-toggle="modal"><i className="ri-delete-bin-fill text-muted align-bottom me-1" onClick={RemoveModel}></i> Remove</Link>

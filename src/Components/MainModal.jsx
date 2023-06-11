@@ -642,7 +642,6 @@ export const CardModal = ({ show, handleClose }) => {
   const [removeModel, setRemovemodel] = useState(false);
   const dispatch = useDispatch();
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
-  console.log(basket);
   const RemoveModel = (id) => {
     setRemovemodel(true);
     setId(id);
@@ -767,7 +766,7 @@ export const CardModal = ({ show, handleClose }) => {
                 </Button></Link>
             </Col>
             <Col xs={6}>
-              <Link to="/shop/checkout" onClick={handleClose} className="btn btn-info w-100">
+              <Link to="/resmilesdirme" onClick={handleClose} className="btn btn-info w-100">
                 Continue to Checkout
               </Link>
             </Col>

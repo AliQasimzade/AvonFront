@@ -65,7 +65,7 @@ const WishList = () => {
                             </div>
                             <div className="hstack gap-2 justify-content-end mt-2">
                                 <Link to="product-list" className="btn btn-hover btn-secondary">Continue Shopping <i className="ri-arrow-right-line align-bottom"></i></Link>
-                                <Link to='/shop/checkout' className="btn btn-hover btn-primary">Check Out <i className="ri-arrow-right-line align-bottom"></i></Link>
+                                <Link to='/resmilesdirme' className="btn btn-hover btn-primary">Check Out <i className="ri-arrow-right-line align-bottom"></i></Link>
                             </div>
                         </Col>
                     </Row>

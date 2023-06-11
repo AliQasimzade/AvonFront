@@ -79,14 +79,14 @@ const authProtectedRoutes = [
     { path: "/catalog/clothing", component: <Catalog /> },
 
     //shop
-    { path: "/shop/address", component: <ShopIndex /> },
+    { path: "/hesabim/unvanlarim", component: <ShopIndex /> },
     { path: "/shop/order", component: <Trackorder /> },
     { path: "/shop/payment", component: <PaymentIndex /> },
     { path: "/shop/review", component: <Review />, isLight: "light" },
     { path: "/shop/confirm", component: <Confirm /> },
     { path: "/shop/orderhistory", component: <Orderhistory /> },
     { path: "/shop/shopingcard", component: <Shopingcard /> },
-    { path: "/shop/checkout", component: <Checkout /> },
+    { path: "/resmilesdirme", component: <Checkout /> },
     { path: "/shop/wishList", component: <WishList /> },
 
     //pages

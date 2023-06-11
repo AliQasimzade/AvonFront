@@ -181,7 +181,7 @@ const Cardshop = () => {
             <Link to='/products' variant="danger" className="btn btn-hover">
               Alış-verişə davam et
             </Link>
-            <Link to='/shop/checkout' variant="success" className="btn btn-hover">
+            <Link to='/resmilesdirme' variant="success" className="btn btn-hover">
               Rəsmiləşdir{" "}
               <i className="ri-logout-box-r-line align-bottom ms-1"></i>
             </Link>
