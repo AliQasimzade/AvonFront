@@ -3,7 +3,6 @@ import Nouislider from "nouislider-react";
 
 import { Collapse, Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { filterProduct } from "../../Common/data";
 
 import { useSelector } from "react-redux";
 const Filters = ({ name }) => {

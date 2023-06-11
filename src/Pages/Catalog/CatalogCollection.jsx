@@ -9,8 +9,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAllProducts,getAllBasket } from "../../services/getRequests";
 import { AddToBasket } from "../../services/postRequests";
-import {Helmet} from "react-helmet-async"
+import axios from "axios"
 import { getAllBaskets } from "../../slices/layouts/basket";
+import {getAllWisslist} from "../../slices/layouts/wistliss"
 
 const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
@@ -20,6 +21,8 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const userId = useSelector((state) => state.persistedReducer.User.userId);
+  const wishlistAll = useSelector((state) => state.persistedReducer.Wisslist.wisslist);
+
   const dispatch = useDispatch();
 
   const getProducts = async () => {
@@ -38,6 +41,77 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
   useEffect(() => {
     getProducts();
   }, [currentPage]);
+
+  const handleLikeIcone = (skuId) => {
+    if (userId) {
+      const checkWish = wishlistAll.find(it => it.product.skuId == skuId)
+      if (checkWish) {
+        axios
+          .post(
+            `${process.env.REACT_APP_BASE_URL}WishLists/RemoveWishList?skuId=${skuId}&appUserId=${userId}`,
+            {
+              skuId: skuId,
+              appUserId: userId,
+            }
+          )
+          .then((res) => {
+            axios
+              .get(
+                `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${userId}`
+              )
+              .then((res) => dispatch(getAllWisslist(res.data)));
+          });
+
+        toast.success("İstək siyahısından silindi", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        axios
+          .post(
+            `${process.env.REACT_APP_BASE_URL}WishLists/AddWishList?skuId=${skuId}&appUserId=${userId}`,
+            {
+              skuId: skuId,
+              appUserId: userId,
+            }
+          )
+          .then((res) => {
+            axios
+              .get(
+                `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${userId}`
+              )
+              .then((res) => dispatch(getAllWisslist(res.data)));
+          });
+        toast.success("İstək siyahısına əlavə olundu", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } else {
+      toast.error("Zəhmət olmasa hesabınıza daxil olun", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
 
 
   const handleSKUChange = (a) => {
@@ -113,13 +187,32 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                               color="danger"
                               className="avatar-xs p-0 btn-soft-warning custom-toggle product-action"
                               data-bs-toggle="button"
+                              onClick={() => handleLikeIcone(item.skuId)}
                             >
-                              <span className="icon-on">
-                                <i className="ri-heart-line"></i>
-                              </span>
-                              <span className="icon-off">
-                                <i className="ri-heart-fill"></i>
-                              </span>
+                              <span
+                          className="icon-on"
+                          style={
+                            wishlistAll.find(
+                              (wish) => wish.productId == item.id
+                            )
+                              ? { display: "none" }
+                              : { display: "block" }
+                          }
+                        >
+                          <i className="ri-heart-line" />
+                        </span>
+                        <span
+                          className="icon-off"
+                          style={
+                            wishlistAll.find(
+                              (wish) => wish.productId == item.id
+                            )
+                              ? { display: "block" }
+                              : { display: "none" }
+                          }
+                        >
+                          <i className="ri-heart-fill" />
+                        </span>
                             </Button>
                           </div>
                           {item?.relationOfBaseCode[count[i]] && (
