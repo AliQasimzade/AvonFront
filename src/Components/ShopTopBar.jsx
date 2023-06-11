@@ -43,7 +43,7 @@ export const Shoptopbar = ({ title, page }) => {
 export const Shoporder = ({ dic, subtotal, charge, total }) => {
   const [delivery, setDelivery] = useState([])
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState([])
-  const [order, setOrder] = useState([])
+  const [order, setOrder]  = useState([])
 
 
   const handleDeliveryChanger = (e, d) => {
@@ -59,6 +59,8 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
     try {
       const data = await getAllDeliveryServices();
       setDelivery(data);
+      setSelectedDeliveryMethod(data.sort((a,b) => b.price - a.price)[0])
+
     } catch (error) {
       console.error(error);
     }
@@ -114,7 +116,7 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
                       </td>
                       <td>
                         <div className="d-flex justify-content-between mt-1">
-                          <Form.Check type="radio" onClick={(e) => handleDeliveryChanger(e, de)} name="delivery" id={de.name} className="form-Check-input" />
+                          <Form.Check type="radio" checked={selectedDeliveryMethod.name == de.name ? true : false} onClick={(e) => handleDeliveryChanger(e, de)} name="delivery" id={de.name} className="form-Check-input" />
                           <span>{de.price} AZN</span>
                         </div>
                       </td>
@@ -152,7 +154,7 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
                   <th>Yekun ödəniləcək məbləğ :</th>
                   <td className="text-end">
                     <span className="fw-semibold cart-total">
-                      {total + parseFloat(selectedDeliveryMethod.price)} ₼
+                      { Number(selectedDeliveryMethod.price) + Number(total)} ₼
                     </span>
                   </td>
                 </tr>
