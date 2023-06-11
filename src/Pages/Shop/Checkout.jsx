@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 const Checkout = () => {
-    const [allBasket, setAllBasket] = useState([]);
     const [charge, setCharge] = useState(0);
     const [dis, setDis] = useState(0);
     const [id, setId] = useState("");
@@ -17,9 +16,7 @@ const Checkout = () => {
     const basket = useSelector((state) => state.persistedReducer.Basket.basket);
     const user = useSelector((state) => state.persistedReducer.User.userId);
 
-    useEffect(() => {
-        setAllBasket(basket);
-    }, []);
+  
     const total = basket.length > 0 ? Number(
         basket.reduce(
           (acc, item) => acc + item.productCount * item.product.salePrice,
@@ -68,7 +65,36 @@ const Checkout = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    allBasket.length > 0 && allBasket.map((item, inx) => {
+                                                    basket.length > 0 && basket.filter(it => it.originalPrice != null).map((item, inx) => {
+                                                        return (
+                                                            <tr key={inx}>
+                                                                <td className="text-start">
+                                                                    <div className="d-flex align-items-center gap-2">
+                                                                        <div className="avatar-sm flex-shrink-0">
+                                                                            <div className={`avatar-title bg-${item.bg}-subtle rounded-3`}>
+                                                                                <Image src={item.product.posterImage} alt="" style={{ width: '80px', height: '113px', objectFit: 'cover' }} />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="flex-grow-1">
+                                                                            <h6>{item.product.name}</h6>
+                                                                            <p className="text-muted mb-0">SKU ID: {item.product.skuId} </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td> {item.product.salePrice.toFixed(2)} ₼</td>
+                                                                <td> {item.productCount}</td>
+                                                                <td className="">{(item.product.salePrice.toFixed(2)) * item.productCount} ₼</td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
+
+
+
+
+
+{
+                                                    basket.length > 0 && basket.filter(it => it.originalPrice == null).map((item, inx) => {
                                                         return (
                                                             <tr key={inx}>
                                                                 <td className="text-start">
