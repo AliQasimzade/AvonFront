@@ -92,7 +92,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                     </tr>
                   ) : ""
                 }
-                <tr>
+               {pathname === "/resmilesdirme" &&  <tr>
                   <td>
                     <Form.Label className="text-muted">Çatdırılmada nağd ödəmə</Form.Label>
                   </td>
@@ -102,9 +102,9 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                       <span>Nağd</span>
                     </div>
                   </td>
-                </tr>
+                </tr>}
                 {
-                  delivery.map((de, index) => (
+                  pathname === "/resmilesdirme" && delivery.map((de, index) => (
                     <tr key={index}>
                       <td>
                         <img src={de.image} style={{ width: '30px', height: '30px', objectFit: 'cover', borderRadius: '50%', marginRight: '15px' }} alt="" />
@@ -123,7 +123,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
             </Table>
           </div>
           <div className="table-responsive table-card">
-            <Table className="table-borderless mb-0 fs-15">
+            <Table className="table-borderless mb-0 mt-2 fs-15">
               <tbody>
                 <tr>
                   <td>Ümumi məhsulların qiyməti :</td>
@@ -150,7 +150,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                   <th>Total (USD) :</th>
                   <td className="text-end">
                     <span className="fw-semibold cart-total">
-                      ${subtotal}
+                    ${total || "0.00"}
                     </span>
                   </td>
                 </tr>
