@@ -84,7 +84,7 @@ const Cardshop = () => {
          }
       })
       const request1 = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${userData.id}`,
+        `${process.env.REACT_APP_BASE_URL}Baskets/UpdateBasket?appUserId=${userData.id}`,
         rest
       );
       const request2 = await axios.get(
@@ -94,6 +94,7 @@ const Cardshop = () => {
       const responses = await Promise.all([request1, request2]);
       console.log(responses[1].data);
       dispatch(getAllBaskets(responses[1].data));
+      toast.success('Səbət uğurla yeniləndi')
     } catch (error) {
       toast.error('Sorğuda xəta baş verdi')
     }
