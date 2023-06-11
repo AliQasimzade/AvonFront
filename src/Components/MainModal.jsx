@@ -657,7 +657,6 @@ export const CardModal = ({ show, handleClose }) => {
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
   const RemoveModel = (id) => {
     setRemovemodel(true);
-    setId(id);
   };
 
   const deleteData = () => {

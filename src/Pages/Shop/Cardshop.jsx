@@ -4,51 +4,93 @@ import { Link } from "react-router-dom";
 import { Shoporder } from "../../Components/ShopTopBar";
 import DeleteModal from "../../Components/DeleteModal";
 import { useSelector, useDispatch } from "react-redux";
-
-import { updateDecBasket, updateIncBasket } from "../../slices/layouts/basket";
+import { updateIncBasket, updateDecBasket, getAllBaskets } from "../../slices/layouts/basket";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const Cardshop = () => {
   const dispatch = useDispatch();
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
-  const userData = useSelector(state => state.persistedReducer.Accont.user[0])
+  const userData = useSelector(
+    (state) => state.persistedReducer.Accont.user[0]
+  );
+
+
+  console.log(basket);
   const [removeModel, setRemovemodel] = useState(false);
   const RemoveModel = (id) => {
     setRemovemodel(!removeModel);
-  
   };
+  const deleteData = () => {};
 
-  const deleteData = () => {
-    
-  };
-
-  const subtotal = Number(basket.reduce((acc, item) => acc + (item.productCount * item.product.salePrice.toFixed(2)), 0)).toFixed(2)
-
+  const subtotal = Number(
+    basket.reduce(
+      (acc, item) =>
+        acc + item.productCount * item.product.salePrice.toFixed(2),
+      0
+    )
+  ).toFixed(2);
   const countUP = (item, id) => {
     console.log(item, id);
-    dispatch(updateIncBasket(id))
-    
+    dispatch(updateIncBasket(id));
   };
 
   const countDown = (item, id) => {
     console.log(item, id);
     if (item == 0) {
     } else {
-       dispatch(updateDecBasket(id))
-    
+      dispatch(updateDecBasket(id));
+    }
+  };
+  const deleteAllBasket = async () => {
+    try {
+      const request = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}Baskets/RemoveBasket?appUserId=${userData.id}`,
+        basket
+      );
+      console.log(request.data);
+      dispatch(getAllBaskets([]))
+      toast.success("Səbət uğurla sıfırlandı");
+    } catch (error) {
+      toast.error('Sorğuda xəta baş verdi')
     }
   };
 
+  const updateBasket = async () => {
+       try {
+        const request = await axios.post(`${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${userData.id}`)
+       } catch (error) {
+        
+       }
+  }
   return (
-    <>  
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
+        theme="light"
+      />
       <Col lg={8}>
         <div className="d-flex align-items-center mb-4">
           <h5 className="mb-0 flex-grow-1 fw-medium">
-            Səbətinizdə <span className="fw-bold product-count">{basket.length}</span> məhsul var
+            Səbətinizdə{" "}
+            <span className="fw-bold product-count">{basket.length}</span>{" "}
+            məhsul var
           </h5>
-          <div className="flex-shrink-0">
-            <Link to="#" className="text-decoration-underline link-secondary">
+          <div className="flex-shrink-0 gap-3 d-flex">
+            <Button className="bg-danger text-white border-0" onClick={deleteAllBasket}>
               Səbəti təmizlə
-            </Link>
+            </Button>
+
+            <Button className="bg-info text-white" onClick={updateBasket}>
+              Səbəti yenilə
+            </Button>
           </div>
         </div>
         {basket.length > 0 &&
@@ -63,7 +105,11 @@ const Cardshop = () => {
                           <Image
                             src={item.product.posterImage}
                             alt=""
-                            style={{width:'100px', height:'100px', objectFit:'cover'}}
+                            style={{
+                              width: "100px",
+                              height: "100px",
+                              objectFit: "cover",
+                            }}
                             className="avatar-md"
                           />
                         </div>
@@ -173,15 +219,16 @@ const Cardshop = () => {
       </Col>
       <div className="col-xl-4">
         <div className="sticky-side-div">
-          <Shoporder
-            subtotal={subtotal}
-            total={subtotal}
-          />
+          <Shoporder subtotal={subtotal} total={subtotal} dic={basket[0].basketDiscountPrice}/>
           <div className="hstack gap-2 justify-content-end">
-            <Link to='/products' variant="danger" className="btn btn-hover">
+            <Link to="/products" variant="danger" className="btn btn-hover">
               Alış-verişə davam et
             </Link>
-            <Link to='/resmilesdirme' variant="success" className="btn btn-hover">
+            <Link
+              to="/resmilesdirme"
+              variant="success"
+              className="btn btn-hover"
+            >
               Rəsmiləşdir{" "}
               <i className="ri-logout-box-r-line align-bottom ms-1"></i>
             </Link>

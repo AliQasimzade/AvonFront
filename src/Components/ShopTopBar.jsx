@@ -61,7 +61,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                   <td>
                     Discount <span className="text-muted">(RGAgency15)</span>:
                   </td>
-                  <td className="text-end cart-discount">-$0</td>
+                  <td className="text-end cart-discount">%{dic}</td>
                 </tr>
                 {pathname === "/resmilesdirme" && (
                   <tr>

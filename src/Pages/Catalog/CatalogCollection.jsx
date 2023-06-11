@@ -3,39 +3,41 @@ import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Card, Button, Image } from "react-bootstrap";
 import "./Catalog.css";
 import { AiFillExclamationCircle } from "react-icons/ai";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaCheck } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getAllProducts,getAllBasket } from "../../services/getRequests";
+import { getAllProducts, getAllBasket } from "../../services/getRequests";
 import { AddToBasket } from "../../services/postRequests";
-import axios from "axios"
+import axios from "axios";
 import { getAllBaskets } from "../../slices/layouts/basket";
-import {getAllWisslist} from "../../slices/layouts/wistliss"
+import { getAllWisslist } from "../../slices/layouts/wistliss";
 
 const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
-
   const [select, setSelect] = useState("all");
   const [selectItem, setSelectItem] = useState([]);
   const [count, setCount] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const userId = useSelector((state) => state.persistedReducer.User.userId);
-  const wishlistAll = useSelector((state) => state.persistedReducer.Wisslist.wisslist);
+  const wishlistAll = useSelector(
+    (state) => state.persistedReducer.Wisslist.wisslist
+  );
 
   const dispatch = useDispatch();
 
   const getProducts = async () => {
     const res = await getAllProducts(currentPage);
-    const findDefaults = res.map((product) => {
+    const findDefaults = res
+      .map((product) => {
         if (product.isDefault == true) {
           return product;
         }
       })
       .filter(Boolean);
-      const allPros = [...products, ...findDefaults]
+    const allPros = [...products, ...findDefaults];
     setProducts(allPros);
-    setCount(Array.from({ length: allPros.length }).fill(0))
+    setCount(Array.from({ length: allPros.length }).fill(0));
   };
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
 
   const handleLikeIcone = (skuId) => {
     if (userId) {
-      const checkWish = wishlistAll.find(it => it.product.skuId == skuId)
+      const checkWish = wishlistAll.find((it) => it.product.skuId == skuId);
       if (checkWish) {
         axios
           .post(
@@ -113,31 +115,30 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
     }
   };
 
-
   const handleSKUChange = (a) => {
     setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId) => {
-    const res = await AddToBasket(appUserId, [{skuId,count:1}]);
-    const re = await getAllBasket(appUserId)
+    const res = await AddToBasket(appUserId, [{ skuId, count: 1 }]);
+    const re = await getAllBasket(appUserId);
     console.log(re);
-    toast.success("Məhsul səbətə əlavə olundu", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    dispatch(getAllBaskets(re))
+    toast.success("Məhsul səbətə əlavə olundu");
+    dispatch(getAllBaskets(re));
   };
 
   return (
     <>
       <div className="flex-grow-1">
-        <ToastContainer />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          closeOnClick={true}
+          pauseOnHover={true}
+          draggable={true}
+          progress={undefined}
+          theme="light"
+        />
         <div className="d-flex align-items-center gap-2 mb-4">
           <p className="text-muted flex-grow-1 mb-0">
             <span>{products.length}</span> results
@@ -151,11 +152,7 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                 </Form.Label>
               </div>
               <div className="flex-shrink-0">
-                <Form.Select
-                  className="form-select w-md"
-                  id="sort-elem"
-                
-                >
+                <Form.Select className="form-select w-md" id="sort-elem">
                   <option value="all">All</option>
                   <option value="lowtohigh">Low to High</option>
                   <option value="hightolow">High to Low</option>
@@ -172,7 +169,10 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                   !cxl && (
                     <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
                       <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
-                        <div className="bg-light bg-opacity-50 rounded py-4 position-relative" style={{height:'250px'}}>
+                        <div
+                          className="bg-light bg-opacity-50 rounded py-4 position-relative"
+                          style={{ height: "250px" }}
+                        >
                           <Image
                             src={item.productImages[0]?.image}
                             alt=""
@@ -190,29 +190,29 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                               onClick={() => handleLikeIcone(item.skuId)}
                             >
                               <span
-                          className="icon-on"
-                          style={
-                            wishlistAll.find(
-                              (wish) => wish.productId == item.id
-                            )
-                              ? { display: "none" }
-                              : { display: "block" }
-                          }
-                        >
-                          <i className="ri-heart-line" />
-                        </span>
-                        <span
-                          className="icon-off"
-                          style={
-                            wishlistAll.find(
-                              (wish) => wish.productId == item.id
-                            )
-                              ? { display: "block" }
-                              : { display: "none" }
-                          }
-                        >
-                          <i className="ri-heart-fill" />
-                        </span>
+                                className="icon-on"
+                                style={
+                                  wishlistAll.find(
+                                    (wish) => wish.productId == item.id
+                                  )
+                                    ? { display: "none" }
+                                    : { display: "block" }
+                                }
+                              >
+                                <i className="ri-heart-line" />
+                              </span>
+                              <span
+                                className="icon-off"
+                                style={
+                                  wishlistAll.find(
+                                    (wish) => wish.productId == item.id
+                                  )
+                                    ? { display: "block" }
+                                    : { display: "none" }
+                                }
+                              >
+                                <i className="ri-heart-fill" />
+                              </span>
                             </Button>
                           </div>
                           {item?.relationOfBaseCode[count[i]] && (
@@ -255,8 +255,8 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                           className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
                                           htmlFor={`product-color-${color.skuId}`}
                                           style={{
-                                            width:'50px',
-                                            height:'50px',
+                                            width: "50px",
+                                            height: "50px",
                                             backgroundColor: `${color.colorCode}`,
                                           }}
                                         >
@@ -394,20 +394,23 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                           100) *
                                           item?.relationOfBaseCode[count[i]]
                                             .discountPrice
-                                    ).toFixed(2)} ₼
+                                    ).toFixed(2)}{" "}
+                                    ₼
                                     <span className="text-muted fs-12">
                                       <del>
                                         {
                                           item?.relationOfBaseCode[count[i]]
                                             .salePrice
-                                        } ₼
+                                        }{" "}
+                                        ₼
                                       </del>
                                     </span>
                                   </h5>
                                 </>
                               ) : (
                                 <h5 className="text-secondary mb-0">
-                                  {item?.relationOfBaseCode[count[i]].salePrice} ₼
+                                  {item?.relationOfBaseCode[count[i]].salePrice}{" "}
+                                  ₼
                                 </h5>
                               )}
                             </div>
@@ -421,16 +424,19 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
                                       userId
                                     );
                                   } else {
-                                    toast.error("Zəhmət olmasa hesabınıza daxil olun", {
-                                      position: "top-right",
-                                      autoClose: 5000,
-                                      hideProgressBar: false,
-                                      closeOnClick: true,
-                                      pauseOnHover: true,
-                                      draggable: true,
-                                      progress: undefined,
-                                      theme: "light",
-                                    });
+                                    toast.error(
+                                      "Zəhmət olmasa hesabınıza daxil olun",
+                                      {
+                                        position: "top-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "light",
+                                      }
+                                    );
                                   }
                                 }}
                               >
@@ -463,7 +469,9 @@ const CatalogCollection = ({ cxxl, cxl, clg, cmd, cheight }) => {
               </>
             ))}
         </Row>
-        <Button onClick={() => setCurrentPage(currentPage + 1)}>Daha Çoxu</Button>
+        <Button onClick={() => setCurrentPage(currentPage + 1)}>
+          Daha Çoxu
+        </Button>
       </div>
     </>
   );
