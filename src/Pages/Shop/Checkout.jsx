@@ -2,7 +2,6 @@ import React from "react"
 import { Col, Container, Row, Alert, Card, Button, Table, Image } from "react-bootstrap";
 import { Shoporder, Shoptopbar } from "../../Components/ShopTopBar";
 import { Link } from "react-router-dom";
-import { shopProducDetails } from "../../Common/data";
 import { ShopingAddress } from "./ShoppingAddress";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
