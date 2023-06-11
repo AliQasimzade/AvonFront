@@ -40,6 +40,9 @@ const Cardshop = () => {
     .reduce((acc, item) => acc + item.productCount * item.product.salePrice, 0) : 0;
 
   const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
+
+  console.log("Total blet:" + total);
+  console.log("Subtotal:" + subtotal);
   const countUP = (item, id) => {
     console.log(item, id);
     dispatch(updateIncBasket(id));

@@ -21,7 +21,20 @@ const Checkout = () => {
     useEffect(() => {
         setAllBasket(basket);
     }, []);
-
+    const total = basket.length > 0 ? Number(
+        basket.reduce(
+          (acc, item) => acc + item.productCount * item.product.salePrice,
+          0
+        )
+      ).toFixed(2) : 0;
+      const filterByOriginalPriceNotNull = basket.length > 0 ? basket
+        .filter((item) => item.originalPrice != null)
+        .reduce((acc, item) => acc + item.productCount * item.originalPrice, 0) : 0;
+      const filterByOriginalPriceNull = basket.length > 0 ? basket
+        .filter((item) => item.originalPrice == null)
+        .reduce((acc, item) => acc + item.productCount * item.product.salePrice, 0) : 0;
+    
+      const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
     document.title = "Checkout | RGAgency - React FrontEnd";
     return (
         <>
@@ -88,7 +101,7 @@ const Checkout = () => {
                         </Col>
                         <Col lg={4}>
                             <div className="sticky-side-div">
-                                <Shoporder subtotal={subtotal} dic={basket.find(i => i.basketDiscountPrice !== null).basketDiscountPrice} total={total} />
+                                <Shoporder subtotal={subtotal} dic={basket.find(i => i.basketDiscountPrice != null).basketDiscountPrice} charge="2.4" total={total} />
                                 <div className="hstack gap-2 justify-content-between justify-content-end">
                                     <Link to='/shop/shopingcard' className="btn btn-hover btn-soft-info w-100"><i className="ri-arrow-left-line label-icon align-middle ms-1"></i> Səbətə geri dön </Link>
                                     <Link to='/shop/payment' className="btn btn-hover btn-primary w-100">Sifariş et</Link>
