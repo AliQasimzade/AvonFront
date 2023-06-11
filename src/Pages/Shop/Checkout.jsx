@@ -88,7 +88,7 @@ const Checkout = () => {
                         </Col>
                         <Col lg={4}>
                             <div className="sticky-side-div">
-                                <Shoporder subtotal="510.50" dic="18.00" charge="2.4" total="630.25" />
+                                <Shoporder subtotal={subtotal} dic={basket.find(i => i.basketDiscountPrice !== null).basketDiscountPrice} total={total} />
                                 <div className="hstack gap-2 justify-content-between justify-content-end">
                                     <Link to='/shop/shopingcard' className="btn btn-hover btn-soft-info w-100"><i className="ri-arrow-left-line label-icon align-middle ms-1"></i> Səbətə geri dön </Link>
                                     <Link to='/shop/payment' className="btn btn-hover btn-primary w-100">Sifariş et</Link>
