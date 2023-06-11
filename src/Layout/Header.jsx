@@ -16,6 +16,7 @@ import { getAllBaskets } from "../slices/layouts/basket";
 const Header = (props) => {
     const userData = useSelector(state => state.persistedReducer.Accont.user[0]);
     const basket = useSelector(state => state.persistedReducer.Basket.basket);
+    const wishlistAll = useSelector(state => state.persistedReducer.Wisslist.wisslist)
     // kateqoriyalar
     const [categories, setCategories] = useState([])
     const [brendler, setBrendler] = useState([]);
@@ -273,6 +274,16 @@ const Header = (props) => {
                                 <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">{basket.length}</span>
                             </Button>
                         </div>
+
+                        <div className="topbar-head-dropdown ms-1 header-item">
+                            <Link to="/shop/wishList">
+                            <Button type="button" className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted" data-bs-toggle="offcanvas" data-bs-target="#ecommerceCart" aria-controls="ecommerceCart" onClick={handlecardShow}>
+                                <i className="ph-heart-bold fs-18"></i>
+                                <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">{wishlistAll.length}</span>
+                            </Button>
+                            </Link>
+                        </div>
+
                         {/* <CardModal show={card} handleClose={handlecardClose} /> */}
 
                         <Dropdown className="topbar-head-dropdown ms-2 header-item dropdown-hover-end" align="start">

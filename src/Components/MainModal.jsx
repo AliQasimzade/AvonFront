@@ -221,12 +221,13 @@ export const InvoiceModal = ({
                             Payment Status
                           </p>
                           <span
-                            className={`badge badge-soft-${selectedOrder?.status == "Gözləmədə"
-                              ? "warning"
-                              : selectedOrder?.status == "Qəbul"
+                            className={`badge badge-soft-${
+                              selectedOrder?.status == "Gözləmədə"
+                                ? "warning"
+                                : selectedOrder?.status == "Qəbul"
                                 ? "success"
                                 : "danger"
-                              }`}
+                            }`}
                             id="payment-status"
                           >
                             {selectedOrder?.status}
@@ -304,8 +305,7 @@ export const InvoiceModal = ({
                                   </td>
                                   <td>
                                     ₼{Number(item.product.salePrice).toFixed(2)}
-                                    -
-                                    ₼{Number(item.salePrice).toFixed(2)}
+                                    - ₼{Number(item.salePrice).toFixed(2)}
                                   </td>
                                   <td>{item.count}</td>
                                   <td>{item.discountPrice}</td>
@@ -331,27 +331,41 @@ export const InvoiceModal = ({
                               <td>Sub Total</td>
                               <td className="text-end">
                                 ₼
-                                {Number(selectedOrder?.orderItems.reduce(
-                                  (acc, item) =>
-                                    acc + item.count * item.salePrice,
-                                  0
-                                )).toFixed(2)}
+                                {Number(
+                                  selectedOrder?.orderItems.reduce(
+                                    (acc, item) =>
+                                      acc + item.count * item.salePrice,
+                                    0
+                                  )
+                                ).toFixed(2)}
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 Discount <small className="text-muted"></small>
                               </td>
-                              <td className="text-end">- ₼{Number(selectedOrder.orderItems.reduce((acc, item) => acc + item.discountPrice, 0)).toFixed(2)}</td>
+                              <td className="text-end">
+                                - ₼
+                                {Number(
+                                  selectedOrder.orderItems.reduce(
+                                    (acc, item) => acc + item.discountPrice,
+                                    0
+                                  )
+                                ).toFixed(2)}
+                              </td>
                             </tr>
                             <tr>
                               <td>Shipping Charge</td>
-                              <td className="text-end">₼{selectedOrder.deliveryAdress.price}</td>
+                              <td className="text-end">
+                                ₼{selectedOrder.deliveryAdress.price}
+                              </td>
                             </tr>
                             <tr className="border-top border-top-dashed fs-15">
                               <th scope="row">Total Amount</th>
                               <th className="text-end">
-                                ₼{selectedOrder?.totalAmount + selectedOrder.deliveryAdress.price}
+                                ₼
+                                {selectedOrder?.totalAmount +
+                                  selectedOrder.deliveryAdress.price}
                               </th>
                             </tr>
                           </tbody>
@@ -380,7 +394,7 @@ export const InvoiceModal = ({
                           </span>
                         </p>
                         <p className="text-muted">
-                          Total Amount: 
+                          Total Amount:
                           <span id="card-total-amount">1406.92</span>
                           <span className="fw-medium"> ₼</span>
                         </p>
@@ -635,7 +649,6 @@ export const SearchModal = ({ show, handleClose }) => {
 //card modal
 
 import { useDispatch } from "react-redux";
-import { isTemplateMiddle } from "typescript";
 
 export const CardModal = ({ show, handleClose }) => {
   //modal
@@ -653,7 +666,6 @@ export const CardModal = ({ show, handleClose }) => {
   };
 
   const CloseremoveModal = () => setRemovemodel(false);
-
 
   return (
     <>
@@ -737,11 +749,14 @@ export const CardModal = ({ show, handleClose }) => {
                     <td className="text-end cart-subtotal">
                       $
                       {basket.length > 0
-                        ? Number(basket.reduce(
-                          (acc, item) =>
-                            acc + item.product.salePrice * item.productCount,
-                          0
-                        )).toFixed(2)
+                        ? Number(
+                            basket.reduce(
+                              (acc, item) =>
+                                acc +
+                                item.product.salePrice * item.productCount,
+                              0
+                            )
+                          ).toFixed(2)
                         : 0}
                     </td>
                   </tr>
@@ -749,13 +764,20 @@ export const CardModal = ({ show, handleClose }) => {
               </Table>
             </div>
           </SimpleBar>
-        </Offcanvas.Body >
+        </Offcanvas.Body>
         <div className="offcanvas-footer border-top p-3 text-center">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h6 className="m-0 fs-16 text-muted">Total:</h6>
             <div className="px-2">
               <h6 className="m-0 fs-16 cart-total">
-                ${Number(basket.reduce((acc, it) => acc + (it.productCount * it.product.salePrice.toFixed(2)), 0)).toFixed(2)}
+                $
+                {Number(
+                  basket.reduce(
+                    (acc, it) =>
+                      acc + it.productCount * it.product.salePrice.toFixed(2),
+                    0
+                  )
+                ).toFixed(2)}
               </h6>
             </div>
           </div>
@@ -764,16 +786,21 @@ export const CardModal = ({ show, handleClose }) => {
               <Link to="/shop/shopingcard" onClick={handleClose}>
                 <Button variant="light" className="btn w-100" id="reset-layout">
                   View Cart
-                </Button></Link>
+                </Button>
+              </Link>
             </Col>
             <Col xs={6}>
-              <Link to="/shop/checkout" onClick={handleClose} className="btn btn-info w-100">
+              <Link
+                to="/shop/checkout"
+                onClick={handleClose}
+                className="btn btn-info w-100"
+              >
                 Continue to Checkout
               </Link>
             </Col>
           </Row>
         </div>
-      </Offcanvas >
+      </Offcanvas>
       <DeleteModal
         hideModal={CloseremoveModal}
         removeModel={removeModel}
