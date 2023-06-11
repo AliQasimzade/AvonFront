@@ -59,7 +59,7 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
     try {
       const data = await getAllDeliveryServices();
       setDelivery(data);
-      setSelectedDeliveryMethod(data.sort((a,b) => b.price - a.price)[0])
+      setSelectedDeliveryMethod(data.sort((a,b) => a.price - b.price)[0])
 
     } catch (error) {
       console.error(error);
