@@ -57,10 +57,15 @@ const Cardshop = () => {
   };
   const deleteAllBasket = async () => {
     try {
-      console.log(basket);
+      const rest = basket.map(item => {
+        return {
+          skuId: item.product.skuId,
+          count: Number(item.productCount)
+        }
+     })
       const request = await axios.post(
         `${process.env.REACT_APP_BASE_URL}Baskets/RemoveBasket?appUserId=${userData.id}`,
-        basket
+        rest
       );
       console.log(request.data);
       dispatch(getAllBaskets([]));
@@ -72,9 +77,15 @@ const Cardshop = () => {
 
   const updateBasket = async () => {
     try {
+      const rest = basket.map(item => {
+         return {
+           skuId: item.product.skuId,
+           count: Number(item.productCount)
+         }
+      })
       const request1 = await axios.post(
         `${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${userData.id}`,
-        basket
+        rest
       );
       const request2 = await axios.get(
         `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userData.id}`
@@ -152,17 +163,9 @@ const Cardshop = () => {
                         </Link>
                         <ul className="list-inline text-muted fs-13 mb-3">
                           <li className="list-inline-item">
-                            Color :{" "}
-                            <span className="fw-medium">{item.Color}</span>
+                            Endirimsiz qiyməti :
+                            <span className="fw-medium">{item.originalPrice}</span>
                           </li>
-                          {item.Size && (
-                            <li className="list-inline-item">
-                              Size :{" "}
-                              <span className="fw-medium">
-                                {item.Size || ""}
-                              </span>
-                            </li>
-                          )}
                         </ul>
                         <div className="input-step">
                           <Button
@@ -279,20 +282,6 @@ const Cardshop = () => {
                             {item.product.name}
                           </h5>
                         </Link>
-                        <ul className="list-inline text-muted fs-13 mb-3">
-                          <li className="list-inline-item">
-                            Color :{" "}
-                            <span className="fw-medium">{item.Color}</span>
-                          </li>
-                          {item.Size && (
-                            <li className="list-inline-item">
-                              Size :{" "}
-                              <span className="fw-medium">
-                                {item.Size || ""}
-                              </span>
-                            </li>
-                          )}
-                        </ul>
                         <div className="input-step">
                           <Button
                             className="minus"
