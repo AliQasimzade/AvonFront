@@ -8,6 +8,7 @@ import { CommonService } from "../../Components/CommonService";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import Selectaddress from "./Selectaddress";
 const Checkout = () => {
     const [charge, setCharge] = useState(0);
     const [dis, setDis] = useState(0);
@@ -16,21 +17,21 @@ const Checkout = () => {
     const basket = useSelector((state) => state.persistedReducer.Basket.basket);
     const user = useSelector((state) => state.persistedReducer.User.userId);
 
-  
+
     const total = basket.length > 0 ? Number(
         basket.reduce(
-          (acc, item) => acc + item.productCount * item.product.salePrice,
-          0
+            (acc, item) => acc + item.productCount * item.product.salePrice,
+            0
         )
-      ).toFixed(2) : 0;
-      const filterByOriginalPriceNotNull = basket.length > 0 ? basket
+    ).toFixed(2) : 0;
+    const filterByOriginalPriceNotNull = basket.length > 0 ? basket
         .filter((item) => item.originalPrice != null)
         .reduce((acc, item) => acc + item.productCount * item.originalPrice, 0) : 0;
-      const filterByOriginalPriceNull = basket.length > 0 ? basket
+    const filterByOriginalPriceNull = basket.length > 0 ? basket
         .filter((item) => item.originalPrice == null)
         .reduce((acc, item) => acc + item.productCount * item.product.salePrice, 0) : 0;
-    
-      const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
+
+    const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
     document.title = "Checkout | RGAgency - React FrontEnd";
     return (
         <>
@@ -57,9 +58,10 @@ const Checkout = () => {
                                         <Table className="align-middle table-borderless table-nowrap text-center mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Məhsul</th>
-                                                    <th scope="col">Qiyməti</th>
+                                                    <th scope="col">Məhsulun adı</th>
+                                                    <th scope="col">Endirimsiz qiyməti</th>
                                                     <th scope="col">Sayı</th>
+                                                    <th scope="col">Endirimli qiyməti</th>
                                                     <th scope="col">Yekun qiyməti</th>
                                                 </tr>
                                             </thead>
@@ -81,19 +83,28 @@ const Checkout = () => {
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td> {item.product.salePrice.toFixed(2)} ₼</td>
+                                                                <td> {item.originalPrice.toFixed(2)} ₼</td>
                                                                 <td> {item.productCount}</td>
+                                                                <td> {item.product.salePrice.toFixed(2)} ₼</td>
                                                                 <td className="">{(item.product.salePrice.toFixed(2)) * item.productCount} ₼</td>
                                                             </tr>
                                                         )
                                                     })
                                                 }
 
-
-
-
-
-{
+                                            </tbody>
+                                        </Table>
+                                        <Table className="align-middle table-borderless table-nowrap text-center mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Endirimsiz məhsullar</th>
+                                                    <th scope="col">Qiyməti</th>
+                                                    <th scope="col">Sayı</th>
+                                                    <th scope="col">Yekun qiyməti</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
                                                     basket.length > 0 && basket.filter(it => it.originalPrice == null).map((item, inx) => {
                                                         return (
                                                             <tr key={inx}>
@@ -117,12 +128,13 @@ const Checkout = () => {
                                                         )
                                                     })
                                                 }
+
                                             </tbody>
                                         </Table>
                                     </div>
                                 </Card.Body>
                             </Card>
-                            <ShopingAddress title="Çatıdırlma ünvanı seçin və ya əlavə edin" HomeAdd="Ev ünvanı" officeAdd="İkinci ünvan" />
+                            <Selectaddress/>
                         </Col>
                         <Col lg={4}>
                             <div className="sticky-side-div">

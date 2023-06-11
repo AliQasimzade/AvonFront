@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Col, Container, Row, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Shoporder } from "../../Components/ShopTopBar"
 import DeleteModal, { ModalAdd } from "../../Components/DeleteModal";
 import { selectAddressData } from "../../Common/data";
+import { useSelector } from "react-redux";
 
 const Selectaddress = () => {
+    
+    const user = useSelector((state) => state.persistedReducer.Accont);
+
+    console.log(user);
     document.title = "Shop | Select address | RGAgency - React FrontEnd";
 
     const [addressData, setAddressData] = useState(selectAddressData);
@@ -33,9 +37,9 @@ const Selectaddress = () => {
             <section className="section">
                 <Container>
                     <Row>
-                        <Col xl={8}>
+                        <Col xs={12}>
                             <div>
-                                <h4 className="fs-18 mb-4">Select or add an address</h4>
+                                <h4 className="fs-18 mb-4">Çatdırılma ünvanı seçin və ya əlavə edin</h4>
                                 <Row className="g-4" id="address-list">
                                     {
                                         (addressData || [])?.map((item) => {
@@ -85,11 +89,6 @@ const Selectaddress = () => {
                                 <div className="hstack gap-2 justify-content-start mt-3">
                                     <Button variant="danger" className="btn btn-hover">Continue Shopping</Button>
                                 </div>
-                            </div>
-                        </Col>
-                        <Col xl={4} >
-                            <div className="sticky-side-div">
-                                <Shoporder />
                             </div>
                         </Col>
                     </Row>

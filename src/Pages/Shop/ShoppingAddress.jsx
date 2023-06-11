@@ -13,9 +13,6 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
     }
 
 
-    const user = useSelector((state) => state.persistedReducer.Accont);
-
-    console.log(user);
 
     return (
         <>
