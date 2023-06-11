@@ -40,7 +40,7 @@ export const Shoptopbar = ({ title, page }) => {
   );
 };
 
-export const Shoporder = ({ dic, subtotal, charge, total }) => {
+export const Shoporder = ({ dic, subtotal, total }) => {
   const [delivery, setDelivery] = useState([])
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState([])
   const [order, setOrder] = useState([])
@@ -50,9 +50,9 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
     if (e.target.checked) {
       setSelectedDeliveryMethod(d)
     }
-    
+
   }
-  console.log();
+  console.log(selectedDeliveryMethod);
 
 
   const fetchDelivery = async () => {
@@ -94,7 +94,7 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
                     </tr>
                   ) : ""
                 }
-               {pathname === "/resmilesdirme" &&  <tr>
+                {pathname === "/resmilesdirme" && <tr>
                   <td>
                     <Form.Label className="text-muted">Çatdırılmada nağd ödəmə</Form.Label>
                   </td>
@@ -114,7 +114,7 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
                       </td>
                       <td>
                         <div className="d-flex justify-content-between mt-1">
-                          <Form.Check type="radio" onClick={(e) => handleDeliveryChanger(e, de)} name="delivery" id={de.name} className="form-Check-input" />
+                          <Form.Check type="radio" onClick={(e) => handleDeliveryChanger(e, de)} name="delivery" id={de.name} className="form-Check-input" checked={de.price == 0} />
                           <span>{de.price} AZN</span>
                         </div>
                       </td>
@@ -143,7 +143,7 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
                   <tr>
                     <td>Çatdırılma xidməti :</td>
                     <td className="text-end cart-shipping">
-                      {selectedDeliveryMethod.price} ₼
+                      {!selectedDeliveryMethod.price ? 0 : selectedDeliveryMethod.price} ₼
                     </td>
                   </tr>
 
@@ -152,7 +152,7 @@ export const Shoporder = ({ dic, subtotal, charge, total }) => {
                   <th>Yekun ödəniləcək məbləğ :</th>
                   <td className="text-end">
                     <span className="fw-semibold cart-total">
-                      {total + parseFloat(selectedDeliveryMethod.price)} ₼
+                      {Number(total) + Number(selectedDeliveryMethod.price)} ₼
                     </span>
                   </td>
                 </tr>
