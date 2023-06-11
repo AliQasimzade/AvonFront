@@ -8,7 +8,6 @@ import { CommonService } from "../../Components/CommonService";
 const Shopingcard = () => {
     document.title = "Shop Cart | RGAgency - React Frontend";
   
-
     return (
         <>
             <Shoptopbar title="Shopping Cart" page="Shopping Cart" />

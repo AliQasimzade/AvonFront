@@ -57,7 +57,7 @@ const WishList = () => {
 
   const addToBasket = async (id) => {
     try {
-      const checkBasket = basket.find((item) => item.product.skuId == id);
+      const checkBasket = basket.length > 0 ? basket.find((item) => item.product.skuId == id) : true;
       if (checkBasket) {
         toast.warn("Bu məhsul artıq səbətdə var");
       } else {

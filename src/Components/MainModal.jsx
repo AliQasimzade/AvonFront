@@ -769,13 +769,13 @@ export const CardModal = ({ show, handleClose }) => {
             <div className="px-2">
               <h6 className="m-0 fs-16 cart-total">
                 $
-                {Number(
+                {basket.length > 0 ? Number(
                   basket.reduce(
                     (acc, it) =>
                       acc + it.productCount * it.product.salePrice.toFixed(2),
                     0
                   )
-                ).toFixed(2)}
+                ).toFixed(2) : 0}
               </h6>
             </div>
           </div>
