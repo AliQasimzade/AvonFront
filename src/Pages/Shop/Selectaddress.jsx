@@ -43,8 +43,6 @@ const Selectaddress = () => {
     const handleClose = () => setAddressModal(false);
     const handleShow = () => setAddressModal(true);
 
-
-
     const formik = useFormik({
         initialValues: {
             name: "Qəbul edən şəxsin adı",
