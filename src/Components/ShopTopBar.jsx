@@ -40,16 +40,19 @@ export const Shoptopbar = ({ title, page }) => {
   );
 };
 
-export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
+export const Shoporder = ({ dic, subtotal, charge, total }) => {
   const [delivery, setDelivery] = useState([])
-  const [deliveryPrice, setDeliveryPrice] = useState()
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState([])
   const [order, setOrder] = useState([])
 
 
-  const handleDeliveryChanger = (e) => {
-    setOrder(e)
-    console.log(order);
+  const handleDeliveryChanger = (e, d) => {
+    if (e.target.checked) {
+      setSelectedDeliveryMethod(d)
+    }
+    
   }
+  console.log();
 
 
   const fetchDelivery = async () => {
@@ -60,7 +63,6 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
       console.error(error);
     }
   }
-  console.log(delivery);
   useEffect(() => {
     fetchDelivery();
   }, [])
@@ -108,11 +110,11 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                     <tr key={index}>
                       <td>
                         <img src={de.image} style={{ width: '30px', height: '30px', objectFit: 'cover', borderRadius: '50%', marginRight: '15px' }} alt="" />
-                        <Form.Label className="text-muted">{de.name}</Form.Label>
+                        <Form.Label htmlFor={de.name} className="text-muted">{de.name}</Form.Label>
                       </td>
                       <td>
                         <div className="d-flex justify-content-between mt-1">
-                          <Form.Check type="radio" onClick={()=> handleDeliveryChanger(de)} name="delivery" id="delivery" className="form-Check-input" />
+                          <Form.Check type="radio" onClick={(e) => handleDeliveryChanger(e, de)} name="delivery" id={de.name} className="form-Check-input" />
                           <span>{de.price} AZN</span>
                         </div>
                       </td>
@@ -128,7 +130,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                 <tr>
                   <td>Ümumi məhsulların qiyməti :</td>
                   <td className="text-end cart-subtotal">
-                    ${subtotal || "0.00"}
+                    {subtotal || "0.00"} ₼
                   </td>
                 </tr>
                 <tr>
@@ -141,16 +143,16 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                   <tr>
                     <td>Çatdırılma xidməti :</td>
                     <td className="text-end cart-shipping">
-                      
+                      {selectedDeliveryMethod.price} ₼
                     </td>
                   </tr>
 
                 )}
                 <tr className="table-active">
-                  <th>Total (USD) :</th>
+                  <th>Yekun ödəniləcək məbləğ :</th>
                   <td className="text-end">
                     <span className="fw-semibold cart-total">
-                      ${subtotal}
+                      {total + parseFloat(selectedDeliveryMethod.price)} ₼
                     </span>
                   </td>
                 </tr>
