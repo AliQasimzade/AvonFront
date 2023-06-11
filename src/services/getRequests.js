@@ -29,6 +29,21 @@ export const getAllSubCategories = async () => {
     }
 }
 
+export const getAllDeliveryServices = async () => {
+    try {
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}DeliveryAddresses/Get`)
+        if (request.status !== 200) {
+            throw new Error('Sorğuda xəta baş verdi')
+        } else {
+            const response = request.data;
+            return response
+        }
+    } catch (error) {
+        return error.message
+    }
+}
+
+
 
 export const getAllBrands = async () => {
     try {

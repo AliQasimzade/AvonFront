@@ -90,8 +90,8 @@ const Checkout = () => {
                             <div className="sticky-side-div">
                                 <Shoporder subtotal="510.50" dic="18.00" charge="2.4" total="630.25" />
                                 <div className="hstack gap-2 justify-content-between justify-content-end">
-                                    <Link to='/shop/shopingcard' className="btn btn-hover btn-soft-info w-100">Back To Cart <i className="ri-arrow-right-line label-icon align-middle ms-1"></i></Link>
-                                    <Link to='/shop/payment' className="btn btn-hover btn-primary w-100">Continue Payment</Link>
+                                    <Link to='/shop/shopingcard' className="btn btn-hover btn-soft-info w-100"><i className="ri-arrow-left-line label-icon align-middle ms-1"></i> Səbətə geri dön </Link>
+                                    <Link to='/shop/payment' className="btn btn-hover btn-primary w-100">Sifariş et</Link>
                                 </div>
                             </div>
                         </Col>

@@ -8,7 +8,6 @@ import Catalog from "../Pages/Catalog";
 //shop
 import ShopIndex from "../Pages/Shop";
 import Trackorder from "../Pages/Shop/Trackorder";
-import PaymentIndex from "../Pages/Shop/Indexpayment";
 import Review from "../Pages/Shop/Review";
 import Confirm from "../Pages/Shop/Confirm";
 import Orderhistory from "../Pages/Shop/Orederhistory";
@@ -18,7 +17,6 @@ import WishList from "../Pages/Shop/WhishList";
 
 //../pages /product / grid
 import Defaultgrid from "../Pages/Product/Grid/Default";
-import RightSidebar from "../Pages/Product/Grid/RightSidebar";
 
 //../pages /user
 import MyAccount from "../Pages/User/MyAccount";
@@ -81,7 +79,6 @@ const authProtectedRoutes = [
     //shop
     { path: "/hesabim/unvanlarim", component: <ShopIndex /> },
     { path: "/shop/order", component: <Trackorder /> },
-    { path: "/shop/payment", component: <PaymentIndex /> },
     { path: "/shop/review", component: <Review />, isLight: "light" },
     { path: "/shop/confirm", component: <Confirm /> },
     { path: "/shop/orderhistory", component: <Orderhistory /> },
