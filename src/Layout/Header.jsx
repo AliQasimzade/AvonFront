@@ -277,14 +277,12 @@ const Header = (props) => {
 
                         <div className="topbar-head-dropdown ms-1 header-item">
                             <Link to="/shop/wishList">
-                            <Button type="button" className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted" data-bs-toggle="offcanvas" data-bs-target="#ecommerceCart" aria-controls="ecommerceCart" onClick={handlecardShow}>
+                            <Button type="button" className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted">
                                 <i className="ph-heart-bold fs-18"></i>
                                 <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">{wishlistAll.length}</span>
                             </Button>
                             </Link>
                         </div>
-
-                        {/* <CardModal show={card} handleClose={handlecardClose} /> */}
 
                         <Dropdown className="topbar-head-dropdown ms-2 header-item dropdown-hover-end" align="start">
                             <Dropdown.Toggle className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted" bsPrefix="btn">

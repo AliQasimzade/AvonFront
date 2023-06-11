@@ -135,7 +135,7 @@ export const Shoporder = ({ dic, subtotal, charge, tax, total }) => {
                   <td>
                     Endirim miqdarı <span className="text-muted"></span>:
                   </td>
-                  <td className="text-end cart-discount">-35%</td>
+                  <td className="text-end cart-discount">%{dic}</td>
                 </tr>
                 {pathname === "/resmilesdirme" && (
                   <tr>
