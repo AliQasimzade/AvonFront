@@ -7,21 +7,21 @@ import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 
-const Selectaddress = () => {
+const Selectaddress = ({setAddressData, addressData}) => {
 
     const user = useSelector((state) => state.persistedReducer.Accont);
 
     console.log(user);
     document.title = "Shop | Select address | RGAgency - React FrontEnd";
 
-    const [addressData, setAddressData] = useState("");
+   
 
     const handleChangeAddress = (e, d) => {
         if (e.target.checked) {
             setAddressData(d)
         }
     }
-    console.log(addressData);
+
 
 
     //delete id

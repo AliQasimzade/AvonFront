@@ -40,11 +40,9 @@ export const Shoptopbar = ({ title, page }) => {
   );
 };
 
-export const Shoporder = ({ dic, subtotal, total }) => {
+export const Shoporder = ({ dic, subtotal, total, selectedBalance,setSelectedBalance,selectedDeliveryMethod,setSelectedDeliveryMethod }) => {
   const [delivery, setDelivery] = useState([])
-  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState([])
-  const [order, setOrder]  = useState([])
-
+  
 
   const handleDeliveryChanger = (e, d) => {
     if (e.target.checked) {
@@ -69,10 +67,20 @@ export const Shoporder = ({ dic, subtotal, total }) => {
     fetchDelivery();
   }, [])
 
+  const changePaymentMethod = (e) =>{
+      console.log(e.target.id);
+      if(e.target.id == "checkoutFromBalance") {
+        setSelectedBalance(true)
+      }else {
+         setSelectedBalance(false)
+      }
+  }
+
   const user = useSelector((state) => state.persistedReducer.Accont);
   const { pathname } = useLocation();
   return (
     <>
+    
       <Card className="overflow-hidden mt-5">
         <Card.Header className="border-bottom-dashed">
           <h5 className="card-title mb-0 fs-15">Sifarişin yekun detalları</h5>
@@ -81,28 +89,26 @@ export const Shoporder = ({ dic, subtotal, total }) => {
           <div className="table-responsive table-card">
             <Table className="table-borderless mb-0 fs-15">
               <tbody>
-                {
-                  user.user[0].balance > 0 ? (
-                    <tr>
+               
+                   {pathname === "/resmilesdirme" &&  <tr>
                       <td>
                         <Form.Label className="text-muted">Balansdan ödəmə</Form.Label>
                       </td>
                       <td>
                         <div className="mt-1">
-                          <Form.Check type="radio" name="formRadios" id="checkoutFromBalance" className="form-Check-input" />
+                          <Form.Check type="radio" onClick={(e) => changePaymentMethod(e)} name="formRadios" id="checkoutFromBalance" className="form-Check-input" />
                           {user.user[0].balance} AZN
                         </div>
                       </td>
-                    </tr>
-                  ) : ""
-                }
+                    </tr>}
+                 
                 {pathname === "/resmilesdirme" && <tr>
                   <td>
                     <Form.Label className="text-muted">Çatdırılmada nağd ödəmə</Form.Label>
                   </td>
                   <td>
                     <div className="d-flex justify-content-between mt-1">
-                      <Form.Check type="radio" name="formRadios" id="checkoutWithCOD" className="form-Check-input" defaultChecked />
+                      <Form.Check type="radio" name="formRadios" onClick={(e) => changePaymentMethod(e)} id="checkoutWithCOD" className="form-Check-input" defaultChecked />
                       <span>Nağd</span>
                     </div>
                   </td>
