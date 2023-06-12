@@ -23,7 +23,7 @@ const WishList = () => {
   );
 
   const userId = useSelector((state) => state.persistedReducer.User.userId);
-  const basket = useSelector((state => state.persistedReducer.Basket.basket));
+  const basket = useSelector((state) => state.persistedReducer.Basket.basket);
   const [removeModel, setRemoveModel] = useState(false);
   const [selectedSkuId, setSelectedSkuId] = useState("");
   const desc = (data) => {
@@ -57,16 +57,21 @@ const WishList = () => {
 
   const addToBasket = async (id) => {
     try {
-      const checkBasket = basket.length > 0 ? basket.find((item) => item.product.skuId == id) : true;
+      const checkBasket =
+        basket.length > 0
+          ? basket.find((item) => item.product.skuId == id)
+          : false;
       if (checkBasket) {
         toast.warn("Bu məhsul artıq səbətdə var");
       } else {
         const request1 = await axios.post(
           `${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${userId}`,
-          {
-            skuId: id,
-            count: 1,
-          }
+          [
+            {
+              skuId: id,
+              count: 1,
+            },
+          ]
         );
         const request2 = await axios.get(
           `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userId}`

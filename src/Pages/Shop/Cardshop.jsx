@@ -12,32 +12,70 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { getAllWisslist } from "../../slices/layouts/wistliss";
 
 const Cardshop = () => {
   const dispatch = useDispatch();
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
+  const wishlistAll = useSelector(
+    (state) => state.persistedReducer.Wisslist.wisslist
+  );
+
   const userData = useSelector(
     (state) => state.persistedReducer.Accont.user[0]
   );
 
   const [removeModel, setRemovemodel] = useState(false);
-  const RemoveModel = (id) => {
+  const [selectedSkuId, setSelectedSkuId] = useState("");
+  const RemoveModel = (id, c) => {
     setRemovemodel(!removeModel);
+    setSelectedSkuId([{ skuId: id, count: Number(c) }]);
   };
-  const deleteData = () => {};
+  const deleteData = async () => {
+    try {
+      const req1 = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}Baskets/RemoveBasket?appUserId=${userData.id}`,
+        selectedSkuId
+      );
+      const req2 = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userData.id}`
+      );
 
-  const total = basket.length > 0 ? Number(
-    basket.reduce(
-      (acc, item) => acc + item.productCount * item.product.salePrice,
-      0
-    )
-  ).toFixed(2) : 0;
-  const filterByOriginalPriceNotNull = basket.length > 0 ? basket
-    .filter((item) => item.originalPrice != null)
-    .reduce((acc, item) => acc + item.productCount * item.originalPrice, 0) : 0;
-  const filterByOriginalPriceNull = basket.length > 0 ? basket
-    .filter((item) => item.originalPrice == null)
-    .reduce((acc, item) => acc + item.productCount * item.product.salePrice, 0) : 0;
+      const responses = await Promise.all([req1, req2]);
+      dispatch(getAllBaskets(responses[1].data));
+      toast.success("Məhsul səbətdən silindi");
+    } catch (error) {
+      toast.error("Sorğuda xəta baş verdi");
+    }
+  };
+
+  const total =
+    basket.length > 0
+      ? Number(
+          basket.reduce(
+            (acc, item) => acc + item.productCount * item.product.salePrice,
+            0
+          )
+        ).toFixed(2)
+      : 0;
+  const filterByOriginalPriceNotNull =
+    basket.length > 0
+      ? basket
+          .filter((item) => item.originalPrice != null)
+          .reduce(
+            (acc, item) => acc + item.productCount * item.originalPrice,
+            0
+          )
+      : 0;
+  const filterByOriginalPriceNull =
+    basket.length > 0
+      ? basket
+          .filter((item) => item.originalPrice == null)
+          .reduce(
+            (acc, item) => acc + item.productCount * item.product.salePrice,
+            0
+          )
+      : 0;
 
   const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
 
@@ -57,12 +95,12 @@ const Cardshop = () => {
   };
   const deleteAllBasket = async () => {
     try {
-      const rest = basket.map(item => {
+      const rest = basket.map((item) => {
         return {
           skuId: item.product.skuId,
-          count: Number(item.productCount)
-        }
-     })
+          count: Number(item.productCount),
+        };
+      });
       const request = await axios.post(
         `${process.env.REACT_APP_BASE_URL}Baskets/RemoveBasket?appUserId=${userData.id}`,
         rest
@@ -77,12 +115,12 @@ const Cardshop = () => {
 
   const updateBasket = async () => {
     try {
-      const rest = basket.map(item => {
-         return {
-           skuId: item.product.skuId,
-           count: Number(item.productCount)
-         }
-      })
+      const rest = basket.map((item) => {
+        return {
+          skuId: item.product.skuId,
+          count: Number(item.productCount),
+        };
+      });
       const request1 = await axios.post(
         `${process.env.REACT_APP_BASE_URL}Baskets/UpdateBasket?appUserId=${userData.id}`,
         rest
@@ -94,9 +132,32 @@ const Cardshop = () => {
       const responses = await Promise.all([request1, request2]);
       console.log(responses[1].data);
       dispatch(getAllBaskets(responses[1].data));
-      toast.success('Səbət uğurla yeniləndi')
+      toast.success("Səbət uğurla yeniləndi");
     } catch (error) {
-      toast.error('Sorğuda xəta baş verdi')
+      toast.error("Sorğuda xəta baş verdi");
+    }
+  };
+
+  const addWishlist = async (id) => {
+    try {
+      const checkWish = wishlistAll.find((wish) => wish.product.skuId == id);
+
+      if (checkWish) {
+        toast.info("Bu məhsul artıq istək siyahısında var");
+      } else {
+        const req1 = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}WishLists/AddWishList?skuId=${id}&appUserId=${userData.id}`
+        );
+        const req2 = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}WishLists/GetAll?appUserId=${userData.id}`
+        );
+
+        const responses = await Promise.all([req1, req2]);
+        dispatch(getAllWisslist(responses[1].data));
+        toast.success("Məhsul istək siyahısına əlav olundu");
+      }
+    } catch (error) {
+      toast.error("Sorğuda xəta baş verdi");
     }
   };
   return (
@@ -131,7 +192,13 @@ const Cardshop = () => {
             </Button>
           </div>
         </div>
-        <h3>Endirimli məhsullar - %{basket.length > 0 ?basket.find(i => i.basketDiscountPrice !== null).basketDiscountPrice : 0}</h3>
+        <h3>
+          Endirimli məhsullar - %
+          {basket.length > 0
+            ? basket.find((i) => i.basketDiscountPrice !== null)
+                .basketDiscountPrice
+            : 0}
+        </h3>
         {basket.length > 0 &&
           basket
             .filter((it) => it.originalPrice !== null)
@@ -165,7 +232,9 @@ const Cardshop = () => {
                         <ul className="list-inline text-muted fs-13 mb-3">
                           <li className="list-inline-item">
                             Endirimsiz qiyməti :
-                            <span className="fw-medium">{item.originalPrice}</span>
+                            <span className="fw-medium">
+                              {item.originalPrice}
+                            </span>
                           </li>
                         </ul>
                         <div className="input-step">
@@ -213,22 +282,26 @@ const Cardshop = () => {
                       <Col className="col-sm">
                         <div className="d-flex flex-wrap my-n1">
                           <div>
-                            <Link
-                              to="#"
-                              className="d-block text-body p-1 px-2"
+                            <Button
+                              className="d-block text-body bg-white border-0 p-1 px-2"
                               data-bs-toggle="modal"
                               data-bs-target="#removeItemModal"
-                              onClick={() => RemoveModel(item.id)}
+                              onClick={() =>
+                                RemoveModel(item.skuId, item.productCount)
+                              }
                             >
                               <i className="ri-delete-bin-fill text-muted align-bottom me-1"></i>{" "}
                               Remove
-                            </Link>
+                            </Button>
                           </div>
                           <div>
-                            <Link to="#" className="d-block text-body p-1 px-2">
-                              <i className="ri-star-fill text-muted align-bottom me-1"></i>{" "}
+                            <Button
+                              className="d-block text-body bg-white border-0 p-1 px-2"
+                              onClick={() => addWishlist(item.skuId)}
+                            >
+                              <i className="ri-star-fill text-muted align-bottom me-1"></i>
                               Add Wishlist
-                            </Link>
+                            </Button>
                           </div>
                         </div>
                       </Col>
@@ -328,22 +401,26 @@ const Cardshop = () => {
                       <Col className="col-sm">
                         <div className="d-flex flex-wrap my-n1">
                           <div>
-                            <Link
-                              to="#"
-                              className="d-block text-body p-1 px-2"
+                            <Button
+                              className="d-block text-body bg-white border-0 p-1 px-2"
                               data-bs-toggle="modal"
                               data-bs-target="#removeItemModal"
-                              onClick={() => RemoveModel(item.id)}
+                              onClick={() =>
+                                RemoveModel(item.skuId, item.productCount)
+                              }
                             >
                               <i className="ri-delete-bin-fill text-muted align-bottom me-1"></i>{" "}
                               Remove
-                            </Link>
+                            </Button>
                           </div>
                           <div>
-                            <Link to="#" className="d-block text-body p-1 px-2">
-                              <i className="ri-star-fill text-muted align-bottom me-1"></i>{" "}
+                            <Button
+                              className="d-block text-body bg-white border-0 p-1 px-2"
+                              onClick={() => addWishlist(item.skuId)}
+                            >
+                              <i className="ri-star-fill text-muted align-bottom me-1"></i>
                               Add Wishlist
-                            </Link>
+                            </Button>
                           </div>
                         </div>
                       </Col>
@@ -372,7 +449,12 @@ const Cardshop = () => {
           <Shoporder
             subtotal={subtotal}
             total={total}
-            dic={basket.length > 0 ? basket.find(d => d.basketDiscountPrice != null).basketDiscountPrice : 0}
+            dic={
+              basket.length > 0
+                ? basket.find((d) => d.basketDiscountPrice != null)
+                    .basketDiscountPrice
+                : 0
+            }
           />
           <div className="hstack gap-2 justify-content-end">
             <Link to="/products" variant="danger" className="btn btn-hover">

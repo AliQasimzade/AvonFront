@@ -58,7 +58,7 @@ const Signin = () => {
           dispatch(changeUserId(userId));
           dispatch(changeToken(tok));
           axios
-            .get(
+            .get( 
               `http://avontest0910-001-site1.dtempurl.com/api/Account/MyAccount?id=${userId}`
             )
             .then((res) => {

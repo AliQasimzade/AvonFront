@@ -16,7 +16,6 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllDeliveryServices } from "../services/getRequests";
 export const Shoptopbar = ({ title, page }) => {
-
   return (
     <>
       <section className="page-wrapper bg-primary">
@@ -40,47 +39,49 @@ export const Shoptopbar = ({ title, page }) => {
   );
 };
 
-export const Shoporder = ({ dic, subtotal, total, selectedBalance,setSelectedBalance,selectedDeliveryMethod,setSelectedDeliveryMethod }) => {
-  const [delivery, setDelivery] = useState([])
-  
+export const Shoporder = ({
+  dic,
+  subtotal,
+  total,
+  selectedBalance,
+  setSelectedBalance,
+  selectedDeliveryMethod,
+  setSelectedDeliveryMethod,
+}) => {
+  const [delivery, setDelivery] = useState([]);
 
   const handleDeliveryChanger = (e, d) => {
     if (e.target.checked) {
-      setSelectedDeliveryMethod(d)
+      setSelectedDeliveryMethod(d);
     }
-
-  }
-  console.log(selectedDeliveryMethod);
-
+  };
 
   const fetchDelivery = async () => {
     try {
       const data = await getAllDeliveryServices();
       setDelivery(data);
-      setSelectedDeliveryMethod(data.sort((a,b) => a.price - b.price)[0])
-
+      setSelectedDeliveryMethod(data.sort((a, b) => a.price - b.price)[0]);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
   useEffect(() => {
     fetchDelivery();
-  }, [])
+  }, []);
 
-  const changePaymentMethod = (e) =>{
-      console.log(e.target.id);
-      if(e.target.id == "checkoutFromBalance") {
-        setSelectedBalance(true)
-      }else {
-         setSelectedBalance(false)
-      }
-  }
+  const changePaymentMethod = (e) => {
+    console.log(e.target.id);
+    if (e.target.id == "checkoutFromBalance") {
+      setSelectedBalance(true);
+    } else {
+      setSelectedBalance(false);
+    }
+  };
 
   const user = useSelector((state) => state.persistedReducer.Accont);
   const { pathname } = useLocation();
   return (
     <>
-    
       <Card className="overflow-hidden mt-5">
         <Card.Header className="border-bottom-dashed">
           <h5 className="card-title mb-0 fs-15">Sifarişin yekun detalları</h5>
@@ -89,46 +90,88 @@ export const Shoporder = ({ dic, subtotal, total, selectedBalance,setSelectedBal
           <div className="table-responsive table-card">
             <Table className="table-borderless mb-0 fs-15">
               <tbody>
-               
-                   {pathname === "/resmilesdirme" &&  <tr>
-                      <td>
-                        <Form.Label className="text-muted">Balansdan ödəmə</Form.Label>
-                      </td>
-                      <td>
-                        <div className="mt-1">
-                          <Form.Check type="radio" onClick={(e) => changePaymentMethod(e)} name="formRadios" id="checkoutFromBalance" className="form-Check-input" />
-                          {user.user[0].balance} AZN
-                        </div>
-                      </td>
-                    </tr>}
-                 
-                {pathname === "/resmilesdirme" && <tr>
-                  <td>
-                    <Form.Label className="text-muted">Çatdırılmada nağd ödəmə</Form.Label>
-                  </td>
-                  <td>
-                    <div className="d-flex justify-content-between mt-1">
-                      <Form.Check type="radio" name="formRadios" onClick={(e) => changePaymentMethod(e)} id="checkoutWithCOD" className="form-Check-input" defaultChecked />
-                      <span>Nağd</span>
-                    </div>
-                  </td>
-                </tr>}
-                {
-                  pathname === "/resmilesdirme" && delivery.map((de, index) => (
+                {pathname === "/resmilesdirme" && (
+                  <tr>
+                    <td>
+                      <Form.Label className="text-muted">
+                        Balansdan ödəmə
+                      </Form.Label>
+                    </td>
+                    <td>
+                      <div className="mt-1">
+                        <Form.Check
+                          type="radio"
+                          onClick={(e) => changePaymentMethod(e)}
+                          name="formRadios"
+                          id="checkoutFromBalance"
+                          className="form-Check-input"
+                        />
+                        {user.user[0].balance} AZN
+                      </div>
+                    </td>
+                  </tr>
+                )}
+
+                {pathname === "/resmilesdirme" && (
+                  <tr>
+                    <td>
+                      <Form.Label className="text-muted">
+                        Çatdırılmada nağd ödəmə
+                      </Form.Label>
+                    </td>
+                    <td>
+                      <div className="d-flex justify-content-between mt-1">
+                        <Form.Check
+                          type="radio"
+                          name="formRadios"
+                          onClick={(e) => changePaymentMethod(e)}
+                          id="checkoutWithCOD"
+                          className="form-Check-input"
+                          defaultChecked
+                        />
+                        <span>Nağd</span>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+                {pathname === "/resmilesdirme" &&
+                  delivery.map((de, index) => (
                     <tr key={index}>
                       <td>
-                        <img src={de.image} style={{ width: '30px', height: '30px', objectFit: 'cover', borderRadius: '50%', marginRight: '15px' }} alt="" />
-                        <Form.Label htmlFor={de.name} className="text-muted">{de.name}</Form.Label>
+                        <img
+                          src={de.image}
+                          style={{
+                            width: "30px",
+                            height: "30px",
+                            objectFit: "cover",
+                            borderRadius: "50%",
+                            marginRight: "15px",
+                          }}
+                          alt=""
+                        />
+                        <Form.Label htmlFor={de.name} className="text-muted">
+                          {de.name}
+                        </Form.Label>
                       </td>
                       <td>
                         <div className="d-flex justify-content-between mt-1">
-                          <Form.Check type="radio" checked={selectedDeliveryMethod.name == de.name ? true : false} onClick={(e) => handleDeliveryChanger(e, de)} name="delivery" id={de.name} className="form-Check-input" />
+                          <Form.Check
+                            type="radio"
+                            checked={
+                              selectedDeliveryMethod.name == de.name
+                                ? true
+                                : false
+                            }
+                            onClick={(e) => handleDeliveryChanger(e, de)}
+                            name="delivery"
+                            id={de.name}
+                            className="form-Check-input"
+                          />
                           <span>{de.price} AZN</span>
                         </div>
                       </td>
                     </tr>
-                  ))
-                }
+                  ))}
               </tbody>
             </Table>
           </div>
@@ -151,20 +194,34 @@ export const Shoporder = ({ dic, subtotal, total, selectedBalance,setSelectedBal
                   <tr>
                     <td>Çatdırılma xidməti :</td>
                     <td className="text-end cart-shipping">
-                      {!selectedDeliveryMethod.price ? 0 : selectedDeliveryMethod.price} ₼
+                      {!selectedDeliveryMethod.price
+                        ? 0
+                        : selectedDeliveryMethod.price}{" "}
+                      ₼
                     </td>
                   </tr>
-
                 )}
-                <tr className="table-active">
-                  <th>Yekun ödəniləcək məbləğ :</th>
-                  <td className="text-end">
-                    <span className="fw-semibold cart-total">
-                      { Number(selectedDeliveryMethod.price) + Number(total)} ₼
-                    </span>
-                  </td>
-                </tr>
 
+                {pathname != "/resmilesdirme" && (
+                  <tr className="table-active">
+                    <th>Yekun ödəniləcək məbləğ :</th>
+                    <td className="text-end">
+                      <span className="fw-semibold cart-total">
+                        {Number(total)} ₼
+                      </span>
+                    </td>
+                  </tr>
+                )}
+                {pathname == "/resmilesdirme" && (
+                  <tr className="table-active">
+                    <th>Yekun ödəniləcək məbləğ :</th>
+                    <td className="text-end">
+                      <span className="fw-semibold cart-total">
+                        {Number(selectedDeliveryMethod.price) + Number(total)} ₼
+                      </span>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </Table>
           </div>
@@ -244,8 +301,9 @@ export const BrandedProduct = ({ title }) => {
                               id="product-color-102"
                             />
                             <Form.Label
-                              className={`avatar-xxs btn btn-${item.color[0] || ""
-                                } p-0 d-flex align-items-center justify-content-center rounded-circle`}
+                              className={`avatar-xxs btn btn-${
+                                item.color[0] || ""
+                              } p-0 d-flex align-items-center justify-content-center rounded-circle`}
                               htmlFor="product-color-102"
                             ></Form.Label>
                           </li>
@@ -256,8 +314,9 @@ export const BrandedProduct = ({ title }) => {
                               id="product-color-103"
                             />
                             <Form.Label
-                              className={`avatar-xxs btn btn-${item.color[1] || ""
-                                } p-0 d-flex align-items-center justify-content-center rounded-circle`}
+                              className={`avatar-xxs btn btn-${
+                                item.color[1] || ""
+                              } p-0 d-flex align-items-center justify-content-center rounded-circle`}
                               htmlFor="product-color-103"
                             ></Form.Label>
                           </li>
@@ -268,8 +327,9 @@ export const BrandedProduct = ({ title }) => {
                               id="product-color-104"
                             />
                             <Form.Label
-                              className={`avatar-xxs btn btn-${item.color[2] || ""
-                                } p-0 d-flex align-items-center justify-content-center rounded-circle`}
+                              className={`avatar-xxs btn btn-${
+                                item.color[2] || ""
+                              } p-0 d-flex align-items-center justify-content-center rounded-circle`}
                               htmlFor="product-color-104"
                             ></Form.Label>
                           </li>
@@ -280,8 +340,9 @@ export const BrandedProduct = ({ title }) => {
                               id="product-color-105"
                             />
                             <Form.Label
-                              className={`avatar-xxs btn btn-${item.color[3] || ""
-                                } p-0 d-flex align-items-center justify-content-center rounded-circle`}
+                              className={`avatar-xxs btn btn-${
+                                item.color[3] || ""
+                              } p-0 d-flex align-items-center justify-content-center rounded-circle`}
                               htmlFor="product-color-105"
                             ></Form.Label>
                           </li>

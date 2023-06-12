@@ -24,10 +24,9 @@ const Confirm = () => {
                                     <div className="text-center mt-5 pt-1">
                                         <h4 className="mb-3 text-capitalize">Your Order Is Completed !</h4>
                                         <p className="text-muted mb-2">You will receive an order confirmation email with details of your order.</p>
-                                        <p className="text-muted mb-0">Order ID: 267676GHERT105467</p>
                                         <div className="mt-4 pt-2 hstack gap-2 justify-content-center">
                                             <Link to='/shop/orderhistory' className="btn btn-primary btn-hover">View Order <i className="ri-arrow-right-line align-bottom ms-1"></i></Link>
-                                            <Link to='/dashboard' className="btn btn-soft-danger btn-hover">Back To Home <i className="ri-home-4-line align-bottom ms-1"></i></Link>
+                                            <Link to='/ana-sehife' className="btn btn-soft-danger btn-hover">Back To Home <i className="ri-home-4-line align-bottom ms-1"></i></Link>
                                         </div>
                                     </div>
                                 </Card.Body>

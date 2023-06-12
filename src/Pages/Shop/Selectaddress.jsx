@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Col, Container, Row, Button, Form, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DeleteModal, { ModalAdd } from "../../Components/DeleteModal";
-import { selectAddressData } from "../../Common/data";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
@@ -10,11 +9,9 @@ import * as Yup from 'yup';
 const Selectaddress = ({setAddressData, addressData}) => {
 
     const user = useSelector((state) => state.persistedReducer.Accont);
-
-    console.log(user);
     document.title = "Shop | Select address | RGAgency - React FrontEnd";
 
-   
+    console.log(addressData);
 
     const handleChangeAddress = (e, d) => {
         if (e.target.checked) {
@@ -34,9 +31,6 @@ const Selectaddress = ({setAddressData, addressData}) => {
         setId(id);
     };
 
-    const deleteData = () => {
-        setAddressData(selectAddressData?.filter((delet) => delet.id !== id));
-    }
 
     //Add address
     const [addressModal, setAddressModal] = useState(false);
@@ -45,14 +39,14 @@ const Selectaddress = ({setAddressData, addressData}) => {
 
     const formik = useFormik({
         initialValues: {
-            name: "Qəbul edən şəxsin adı",
-            address: "Ünvanı tam olaraq qeyd edin",
-            phone: "Əlaqə nömrəsi",
+            name: "",
+            address: "",
+            phone: "",
         },
         validationSchema: Yup.object({
-            name: Yup.string().required('Please Enter Your Name'),
+            name: Yup.string().required('Please Enter Your City'),
             address: Yup.string().required('Please Enter Your Address'),
-            phone: Yup.string().matches(RegExp('[0-9]{7}')).required("Please Enter Your Phone"),
+            phone: Yup.string().required("Please Enter Your Apartment"),
         }),
         onSubmit: (values) => {
             setAddressData(`${values.name}, ${values.address}, ${values.phone}`)
@@ -78,12 +72,6 @@ const Selectaddress = ({setAddressData, addressData}) => {
                                                     <span className="fs-14 mb-2 fw-semibold  d-block">{user.user[0].address}</span>
                                                 </Form.Label>
                                             </div>
-                                            <div className="d-flex flex-wrap p-2 py-1 bg-light rounded-bottom border mt-n1 fs-13">
-                                                <div>
-                                                    <Link to="#" className="d-block text-body p-1 px-2 edit-list" data-edit-id="1" data-bs-toggle="modal" data-bs-target="#addAddressModal" onClick={handleShow}>
-                                                        <i className="ri-pencil-fill text-muted align-bottom me-1"></i>Düzəliş et</Link>
-                                                </div>
-                                            </div>
                                         </div>
                                     </Col>
                                     <Col lg={6}>
@@ -94,12 +82,6 @@ const Selectaddress = ({setAddressData, addressData}) => {
                                                     <span className="mb-4 fw-semibold fs-12 d-block text-muted text-uppercase">İş ünvanı</span>
                                                     <span className="fs-14 mb-2 fw-semibold  d-block">{user.user[0].otherAddress}</span>
                                                 </Form.Label>
-                                            </div>
-                                            <div className="d-flex flex-wrap p-2 py-1 bg-light rounded-bottom border mt-n1 fs-13">
-                                                <div>
-                                                    <Link to="#" className="d-block text-body p-1 px-2 edit-list" data-edit-id="1" data-bs-toggle="modal" data-bs-target="#addAddressModal" onClick={handleShow}>
-                                                        <i className="ri-pencil-fill text-muted align-bottom me-1"></i>Düzəliş et</Link>
-                                                </div>
                                             </div>
                                         </div>
                                     </Col>
@@ -120,7 +102,7 @@ const Selectaddress = ({setAddressData, addressData}) => {
                             </div>
                         </Col>
                     </Row>
-                    <DeleteModal removeModel={removeModel} hideModal={RemoveModel} deleteData={deleteData} />
+                    <DeleteModal removeModel={removeModel} hideModal={RemoveModel}  />
                     <ModalAdd addressModal={addressModal} handleClose={handleClose} />
                     <Modal show={addressModal} onHide={handleClose} size="lg">
                 <Modal.Header closeButton>
@@ -131,11 +113,11 @@ const Selectaddress = ({setAddressData, addressData}) => {
                         <Form.Control type="hidden" id="addressid-Form.Control" defaultValue="" />
                         <div>
                             <div className="mb-3">
-                                <Form.Label htmlFor="addaddress-Name" >Name</Form.Label>
+                                <Form.Label htmlFor="addaddress-Name" >City</Form.Label>
                                 <Form.Control
                                     type="text"
                                     id="addaddress-Name"
-                                    placeholder="Daxil edin"
+                                    placeholder="Şəhər adını daxil edin"
                                     name="name"
                                     value={formik.values.name}
                                     onChange={formik.handleChange}
@@ -153,7 +135,7 @@ const Selectaddress = ({setAddressData, addressData}) => {
                                 <Form.Label htmlFor="addaddress-textarea" >Address</Form.Label>
                                 <Form.Control as="textarea"
                                     id="addaddress-textarea"
-                                    placeholder="Daxil edin"
+                                    placeholder="Ünvanı daxil edin"
                                     rows={2}
                                     name="address"
                                     value={formik.values.address}
@@ -168,11 +150,11 @@ const Selectaddress = ({setAddressData, addressData}) => {
                             </div>
 
                             <div className="mb-3">
-                                <Form.Label htmlFor="addaddress-phone" >Phone</Form.Label>
+                                <Form.Label htmlFor="addaddress-phone" >Mənzil</Form.Label>
                                 <Form.Control
                                     type="text"
                                     id="addaddress-phone"
-                                    placeholder="Əlaqə nömrəsi"
+                                    placeholder="Mənzili əlavə edin"
                                     name="phone"
                                     value={formik.values.phone}
                                     onChange={formik.handleChange}
@@ -188,7 +170,7 @@ const Selectaddress = ({setAddressData, addressData}) => {
 
                         <div className="d-flex justify-content-end gap-2 mt-4">
                             <Button className="btn btn-light" data-bs-dismiss="modal" onClick={handleClose}>Bağla</Button>
-                            <Button type="submit" id="addNewAddress" className="btn btn-primary">Seç</Button>
+                            <Button type="submit" id="addNewAddress" onClick={handleClose} className="btn btn-primary">Seç</Button>
                         </div>
                     </Form>
                 </Modal.Body>

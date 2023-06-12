@@ -46,7 +46,6 @@ import { getAllWisslist } from "../../slices/layouts/wistliss";
 const Productdetails = () => {
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
-  // const [features, setFeatures] = useState([])
   const [count, setCount] = useState(1);
   const { skuId } = useParams();
   const [sku, setSku] = useState(skuId);
@@ -54,7 +53,6 @@ const Productdetails = () => {
   const wisslistProID = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
   );
-  console.log(wisslistProID);
 
   useEffect(() => {
     axios
@@ -366,15 +364,21 @@ const Productdetails = () => {
                 <div className="mb-4">
                   <div className="d-flex gap-3 mb-2">
                     <div className="fs-15 text-warning">
-                      {/* {
-                                                proDetail?.comments.length > 0 ? <span className="float-end">{proDetail?.comments.map((retinhg) => retinhg.star).reduce((acc, item) => acc + item, 0) / proDetail.comments.length}:<p>retingi yoxdur</p>
-                                                    <i className="ri-star-half-fill text-warning align-bottom"></i>
-                                                </span> :
-                                                    <span className="float-end">retingi yoxdur
-                                                        <i className="ri-star-half-fill text-warning align-bottom"></i>
-                                                    </span>
-                                                
-                                            } */}
+                      {proDetail?.comments?.length > 0 ? (
+                        <span className="float-end">
+                          {proDetail?.comments
+                            .map((retinhg) => retinhg.star)
+                            .reduce((acc, item) => acc + item, 0) /
+                            proDetail.comments.length}
+                          :<p>retingi yoxdur</p>
+                          <i className="ri-star-half-fill text-warning align-bottom"></i>
+                        </span>
+                      ) : (
+                        <span className="float-end">
+                          retingi yoxdur
+                          <i className="ri-star-half-fill text-warning align-bottom"></i>
+                        </span>
+                      )}
                     </div>
                   </div>
                   <h4 className="lh-base mb-1">{proDetail.name}</h4>
@@ -446,7 +450,10 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail?.relationOfBaseCode.map(
                               (color, index) => (
-                                <li key={index}>
+                                <li
+                                  key={index}
+                                  onClick={() => setSku(color.skuId)}
+                                >
                                   <Form.Control
                                     type="radio"
                                     name="size1"
@@ -477,7 +484,10 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail.relationOfBaseCode.map(
                               (color, index) => (
-                                <li key={index}>
+                                <li
+                                  key={index}
+                                  onClick={() => setSku(color.skuId)}
+                                >
                                   <Form.Control
                                     type="radio"
                                     name="size1"
@@ -509,7 +519,10 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail.relationOfBaseCode.map(
                               (color, index) => (
-                                <li key={index}>
+                                <li
+                                  key={index}
+                                  onClick={() => setSku(color.skuId)}
+                                >
                                   <Form.Control
                                     type="radio"
                                     name="size1"
@@ -547,7 +560,10 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail?.relationOfBaseCode.map(
                               (color, index) => (
-                                <li key={index}>
+                                <li
+                                  key={index}
+                                  onClick={() => setSku(color.skuId)}
+                                >
                                   <Form.Control
                                     type="radio"
                                     name="size1"
@@ -579,7 +595,10 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail.relationOfBaseCode.map(
                               (color, index) => (
-                                <li key={index}>
+                                <li
+                                  key={index}
+                                  onClick={() => setSku(color.skuId)}
+                                >
                                   <Form.Control
                                     type="radio"
                                     name="size1"

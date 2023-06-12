@@ -13,6 +13,7 @@ import { logoutUser } from "../slices/layouts/accont";
 import { logoutToken, logoutUserId } from "../slices/layouts/user";
 import { getAllBrands, getAllCategories } from "../services/getRequests";
 import { getAllBaskets } from "../slices/layouts/basket";
+import { getAllWisslist } from "../slices/layouts/wistliss";
 const Header = (props) => {
     const userData = useSelector(state => state.persistedReducer.Accont.user[0]);
     const basket = useSelector(state => state.persistedReducer.Basket.basket);
@@ -40,6 +41,7 @@ const Header = (props) => {
         dispatch(logoutToken())
         dispatch(logoutUserId())
         dispatch(getAllBaskets([]))
+        dispatch(getAllWisslist([]))
     }
 
     useEffect(() => {

@@ -9,21 +9,22 @@ import {
   Table,
   Image,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { Shoporder, Shoptopbar } from "../../Components/ShopTopBar";
 import { Link } from "react-router-dom";
-import { ShopingAddress } from "./ShoppingAddress";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useSelector,useDispatch } from "react-redux";
+import { useState } from "react";
 import Selectaddress from "./Selectaddress";
-import { selectAddressData } from "../../Common/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import {getAllBaskets} from "../../slices/layouts/basket"
+import { changeAccont } from "../../slices/layouts/accont";
 const Checkout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [addressData, setAddressData] = useState("");
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("");
   const [selectedBalance, setSelectedBalance] = useState(true);
@@ -69,35 +70,20 @@ const Checkout = () => {
 
   const postOrder = async () => {
     try {
-      if (selectAddressData == "") {
+      if (addressData == "") {
         throw new Error("Zəhmət olmasa xanaları doldurun");
       } else {
-        console.log({
-          name: userData.name,
-          surname: userData.surname,
-          fatherName: "string",
-          apartment: selectAddressData,
-          streetAddres: selectAddressData,
-          address: selectAddressData,
-          isBalance: selectedBalance,
-          city: userData.city,
-          message: "string",
-          email: userData.email,
-          phone: userData.phoneNumber,
-          zipCode: "string",
-          deliveryAdressId: selectedDeliveryMethod.id,
-        });
         const request = await axios.post(
           `${process.env.REACT_APP_BASE_URL}Orders/PostOrder`,
           {
             name: userData.name,
             surname: userData.surname,
             fatherName: "string",
-            apartment: selectAddressData,
-            streetAddres: selectAddressData,
-            address: selectAddressData,
+            apartment: addressData.split(',')[2],
+            streetAddres: addressData.split(',')[1],
+            address: addressData,
             isBalance: selectedBalance,
-            city: userData.city,
+            city: addressData.split(",")[0],
             message: "string",
             email: userData.email,
             phone: userData.phoneNumber,
@@ -110,8 +96,13 @@ const Checkout = () => {
             },
           }
         );
-        console.log(request.data);
+        const req = await axios.get(`${process.env.REACT_APP_BASE_URL}Account/MyAccount?id=${userData.id}`)
+
+        const responses = await Promise.all([request, req])
+        dispatch(changeAccont(responses[1].data))
         toast.success("Sifarişiniz qeydə alındı");
+        dispatch(getAllBaskets([]))
+        navigate('/shop/confirm')
       }
     } catch (error) {
       toast.error(error.message);
@@ -287,8 +278,9 @@ const Checkout = () => {
                 <Shoporder
                   subtotal={subtotal}
                   dic={
+                    basket.length > 0 ?
                     basket.find((i) => i.basketDiscountPrice != null)
-                      .basketDiscountPrice
+                      .basketDiscountPrice : 0
                   }
                   charge="2.4"
                   total={total}
