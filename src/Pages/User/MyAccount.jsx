@@ -51,7 +51,7 @@ const MyAccount = () => {
       " ",
       " "
     );
-    setReferalUsers(res.referalUsers);
+    setReferalUsers(res.noActiveUsers);
     console.log(res.referalUsers);
   };
   useEffect(() => {
@@ -87,7 +87,7 @@ const MyAccount = () => {
         checkM,
         checkY
       );
-      setReferalUsers(res.referalUsers);
+      setReferalUsers(res.noActiveUsers);
       console.log(res.referalUsers);
     }
   };

@@ -649,24 +649,61 @@ export const SearchModal = ({ show, handleClose }) => {
 //card modal
 
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { getAllBaskets } from "../slices/layouts/basket";
 
 export const CardModal = ({ show, handleClose }) => {
   //modal
   const [removeModel, setRemovemodel] = useState(false);
+  const [selectedSkuId, setSelectedSkuId] = useState("");
   const dispatch = useDispatch();
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
-  const RemoveModel = (id) => {
+  const userId = useSelector((state) => state.persistedReducer.User.userId);
+
+  const RemoveModel = (id, c) => {
     setRemovemodel(true);
+    setSelectedSkuId([
+      {
+        skuId: id,
+        count: Number(c),
+      },
+    ]);
   };
 
-  const deleteData = () => {
-    setProductcount(productData?.filter((delet) => delet.id !== id));
+  const deleteData = async () => {
+    try {
+      const req1 = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}Baskets/RemoveBasket?appUserId=${userId}`,
+        selectedSkuId
+      );
+      const req2 = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userId}`
+      );
+
+      const responses = await Promise.all([req1, req2]);
+      dispatch(getAllBaskets(responses[1].data));
+      toast.success("Məhsul səbətdən uğurla silindi");
+    } catch (error) {
+      toast.error("Sorğuda xəta baş verdi");
+    }
   };
 
   const CloseremoveModal = () => setRemovemodel(false);
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
+        theme="light"
+      />
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -723,7 +760,9 @@ export const CardModal = ({ show, handleClose }) => {
                         <div className="flex-shrink-0 d-flex flex-column justify-content-between align-items-end">
                           <Button
                             className="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"
-                            onClick={() => RemoveModel(item.product.skuId)}
+                            onClick={() =>
+                              RemoveModel(item.product.skuId, item.productCount)
+                            }
                           >
                             <i className="ri-close-fill fs-16"></i>
                           </Button>
@@ -769,13 +808,16 @@ export const CardModal = ({ show, handleClose }) => {
             <div className="px-2">
               <h6 className="m-0 fs-16 cart-total">
                 $
-                {basket.length > 0 ? Number(
-                  basket.reduce(
-                    (acc, it) =>
-                      acc + it.productCount * it.product.salePrice.toFixed(2),
-                    0
-                  )
-                ).toFixed(2) : 0}
+                {basket.length > 0
+                  ? Number(
+                      basket.reduce(
+                        (acc, it) =>
+                          acc +
+                          it.productCount * it.product.salePrice.toFixed(2),
+                        0
+                      )
+                    ).toFixed(2)
+                  : 0}
               </h6>
             </div>
           </div>
@@ -788,7 +830,11 @@ export const CardModal = ({ show, handleClose }) => {
               </Link>
             </Col>
             <Col xs={6}>
-              <Link to="/resmilesdirme" onClick={handleClose} className="btn btn-info w-100">
+              <Link
+                to="/resmilesdirme"
+                onClick={handleClose}
+                className="btn btn-info w-100"
+              >
                 Continue to Checkout
               </Link>
             </Col>

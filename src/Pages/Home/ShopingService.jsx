@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Carousel, Col, Container, Image, Row } from "react-bootstrap";
-import Countdown from "react-countdown";
 import "./ShopingService.css";
+import CountDownTimer from "./CountDownTimer";
 import { getAllOfferWeeks } from "../../services/getRequests";
 const Shopping = () => {
   const [offerOfWeeks, setofferOfWeeks] = useState([]);
@@ -10,7 +10,6 @@ const Shopping = () => {
   const getOffers = async () => {
     const res = await getAllOfferWeeks();
     setofferOfWeeks(res);
-    console.log(res);
   };
 
   useEffect(() => {
@@ -20,33 +19,7 @@ const Shopping = () => {
   const desc = (data) => {
     return { __html: data };
   };
-  const options = { year: "numeric", month: "long", day: "numeric" };
-  const renderers = ({ days, hours, minutes, seconds, completed }) => {
-    if (completed) {
-      return <span className="countdown-endtxt">The countdown has ended!</span>;
-    } else {
-      return (
-        <>
-          <div className="countdownlist-item">
-            <div className="count-title">Days</div>
-            <div className="count-num">{days}</div>
-          </div>
-          <div className="countdownlist-item">
-            <div className="count-title">Hours</div>
-            <div className="count-num">{hours}</div>
-          </div>
-          <div className="countdownlist-item">
-            <div className="count-title">Minutes</div>
-            <div className="count-num">{minutes}</div>
-          </div>
-          <div className="countdownlist-item">
-            <div className="count-title">Seconds</div>
-            <div className="count-num">{seconds}</div>
-          </div>
-        </>
-      );
-    }
-  };
+
 
   return (
     <>
@@ -54,6 +27,7 @@ const Shopping = () => {
         <Container>
           <Carousel id="ecommerceHero" data-bs-ride="carousel">
             {offerOfWeeks.map((offerOfWeeksData) => {
+            
               return (
                 <Carousel.Item key={offerOfWeeksData.id}>
                   <Row className="align-items-center">
@@ -75,15 +49,7 @@ const Shopping = () => {
                         <Row>
                           <Col lg={10}>
                             <div className="ecommerce-land-countdown mt-3 mb-0">
-                              <div className="countdownlist">
-                                <Countdown
-                                  date={
-                                    new Date(offerOfWeeksData.date).toLocaleDateString('en-EN', options)
-                                  }
-                                  className="countdownlist"
-                                  renderer={renderers}
-                                />
-                              </div>
+                              <CountDownTimer targetDate={offerOfWeeksData.date}/>
                             </div>
                           </Col>
                         </Row>

@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import avatar1 from '../../assets/images/clients/amazon.svg'
+import avatar3 from '../../assets/images/clients/amazon.svg'
+import avatar5 from '../../assets/images/clients/amazon.svg'
+import avatar8 from '../../assets/images/clients/amazon.svg'
+
 import {
   Button,
   Col,
@@ -21,16 +25,12 @@ import { FreeMode, Navigation, Thumbs } from "swiper";
 import SimpleBar from "simplebar-react";
 //scss
 import "swiper/css";
-import "swiper/css/thumbs";
+import "swiper/css/free-mode";
 import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
 //components
-import {
-  descriptionData,
-  productInterestedCard,
-  productprogress,
-  sliderProduct,
-} from "../../Common/data";
+import { productInterestedCard,productprogress } from "../../Common/data";
 import { BrandedProduct } from "../../Components/ShopTopBar";
 import { CommonService } from "../../Components/CommonService";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
@@ -43,7 +43,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAllBaskets } from "../../slices/layouts/basket";
 import { getAllWisslist } from "../../slices/layouts/wistliss";
+
 const Productdetails = () => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
   const [count, setCount] = useState(1);
@@ -64,7 +66,6 @@ const Productdetails = () => {
         console.log(res.data.product);
       });
   }, [sku]);
-  count;
 
   const handleSetImg = (id) => {
     console.log(id);
@@ -201,7 +202,16 @@ const Productdetails = () => {
   };
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
+        theme="light"
+      />
       <section
         className="ecommerce-about"
         style={{
@@ -247,7 +257,7 @@ const Productdetails = () => {
                         transitionDuration: "0ms",
                       }}
                     >
-                      {(proDetail.productImages || [])?.map((item, idx) => {
+                      {/* {(proDetail.productImages || [])?.map((item, idx) => {
                         return (
                           <div
                             key={idx}
@@ -266,7 +276,7 @@ const Productdetails = () => {
                             </div>
                           </div>
                         );
-                      })}
+                      })} */}
                     </div>
                     <span
                       className="swiper-notification"
@@ -284,24 +294,38 @@ const Productdetails = () => {
                     </div>
 
                     <Swiper
-                      // onSwiper={setThumbsSwiper}
-                      rewind={true}
+                      style={{
+                        "--swiper-navigation-color": "#fff",
+                        "--swiper-pagination-color": "#fff",
+                      }}
+                      spaceBetween={10}
                       navigation={true}
+                      thumbs={{ swiper: thumbsSwiper }}
                       modules={[FreeMode, Navigation, Thumbs]}
-                      className="swiper productSwiper2 swiper-backface-hidden"
+                      className="mySwiper2"
                     >
-                      {(sliderImg || [])?.map((item, idx) => {
+                      {(proDetail?.productImages || [])?.map((item, idx) => {
                         return (
                           <SwiperSlide key={idx}>
-                            <div
-                              className="swiper-slide swiper-slide-duplicate"
-                              data-swiper-slide-index={idx}
-                              role="group"
-                              aria-label={`${idx} / ${proDetail.productImages.length}`}
-                              style={{ width: "458px", marginRight: "10px" }}
-                            >
-                              <Image src={item.image} alt="" fluid />
-                            </div>
+                            <Image src={item.image} alt="" fluid />
+                          </SwiperSlide>
+                        );
+                      })}
+                    </Swiper>
+
+                    <Swiper
+                      onSwiper={setThumbsSwiper}
+                      spaceBetween={10}
+                      slidesPerView={4}
+                      freeMode={true}
+                      watchSlidesProgress={true}
+                      modules={[FreeMode, Navigation, Thumbs]}
+                      className="mySwiper"
+                    >
+                      {(proDetail?.productImages || [])?.map((item, idx) => {
+                        return (
+                          <SwiperSlide key={idx}>
+                            <Image src={item.image} alt="" fluid />
                           </SwiperSlide>
                         );
                       })}
@@ -408,6 +432,8 @@ const Productdetails = () => {
                       onClick={() => {
                         if (count > 1) {
                           setCount(count - 1);
+                        } else {
+                          toast.info("Məhsulun minimum miqdarı 1 olmalıdır");
                         }
                       }}
                     >
@@ -418,13 +444,15 @@ const Productdetails = () => {
                       className="product-quantity1"
                       value={count}
                       min={1}
-                      max={1000000000}
+                      max={5}
                     />
                     <Button
                       className="plus"
                       onClick={() => {
-                        if (count < proDetail.stockCount) {
+                        if (count < 5) {
                           setCount(count + 1);
+                        } else {
+                          toast.info("Məhsulun maksimum miqdarı 5 olmalıdır");
                         }
                       }}
                     >
@@ -658,11 +686,11 @@ const Productdetails = () => {
                           Description
                         </Nav.Link>
                       </Nav.Item>
-                      {/* <Nav.Item as="li">
+                      <Nav.Item as="li">
                         <Nav.Link as="a" eventKey="Ratings">
                           Ratings Reviews
                         </Nav.Link>
-                      </Nav.Item> */}
+                      </Nav.Item>
                     </Nav>
                     <Tab.Content>
                       <Tab.Pane eventKey="Description">
@@ -707,8 +735,8 @@ const Productdetails = () => {
                           ></p>
                         </div>
                       </Tab.Pane>
-                      {/* <Tab.Pane eventKey="Ratings">
-                        <div
+                      <Tab.Pane eventKey="Ratings">
+                        {proDetail?.comments?.length > 0 ? <div
                           className="tab-pane show"
                           id="profile2"
                           role="tabpanel"
@@ -717,7 +745,7 @@ const Productdetails = () => {
                             <div className="d-flex flex-wrap gap-4 justify-content-between align-items-center mt-4">
                               <div className="flex-shrink-0">
                                 <h5 className="fs-15 mb-3 fw-medium">
-                                  Average Rating
+                                  Average Rating: {}
                                 </h5>
                                 <h2 className="fw-bold mb-3">
                                   
@@ -735,7 +763,7 @@ const Productdetails = () => {
                               </div>
                               <hr className="vr" />
                               <div className="flex-shrink-0 w-xl">
-                                {(productprogress || [])?.map((item, idx) => {
+                                { proDetail?.comments?.map((item, idx) => {
                                   return (
                                     <Row
                                       className="align-items-center g-3 align-items-center mb-2"
@@ -766,8 +794,8 @@ const Productdetails = () => {
                                         </div>
                                       </Col>
                                     </Row>
-                                  );
-                                })}
+                                  )
+                                }) }
                               </div>
                             </div>
                             <SimpleBar
@@ -1059,8 +1087,9 @@ const Productdetails = () => {
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </Tab.Pane> */}
+                        </div> : <h1>Heç bir rəy yoxdur</h1>}
+                        
+                      </Tab.Pane>
                     </Tab.Content>
                   </Col>
                 </Row>

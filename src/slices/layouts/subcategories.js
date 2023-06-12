@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchSubCategories = createAsyncThunk("subCategories/fetchSubCategories", async () => {
-    const response = await axios.get("http://avontest0910-001-site1.dtempurl.com/api/SubCatigories/Manage/GetAll");
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}SubCatigories/GetAll?isDeleted=false`);
     return response.data;
 });
 const subCategoriesSlice = createSlice({
