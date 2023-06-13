@@ -58,7 +58,7 @@ const Signin = () => {
           dispatch(changeUserId(userId));
           dispatch(changeToken(tok));
           axios
-            .get( 
+            .get(
               `http://avontest0910-001-site1.dtempurl.com/api/Account/MyAccount?id=${userId}`
             )
             .then((res) => {
@@ -72,6 +72,7 @@ const Signin = () => {
                 progress: undefined,
                 theme: "light",
               });
+
               dispatch(changeAccont(res.data));
               axios
                 .get(
@@ -80,12 +81,17 @@ const Signin = () => {
                 .then((res) => {
                   dispatch(getAllBaskets(res.data));
                 });
-              axios.get(`http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${res.data[0].id}`)
-              .then((res) => {dispatch(getAllWisslist(res.data))})
+              axios
+                .get(
+                  `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${res.data[0].id}`
+                )
+                .then((res) => {
+                  dispatch(getAllWisslist(res.data));
+                });
+              setTimeout(() => {
+                navigate("/ana-sehife");
+              }, 1500);
             });
-          setTimeout(() => {
-            navigate("/ana-sehife");
-          }, 1500);
         })
         .catch((err) => {
           toast.error("Ad və ya şifrə yanlışdır !", {
