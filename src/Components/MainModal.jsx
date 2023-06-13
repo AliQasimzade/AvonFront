@@ -304,8 +304,7 @@ export const InvoiceModal = ({
                                     </span>
                                   </td>
                                   <td>
-                                    ₼{Number(item.product.salePrice).toFixed(2)}
-                                    - ₼{Number(item.salePrice).toFixed(2)}
+                                   {item.salePrice != item.product.salePrice ? ` ₼${item.salePrice}`:'Yoxdur'} - ₼{item.product.salePrice}
                                   </td>
                                   <td>{item.count}</td>
                                   <td>{item.discountPrice}</td>
@@ -345,13 +344,8 @@ export const InvoiceModal = ({
                                 Discount <small className="text-muted"></small>
                               </td>
                               <td className="text-end">
-                                - ₼
-                                {Number(
-                                  selectedOrder.orderItems.reduce(
-                                    (acc, item) => acc + item.discountPrice,
-                                    0
-                                  )
-                                ).toFixed(2)}
+                                - %
+                                {selectedOrder.orderItems.find(f => f.discountPrice > 0).discountPrice}
                               </td>
                             </tr>
                             <tr>

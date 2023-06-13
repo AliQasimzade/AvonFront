@@ -240,7 +240,7 @@ const Trackorder = () => {
                                   </div>
                                 </div>
                               </td>
-                              <td>${item.salePrice} - {item.product.salePrice}</td>
+                              <td>{item.salePrice != item.product.salePrice ? `$${item.salePrice}`:'Yoxdur'} - ₼{item.product.salePrice}</td>
                               <td>{item.count}</td>
                               <td className="text-end">
                                 $
