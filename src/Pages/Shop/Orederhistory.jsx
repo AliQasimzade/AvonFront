@@ -19,7 +19,7 @@ const Orderhistory = () => {
   };
   const handleClose = () => setModal(false);
   const orders = useSelector(
-    (state) => state.persistedReducer.Accont.user[0].orders
+    (state) => state.persistedReducer.Accont.user.orders
   );
   console.log(selectedOrder);
 

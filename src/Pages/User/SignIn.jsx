@@ -76,14 +76,14 @@ const Signin = () => {
               dispatch(changeAccont(res.data));
               axios
                 .get(
-                  `http://avontest0910-001-site1.dtempurl.com/api/Baskets/GetAll?appUserId=${res.data[0].id}`
+                  `http://avontest0910-001-site1.dtempurl.com/api/Baskets/GetAll?appUserId=${res.data.id}`
                 )
                 .then((res) => {
                   dispatch(getAllBaskets(res.data));
                 });
               axios
                 .get(
-                  `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${res.data[0].id}`
+                  `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${res.data.id}`
                 )
                 .then((res) => {
                   dispatch(getAllWisslist(res.data));

@@ -34,9 +34,9 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
                             <Form.Label className="form-check-label" htmlFor="shippingAddress01">
                                 <span className={`${HomeAdd ? "mb-3 text-uppercase fw-semibold d-block" : "d-none"}`}>{HomeAdd || ''}</span>
 
-                                <span className="fs-14 mb-2 d-block fw-semibold">{user.user[0].address.split(",")}</span>
-                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{user.user[0].address.split(",")}</span>
-                                <span className="text-muted fw-normal d-block">{user.user[0].address.split(",")}</span>
+                                <span className="fs-14 mb-2 d-block fw-semibold">{user.user.address.split(",")}</span>
+                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{user.user.address.split(",")}</span>
+                                <span className="text-muted fw-normal d-block">{user.user.address.split(",")}</span>
                             </Form.Label>
                         </div>
                         <div className="d-flex flex-wrap p-2 py-1 bg-light rounded-bottom border mt-n1">
@@ -54,9 +54,9 @@ export const ShopingAddress = ({ title, HomeAdd, officeAdd, }) => {
                             <Form.Control id="shippingAddress02" name="shippingAddress" type="radio" className="form-check-input" />
                             <Form.Label className="form-check-label" htmlFor="shippingAddress02">
                                 <span className={`${officeAdd ? "mb-3 text-uppercase fw-semibold d-block" : "d-none"}`}>{officeAdd || ''}</span>
-                                <span className="fs-14 mb-2 d-block fw-semibold">{user.user[0].otherAddress.split(",")}</span>
-                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{user.user[0].otherAddress.split(",")}</span>
-                                <span className="text-muted fw-normal d-block">{user.user[0].otherAddress.split(",")}</span>
+                                <span className="fs-14 mb-2 d-block fw-semibold">{user.user.otherAddress.split(",")}</span>
+                                <span className="text-muted fw-normal text-wrap mb-1 d-block">{user.user.otherAddress.split(",")}</span>
+                                <span className="text-muted fw-normal d-block">{user.user.otherAddress.split(",")}</span>
                             </Form.Label>
                         </div>
                         <div className="d-flex flex-wrap p-2 py-1 bg-light rounded-bottom border mt-n1">

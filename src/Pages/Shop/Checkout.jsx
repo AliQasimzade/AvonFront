@@ -33,7 +33,7 @@ const Checkout = () => {
   const token = useSelector((state) => state.persistedReducer.User.token);
 
   const userData = useSelector(
-    (state) => state.persistedReducer.Accont.user[0]
+    (state) => state.persistedReducer.Accont.user
   );
 
   const total =

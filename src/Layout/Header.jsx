@@ -15,7 +15,7 @@ import { getAllBrands, getAllCategories } from "../services/getRequests";
 import { getAllBaskets } from "../slices/layouts/basket";
 import { getAllWisslist } from "../slices/layouts/wistliss";
 const Header = (props) => {
-    const userData = useSelector(state => state.persistedReducer.Accont.user[0]);
+    const userData = useSelector(state => state.persistedReducer.Accont.user);
     const basket = useSelector(state => state.persistedReducer.Basket.basket);
     const wishlistAll = useSelector(state => state.persistedReducer.Wisslist.wisslist)
     // kateqoriyalar

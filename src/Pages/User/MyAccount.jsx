@@ -41,7 +41,7 @@ const MyAccount = () => {
     navigate("/ana-sehife");
   };
   const userAccountInfo = useSelector(
-    (state) => state.persistedReducer.Accont.user[0]
+    (state) => state.persistedReducer.Accont.user
   );
 
   const getS = async () => {

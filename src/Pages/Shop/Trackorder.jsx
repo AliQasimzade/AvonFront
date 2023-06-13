@@ -16,7 +16,7 @@ import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
 import { useSelector } from "react-redux";
 const Trackorder = () => {
-  const orders = useSelector((state) => state.persistedReducer.Accont.user[0]);
+  const orders = useSelector((state) => state.persistedReducer.Accont.user);
   console.log(orders);
   document.title = "Track Order | RGAgency - React FrontEnd";
   const [searchOrder, setSearchOrder] = useState(null);
@@ -240,7 +240,7 @@ const Trackorder = () => {
                                   </div>
                                 </div>
                               </td>
-                              <td>{item.salePrice != item.product.salePrice ? `$${item.salePrice}`:'Yoxdur'} - ₼{item.product.salePrice}</td>
+                              <td>{item.salePrice != item.product.salePrice ? `₼${item.salePrice}`:'Yoxdur'} - ₼{item.product.salePrice}</td>
                               <td>{item.count}</td>
                               <td className="text-end">
                                 $

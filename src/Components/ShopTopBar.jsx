@@ -106,7 +106,7 @@ export const Shoporder = ({
                           id="checkoutFromBalance"
                           className="form-Check-input"
                         />
-                        {user.user[0].balance} AZN
+                        {user.user.balance} AZN
                       </div>
                     </td>
                   </tr>
