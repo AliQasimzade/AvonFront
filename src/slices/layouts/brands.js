@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchBrands = createAsyncThunk("brands/fetchBrands", async () => {
-    const response = await axios.get("http://avontest0910-001-site1.dtempurl.com/api/Brands/Manage/GetAll?isDeleted=false");
+    const response = await axios.get("https://ilkin944-001-site1.itempurl.com/api/Brands/Manage/GetAll?isDeleted=false");
     return response.data;
 });
 const brandsSlice = createSlice({

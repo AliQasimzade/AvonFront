@@ -160,14 +160,14 @@ const MyAccount = () => {
               const formData = { ...values, profileImage: downloadURL };
               axios
                 .post(
-                  "http://avontest0910-001-site1.dtempurl.com/api/Account/UpdateProfile",
+                  "https://ilkin944-001-site1.itempurl.com/api/Account/UpdateProfile",
                   formData
                 )
                 .then((response) => {
                   console.log("Response from API:", response.data);
                   axios
                     .get(
-                      `http://avontest0910-001-site1.dtempurl.com/api/Account/MyAccount?id=${userAccountInfo?.id}`
+                      `https://ilkin944-001-site1.itempurl.com/api/Account/MyAccount?id=${userAccountInfo?.id}`
                     )
                     .then((res) => dispatch(changeAccont(res.data[0])))
                     .then(() => location.reload());

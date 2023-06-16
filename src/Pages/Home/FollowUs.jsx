@@ -11,7 +11,7 @@ import { CommonTitle } from "../../Components/Homepage";
 const FollowUs = (props) => {
     const [slider, setSlider] = useState([]);
     useEffect(() => {
-        axios.get("http://avontest0910-001-site1.dtempurl.com/api/SliderTwos/Manage/GetAll?isDeleted=false&IsMAIN=false").then((data) => {
+        axios.get("https://ilkin944-001-site1.itempurl.com/api/SliderTwos/Manage/GetAll?isDeleted=false&IsMAIN=false").then((data) => {
             setSlider(data.data)
            console.log(slider);
         });

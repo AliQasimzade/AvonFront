@@ -7,7 +7,7 @@ const Collection = () => {
     const [slider, setSlider] = useState([]);
     const getSlider = async () => {
         try {
-            const request = await axios.get("http://avontest0910-001-site1.dtempurl.com/api/Sliders/Manage/GetAll?isDeleted=false");
+            const request = await axios.get("https://ilkin944-001-site1.itempurl.com/api/Sliders/Manage/GetAll?isDeleted=false");
             if (request.status == 200) {
                 const response = request.data;
                 console.log(response);

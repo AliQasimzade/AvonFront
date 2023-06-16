@@ -50,7 +50,7 @@ const CatalogCollection = ({
           .then((res) => {
             axios
               .get(
-                `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${userId}`
+                `https://ilkin944-001-site1.itempurl.com/api/WishLists/GetAll?appUserId=${userId}`
               )
               .then((res) => dispatch(getAllWisslist(res.data)));
           });
@@ -77,7 +77,7 @@ const CatalogCollection = ({
           .then((res) => {
             axios
               .get(
-                `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${userId}`
+                `https://ilkin944-001-site1.itempurl.com/api/WishLists/GetAll?appUserId=${userId}`
               )
               .then((res) => dispatch(getAllWisslist(res.data)));
           });
