@@ -304,15 +304,17 @@ export const InvoiceModal = ({
                                     </span>
                                   </td>
                                   <td>
-                                   {item.salePrice != item.product.salePrice ? ` ₼${item.salePrice}`:'Yoxdur'} - ₼{item.product.salePrice}
+                                  ₼{item.product.salePrice}  - {item.salePrice != item.product.salePrice ? ` ₼${item.salePrice}`:'Yoxdur'} 
                                   </td>
                                   <td>{item.count}</td>
                                   <td>{item.discountPrice}</td>
 
                                   <td className="text-end">
                                     ₼
-                                    {Number(
+                                    {item.salePrice != 0 ? Number(
                                       item.salePrice * item.count
+                                    ).toFixed(2) : Number(
+                                      item.product.salePrice * item.count
                                     ).toFixed(2)}
                                   </td>
                                 </tr>
@@ -332,8 +334,13 @@ export const InvoiceModal = ({
                                 ₼
                                 {Number(
                                   selectedOrder?.orderItems.reduce(
-                                    (acc, item) =>
-                                      acc + item.count * item.salePrice,
+                                    (acc, item) => {
+                                      if(item.salePrice > 0) {
+                                         return acc += item.count * item.salePrice
+                                      }else {
+                                         return acc += item.count * item.product.salePrice
+                                      }
+                                    },
                                     0
                                   )
                                 ).toFixed(2)}
@@ -364,34 +371,6 @@ export const InvoiceModal = ({
                             </tr>
                           </tbody>
                         </Table>
-                      </div>
-                      <div className="mt-3">
-                        <h6 className="text-muted text-uppercase fw-semibold mb-3">
-                          Payment Details:
-                        </h6>
-                        <p className="text-muted mb-1">
-                          Payment Method:{" "}
-                          <span className="fw-medium" id="payment-method">
-                            Mastercard
-                          </span>
-                        </p>
-                        <p className="text-muted mb-1">
-                          Card Holder:{" "}
-                          <span className="fw-medium" id="card-holder-name">
-                            Raquel Murillo
-                          </span>
-                        </p>
-                        <p className="text-muted mb-1">
-                          Card Number:{" "}
-                          <span className="fw-medium" id="card-number">
-                            xxx xxxx xxxx 1234
-                          </span>
-                        </p>
-                        <p className="text-muted">
-                          Total Amount:
-                          <span id="card-total-amount">1406.92</span>
-                          <span className="fw-medium"> ₼</span>
-                        </p>
                       </div>
                       <div className="mt-4">
                         <div className="alert alert-info">

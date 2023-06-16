@@ -169,7 +169,7 @@ const Header = (props) => {
                                                     </li>
                                                     {category.subCategories.map((subcategory, subIndex) => (
                                                         <li className="nav-item" key={subIndex}>
-                                                            <Link to={`/catalog/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
+                                                            <Link to={`/kateqoriyalar/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
                                                                 {props.t(subcategory.name)}
                                                             </Link>
                                                         </li>
@@ -224,7 +224,7 @@ const Header = (props) => {
                                                             </li>
                                                             {category.subCategories.map((subcategory, subIndex) => (
                                                                 <li className="nav-item" key={subIndex}>
-                                                                    <Link to={`/catalog/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
+                                                                    <Link to={`/kateqoriyalar/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
                                                                         {props.t(subcategory.name)}
                                                                     </Link>
                                                                 </li>

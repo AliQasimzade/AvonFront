@@ -74,23 +74,9 @@ const Signin = () => {
               });
 
               dispatch(changeAccont(res.data));
-              axios
-                .get(
-                  `http://avontest0910-001-site1.dtempurl.com/api/Baskets/GetAll?appUserId=${res.data.id}`
-                )
-                .then((res) => {
-                  dispatch(getAllBaskets(res.data));
-                });
-              axios
-                .get(
-                  `http://avontest0910-001-site1.dtempurl.com/api/WishLists/GetAll?appUserId=${res.data.id}`
-                )
-                .then((res) => {
-                  dispatch(getAllWisslist(res.data));
-                });
               setTimeout(() => {
-                navigate("/ana-sehife");
-              }, 1500);
+                navigate("/referal");
+              }, 1000);
             });
         })
         .catch((err) => {
@@ -153,14 +139,14 @@ const Signin = () => {
                             ) : null}
                           </div>
                           <div className="mb-3">
-                            <div className="float-end">
+                            {/* <div className="float-end">
                               <Link
                                 to={"/auth-pass-reset-basic"}
                                 className="text-muted"
                               >
                                 Parolu unutdun?
                               </Link>
-                            </div>
+                            </div> */}
                             <Form.Label htmlFor="password-input">
                               Parol
                             </Form.Label>
@@ -205,7 +191,7 @@ const Signin = () => {
                           <p className="mb-0">
                             Hesabınız yoxdur?{" "}
                             <Link
-                              to="/auth-signup-basic"
+                              to="/qeydiyyat"
                               className="fw-semibold text-secondary text-decoration-underline"
                             >
                               {" "}

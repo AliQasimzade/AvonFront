@@ -7,12 +7,13 @@ import axios from "axios";
 import avonLogo from "../../assets/images/avonLogo.png"
 import { storage } from "../../firebase/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-
-
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
     const fileRef = useRef(null)
+    const navigate = useNavigate();
     const [profileImage, setProfileImage] = useState('')
     const addStoreImage = () => {
         formik.setFieldValue(
@@ -55,6 +56,7 @@ const SignUp = () => {
             email: "",
             phone: "",
             idForReferal: "",
+            otherAddress:'',
             password: "",
             repeatPassword: "",
             profileImage: profileImage,
@@ -63,6 +65,7 @@ const SignUp = () => {
             name: Yup.string().required("Please enter your name"),
             surname: Yup.string().required("Please enter your surname"),
             address: Yup.string().required("Please enter your address"),
+            otherAddress: Yup.string(),
             email: Yup.string().email().required("Please enter a valid email"),
             phone: Yup.string().required("Please enter your phone number"),
             idForReferal: Yup.string(),
@@ -102,9 +105,18 @@ const SignUp = () => {
                             axios.post('http://avontest0910-001-site1.dtempurl.com/api/Account/register', formData)
                                 .then((response) => {
                                     console.log("Response from API:", response.data);
+                                    axios.get(`${process.env.REACT_APP_BASE_URL}Account/ConfirmEmail?token=${response.data}&email=${values.email}`)
+                                    .then(res =>{
+                                        console.log(res.data)
+                                        toast.success(res.data.message)
+                                        setTimeout(() => {
+                                           navigate('/giris')
+                                        }, 1000)
+                                    })
                                 })
                                 .catch((error) => {
                                     console.error("Error posting data:", error);
+                                    toast.error(error.message)
                                 })
                                 .finally(() => {
                                     setSubmitting(false);
@@ -121,6 +133,16 @@ const SignUp = () => {
     });
     return (
         <>
+         <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          closeOnClick={true}
+          pauseOnHover={true}
+          draggable={true}
+          progress={undefined}
+          theme="light"
+        />
             <section className="auth-page-wrapper position-relative bg-light min-vh-100 d-flex align-items-center justify-content-between">
                 <div className="w-100">
                     <Container>
@@ -208,6 +230,25 @@ const SignUp = () => {
                                                             ) : null}
                                                         </div>
                                                         <div className="mb-3 col-12 col-lg-6">
+                                                            <Form.Label htmlFor="otherAddress">
+                                                                Other Address(Optional)
+                                                            </Form.Label>
+                                                            <Form.Control
+                                                                type="text"
+                                                                id="otherAddress"
+                                                                name="otherAddress"
+                                                                placeholder="Enter your otherAddress"
+                                                                value={formik.values.otherAddress}
+                                                                onChange={formik.handleChange}
+                                                                onBlur={formik.handleBlur}
+                                                            />
+                                                            {formik.touched.otherAddress && formik.errors.otherAddress ? (
+                                                                <div className="text-danger">
+                                                                    {formik.errors.otherAddress}
+                                                                </div>
+                                                            ) : null}
+                                                        </div>
+                                                        <div className="mb-3 col-12 col-lg-6">
                                                             <Form.Label htmlFor="useremail">
                                                                 Email <span className="text-danger">*</span>
                                                             </Form.Label>
@@ -248,7 +289,7 @@ const SignUp = () => {
                                                         </div>
                                                         <div className="mb-3 col-12 col-lg-6">
                                                             <Form.Label htmlFor="idForReferal">
-                                                                ID for Referral
+                                                                ID for Referral(Optional)
                                                             </Form.Label>
                                                             <Form.Control
                                                                 type="text"
@@ -320,7 +361,7 @@ const SignUp = () => {
                                                         </div>
                                                         <div className="mb-3 col-12 col-lg-6">
                                                             <Form.Label htmlFor="profileImage">
-                                                                Profile Image
+                                                                Profile Image(Optional)
                                                             </Form.Label>
                                                             <Form.Control
                                                                 type="file"

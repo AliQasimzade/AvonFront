@@ -62,7 +62,7 @@ export const getAllBrands = async () => {
 
 export const getAllOfferWeeks = async () => {
     try {
-        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}OfferOfWeeks/Manage/GetAll?isDeleted=false`)
+        const request = await axios.get(`${process.env.REACT_APP_BASE_URL}OfferOfWeeks/GetAll`)
         if (request.status !== 200) {
             throw new Error('Sorğuda xəta baş verdi')
         } else {

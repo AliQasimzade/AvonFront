@@ -13,7 +13,6 @@ const TopProducts = (props) => {
     const fetchedProducts = async () => {
         const data = await getAllProducts(1);
         setSelect(data);
-        console.log(select);
     }
     useEffect(() => {
         fetchedProducts();
