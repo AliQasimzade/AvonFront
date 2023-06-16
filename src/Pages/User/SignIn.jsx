@@ -46,7 +46,7 @@ const Signin = () => {
     onSubmit: (values) => {
       axios
         .post(
-          "http://avontest0910-001-site1.dtempurl.com/api/Account/Login",
+          "https://ilkin944-001-site1.itempurl.com/api/Account/Login",
           values
         )
         .then((rest) => {
@@ -59,7 +59,7 @@ const Signin = () => {
           dispatch(changeToken(tok));
           axios
             .get(
-              `http://avontest0910-001-site1.dtempurl.com/api/Account/MyAccount?id=${userId}`
+              `https://ilkin944-001-site1.itempurl.com/api/Account/MyAccount?id=${userId}`
             )
             .then((res) => {
               toast.success("Uğurla giriş olundu !", {
