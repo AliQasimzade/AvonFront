@@ -56,7 +56,7 @@ const Verifyemail = () => {
                                                     <Image src={auth1} alt="" className="img-fluid" />
                                                 </Col>
                                                 <Col lg={8} xs={9}>
-                                                    <h1 className="text-white lh-base fw-lighter">Verify Your Email</h1>
+                                                    <h1 className="text-white lh-base fw-lighter">E-poçtunuzu təsdiqləyin</h1>
                                                 </Col>
                                             </Row>
                                         </Card.Header>
@@ -100,7 +100,7 @@ const Verifyemail = () => {
                                                     </Row>
                                                 </Form>{/* end form */}
                                                 <div className="mt-3">
-                                                    <Button variant="primary" className="w-100">Confirm</Button>
+                                                    <Button variant="primary" className="w-100">Təsdiqlə</Button>
                                                 </div>
                                             </div>
                                             <div className="mt-4 text-center">

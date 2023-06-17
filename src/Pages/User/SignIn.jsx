@@ -36,11 +36,11 @@ const Signin = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      userName: Yup.string().required("This field is required"),
+      userName: Yup.string().required("Bu xana doldurulmalıdır"),
       password: Yup.string()
-        .min(8, "Password must be at least 8 characters")
-        .matches(RegExp("(.*[0-9].*)"), "At least one number")
-        .required("This field is required"),
+        .min(8, "Şifrə ən azı 8 simvol olmalıdır")
+        .matches(RegExp("(.*[0-9].*)"), "Ən azı 1 rəqəm olmalıdır")
+        .required("Bu xana doldurulmalıdır"),
     }),
 
     onSubmit: (values) => {
@@ -62,7 +62,7 @@ const Signin = () => {
               `https://ilkin944-001-site1.itempurl.com/api/Account/MyAccount?id=${userId}`
             )
             .then((res) => {
-              toast.success("Uğurla giriş olundu !", {
+              toast.success("Uğurla giriş olundu!", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -75,12 +75,12 @@ const Signin = () => {
 
               dispatch(changeAccont(res.data));
               setTimeout(() => {
-                navigate("/referal");
+                navigate('/referal');
               }, 1000);
             });
         })
         .catch((err) => {
-          toast.error("Ad və ya şifrə yanlışdır !", {
+          toast.error("Ad və ya şifrə yanlışdır!", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -116,17 +116,17 @@ const Signin = () => {
                     </Card>
                     <Card.Body>
                       <p className="text-muted fs-15">
-                        AVON-a davam etmək üçün daxil olun
+                        AVON-a davam etmək üçün hesabınıza daxil olun
                       </p>
                       <div className="p-2">
                         <Form action="#" onSubmit={formik.handleSubmit}>
                           <div className="mb-3">
-                            <Form.Label htmlFor="userName">Email</Form.Label>
+                            <Form.Label htmlFor="userName">E-poçt</Form.Label>
                             <Form.Control
                               type="text"
                               name="userName"
                               id="userName"
-                              placeholder="Enter username"
+                              placeholder="E-poçtunuzu daxil edin"
                               value={formik.values.userName}
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
@@ -148,14 +148,14 @@ const Signin = () => {
                               </Link>
                             </div> */}
                             <Form.Label htmlFor="password-input">
-                              Parol
+                              Şifrə
                             </Form.Label>
                             <div className="position-relative auth-pass-inputgroup mb-3">
                               <Form.Control
                                 type={password}
                                 className=" pe-5 password-input"
                                 name="password"
-                                placeholder="Enter password"
+                                placeholder="Şifrənizi daxil edin"
                                 id="password-input"
                                 value={formik.values.password}
                                 onChange={formik.handleChange}
@@ -215,7 +215,7 @@ const Signin = () => {
                 <Col lg={12}>
                   <div className="text-center">
                     <p className="mb-0 text-muted">
-                      ©{new Date().getFullYear()} RGAgency. Crafted with{" "}
+                      ©{new Date().getFullYear()} Avon Azərbaycan. Crafted with{" "}
                       <i className="mdi mdi-heart text-danger" /> by RGAgency
                     </p>
                   </div>
