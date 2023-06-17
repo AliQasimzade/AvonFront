@@ -16,7 +16,7 @@ const Passwordreset = () => {
         }),
         onSubmit: async (values) => {
             try {
-                const response = await fetch(`https://ilkin944-001-site1.itempurl.com/api/Account/passwordreset?userName=${values.email}`, {
+                const response = await fetch(`https://avonazerbaijan.com/api/Account/passwordreset?userName=${values.email}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

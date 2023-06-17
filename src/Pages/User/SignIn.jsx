@@ -46,7 +46,7 @@ const Signin = () => {
     onSubmit: (values) => {
       axios
         .post(
-          "https://ilkin944-001-site1.itempurl.com/api/Account/Login",
+          "https://avonazerbaijan.com/api/Account/Login",
           values
         )
         .then((rest) => {
@@ -58,8 +58,8 @@ const Signin = () => {
           dispatch(changeUserId(userId));
           dispatch(changeToken(tok));
           axios
-            .get(
-              `https://ilkin944-001-site1.itempurl.com/api/Account/MyAccount?id=${userId}`
+            .get( 
+              `https://avonazerbaijan.com/api/Account/MyAccount?id=${userId}`
             )
             .then((res) => {
               toast.success("Uğurla giriş olundu!", {
@@ -75,7 +75,7 @@ const Signin = () => {
 
               dispatch(changeAccont(res.data));
               setTimeout(() => {
-                navigate('/referal');
+                navigate("/hesabim");
               }, 1000);
             });
         })

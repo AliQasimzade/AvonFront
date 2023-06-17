@@ -43,20 +43,11 @@ const MyAccount = () => {
   const userAccountInfo = useSelector(
     (state) => state.persistedReducer.Accont.user
   );
-
-  const getS = async () => {
-    const res = await getUsersWithTeam(
-      userAccountInfo.referalIdforTeam,
-      " ",
-      " ",
-      " "
-    );
-    setReferalUsers(res.noActiveUsers);
-    console.log(res.referalUsers);
-  };
+console.log(userAccountInfo);
+ 
   useEffect(() => {
     if(userAccountInfo) {
-      getS();
+     setReferalUsers(userAccountInfo?.referalUsers)
     }else {
       navigate('/ana-sehife')
     }
@@ -160,14 +151,14 @@ const MyAccount = () => {
               const formData = { ...values, profileImage: downloadURL };
               axios
                 .post(
-                  "https://ilkin944-001-site1.itempurl.com/api/Account/UpdateProfile",
+                  "https://avonazerbaijan.com/api/Account/UpdateProfile",
                   formData
                 )
                 .then((response) => {
                   console.log("Response from API:", response.data);
                   axios
                     .get(
-                      `https://ilkin944-001-site1.itempurl.com/api/Account/MyAccount?id=${userAccountInfo?.id}`
+                      `https://avonazerbaijan.com/api/Account/MyAccount?id=${userAccountInfo?.id}`
                     )
                     .then((res) => dispatch(changeAccont(res.data[0])))
                     .then(() => location.reload());
@@ -227,7 +218,7 @@ const MyAccount = () => {
                       {userAccountInfo?.otherAddress}
                     </div>
                   </div>
-                  <div className="ms-md-auto">
+                  {/* <div className="ms-md-auto">
                     <Link
                       to="/product-list"
                       className="btn btn-success btn-hover"
@@ -235,7 +226,7 @@ const MyAccount = () => {
                       <i className="bi bi-cart4 me-1 align-middle"></i> Shopping
                       Now
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Col>
@@ -261,7 +252,7 @@ const MyAccount = () => {
                           Account Info
                         </Nav.Link>
                       </Nav.Item>
-                      <Nav.Item as="li">
+                      {/* <Nav.Item as="li">
                         <Nav.Link
                           as="a"
                           eventKey="list"
@@ -292,7 +283,7 @@ const MyAccount = () => {
                           <i className="bi bi-gear align-middle me-1"></i>{" "}
                           Settings
                         </Nav.Link>
-                      </Nav.Item>
+                      </Nav.Item> */}
                       <Nav.Item as="li">
                         <Nav.Link
                           as="a"
@@ -304,7 +295,7 @@ const MyAccount = () => {
                           Referal Users
                         </Nav.Link>
                       </Nav.Item>
-                      <Nav.Item as="li">
+                      {/* <Nav.Item as="li">
                         <Nav.Link
                           as="a"
                           className="fs-15"
@@ -314,7 +305,7 @@ const MyAccount = () => {
                           <i className="bi bi-box-arrow-right align-middle me-1"></i>{" "}
                           Logout
                         </Nav.Link>
-                      </Nav.Item>
+                      </Nav.Item> */}
                     </Nav>
                   </Card.Body>
                 </Card>
@@ -335,14 +326,14 @@ const MyAccount = () => {
                                 <h6 className="fs-16 text-decoration-underline flex-grow-1 mb-0">
                                   Personal Info
                                 </h6>
-                                <div className="flex-shrink-0">
+                                {/* <div className="flex-shrink-0">
                                   <Link
                                     to="#"
                                     className="badge badge-soft-dark"
                                   >
                                     Edit
                                   </Link>
-                                </div>
+                                </div> */}
                               </div>
 
                               <div className="table-responsive table-card px-1">
@@ -353,6 +344,12 @@ const MyAccount = () => {
                                       <td className="fw-medium">
                                         {userAccountInfo?.name}{" "}
                                         {userAccountInfo?.surname}
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>My Referal Team Code</td>
+                                      <td className="fw-medium">
+                                        {userAccountInfo?.referalIdforTeam}
                                       </td>
                                     </tr>
                                     <tr>
@@ -385,12 +382,12 @@ const MyAccount = () => {
                                 </Table>
                               </div>
 
-                              <div className="mt-4">
+                              {/* <div className="mt-4">
                                 <h6 className="fs-16 text-decoration-underline">
                                   Billing &amp; Shipping Address
                                 </h6>
-                              </div>
-                              <Row className="mt-4">
+                              </div> */}
+                              {/* <Row className="mt-4">
                                 <Col md={6}>
                                   <Card className="mb-md-0">
                                     <Card.Body>
@@ -449,7 +446,7 @@ const MyAccount = () => {
                                     </Card.Body>
                                   </Card>
                                 </Col>
-                              </Row>
+                              </Row> */}
                             </Card.Body>
                           </Card>
                         </Col>
@@ -943,8 +940,8 @@ const MyAccount = () => {
           </Tab.Container>
         </Container>
       </section>
-      <EmailClothe />
-      <CommonService />
+      {/* <EmailClothe />
+      <CommonService /> */}
     </>
   );
 };

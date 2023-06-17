@@ -16,7 +16,7 @@ const Shoping = (props) => {
 
     const fetchNews = async () => {
         try {
-            const response = await fetch("https://ilkin944-001-site1.itempurl.com/api/News/Manage/GetAll?isDeleted=false");
+            const response = await fetch("https://avonazerbaijan.com/api/News/Manage/GetAll?isDeleted=false");
             if (response.ok) {
                 const data = await response.json();
                 setNews(data);
