@@ -12,7 +12,7 @@ import {
   Button,
 } from "react-bootstrap";
 
-import userProfile from "../../assets/images/users/user-dummy-img.jpg"
+import userProfile from "../../assets/images/users/user-dummy-img.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { getUsersWithTeam } from "../../services/getRequests";
@@ -28,6 +28,8 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { storage } from "../../firebase/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyAccount = () => {
   const navigate = useNavigate();
@@ -43,15 +45,14 @@ const MyAccount = () => {
   const userAccountInfo = useSelector(
     (state) => state.persistedReducer.Accont.user
   );
-console.log(userAccountInfo);
- 
+  console.log(userAccountInfo);
+
   useEffect(() => {
-    if(userAccountInfo) {
-     setReferalUsers(userAccountInfo?.referalUsers)
-    }else {
-      navigate('/ana-sehife')
+    if (userAccountInfo) {
+      setReferalUsers(userAccountInfo?.referalUsers);
+    } else {
+      navigate("/ana-sehife");
     }
-    
   }, []);
 
   const [searchKeys, setSearchKeys] = useState({
@@ -70,7 +71,7 @@ console.log(userAccountInfo);
       searchKeys.referal == " " ||
       /^\s*$/.test(searchKeys.referal) == true
     ) {
-      alert("Ən azından referal kodu qeyd edin ");
+      toast.info("Referal Kodu qeyd etməlisiz !");
     } else {
       const res = await getUsersWithTeam(
         searchKeys.referal,
@@ -98,7 +99,7 @@ console.log(userAccountInfo);
         );
       },
       (error) => {
-        alert(error);
+        toast.error(error.message);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -181,6 +182,16 @@ console.log(userAccountInfo);
   });
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
+        theme="light"
+      />
       <section className="position-relative">
         <div
           className="profile-basic position-relative"
@@ -201,7 +212,7 @@ console.log(userAccountInfo);
                   {
                     <Image
                       src={
-                        userAccountInfo?.profileImage.includes('https')
+                        userAccountInfo?.profileImage.includes("https")
                           ? userAccountInfo?.profileImage
                           : userProfile
                       }
@@ -247,6 +258,7 @@ console.log(userAccountInfo);
                           eventKey="profile"
                           className="fs-15"
                           role="presentation"
+                          style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-person-circle align-middle me-1"></i>{" "}
                           Account Info
@@ -290,6 +302,7 @@ console.log(userAccountInfo);
                           eventKey="referalUsers"
                           className="fs-15"
                           role="presentation"
+                          style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-person align-middle me-1"></i>{" "}
                           Referal Users
