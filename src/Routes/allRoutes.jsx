@@ -115,11 +115,11 @@ const publicRoutes = [
   // { path: "/sifreni-sifirla", component: <Passwordreset /> },
   // { path: "/sifreni-yarat", component: <Passwordcreate /> },
   // { path: "/auth-success-msg-basic", component: <Successmsg /> },
-  { path: "/emaili-tesdiqle", component: <Verifyemail /> },
+  // { path: "/emaili-tesdiqle", component: <Verifyemail /> },
   { path: "/cixis", component: <Logout /> },
   // { path: "/xeta-404", component: <Error404 /> },
   // { path: "/xeta-500", component: <Error500 /> },
-   { path: "/coming-soon", component: <Comingsoon /> },
+  //  { path: "/coming-soon", component: <Comingsoon /> },
 
   // { path: "/email-black-friday", component: <Blackfriday /> },
   // { path: "/email-flash-sale", component: <Flashsale /> },

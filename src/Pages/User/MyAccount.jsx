@@ -51,7 +51,7 @@ const MyAccount = () => {
     if (userAccountInfo) {
       setReferalUsers(userAccountInfo?.referalUsers);
     } else {
-      navigate("/ana-sehife");
+      navigate("/giris");
     }
   }, []);
 
