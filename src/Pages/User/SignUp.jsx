@@ -81,50 +81,27 @@ const SignUp = () => {
       repeatPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Şifrələr eyni olmalıdır")
         .required("Şifrənin təkrarını daxil edin"),
-      profileImage: Yup.mixed().required(),
+      profileImage: Yup.mixed()
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       setSubmitting(true);
       try {
-        const profileImage = values.profileImage;
-        const imageRef = ref(storage, "avatars/" + profileImage.name);
-        const uploadTask = uploadBytesResumable(imageRef, profileImage);
-
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Yüklənir" + progress + "% done");
-          },
-          (error) => {
-            setErrors({ file: "Error uploading profile image" });
-            console.error("Error uploading profile image:", error);
-          },
-          async () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              const formData = { ...values, profileImage: downloadURL };
-              axios
-                .post(
-                  "https://avonazerbaijan.com/api/Account/register",
-                  formData
-                )
-                .then((response) => {
-                  console.log("Response from API:", response.data);
-                  setTimeout(() => {
-                    navigate("/giris");
-                  }, 1000);
-                })
-                .catch((error) => {
-                  console.error("Error posting data:", error);
-                  toast.error(error.message);
-                })
-                .finally(() => {
-                  setSubmitting(false);
-                });
-            });
-          }
-        );
+        const formData = { ...values, profileImage: profileImage };
+        axios
+          .post("https://avonazerbaijan.com/api/Account/register", formData)
+          .then((response) => {
+            console.log("Response from API:", response.data);
+            setTimeout(() => {
+              navigate("/giris");
+            }, 1000);
+          })
+          .catch((error) => {
+            console.error("Error posting data:", error);
+            toast.error(error.message);
+          })
+          .finally(() => {
+            setSubmitting(false);
+          });
       } catch (error) {
         setSubmitting(false);
         setErrors({ file: "Error uploading profile image" });

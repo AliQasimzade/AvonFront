@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 overrides:
   autoprefixer: 10.4.5
 
@@ -12182,3 +12178,7 @@ packages:
       toposort: 2.0.2
       type-fest: 2.19.0
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
