@@ -29,7 +29,7 @@ const ContactUs = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('https://ilkin944-001-site1.itempurl.com/api/Settings/Manage/GetAll?isDeleted=false');
+            const response = await axios.get('https://avonazerbaijan.com/api/Settings/Manage/GetAll?isDeleted=false');
             setContact(response.data);
             console.log(response.data);
           } catch (error) {

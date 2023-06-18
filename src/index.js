@@ -9,7 +9,7 @@ import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk';
 import rootreducer from './slices/index';
 import { configureStore } from '@reduxjs/toolkit';
-import {  HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 
 const helmetContext = {};
 

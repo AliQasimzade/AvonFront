@@ -64,23 +64,23 @@ const SignUp = () => {
       profileImage: profileImage,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Please enter your name"),
-      surname: Yup.string().required("Please enter your surname"),
-      address: Yup.string().required("Please enter your address"),
+      name: Yup.string().required("Adınızı daxil edin"),
+      surname: Yup.string().required("Soyadınızı daxil edin"),
+      address: Yup.string().required("Ünvanınızı daxil edin"),
       otherAddress: Yup.string(),
-      email: Yup.string().email().required("Please enter a valid email"),
-      phone: Yup.string().required("Please enter your phone number"),
+      email: Yup.string().email().required("E-poçt ünvanınızı daxil edin"),
+      phone: Yup.string().required("Əlaqə nömrənizi daxil edin"),
       idForReferal: Yup.string(),
       password: Yup.string()
-        .min(8, "Password must be at least 8 characters")
+        .min(8, "Şifrə ən azı 8 simvoldan ibarət olmalıdır")
         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/, {
           message:
-            "Password must contain at least one lowercase letter, one uppercase letter, and one number",
+            "Şifrə ən azı bir böyük, bir kiçik hərf və ən azı 1 rəqəmdən ibarət olmalıdır",
         })
-        .required("Please enter a password"),
+        .required("Şifrənizi daxil edin"),
       repeatPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .required("Please repeat your password"),
+        .oneOf([Yup.ref("password"), null], "Şifrələr eyni olmalıdır")
+        .required("Şifrənin təkrarını daxil edin"),
       profileImage: Yup.mixed().required(),
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
@@ -95,7 +95,7 @@ const SignUp = () => {
           (snapshot) => {
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
+            console.log("Yüklənir" + progress + "% done");
           },
           (error) => {
             setErrors({ file: "Error uploading profile image" });
@@ -103,16 +103,17 @@ const SignUp = () => {
           },
           async () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              console.log("File available at", downloadURL);
-
               const formData = { ...values, profileImage: downloadURL };
               axios
                 .post(
-                  "https://ilkin944-001-site1.itempurl.com/api/Account/register",
+                  "https://avonazerbaijan.com/api/Account/register",
                   formData
                 )
                 .then((response) => {
-                  
+                  console.log("Response from API:", response.data);
+                  setTimeout(() => {
+                    navigate("/giris");
+                  }, 1000);
                 })
                 .catch((error) => {
                   console.error("Error posting data:", error);
@@ -159,7 +160,9 @@ const SignUp = () => {
                     </Card.Header>
                     <Card.Body>
                       <p className="text-muted fs-15">
-                        Get your free AVON account now
+                        Satış nümayəndəsi olmaq istəyirsən? Elə isə indi
+                        qeydiyyatdan keç, e-poçtuna gələn təsdiq mesajına
+                        klikləyərək hesabını aktivləşdir
                       </p>
                       <div className="p-2">
                         <Form
@@ -170,13 +173,13 @@ const SignUp = () => {
                           <Row>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="name">
-                                Name <span className="text-danger">*</span>
+                                Adınız <span className="text-danger">*</span>
                               </Form.Label>
                               <Form.Control
                                 type="text"
                                 id="name"
                                 name="name"
-                                placeholder="Enter your name"
+                                placeholder="Adınızı daxil edin"
                                 value={formik.values.name}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -189,13 +192,13 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="surname">
-                                Surname <span className="text-danger">*</span>
+                                Soyad <span className="text-danger">*</span>
                               </Form.Label>
                               <Form.Control
                                 type="text"
                                 id="surname"
                                 name="surname"
-                                placeholder="Enter your surname"
+                                placeholder="Soyadınızı daxil edin"
                                 value={formik.values.surname}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -209,13 +212,14 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="address">
-                                Address <span className="text-danger">*</span>
+                                Əsas ünvan{" "}
+                                <span className="text-danger">*</span>
                               </Form.Label>
                               <Form.Control
                                 type="text"
                                 id="address"
                                 name="address"
-                                placeholder="Enter your address"
+                                placeholder="Ünvanı daxil edin"
                                 value={formik.values.address}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -229,13 +233,13 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="otherAddress">
-                                Other Address(Optional)
+                                İkinci ünvan
                               </Form.Label>
                               <Form.Control
                                 type="text"
                                 id="otherAddress"
                                 name="otherAddress"
-                                placeholder="Enter your otherAddress"
+                                placeholder="Ünvanı daxil edin"
                                 value={formik.values.otherAddress}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -249,13 +253,13 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="useremail">
-                                Email <span className="text-danger">*</span>
+                                E-poçt <span className="text-danger">*</span>
                               </Form.Label>
                               <Form.Control
                                 type="email"
                                 id="useremail"
                                 name="email"
-                                placeholder="Enter email address"
+                                placeholder="E-poçtunuzu daxil edin"
                                 value={formik.values.email}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -268,13 +272,14 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="phone">
-                                Phone <span className="text-danger">*</span>
+                                Telfon nömrəsi{" "}
+                                <span className="text-danger">*</span>
                               </Form.Label>
                               <Form.Control
                                 type="text"
                                 id="phone"
                                 name="phone"
-                                placeholder="Enter your phone number"
+                                placeholder="Telefon nömrənizi daxil edin"
                                 value={formik.values.phone}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -287,13 +292,14 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="idForReferal">
-                                ID for Referral(Optional)
+                                Sizi dəvət edən satış nümayəndəsinin referal
+                                kodu
                               </Form.Label>
                               <Form.Control
                                 type="text"
                                 id="idForReferal"
                                 name="idForReferal"
-                                placeholder="Enter ID for referral"
+                                placeholder="Referal kodu daxil edin"
                                 value={formik.values.idForReferal}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -301,13 +307,13 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="password-input">
-                                Password <span className="text-danger">*</span>
+                                Şifrə <span className="text-danger">*</span>
                               </Form.Label>
                               <div className="position-relative auth-pass-inputgroup">
                                 <Form.Control
                                   type={passwordtype ? "text" : "password"}
                                   className="pe-5 password-input"
-                                  placeholder="Enter password"
+                                  placeholder="Şifrəni daxil edin"
                                   id="password-input"
                                   name="password"
                                   value={formik.values.password}
@@ -332,14 +338,14 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="repeatPassword">
-                                Repeat Password{" "}
+                                Şifrənin təkrarı{" "}
                                 <span className="text-danger">*</span>
                               </Form.Label>
                               <div className="position-relative auth-pass-inputgroup">
                                 <Form.Control
                                   type={passwordtype ? "text" : "password"}
                                   className="pe-5 password-input"
-                                  placeholder="Repeat password"
+                                  placeholder="Şifrənin təkrarını daxil edin"
                                   id="repeatPassword"
                                   name="repeatPassword"
                                   value={formik.values.repeatPassword}
@@ -356,7 +362,7 @@ const SignUp = () => {
                             </div>
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="profileImage">
-                                Profile Image(Optional)
+                                Profil şəkliniz
                               </Form.Label>
                               <Form.Control
                                 type="file"
@@ -372,7 +378,7 @@ const SignUp = () => {
                                 className="w-100"
                                 type="submit"
                               >
-                                Sign Up
+                                Qeydiyyatdan keç
                               </Button>
                             </div>
                           </Row>
@@ -380,12 +386,12 @@ const SignUp = () => {
                       </div>
                       <div className="mt-4 text-center">
                         <p className="mb-0">
-                          Already have an account?{" "}
+                          Hesabınız var?{" "}
                           <Link
                             to="/giris"
                             className="fw-semibold text-primary text-decoration-underline"
                           >
-                            Sign in
+                            Daxil olun
                           </Link>{" "}
                         </p>
                       </div>
@@ -401,7 +407,7 @@ const SignUp = () => {
                 <Col lg={12}>
                   <div className="text-center">
                     <p className="mb-0 text-muted">
-                      © {new Date().getFullYear()} RGAgency. Crafted with{" "}
+                      © {new Date().getFullYear()} Avon Azərbaycan. Crafted with{" "}
                       <i className="mdi mdi-heart text-danger" /> by RGAgency
                     </p>
                   </div>

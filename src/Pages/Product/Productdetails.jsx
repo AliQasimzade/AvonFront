@@ -97,7 +97,7 @@ const Productdetails = () => {
           .then((res) => {
             axios
               .get(
-                `https://ilkin944-001-site1.itempurl.com/api/WishLists/GetAll?appUserId=${userId}`
+                `https://avonazerbaijan.com/api/WishLists/GetAll?appUserId=${userId}`
               )
               .then((res) => dispatch(getAllWisslist(res.data)));
           });
@@ -124,7 +124,7 @@ const Productdetails = () => {
           .then((res) => {
             axios
               .get(
-                `https://ilkin944-001-site1.itempurl.com/api/WishLists/GetAll?appUserId=${userId}`
+                `https://avonazerbaijan.com/api/WishLists/GetAll?appUserId=${userId}`
               )
               .then((res) => dispatch(getAllWisslist(res.data)));
           });

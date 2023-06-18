@@ -15,7 +15,7 @@ const Service = (props) => {
     const [slidertwo, setSlidertwo] = useState([]);
 
     useEffect(() => {
-        axios.get('https://ilkin944-001-site1.itempurl.com/api/SliderTwos/Manage/GetAll?page=1&IsMAIN=false').then((response) => {
+        axios.get('https://avonazerbaijan.com/api/SliderTwos/Manage/GetAll?page=1&IsMAIN=false').then((response) => {
             setSlidertwo(response.data);
         });
     }, []);

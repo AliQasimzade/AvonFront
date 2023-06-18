@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import jwt_decode from "jwt-decode";
 //img
 import avonLogo from "../../assets/images/avonLogo.png";
 import { useDispatch } from "react-redux";
@@ -36,11 +36,11 @@ const Signin = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      userName: Yup.string().required("This field is required"),
+      userName: Yup.string().required("Bu xana doldurulmalıdır"),
       password: Yup.string()
-        .min(8, "Password must be at least 8 characters")
-        .matches(RegExp("(.*[0-9].*)"), "At least one number")
-        .required("This field is required"),
+        .min(8, "Şifrə ən azı 8 simvol olmalıdır")
+        .matches(RegExp("(.*[0-9].*)"), "Ən azı 1 rəqəm olmalıdır")
+        .required("Bu xana doldurulmalıdır"),
     }),
 
     onSubmit: (values) => {
@@ -50,21 +50,16 @@ const Signin = () => {
           values
         )
         .then((rest) => {
-          const parse = rest.data.split("+");
-          const userId = parse[0].split(":")[1];
-          console.log(userId);
-          const tok = parse[1].split(":")[1];
-          setUserid(userId);
-          setToken(tok);
-          dispatch(changeUserId(userId));
-
-          dispatch(changeToken(tok));
+          const decoded = jwt_decode(rest.data);
+          
+          dispatch(changeUserId(decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']));
+          dispatch(changeToken(rest.data));
           axios
-            .get( 
-              `https://avonazerbaijan.com/api/Account/MyAccount?id=${userId}`
+            .get(
+              `https://avonazerbaijan.com/api/Account/MyAccount?id=${decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']}`
             )
             .then((res) => {
-              toast.success("Uğurla giriş olundu !", {
+              toast.success("Uğurla giriş olundu!", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -82,7 +77,7 @@ const Signin = () => {
             });
         })
         .catch((err) => {
-          toast.error("Ad və ya şifrə yanlışdır !", {
+          toast.error("Ad və ya şifrə yanlışdır!", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -118,23 +113,23 @@ const Signin = () => {
                     </Card>
                     <Card.Body>
                       <p className="text-muted fs-15">
-                        AVON-a davam etmək üçün daxil olun
+                        AVON-a davam etmək üçün hesabınıza daxil olun
                       </p>
                       <div className="p-2">
                         <Form action="#" onSubmit={formik.handleSubmit}>
                           <div className="mb-3">
-                            <Form.Label htmlFor="userName">Email</Form.Label>
+                            <Form.Label htmlFor="userName">E-poçt</Form.Label>
                             <Form.Control
                               type="text"
                               name="userName"
                               id="userName"
-                              placeholder="Enter username"
+                              placeholder="E-poçtunuzu daxil edin"
                               value={formik.values.userName}
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                             />
                             {formik.errors.userName &&
-                            formik.touched.userName ? (
+                              formik.touched.userName ? (
                               <span className="text-danger">
                                 {formik.errors.userName}
                               </span>
@@ -150,21 +145,21 @@ const Signin = () => {
                               </Link>
                             </div> */}
                             <Form.Label htmlFor="password-input">
-                              Parol
+                              Şifrə
                             </Form.Label>
                             <div className="position-relative auth-pass-inputgroup mb-3">
                               <Form.Control
                                 type={password}
                                 className=" pe-5 password-input"
                                 name="password"
-                                placeholder="Enter password"
+                                placeholder="Şifrənizi daxil edin"
                                 id="password-input"
                                 value={formik.values.password}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                               />
                               {formik.errors.password &&
-                              formik.touched.password ? (
+                                formik.touched.password ? (
                                 <span className="text-danger">
                                   {formik.errors.password}
                                 </span>
@@ -217,7 +212,7 @@ const Signin = () => {
                 <Col lg={12}>
                   <div className="text-center">
                     <p className="mb-0 text-muted">
-                      ©{new Date().getFullYear()} RGAgency. Crafted with{" "}
+                      ©{new Date().getFullYear()} Avon Azərbaycan. Crafted with{" "}
                       <i className="mdi mdi-heart text-danger" /> by RGAgency
                     </p>
                   </div>

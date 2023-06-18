@@ -26,7 +26,7 @@ const CollectionSlider = (props) => {
 
     const fetchComments = async () => {
         try {
-            const response = await fetch("https://ilkin944-001-site1.itempurl.com/api/Comments/Manage/GetAll?isDeleted=false&isAccepted=false");
+            const response = await fetch("https://avonazerbaijan.com/api/Comments/Manage/GetAll?isDeleted=false&isAccepted=false");
             if (response.ok) {
                 const data = await response.json();
                 setComments(data);
@@ -40,7 +40,7 @@ const CollectionSlider = (props) => {
 
     const fetchBrands = async () => {
         try {
-            const response = await fetch("https://ilkin944-001-site1.itempurl.com/api/Brands/GetAll");
+            const response = await fetch("https://avonazerbaijan.com/api/Brands/GetAll");
             if (response.ok) {
                 const data = await response.json();
                 setBrands(data);

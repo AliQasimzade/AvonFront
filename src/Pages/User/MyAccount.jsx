@@ -40,7 +40,7 @@ const MyAccount = () => {
     dispatch(logoutUser());
     dispatch(logoutToken());
     dispatch(logoutUserId());
-    navigate("/ana-sehife");
+    navigate("/giris");
   };
   const userAccountInfo = useSelector(
     (state) => state.persistedReducer.Accont.user
@@ -49,7 +49,7 @@ const MyAccount = () => {
 
   useEffect(() => {
     if (userAccountInfo) {
-      setReferalUsers(userAccountInfo?.referalUsers);
+      setReferalUsers(userAccountInfo?.noActiveUsers);
     } else {
       navigate("/giris");
     }
@@ -71,7 +71,7 @@ const MyAccount = () => {
       searchKeys.referal == " " ||
       /^\s*$/.test(searchKeys.referal) == true
     ) {
-      toast.info("Referal Kodu qeyd etməlisiz !");
+      toast.info("Referal Kodu qeyd etməlisiz!");
     } else {
       const res = await getUsersWithTeam(
         searchKeys.referal,
@@ -79,7 +79,7 @@ const MyAccount = () => {
         checkM,
         checkY
       );
-      setReferalUsers(res.noActiveUsers);
+      setReferalUsers(res.referalUsers);
       console.log(res.referalUsers);
     }
   };
@@ -152,14 +152,14 @@ const MyAccount = () => {
               const formData = { ...values, profileImage: downloadURL };
               axios
                 .post(
-                  "https://ilkin944-001-site1.itempurl.com/api/Account/UpdateProfile",
+                  "https://avonazerbaijan.com/api/Account/UpdateProfile",
                   formData
                 )
                 .then((response) => {
                   console.log("Response from API:", response.data);
                   axios
                     .get(
-                      `https://ilkin944-001-site1.itempurl.com/api/Account/MyAccount?id=${userAccountInfo?.id}`
+                      `https://avonazerbaijan.com/api/Account/MyAccount?id=${userAccountInfo?.id}`
                     )
                     .then((res) => dispatch(changeAccont(res.data[0])))
                     .then(() => location.reload());
