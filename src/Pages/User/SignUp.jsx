@@ -91,6 +91,7 @@ const SignUp = () => {
           .post("https://avonazerbaijan.com/api/Account/register", formData)
           .then((response) => {
             console.log("Response from API:", response.data);
+            toast.success(response.data)
             setTimeout(() => {
               navigate("/giris");
             }, 1000);
