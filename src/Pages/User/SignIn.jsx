@@ -51,6 +51,7 @@ const Signin = () => {
         )
         .then((rest) => {
           const decoded = jwt_decode(rest.data);
+          
           dispatch(changeUserId(decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']));
           dispatch(changeToken(rest.data));
           axios
