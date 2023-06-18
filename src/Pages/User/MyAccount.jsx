@@ -49,7 +49,7 @@ const MyAccount = () => {
 
   useEffect(() => {
     if (userAccountInfo) {
-      setReferalUsers(userAccountInfo?.referalUsers);
+      setReferalUsers(userAccountInfo?.noActiveUsers);
     } else {
       navigate("/giris");
     }
@@ -71,7 +71,7 @@ const MyAccount = () => {
       searchKeys.referal == " " ||
       /^\s*$/.test(searchKeys.referal) == true
     ) {
-      toast.info("Referal Kodu qeyd etməlisiz !");
+      toast.info("Referal Kodu qeyd etməlisiz!");
     } else {
       const res = await getUsersWithTeam(
         searchKeys.referal,
@@ -79,7 +79,7 @@ const MyAccount = () => {
         checkM,
         checkY
       );
-      setReferalUsers(res.noActiveUsers);
+      setReferalUsers(res.referalUsers);
       console.log(res.referalUsers);
     }
   };

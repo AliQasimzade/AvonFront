@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import jwt_decode from "jwt-decode";
 //img
 import avonLogo from "../../assets/images/avonLogo.png";
 import { useDispatch } from "react-redux";
@@ -50,17 +50,12 @@ const Signin = () => {
           values
         )
         .then((rest) => {
-          const parse = rest.data.split("+");
-          const userId = parse[0].split(":")[1];
-          const tok = parse[1].split(":")[1];
-          setUserid(userId);
-          setToken(tok);
-          dispatch(changeUserId(userId));
-          
-          dispatch(changeToken(tok));
+          const decoded = jwt_decode(rest.data);
+          dispatch(changeUserId(decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']));
+          dispatch(changeToken(rest.data));
           axios
-            .get( 
-              `https://avonazerbaijan.com/api/Account/MyAccount?id=${userId}`
+            .get(
+              `https://avonazerbaijan.com/api/Account/MyAccount?id=${decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']}`
             )
             .then((res) => {
               toast.success("Uğurla giriş olundu!", {
@@ -133,7 +128,7 @@ const Signin = () => {
                               onBlur={formik.handleBlur}
                             />
                             {formik.errors.userName &&
-                            formik.touched.userName ? (
+                              formik.touched.userName ? (
                               <span className="text-danger">
                                 {formik.errors.userName}
                               </span>
@@ -163,7 +158,7 @@ const Signin = () => {
                                 onBlur={formik.handleBlur}
                               />
                               {formik.errors.password &&
-                              formik.touched.password ? (
+                                formik.touched.password ? (
                                 <span className="text-danger">
                                   {formik.errors.password}
                                 </span>
