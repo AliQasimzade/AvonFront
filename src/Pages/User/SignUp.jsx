@@ -112,18 +112,7 @@ const SignUp = () => {
                   formData
                 )
                 .then((response) => {
-                  console.log("Response from API:", response.data);
-                  axios
-                    .get(
-                      `https://ilkin944-001-site1.itempurl.com/api/Account/ConfirmEmail?token=${response.data}&email=${values.email}`
-                    )
-                    .then((res) => {
-                      console.log(res.data);
-                      toast.success(res.data.message);
-                      setTimeout(() => {
-                        navigate("/giris");
-                      }, 1000);
-                    });
+                  
                 })
                 .catch((error) => {
                   console.error("Error posting data:", error);

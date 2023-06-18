@@ -46,21 +46,22 @@ const Signin = () => {
     onSubmit: (values) => {
       axios
         .post(
-          "http://avontest0910-001-site1.dtempurl.com/api/Account/Login",
+          "https://avonazerbaijan.com/api/Account/Login",
           values
         )
         .then((rest) => {
           const parse = rest.data.split("+");
           const userId = parse[0].split(":")[1];
+          console.log(userId);
           const tok = parse[1].split(":")[1];
           setUserid(userId);
           setToken(tok);
           dispatch(changeUserId(userId));
-          
+
           dispatch(changeToken(tok));
           axios
             .get( 
-              `http://avontest0910-001-site1.dtempurl.com/api/Account/MyAccount?id=${userId}`
+              `https://avonazerbaijan.com/api/Account/MyAccount?id=${userId}`
             )
             .then((res) => {
               toast.success("Uğurla giriş olundu !", {
