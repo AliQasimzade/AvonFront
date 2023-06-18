@@ -49,7 +49,7 @@ const MyAccount = () => {
 
   useEffect(() => {
     if (userAccountInfo) {
-      setReferalUsers(userAccountInfo?.referalUsers);
+      setReferalUsers(userAccountInfo?.noActiveUsers);
     } else {
       navigate("/giris");
     }
@@ -79,8 +79,8 @@ const MyAccount = () => {
         checkM,
         checkY
       );
-      setReferalUsers(res.referalUsers);
-      console.log(res.referalUsers);
+      setReferalUsers(res.noActiveUsers);
+      console.log(res.noActiveUsers);
     }
   };
   const fileRef = useRef(null);
