@@ -49,7 +49,7 @@ const MyAccount = () => {
 
   useEffect(() => {
     if (userAccountInfo) {
-      setReferalUsers(userAccountInfo?.noActiveUsers);
+      setReferalUsers(userAccountInfo?.referalUsers);
     } else {
       navigate("/giris");
     }
