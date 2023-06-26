@@ -17,6 +17,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
     const isdisplay = isnone;
     //pagination
     const pagination = true;
+    console.log(fileter);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentpages, setCurrentpages] = useState([]);
     const perPageData = 9;
@@ -70,8 +71,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
         <>
             <Row className={cid || ''} style={{ position: position, height: height }}>
                 {
-                    fileter && fileter.length > 0 ?
-                        (fileter || [])?.map((item, inx) => {
+                    fileter.length > 0 ? fileter.map((item, inx) => {
                             return (
                                 <Col key={inx} xxl={cxxl || ''} lg={4} md={6} className={`element-item seller ${item.productSubCategories.length > 0 && item.productSubCategories[0]?.subCategory?.name}`} data-category={item.productSubCategories.length > 0 && item.productSubCategories[0]?.subCategory?.name}>
                                     <Card className="overflow-hidden">

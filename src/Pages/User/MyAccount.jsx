@@ -37,7 +37,7 @@ const MyAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [referalUsers, setReferalUsers] = useState([]);
-  const [myPrices, setMyPrices] = useState([])
+  const [myPrices, setMyPrices] = useState([]);
 
   const logOut = () => {
     dispatch(logoutUser());
@@ -50,34 +50,51 @@ const MyAccount = () => {
   const userAccountInfo = useSelector(
     (state) => state.persistedReducer.Accont.user
   );
- 
+
   const getMyPrices = async () => {
-     try {
-      const req = await axios.get(`${process.env.REACT_APP_BASE_URL}Account/Price?Id=5fffdbbb-64bc-4e19-809a-e7b597297622`)
-      console.log(req.data);
-      setMyPrices(req.data)
-     } catch (error) {
-      
-     }
-  }
+    try {
+      //5fffdbbb-64bc-4e19-809a-e7b597297622 test userId
+      const req = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}Account/Price?Id=${userAccountInfo?.id}`
+      );
+      setMyPrices(req.data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     if (userAccountInfo) {
       setReferalUsers(userAccountInfo?.noActiveUsers);
-      getMyPrices()
+      getMyPrices();
     } else {
       navigate("/giris");
     }
-  }, []);
-
+  }, [dispatch]);
 
   const addPrice = async (id) => {
-     try {
-      const req = await axios.post(`${process.env.REACT_APP_BASE_URL}`)
-     } catch (error) {
-      
-     }
-  }
+    try {
+      const req1 = axios.post(
+        `${process.env.REACT_APP_BASE_URL}Account/PriceOrder?id=${id}`,
+        {
+          name: userAccountInfo?.name,
+          address: userAccountInfo?.address,
+          phoneNumber: userAccountInfo?.phoneNumber,
+          description: "Salam",
+        }
+      );
+
+      const req2 = axios.get(
+        `${process.env.REACT_APP_BASE_URL}Account/MyAccount?id=${userAccountInfo.id}`
+      );
+
+      const requests = await Promise.all([req1, req2]);
+      console.log(requests[0].data);
+      console.log(requests[1].data);
+      dispatch(changeAccont(requests[1].data));
+      toast.success("Hədiyyəni əlavə etdiniz");
+    } catch (error) {
+      toast.error("Sorğuda xəta baş verdi");
+    }
+  };
   const [searchKeys, setSearchKeys] = useState({
     referal: "",
     day: "",
@@ -104,9 +121,6 @@ const MyAccount = () => {
       );
       setReferalUsers(res.noActiveUsers);
     }
-
-
-
   };
   const fileRef = useRef(null);
   const [proImg, setProfileImage] = useState(userAccountInfo?.profileImage);
@@ -170,11 +184,11 @@ const MyAccount = () => {
               )
               .then((res) => {
                 dispatch(changeAccont(res.data));
-                toast.success('İstifadəçi uğurla yeniləndi')
-              })
+                toast.success("İstifadəçi uğurla yeniləndi");
+              });
           })
           .catch((error) => {
-            toast.error('Sorğuda xəta baş verdi')
+            toast.error("Sorğuda xəta baş verdi");
           })
           .finally(() => {
             setSubmitting(false);
@@ -182,7 +196,6 @@ const MyAccount = () => {
       } catch (error) {
         setSubmitting(false);
         setErrors({ file: "Error uploading profile image" });
-      
       }
     },
   });
@@ -312,8 +325,6 @@ const MyAccount = () => {
                         </Nav.Link>
                       </Nav.Item>
 
-                      
-                      
                       <Nav.Item as="li">
                         <Nav.Link
                           as="a"
@@ -323,7 +334,7 @@ const MyAccount = () => {
                           style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-cash-stack align-middle me-1"></i>
-                         Hədiyyələrim
+                          Hədiyyələrim
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item as="li">
@@ -642,7 +653,10 @@ const MyAccount = () => {
                                       onChange={() => addStoreImage()}
                                     />
                                   </Col>
-                                  <Col lg={6} className="d-flex align-items-center ">
+                                  <Col
+                                    lg={6}
+                                    className="d-flex align-items-center "
+                                  >
                                     <button
                                       className="btn btn-primary mt-4   "
                                       type="submit"
@@ -908,15 +922,6 @@ const MyAccount = () => {
                     </div>
                   </Tab.Pane>
 
-
-
-
-
-
-
-
-
-
                   <Tab.Pane eventKey="myprices">
                     <div
                       className="tab-pane fade show"
@@ -925,54 +930,101 @@ const MyAccount = () => {
                     >
                       <Row>
                         <div className="d-flex flex-wrap align-items-center gap-2">
-                          {myPrices.length > 0 ? myPrices.map((price, index) => (
-                            <Col key={index}  lg={3} md={6} className="element-item seller ">
-                            <Card className="overflow-hidden">
-                                <div className={`bg-subtle rounded-top py-4`}>
-                                    <div className="gallery-product" style={{height:'200px', display:'flex', alignItems:'center' }}>
-                                        <Image src={price.price.product.posterImage} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
+                          {myPrices.length > 0 ? (
+                            myPrices.map((price, index) => (
+                              <Col
+                                key={index}
+                                lg={3}
+                                md={6}
+                                className="element-item seller "
+                              >
+                                <Card className="overflow-hidden">
+                                  <div className={`bg-subtle rounded-top py-4`}>
+                                    <div
+                                      className="gallery-product"
+                                      style={{
+                                        height: "200px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <Image
+                                        src={price.price.product.posterImage}
+                                        alt=""
+                                        style={{
+                                          maxHeight: 215,
+                                          maxWidth: "100%",
+                                        }}
+                                        className="mx-auto d-block"
+                                      />
                                     </div>
                                     <div className="product-btn px-3">
-                                        <Button onClick={() => addPrice(price.price.product.id)} disabled={price.isEnable == true || price.isTaken == false ? false : true} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Əlavə et</Button>
+                                      <Button
+                                        onClick={() =>
+                                          addPrice(price.id)
+                                        }
+                                        disabled={
+                                          price.isEnable == true &&
+                                          price.isTaked == false
+                                            ? false
+                                            : true
+                                        }
+                                        className="btn btn-primary btn-sm w-75 add-btn"
+                                      >
+                                        <i className="mdi mdi-cart me-1"></i>{" "}
+                                        Əlavə et
+                                      </Button>
                                     </div>
-                                </div>
-                                <Card.Body className="card-body">
+                                  </div>
+                                  <Card.Body className="card-body">
                                     <div>
-                                        <Link to={`/product-details/${price.price.product.skuId}`}>
-                                            <h6 className="fs-15 lh-base text-truncate mb-0">{price.price.product.name}</h6>
-                                        </Link>
-                                        <div className="mt-3">
-                                           {price.price.discountPrice} ₼
-                                        </div>
-                                        <div className="mt-3">
-                                           {price.price.title} 
-                                        </div>
+                                      <Link
+                                        to={`/product-details/${price.price.product.skuId}`}
+                                      >
+                                        <h6 className="fs-15 lh-base text-truncate mb-0">
+                                          {price.price.product.name}
+                                        </h6>
+                                      </Link>
+                                      <div className="mt-3">
+                                        {price.price.discountPrice} ₼
+                                      </div>
+                                      <div className="mt-3">
+                                        {price.price.title}
+                                      </div>
 
-                                        <div className="mt-3">
-                                          {new Date(price.startDate).toLocaleDateString('en-EN')} - {new Date(price.endDate).toLocaleDateString('en-EN')}
-                                        </div>
+                                      <div className="mt-3">
+                                        {new Date(
+                                          price.startDate
+                                        ).toLocaleDateString("en-EN")}{" "}
+                                        -{" "}
+                                        {new Date(
+                                          price.endDate
+                                        ).toLocaleDateString("en-EN")}
+                                      </div>
                                     </div>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                          )) :   <Row >
-                          <Col lg={12}>
-                            <div className="text-center py-5">
-                              <div className="avatar-lg mx-auto mb-4">
-                                <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
-                                  <i className="bi bi-search"></i>
+                                  </Card.Body>
+                                </Card>
+                              </Col>
+                            ))
+                          ) : (
+                            <Row>
+                              <Col lg={12}>
+                                <div className="text-center py-5">
+                                  <div className="avatar-lg mx-auto mb-4">
+                                    <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
+                                      <i className="bi bi-search"></i>
+                                    </div>
+                                  </div>
+
+                                  <h5>No prices found</h5>
                                 </div>
-                              </div>
-          
-                              <h5>No prices found</h5>
-                            </div>
-                          </Col>
-                        </Row>}
+                              </Col>
+                            </Row>
+                          )}
                         </div>
                       </Row>
                     </div>
                   </Tab.Pane>
-                  
                 </Tab.Content>
               </Col>
             </Row>

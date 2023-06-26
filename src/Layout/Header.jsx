@@ -190,7 +190,7 @@ const Header = (props) => {
                 >
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">
-                    {categories.map((category, index) => (
+                    {categories.length > 0 && categories.map((category, index) => (
                       <Col lg={2} key={index}>
                         <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
                           <li>
@@ -299,7 +299,7 @@ const Header = (props) => {
                               {props.t("top-brands")}
                             </p>
                             <Row className="g-2 flex-wrap">
-                              {brendler.map((brend) => (
+                              {brendler.length > 0 && brendler.map((brend) => (
                                   <Link
                                   key={brend.id}
                                     to={`/${brend.name}`}
