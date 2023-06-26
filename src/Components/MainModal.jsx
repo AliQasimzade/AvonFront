@@ -21,7 +21,6 @@ import avatar1 from "../assets/images/users/avatar-1.jpg";
 import avatar7 from "../assets/images/users/avatar-7.jpg";
 
 //component
-import { productData } from "../Common/data";
 import DeleteModal from "../Components/DeleteModal";
 import { useSelector } from "react-redux";
 
@@ -51,27 +50,26 @@ export const MainModal = ({ location }) => {
             <Col lg={6}>
               <div className="p-4 h-100">
                 <span className="badge badge-soft-info fs-13">
-                  GET 10% SALE OFF
+                  10% ENDİRİM ƏLDƏ ET
                 </span>
                 <h2 className="display-6 mt-2 mb-3">
-                  Subscribe & Get <b>50% Special</b> Discount On Email
+                  İzlə və <b>50% xüsusi</b> endirimi əldə et
                 </h2>
                 <p className="mb-4 pb-lg-2 fs-16">
-                  Join our newsletter to receive the latest updates and
-                  promotion
+                  Daim yenilənənn endirimlə e-poçta göndərilir
                 </p>
                 <Form action="#">
                   <div className="position-relative ecommerce-subscript">
                     <Form.Control
                       type="email"
                       className="rounded-pill border-0"
-                      placeholder="Enter your email"
+                      placeholder="E-poçt ünvanını daxil et"
                     />
                     <Button
                       type="submit"
                       className="btn btn-info btn-hover rounded-pill"
                     >
-                      Subscript
+                      İzlə
                     </Button>
                   </div>
                 </Form>
@@ -116,7 +114,7 @@ export const InvoiceModal = ({
         >
           <Modal.Header closeButton>
             <h1 className="modal-title fs-5" id="invoiceModalLabel">
-              Invoice #{selectedInvoice}
+              İnvoysa bax #{selectedInvoice}
             </h1>
           </Modal.Header>
           <Modal.Body>
@@ -140,7 +138,7 @@ export const InvoiceModal = ({
                         />
                         <div className="mt-sm-5 mt-4">
                           <h6 className="text-muted text-uppercase fw-semibold fs-14">
-                            Address
+                            Ünvan
                           </h6>
                           <p className="text-muted mb-1" id="address-details">
                             <span>{selectedOrder?.city}</span>,{" "}
@@ -150,31 +148,25 @@ export const InvoiceModal = ({
                       </div>
                       <div className="flex-shrink-0 mt-sm-0 mt-3">
                         <h6>
-                          <span className="text-muted fw-normal">
-                            Legal Registration No:
-                          </span>{" "}
-                          <span id="legal-register-no">987654</span>
+                          <span className="text-muted fw-normal">E-poçt:</span>{" "}
+                          <span id="email">info@avon.net.az</span>
                         </h6>
                         <h6>
-                          <span className="text-muted fw-normal">Email:</span>{" "}
-                          <span id="email">info@rgagency.org</span>
-                        </h6>
-                        <h6>
-                          <span className="text-muted fw-normal">Website:</span>{" "}
+                          <span className="text-muted fw-normal">Vebsayt:</span>{" "}
                           <Link
-                            to="https://rgagency.org/"
+                            to="https://avonaz.net/"
                             className="link-primary"
                             target="_blank"
                             id="website"
                           >
-                            www.rgagency.org
+                            www.avonaz.net
                           </Link>
                         </h6>
                         <h6 className="mb-0">
                           <span className="text-muted fw-normal">
-                            Contact No:{" "}
+                            Əlaqə nömrəsi:{" "}
                           </span>
-                          <span id="contact-no"> +(314) 234 6789</span>
+                          <span id="contact-no"> (012) 234 6789</span>
                         </h6>
                       </div>
                     </div>
@@ -184,14 +176,14 @@ export const InvoiceModal = ({
                       <Row className="g-3">
                         <Col lg={3} xs={6}>
                           <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">
-                            Invoice No
+                            İnvoys NO
                           </p>
                           <h5 className="fs-15 mb-0">#{selectedInvoice}</h5>
                         </Col>
 
                         <Col lg={3} xs={6}>
                           <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">
-                            Date
+                            Tarix
                           </p>
                           <h5 className="fs-15 mb-0">
                             <span id="invoice-date">
@@ -252,7 +244,7 @@ export const InvoiceModal = ({
                       <Row className="g-3">
                         <Col xs={12}>
                           <h6 className="text-muted text-uppercase fw-semibold fs-14 mb-3">
-                            Billing Address
+                            Çatdırılma ünvanı
                           </h6>
                           <p className="fw-medium mb-2 fs-16" id="billing-name">
                             {userData?.name}, {userData?.surname}
@@ -265,7 +257,7 @@ export const InvoiceModal = ({
                             {userData?.otherAddress}
                           </p>
                           <p className="text-muted mb-1">
-                            <span>Phone: +</span>
+                            <span>Telefon: +</span>
                             <span id="billing-phone-no">
                               {userData?.phoneNumber}
                             </span>
@@ -283,12 +275,12 @@ export const InvoiceModal = ({
                               <th scope="col" style={{ width: "50px" }}>
                                 #
                               </th>
-                              <th scope="col">Product Details</th>
-                              <th scope="col">Product Price-Discount Price</th>
-                              <th scope="col">Quantity</th>
-                              <th scope="col">Discount Price</th>
+                              <th scope="col">Məhsul detalları</th>
+                              <th scope="col">Endirimli qiymət</th>
+                              <th scope="col">Sayı</th>
+                              <th scope="col">Endirimli qiymət</th>
                               <th scope="col" className="text-end">
-                                Amount
+                                Yekun
                               </th>
                             </tr>
                           </thead>
@@ -333,9 +325,8 @@ export const InvoiceModal = ({
                         >
                           <tbody>
                             <tr>
-                              <td>Sub Total</td>
+                              <td>Cəmi</td>
                               <td className="text-end">
-                                ₼
                                 {Number(
                                   selectedOrder?.orderItems.reduce(
                                     (acc, item) => {
@@ -349,32 +340,32 @@ export const InvoiceModal = ({
                                     },
                                     0
                                   )
-                                ).toFixed(2)}
+                                ).toFixed(2)} ₼
                               </td>
                             </tr>
                             <tr>
                               <td>
-                                Discount <small className="text-muted"></small>
+                                Endirim miqdarı <small className="text-muted"></small>
                               </td>
                               <td className="text-end">
-                                - %
+                                - 
                                 {selectedOrder.orderItems.find(
                                   (f) => f.discountPrice > 0
                                 )
                                   ? selectedOrder.orderItems.find(
                                       (f) => f.discountPrice > 0
                                     )
-                                  : 0}
+                                  : 0} %
                               </td>
                             </tr>
                             <tr>
-                              <td>Shipping Charge</td>
+                              <td>Çatdırılma miqdarı</td>
                               <td className="text-end">
                                 ₼{selectedOrder.deliveryAdress.price}
                               </td>
                             </tr>
                             <tr className="border-top border-top-dashed fs-15">
-                              <th scope="row">Total Amount</th>
+                              <th scope="row">Ümumi məbləğ</th>
                               <th className="text-end">
                                 ₼
                                 {selectedOrder?.totalAmount +
@@ -387,7 +378,7 @@ export const InvoiceModal = ({
                       <div className="mt-4">
                         <div className="alert alert-info">
                           <p className="mb-0">
-                            <span className="fw-semibold">NOTES:</span>
+                            <span className="fw-semibold">Qeydlər:</span>
                             <span id="note">
                               All accounts are to be paid within 7 days from
                               receipt of invoice. To be paid by cheque or credit
@@ -406,11 +397,11 @@ export const InvoiceModal = ({
                           onClick={InvoicePrint}
                         >
                           <i className="ri-printer-line align-bottom me-1"></i>{" "}
-                          Print
+                          Çap et
                         </Link>
                         <Link to="#" className="btn btn-primary">
                           <i className="ri-download-2-line align-bottom me-1"></i>{" "}
-                          Download
+                          Yüklə
                         </Link>
                       </div>
                     </Card.Body>
@@ -483,7 +474,7 @@ export const SearchModal = ({ show, handleClose }) => {
               type="text"
               ref={searchInput}
               className="form-control-lg border-2"
-              placeholder="Search products by name..."
+              placeholder="Axtardığınız məhsulun adını yazın..."
               id="search-options"
               value={value}
               onChange={(e) => handlesearch(e.target)}
@@ -509,7 +500,7 @@ export const SearchModal = ({ show, handleClose }) => {
             <div className="list-group list-group-flush border-dashed">
               <div className="notification-group-list">
                 <h5 className="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
-                  Results
+                  Nəticə
                 </h5>
                 {loading == false ? (
                   result.length > 0 ? (
@@ -532,8 +523,7 @@ export const SearchModal = ({ show, handleClose }) => {
                               <i className="bi bi-search"></i>
                             </div>
                           </div>
-
-                          <h5>No matching records found</h5>
+                          <h5>Axtarışa uyğun nəticə tapılmadı</h5>
                         </div>
                       </Col>
                     </Row>
@@ -541,7 +531,7 @@ export const SearchModal = ({ show, handleClose }) => {
                 ) : (
                   <div className="d-flex justify-content-center align-items-center">
                     <Spinner animation="border" role="status">
-                      <span className="visually-hidden">Loading...</span>
+                      <span className="visually-hidden">Yüklənir...</span>
                     </Spinner>
                   </div>
                 )}
@@ -621,7 +611,7 @@ export const CardModal = ({ show, handleClose }) => {
       >
         <Offcanvas.Header closeButton className="border-bottom">
           <Offcanvas.Title id="ecommerceCartLabel" as="h5">
-            My Cart
+            Səbətim
             <span className="badge bg-danger align-middle ms-1 cartitem-badge">
               {basket.length}
             </span>
@@ -657,14 +647,14 @@ export const CardModal = ({ show, handleClose }) => {
                           </Link>
                           <div className="d-flex mb-3 gap-2">
                             <div className="text-muted fw-medium mb-0">
-                              $
+                              
                               <span className="product-price">
-                                {Number(item.product.salePrice).toFixed(2)}
+                                {Number(item.product.salePrice).toFixed(2)} ₼
                               </span>
                             </div>
                             <div className="vr"></div>
                             <span className="text-success fw-medium">
-                              {item.productCount}
+                              {item.productCount} ədəd
                             </span>
                           </div>
                         </div>
@@ -678,9 +668,9 @@ export const CardModal = ({ show, handleClose }) => {
                             <i className="ri-close-fill fs-16"></i>
                           </Button>
                           <div className="fw-medium mb-0 fs-16">
-                            $
+                            
                             <span className="product-line-price">
-                              {item.product.salePrice.toFixed(2)}
+                              {item.product.salePrice.toFixed(2)} ₼
                             </span>
                           </div>
                         </div>
@@ -693,9 +683,9 @@ export const CardModal = ({ show, handleClose }) => {
               <Table className="table table-borderless mb-0 fs-14 fw-semibold">
                 <tbody>
                   <tr>
-                    <td>Sub Total :</td>
+                    <td>Cəmi :</td>
                     <td className="text-end cart-subtotal">
-                      $
+                      
                       {basket.length > 0
                         ? Number(
                             basket.reduce(
@@ -705,7 +695,7 @@ export const CardModal = ({ show, handleClose }) => {
                               0
                             )
                           ).toFixed(2)
-                        : 0}
+                        : 0} ₼
                     </td>
                   </tr>
                 </tbody>
@@ -715,10 +705,10 @@ export const CardModal = ({ show, handleClose }) => {
         </Offcanvas.Body>
         <div className="offcanvas-footer border-top p-3 text-center">
           <div className="d-flex justify-content-between align-items-center mb-3">
-            <h6 className="m-0 fs-16 text-muted">Total:</h6>
+            <h6 className="m-0 fs-16 text-muted">Yekun ödəniləcək:</h6>
             <div className="px-2">
               <h6 className="m-0 fs-16 cart-total">
-                $
+                
                 {basket.length > 0
                   ? Number(
                       basket.reduce(
@@ -728,7 +718,7 @@ export const CardModal = ({ show, handleClose }) => {
                         0
                       )
                     ).toFixed(2)
-                  : 0}
+                  : 0} ₼
               </h6>
             </div>
           </div>
@@ -736,7 +726,7 @@ export const CardModal = ({ show, handleClose }) => {
             <Col xs={6}>
               <Link to="/shop/shopingcard" onClick={handleClose}>
                 <Button variant="light" className="btn w-100" id="reset-layout">
-                  View Cart
+                  Səbətə bax
                 </Button>
               </Link>
             </Col>
@@ -746,7 +736,7 @@ export const CardModal = ({ show, handleClose }) => {
                 onClick={handleClose}
                 className="btn btn-info w-100"
               >
-                Continue to Checkout
+                Rəsmiləşdir
               </Link>
             </Col>
           </Row>

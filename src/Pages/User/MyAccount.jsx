@@ -277,7 +277,7 @@ const MyAccount = () => {
                       <Nav.Item as="li">
                         <Nav.Link
                           as="a"
-                          href="/shop/orderhistory"
+                          href="/hesabim/sifaris-tarixcesi"
                           className="fs-15"
                           role="presentation"
                           style={{ cursor: "pointer" }}

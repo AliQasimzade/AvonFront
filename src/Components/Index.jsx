@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CatalogCollection from "../Pages/Catalog/CatalogCollection";
 import Filters from "../Pages/Catalog/Filters";
 import { getAllProducts } from "../services/getRequests";
-import {  Row, Col, Card, Button, Image } from "react-bootstrap";
+import {  Row, Col } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 const Index = ({ name, cxxl, clg, cmd, cxl }) => {
   const [products, setProducts] = useState([]);

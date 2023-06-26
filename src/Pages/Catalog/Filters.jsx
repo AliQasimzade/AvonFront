@@ -143,7 +143,7 @@ const Filters = ({ name, products, setProducts }) => {
 
             <Card.Body className="border-bottom">
               <p className="text-muted text-uppercase fs-12 fw-medium mb-4">
-                Qiymət
+                Qiymət aralığı
               </p>
               <Nouislider
                 range={{ min: 0, max: 10000 }}
@@ -159,7 +159,7 @@ const Filters = ({ name, products, setProducts }) => {
                   value={mincost}
                   onChange={(e) => setMincost(Number(e.target.value))}
                 />
-                <span className="fw-semibold text-muted">to</span>
+                <span className="fw-semibold text-muted">-</span>
                 <Form.Control
                   className=" form-control-sm"
                   type="text"
@@ -178,7 +178,7 @@ const Filters = ({ name, products, setProducts }) => {
                   className="accordion-button bg-transparent shadow-none"
                 >
                   <span className="text-muted text-uppercase fs-12 fw-medium">
-                    Discount
+                    Endirim miqdarı
                   </span>
                   <span className="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
                 </Button>
@@ -210,7 +210,7 @@ const Filters = ({ name, products, setProducts }) => {
                               className="form-check-label"
                               htmlFor="discount_check"
                             >
-                              {disc}% {disc == 10 ? "less than" : "or more"}
+                              {disc}% {disc == 10 ? "-dən az" : "və ya üzəri"}
                             </Form.Label>
                           </div>
                         ))}

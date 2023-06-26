@@ -224,13 +224,13 @@ export const ProductSelector = ({ handleratting, handledicount, handlecategory }
 
                                 <Col xl={3} md={6}>
                                     <div>
-                                        <Form.Label >Discount</Form.Label>
+                                        <Form.Label >Endirimi</Form.Label>
                                         <Form.Select aria-label="Discount" onChange={(e) => handledicount(e.target)}>
-                                            <option value="10">10% or more</option>
-                                            <option value="20">20% or more</option>
-                                            <option value="30">30% or more</option>
-                                            <option value="40">40% or more</option>
-                                            <option value="45">50% or more</option>
+                                            <option value="10">10% və ya daha çox</option>
+                                            <option value="20">20% və ya daha çox</option>
+                                            <option value="30">30% və ya daha çox</option>
+                                            <option value="40">40% və ya daha çox</option>
+                                            <option value="45">50% və ya daha çox</option>
                                         </Form.Select>
                                     </div>
                                 </Col>
@@ -248,7 +248,7 @@ export const Selectores = ({ setSelect, searchProducts }) => {
         <Row className="align-items-center mb-4">
             <Col className="col-md-auto">
                 <div className="search-box">
-                    <Form.Control id="searchProductList" autoComplete="off" placeholder="Search Products..." onChange={(e) => searchProducts(e)} />
+                    <Form.Control id="searchProductList" autoComplete="off" placeholder="Məhsul axtarın..." onChange={(e) => searchProducts(e)} />
                     <i className="ri-search-line search-icon"></i>
                 </div>
             </Col>
@@ -325,12 +325,12 @@ export const DefauilOffer = () => {
                 <Row className="justify-content-center">
                     <Col lg={6}>
                         <div className="text-center">
-                            <h1 className="text-white lh-base text-capitalize">Don't miss out on special offers</h1>
-                            <p className="text-white-75 fs-15 mb-4 pb-2">Never Miss Anything From RGAgency By Signing Up To Our Newsletter.</p>
+                            <h1 className="text-white lh-base text-capitalize">Xüsusi təklifləri qaçırma</h1>
+                            <p className="text-white-75 fs-15 mb-4 pb-2">Xəbər büliteninə abunə olmaqla daim yeniliklərdən xəbərdar olun</p>
                             <Form action="#">
                                 <div className="position-relative ecommerce-subscript">
-                                    <Form.Control type="email" className="rounded-pill border-0" placeholder="Enter your email" />
-                                    <Button type="submit" className="btn btn-darken-primary rounded-pill">Subscript Now</Button>
+                                    <Form.Control type="email" className="rounded-pill border-0" placeholder="E-poçtunuzu daxil edin" />
+                                    <Button type="submit" className="btn btn-darken-primary rounded-pill">Üzv ol</Button>
                                 </div>
                             </Form>
                         </div>

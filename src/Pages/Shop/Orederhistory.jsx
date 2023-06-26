@@ -24,9 +24,9 @@ const Orderhistory = () => {
   return (
     <>
       <Helmet>
-        <title>Sifariş Tarixi AVONAZ.NET – Online kosmetika mağazası</title>
+        <title>Sifariş Tarixiçəsi AVONAZ.NET – Online kosmetika mağazası</title>
       </Helmet>
-      <Shoptopbar title="Order History" page="Order History" />
+      <Shoptopbar title="Sifariş tarixçəsi" page="Sifariş tarixçəsi" />
       <section className="section">
         <Container>
           <Row>
@@ -36,12 +36,12 @@ const Orderhistory = () => {
                   <Table className="fs-15 align-middle table-nowrap">
                     <thead>
                       <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Product Count</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Total Amout</th>
-                        <th scope="col">Status(Order - Delivery)</th>
-                        <th scope="col"></th>
+                        <th scope="col">Sifariş nömrəsi</th>
+                        <th scope="col">Məhsul sayı</th>
+                        <th scope="col">Sifariş tarixi</th>
+                        <th scope="col">Sifariş məbləği</th>
+                        <th scope="col">Sifarişin statusu</th>
+                        <th scope="col">Sifariş detalları</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -52,12 +52,12 @@ const Orderhistory = () => {
                                 {item?.codePrefix + item?.codeNumber}                      
                             </td>
                             <td>
-                                    {item?.orderItems.length}
+                                {item?.orderItems.length} məhsul
                             </td>
                             <td>
                               <span className="text-muted">{new Date(item?.createdAt).toLocaleDateString()}</span>
                             </td>
-                            <td className="fw-medium">₼{item?.totalAmount}</td>
+                            <td className="fw-medium">{item?.totalAmount} ₼</td>
                             <td>
                               <span className={`badge bg-${item?.status == "Gözləmədə" ? 'warning' : item?.status == 'Qəbul' ? 'success' : 'danger'}`}>
                                 {item?.status}
@@ -74,7 +74,7 @@ const Orderhistory = () => {
                                 className="btn btn-secondary btn-sm"
                                 onClick={() => handleInvoice(item, item?.codePrefix + item?.codeNumber)}
                               >
-                                Invoice
+                                İnvoysa bax
                               </Link>
                             </td>
                           </tr>
@@ -84,10 +84,10 @@ const Orderhistory = () => {
                   </Table>
                 </div>
                 <div className="text-end">
-                  <Button variant="primary" className="btn btn-hover">
-                    Continue Shopping{" "}
+                  <Link to="/products" variant="primary" className="btn btn-hover">
+                    Alışa davam et{" "}
                     <i className="ri-arrow-right-line align-middle ms-1"></i>
-                  </Button>
+                  </Link>
                 </div>
               </div>
             </Col>
@@ -95,8 +95,6 @@ const Orderhistory = () => {
           <InvoiceModal modal={modal} handleClose={handleClose} selectedOrder={selectedOrder} selectedInvoice={selectedInvoice} />
         </Container>
       </section>
-      <EmailClothe />
-      <CommonService />
     </>
   );
 };

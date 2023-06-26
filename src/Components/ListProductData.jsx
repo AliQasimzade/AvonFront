@@ -46,7 +46,7 @@ const ListProductData = ({ listnoslider }) => {
                         type="text"
                         id="searchProductList"
                         autoComplete="off"
-                        placeholder="Search Products..."
+                        placeholder="Məhsul axtar..."
                     />
                     <i className="ri-search-line search-icon" />
                 </div>
@@ -203,7 +203,7 @@ const ListProductData = ({ listnoslider }) => {
                                                         <Link to="/shop/shopingcard" className="btn btn-primary" style={{backgroundColor:"#8b02ef"}}>
 
                                                             <i className="ri-shopping-cart-2-fill align-bottom me-1" />
-                                                            Add To Cart
+                                                            Səbətə əlavə et
                                                         </Link>
                                                         <Link to="#" className="btn btn-soft-secondary">
 

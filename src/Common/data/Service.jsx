@@ -36,26 +36,26 @@ const service = [
     {
         id: 1,
         img: delivery,
-        title: "Fast & Secure Delivery",
-        text: "Tell about your service."
+        title: "Sürətli və təhlükəsiz çatdırılma",
+        text: "Sifarişinizi ən qısa zamanda əldə edin"
     },
     {
         id: 2,
         img: returns,
-        title: "2 Days Return Policy",
-        text: "No question ask."
+        title: "Aylıq qazancını böyütmək imkanı",
+        text: "Komandan ilə birlikdə qazan"
     },
     {
         id: 3,
         img: certificate,
-        title: "Money Back Guarantee",
-        text: "Within 5 business days"
+        title: "Bitməyən endirimlər",
+        text: "Satışlarınız sizə hər zaman endirim gətirəcək"
     },
     {
         id: 4,
         img: hourssupport,
-        title: "24 X 7 Service",
-        text: "Online service for customer"
+        title: "24/7 Xidmət",
+        text: "Günün istənilən vaxtı onlayn sifariş edin"
     },
 ];
 

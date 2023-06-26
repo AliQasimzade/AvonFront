@@ -78,7 +78,7 @@ const authProtectedRoutes = [
   { path: "/shop/order", component: <Trackorder /> },
   { path: "/shop/review", component: <Review />, isLight: "light" },
   { path: "/shop/confirm", component: <Confirm /> },
-  { path: "/shop/orderhistory", component: <Orderhistory /> },
+  { path: "/hesabim/sifaris-tarixcesi", component: <Orderhistory /> },
   { path: "/shop/shopingcard", component: <Shopingcard /> },
   { path: "/resmilesdirme", component: <Checkout /> },
   { path: "/shop/wishList", component: <WishList /> },

@@ -131,14 +131,14 @@ const CatalogCollection = ({
         />
         <div className="d-flex align-items-center gap-2 mb-4">
           <p className="text-muted flex-grow-1 mb-0">
-            <span>{products.length}</span> results
+            <span>{products.length}</span> nəticə
           </p>
 
           <div className="flex-shrink-0">
             <div className="d-flex gap-2">
               <div className="flex-shrink-0">
                 <Form.Label htmlFor="sort-elem" className="col-form-label">
-                  Sort By:
+                  Sırala:
                 </Form.Label>
               </div>
               <div className="flex-shrink-0">
@@ -159,9 +159,9 @@ const CatalogCollection = ({
                   }}
                   id="sort-elem"
                 >
-                  <option value="all">All</option>
-                  <option value="lowtohigh">Low to High</option>
-                  <option value="hightolow">High to Low</option>
+                  <option value="all">Hamısı</option>
+                  <option value="lowtohigh">Ucuzdan bahaya</option>
+                  <option value="hightolow">Bahadan ucuza</option>
                 </Form.Select>
               </div>
             </div>
@@ -256,8 +256,8 @@ const CatalogCollection = ({
                                       className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
                                       htmlFor={`product-color-${color.skuId}`}
                                       style={{
-                                        width: "50px",
-                                        height: "50px",
+                                        width: "30px",
+                                        height: "30px",
                                         backgroundColor: `${color.colorCode}`,
                                       }}
                                     >
@@ -413,7 +413,7 @@ const CatalogCollection = ({
                                 }
                               }}
                             >
-                              <i className="mdi mdi-cart me-1"></i> Add To Cart
+                              <i className="mdi mdi-cart me-1"></i> Səbətə əlavə et
                             </Link>
                           </div>
                         </div>
@@ -434,7 +434,7 @@ const CatalogCollection = ({
                       </div>
                     </div>
 
-                    <h5>No matching records found</h5>
+                    <h5>Uyğun nəticə tapılmadı</h5>
                   </div>
                 </Col>
               </Row>
