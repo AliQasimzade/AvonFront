@@ -239,7 +239,6 @@ const Header = (props) => {
                                 borderRadius: "50%",
                               }}
                             >
-                              <Image src={brend.image} alt={brend.name} />
                             </Link>
                           </Col>
                         ))}

@@ -12,24 +12,12 @@ const Filters = ({ name, products, setProducts }) => {
   const [maxcost, setMaxcost] = useState(2000);
 
   const subs = useSelector((state) => state.persistedReducer.Subcategories);
-  console.log(subs);
 
-  const [categories, setCategories] = useState([]);
-  //Collapse
-  //colors
-  const [open, setOpen] = useState(false);
-  //sizes
-  const [size, setSize] = useState(false);
-  //brands
-  const [brands, setBrands] = useState(false);
   const [changeInput, setChangeInput] = useState("");
   //discount
   const [discount, setDiscount] = useState(false);
   const [discounts, setDiscounts] = useState([50, 40, 30, 20, 10]);
   const [selectedDiscount, setSelectedDiscount] = useState("");
-  //Rating
-  const [ratings, setRatings] = useState([5, 4, 3, 2, 1]);
-  const [rating, setRating] = useState(false);
   const [selectedSubs, setSelectedSubs] = useState([]);
 
   const [selectedRating, setSelectedRating] = useState("");

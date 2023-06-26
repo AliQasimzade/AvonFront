@@ -110,9 +110,7 @@ const CollectionSlider = (props) => {
                                 return (
                                     <Col key={index}>
                                         <div className="client-images">
-                                            <Link to={`brands/${brand.name}`} title={brand.name}>
-                                                <Image src={brand.image} alt={brand.name} style={{ objectFit: 'contain' }} className="mx-auto d-block" fluid />
-                                            </Link>
+                                            <Link to={`brands/${brand.name}`} title={brand.name}>{brand.name}</Link>
                                         </div>
                                     </Col>
                                 )
