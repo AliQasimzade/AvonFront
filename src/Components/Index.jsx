@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import CatalogCollection from "../Pages/Catalog/CatalogCollection";
 import Filters from "../Pages/Catalog/Filters";
 import { getAllProducts } from "../services/getRequests";
-import { Form, Row, Col, Card, Button, Image } from "react-bootstrap";
+import {  Row, Col, Card, Button, Image } from "react-bootstrap";
+import { Helmet } from "react-helmet-async";
 const Index = ({ name, cxxl, clg, cmd, cxl }) => {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState([]);
@@ -24,11 +25,12 @@ const Index = ({ name, cxxl, clg, cmd, cxl }) => {
 
   useEffect(() => {
     getProducts();
-    console.log(('success'));
   }, [currentPage]);
   return (
     <>
-   
+   <Helmet>
+    <title>Məhsullar | AVONAZ.NET – Online kosmetika mağazası</title>
+   </Helmet>
         <Filters name={name} products={products} setProducts={setProducts} />
       
       {products.length > 0 ? (

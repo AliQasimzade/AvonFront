@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import avatar1 from '../../assets/images/clients/amazon.svg'
-import avatar3 from '../../assets/images/clients/amazon.svg'
-import avatar5 from '../../assets/images/clients/amazon.svg'
-import avatar8 from '../../assets/images/clients/amazon.svg'
 
 import {
   Button,
@@ -30,7 +26,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 //components
-import { productInterestedCard,productprogress } from "../../Common/data";
+import { productInterestedCard, productprogress } from "../../Common/data";
 import { BrandedProduct } from "../../Components/ShopTopBar";
 import { CommonService } from "../../Components/CommonService";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
@@ -43,14 +39,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAllBaskets } from "../../slices/layouts/basket";
 import { getAllWisslist } from "../../slices/layouts/wistliss";
-
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 const Productdetails = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
   const [count, setCount] = useState(1);
   const { skuId } = useParams();
-  const [sku, setSku] = useState(skuId);
   const userId = useSelector((state) => state.persistedReducer.User.userId);
   const wisslistProID = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
@@ -59,13 +55,12 @@ const Productdetails = () => {
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}Products/Manage/ProductGetForSkuId?SkuId=${sku}`
+        `${process.env.REACT_APP_BASE_URL}Products/Manage/ProductGetForSkuId?SkuId=${skuId}`
       )
       .then((res) => {
         setproDetail(res.data.product);
-        console.log(res.data.product);
       });
-  }, [sku]);
+  }, [skuId]);
 
   const handleSetImg = (id) => {
     console.log(id);
@@ -202,6 +197,9 @@ const Productdetails = () => {
   };
   return (
     <>
+    <Helmet>
+      <title>{`${proDetail.name} | AVONAZ.NET – Online kosmetika mağazası`}</title>
+    </Helmet>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -386,25 +384,6 @@ const Productdetails = () => {
             <Col lg={5} className="ms-auto">
               <div className="ecommerce-product-widgets mt-4 mt-lg-0">
                 <div className="mb-4">
-                  <div className="d-flex gap-3 mb-2">
-                    <div className="fs-15 text-warning">
-                      {proDetail?.comments?.length > 0 ? (
-                        <span className="float-end">
-                          {proDetail?.comments
-                            .map((retinhg) => retinhg.star)
-                            .reduce((acc, item) => acc + item, 0) /
-                            proDetail.comments.length}
-                          :<p>retingi yoxdur</p>
-                          <i className="ri-star-half-fill text-warning align-bottom"></i>
-                        </span>
-                      ) : (
-                        <span className="float-end">
-                          retingi yoxdur
-                          <i className="ri-star-half-fill text-warning align-bottom"></i>
-                        </span>
-                      )}
-                    </div>
-                  </div>
                   <h4 className="lh-base mb-1">{proDetail.name}</h4>
                   <p
                     className="text-muted mb-4"
@@ -478,25 +457,27 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail?.relationOfBaseCode.map(
                               (color, index) => (
-                                <li
+                                <Link
                                   key={index}
-                                  onClick={() => setSku(color.skuId)}
+                                  to={`/product-details/${color.skuId}`}
                                 >
-                                  <Form.Control
-                                    type="radio"
-                                    name="size1"
-                                    id={`product-color-${color.skuId}`}
-                                  />
-                                  <Form.Label
-                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                    htmlFor={`product-color-${color.skuId}`}
-                                    style={{
-                                      backgroundColor: `${color.colorCode}`,
-                                    }}
-                                  >
-                                    {color.colorCode == null && <FaCheck />}
-                                  </Form.Label>
-                                </li>
+                                  <li>
+                                    <Form.Control
+                                      type="radio"
+                                      name="size1"
+                                      id={`product-color-${color.skuId}`}
+                                    />
+                                    <Form.Label
+                                      className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                      htmlFor={`product-color-${color.skuId}`}
+                                      style={{
+                                        backgroundColor: `${color.colorCode}`,
+                                      }}
+                                    >
+                                      {color.colorCode == null && <FaCheck />}
+                                    </Form.Label>
+                                  </li>
+                                </Link>
                               )
                             )}
                           </ul>
@@ -512,26 +493,28 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail.relationOfBaseCode.map(
                               (color, index) => (
-                                <li
+                                <Link
                                   key={index}
-                                  onClick={() => setSku(color.skuId)}
+                                  to={`/products-details/${color.skuId}`}
                                 >
-                                  <Form.Control
-                                    type="radio"
-                                    name="size1"
-                                    id={`product-color-${color.skuId}`}
-                                  />
-                                  <Form.Label
-                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                    htmlFor={`product-color-${color.skuId}`}
-                                  >
-                                    {color.colorCode == null ? (
-                                      <FaCheck />
-                                    ) : (
-                                      <span>{color.colorCode}</span>
-                                    )}
-                                  </Form.Label>
-                                </li>
+                                  <li>
+                                    <Form.Control
+                                      type="radio"
+                                      name="size1"
+                                      id={`product-color-${color.skuId}`}
+                                    />
+                                    <Form.Label
+                                      className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                      htmlFor={`product-color-${color.skuId}`}
+                                    >
+                                      {color.colorCode == null ? (
+                                        <FaCheck />
+                                      ) : (
+                                        <span>{color.colorCode}</span>
+                                      )}
+                                    </Form.Label>
+                                  </li>
+                                </Link>
                               )
                             )}
                           </ul>
@@ -547,25 +530,27 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail.relationOfBaseCode.map(
                               (color, index) => (
-                                <li
+                                <Link
                                   key={index}
-                                  onClick={() => setSku(color.skuId)}
+                                  to={`/products-details/${color.skuId}`}
                                 >
-                                  <Form.Control
-                                    type="radio"
-                                    name="size1"
-                                    id={`product-color-${color.skuId}`}
-                                  />
-                                  <Form.Label
-                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                    htmlFor={`product-color-${color.skuId}`}
-                                    style={{
-                                      backgroundImage: `url(${color.colorCode})`,
-                                    }}
-                                  >
-                                    {color.colorCode == null && <FaCheck />}
-                                  </Form.Label>
-                                </li>
+                                  <li>
+                                    <Form.Control
+                                      type="radio"
+                                      name="size1"
+                                      id={`product-color-${color.skuId}`}
+                                    />
+                                    <Form.Label
+                                      className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                      htmlFor={`product-color-${color.skuId}`}
+                                      style={{
+                                        backgroundImage: `url(${color.colorCode})`,
+                                      }}
+                                    >
+                                      {color.colorCode == null && <FaCheck />}
+                                    </Form.Label>
+                                  </li>
+                                </Link>
                               )
                             )}
                           </ul>
@@ -588,10 +573,7 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail?.relationOfBaseCode.map(
                               (color, index) => (
-                                <li
-                                  key={index}
-                                  onClick={() => setSku(color.skuId)}
-                                >
+                                <li key={index}>
                                   <Form.Control
                                     type="radio"
                                     name="size1"
@@ -623,25 +605,27 @@ const Productdetails = () => {
                           <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                             {proDetail.relationOfBaseCode.map(
                               (color, index) => (
-                                <li
+                                <Link
                                   key={index}
-                                  onClick={() => setSku(color.skuId)}
+                                  to={`/product-details/${color.skuId}`}
                                 >
-                                  <Form.Control
-                                    type="radio"
-                                    name="size1"
-                                    id={`product-color-${color.skuId}`}
-                                  />
-                                  <Form.Label
-                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                    htmlFor={`product-color-${color.skuId}`}
-                                    style={{
-                                      backgroundImage: `url(${color.colorCode})`,
-                                    }}
-                                  >
-                                    {color.colorCode == null && <FaCheck />}
-                                  </Form.Label>
-                                </li>
+                                  <li>
+                                    <Form.Control
+                                      type="radio"
+                                      name="size1"
+                                      id={`product-color-${color.skuId}`}
+                                    />
+                                    <Form.Label
+                                      className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
+                                      htmlFor={`product-color-${color.skuId}`}
+                                      style={{
+                                        backgroundImage: `url(${color.colorCode})`,
+                                      }}
+                                    >
+                                      {color.colorCode == null && <FaCheck />}
+                                    </Form.Label>
+                                  </li>
+                                </Link>
                               )
                             )}
                           </ul>
@@ -684,11 +668,6 @@ const Productdetails = () => {
                       <Nav.Item as="li">
                         <Nav.Link as="a" eventKey="Description">
                           Description
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item as="li">
-                        <Nav.Link as="a" eventKey="Ratings">
-                          Ratings Reviews
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
@@ -734,361 +713,6 @@ const Productdetails = () => {
                             )}
                           ></p>
                         </div>
-                      </Tab.Pane>
-                      <Tab.Pane eventKey="Ratings">
-                        {proDetail?.comments?.length > 0 ? <div
-                          className="tab-pane show"
-                          id="profile2"
-                          role="tabpanel"
-                        >
-                          <div>
-                            <div className="d-flex flex-wrap gap-4 justify-content-between align-items-center mt-4">
-                              <div className="flex-shrink-0">
-                                <h5 className="fs-15 mb-3 fw-medium">
-                                  Average Rating: {}
-                                </h5>
-                                <h2 className="fw-bold mb-3">
-                                  
-                                  <span className="fs-16 align-middle text-warning ms-2">
-                                    <i className="ri-star-fill" />
-                                    <i className="ri-star-fill" />
-                                    <i className="ri-star-fill" />
-                                    <i className="ri-star-fill" />
-                                    <i className="ri-star-half-fill" />
-                                  </span>
-                                </h2>
-                                <p className="text-muted mb-0">
-                                  Average rating on this year
-                                </p>
-                              </div>
-                              <hr className="vr" />
-                              <div className="flex-shrink-0 w-xl">
-                                { proDetail?.comments?.map((item, idx) => {
-                                  return (
-                                    <Row
-                                      className="align-items-center g-3 align-items-center mb-2"
-                                      key={idx}
-                                    >
-                                      <Col className="col-auto">
-                                        <div>
-                                          <h6 className="mb-0 text-muted fs-13">
-                                            <i className="ri-star-fill text-warning me-1 align-bottom" />
-                                            {item.num}
-                                          </h6>
-                                        </div>
-                                      </Col>
-                                      <Col>
-                                        <div>
-                                          <ProgressBar
-                                            now={item.value}
-                                            variant={`${item.color}`}
-                                            className="progress animated-progress progress-sm"
-                                          />
-                                        </div>
-                                      </Col>
-                                      <Col className="col-auto">
-                                        <div>
-                                          <h6 className="mb-0 text-muted fs-13">
-                                            {item.progressnum}
-                                          </h6>
-                                        </div>
-                                      </Col>
-                                    </Row>
-                                  )
-                                }) }
-                              </div>
-                            </div>
-                            <SimpleBar
-                              className="mt-4"
-                              style={{ maxHeight: "350px" }}
-                            >
-                              <div className="d-flex p-3 border-bottom border-bottom-dashed">
-                                <div className="flex-shrink-0 me-3">
-                                  <Image
-                                    className="avatar-xs"
-                                    src={avatar5}
-                                    alt=""
-                                    roundedCircle
-                                  />
-                                </div>
-                                <div className="flex-grow-1">
-                                  <div className="d-flex mb-3">
-                                    <div className="flex-grow-1">
-                                      <div>
-                                        <div className="mb-2 fs-12">
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-line text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-line text-warning align-bottom" />
-                                          </span>
-                                        </div>
-                                        <h6 className="mb-0">Donald Risher</h6>
-                                      </div>
-                                    </div>
-                                    <div className="flex-shrink-0">
-                                      <p className="mb-0 text-muted">
-                                        <i className="ri-calendar-event-fill me-2 align-middle" />
-                                        Aug 16, 2022
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <h5 className="lh-base fs-15">
-                                      Design Quality
-                                    </h5>
-                                    <p className="mb-0">
-                                      " This is an incredible framework worth so
-                                      much in the right hands! Nowhere else are
-                                      you going to get so much flexibility and
-                                      great code for a few dollars. Highly
-                                      recommend purchasing today! Like right
-                                      now! "
-                                    </p>
-                                  </div>
-                                  <div className="d-flex mt-4">
-                                    <div className="flex-shrink-0 me-3">
-                                      <Image
-                                        className="avatar-xs"
-                                        src={avatar1}
-                                        alt=""
-                                        roundedCircle
-                                      />
-                                    </div>
-                                    <div className="flex-grow-1">
-                                      <div className="d-flex mb-3">
-                                        <div className="flex-grow-1">
-                                          <div>
-                                            <h6 className="mb-2">
-                                              Jansh Brown
-                                            </h6>
-                                            <p className="mb-0 text-muted fs-13">
-                                              Admin
-                                            </p>
-                                          </div>
-                                        </div>
-                                        <div className="flex-shrink-0">
-                                          <p className="mb-0 text-muted">
-                                            <i className="ri-calendar-event-fill me-2 align-middle" />
-                                            Aug 16, 2022
-                                          </p>
-                                        </div>
-                                      </div>
-                                      <p className="mb-0">Thank You</p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="d-flex p-3 border-bottom border-bottom-dashed">
-                                <div className="flex-shrink-0 me-3">
-                                  <Image
-                                    className="avatar-xs"
-                                    src={avatar3}
-                                    alt=""
-                                    roundedCircle
-                                  />
-                                </div>
-                                <div className="flex-grow-1">
-                                  <div className="d-flex mb-3">
-                                    <div className="flex-grow-1">
-                                      <div>
-                                        <div className="mb-2 fs-12">
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                        </div>
-                                        <h6 className="mb-0">Richard Smith</h6>
-                                      </div>
-                                    </div>
-                                    <div className="flex-shrink-0">
-                                      <p className="mb-0 text-muted">
-                                        <i className="ri-calendar-event-fill me-2 align-middle" />
-                                        Dec 10, 2022
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <h5 className="lh-base fs-15">
-                                      Feature Availability
-                                    </h5>
-                                    <p className="mb-0">
-                                      " Hello everyone, I would like to suggest
-                                      here two contents that you could create.
-                                      Course pages and blog pages. In them you
-                                      could insert the listing and management of
-                                      courses and listing and management of
-                                      blog. The theme is perfect, one of the
-                                      best purchases I've ever made. "
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="d-flex p-3 border-bottom border-bottom-dashed mb-3">
-                                <div className="flex-shrink-0 me-3">
-                                  <Image
-                                    className="avatar-xs"
-                                    src={avatar8}
-                                    alt=""
-                                    roundedCircle
-                                  />
-                                </div>
-                                <div className="flex-grow-1">
-                                  <div className="d-flex mb-3">
-                                    <div className="flex-grow-1">
-                                      <div>
-                                        <div className="mb-2 fs-12">
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-half-fill text-warning align-bottom" />
-                                          </span>
-                                          <span>
-                                            <i className="ri-star-line text-warning align-bottom" />
-                                          </span>
-                                        </div>
-                                        <h6 className="mb-0">Pauline Moll</h6>
-                                      </div>
-                                    </div>
-                                    <div className="flex-shrink-0">
-                                      <p className="mb-0 text-muted">
-                                        <i className="ri-calendar-event-fill me-2 align-middle" />
-                                        Aug 16, 2022
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <h5 className="lh-base fs-15">
-                                      Design Quality
-                                    </h5>
-                                    <p className="mb-0">
-                                      "We have used your other templates as well
-                                      and seems it's amazing with the design and
-                                      code quality. Wish you best for the future
-                                      updates. Keep updated you will be #1 in
-                                      near future. "
-                                    </p>
-                                  </div>
-                                  <div className="d-flex mt-4">
-                                    <div className="flex-shrink-0 me-3">
-                                      <Image
-                                        className="avatar-xs"
-                                        src={avatar1}
-                                        alt=""
-                                        roundedCircle
-                                      />
-                                    </div>
-                                    <div className="flex-grow-1">
-                                      <div className="d-flex mb-3">
-                                        <div className="flex-grow-1">
-                                          <div>
-                                            <h6 className="mb-2">
-                                              Jansh Brown
-                                            </h6>
-                                            <p className="mb-0 text-muted fs-13">
-                                              Admin
-                                            </p>
-                                          </div>
-                                        </div>
-                                        <div className="flex-shrink-0">
-                                          <p className="mb-0 text-muted">
-                                            <i className="ri-calendar-event-fill me-2 align-middle" />
-                                            Aug 16, 2022
-                                          </p>
-                                        </div>
-                                      </div>
-                                      <p className="mb-0">Thank You</p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </SimpleBar>
-
-                            <div className="pt-3">
-                              <h5 className="fs-18">Add a Review</h5>
-                              <div>
-                                <Form action="#">
-                                  <div className="d-flex align-items-center mb-3">
-                                    <span className="fs-14">Your rating:</span>
-                                    <div className="ms-3">
-                                      <span className="fs-14">
-                                        <i className="ri-star-fill text-warning align-bottom" />
-                                      </span>
-                                      <span className="fs-14">
-                                        <i className="ri-star-fill text-warning align-bottom" />
-                                      </span>
-                                      <span className="fs-14">
-                                        <i className="ri-star-fill text-warning align-bottom" />
-                                      </span>
-                                      <span className="fs-14">
-                                        <i className="ri-star-fill text-warning align-bottom" />
-                                      </span>
-                                      <span className="fs-14">
-                                        <i className="ri-star-half-fill text-warning align-bottom" />
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div className="mb-3">
-                                    <Form.Control
-                                      name="your-name"
-                                      placeholder="Title"
-                                      type="text"
-                                      defaultValue={"title"}
-                                    />
-                                  </div>
-                                  <div className="mb-3">
-                                    <Form.Control
-                                      as="textarea"
-                                      name="your-commemt"
-                                      placeholder="Enter your comments & reviews"
-                                      rows={4}
-                                      defaultValue={"sknd"}
-                                    />
-                                  </div>
-                                  <div className="text-end">
-                                    <Button
-                                      variant="primary"
-                                      className="btn-hover"
-                                      type="submit"
-                                      value="Submit"
-                                    >
-                                      Send Review
-                                      <i className="ri-send-plane-2-line align-bottom ms-1" />
-                                    </Button>
-                                  </div>
-                                </Form>
-                              </div>
-                            </div>
-                          </div>
-                        </div> : <h1>Heç bir rəy yoxdur</h1>}
-                        
                       </Tab.Pane>
                     </Tab.Content>
                   </Col>

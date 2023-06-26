@@ -6,12 +6,13 @@ import { Collapse, Button, Card, Form } from "react-bootstrap";
 
 import { useSelector } from "react-redux";
 import axios from "axios";
-const Filters = ({ name,products,setProducts }) => {
+const Filters = ({ name, products, setProducts }) => {
   let newList = [];
   const [mincost, setMincost] = useState(0);
   const [maxcost, setMaxcost] = useState(2000);
 
   const subs = useSelector((state) => state.persistedReducer.Subcategories);
+  console.log(subs);
 
   const [categories, setCategories] = useState([]);
   //Collapse
@@ -40,19 +41,26 @@ const Filters = ({ name,products,setProducts }) => {
         maxValue: maxcost.length > 0 ? maxcost : null,
         disCount: selectedDiscount != "" ? selectedDiscount : null,
         rating: selectedRating != "" ? selectedRating : null,
-        searchWord: changeInput != "" ? changeInput : null
+        searchWord: changeInput != "" ? changeInput : null,
       };
       const req = await axios.get(
         `${process.env.REACT_APP_BASE_URL}Products/GetAll?page=1&count=30&isDelete=false`,
         {
           params: queryParams,
-          headers:{
-            subCategoryIds: selectedSubs.join(',')
-          }
+          headers: {
+            subCategoryIds: selectedSubs.join(","),
+          },
         }
       );
-      console.log(req.data);
-      setProducts(req.data)
+
+      const findDefaults = req.data
+        .map((product) => {
+          if (product.isDefault == true) {
+            return product;
+          }
+        })
+        .filter(Boolean);
+      setProducts(findDefaults);
     } catch (error) {
       toast.error("Sorğuda xəta baş verdi");
     }
@@ -126,7 +134,14 @@ const Filters = ({ name,products,setProducts }) => {
                               </div>
                               <div className="flex-shrink-0 ms-2">
                                 <span className="badge bg-light text-muted">
-                                  {cat.productSubCategories.length}
+                                  {
+                                    cat.productSubCategories
+                                      .filter((s) => {
+                                        if (s.product.isDefault) {
+                                          return s;
+                                        }
+                                      }).length
+                                  }
                                 </span>
                               </div>
                             </Form.Label>
@@ -217,69 +232,6 @@ const Filters = ({ name,products,setProducts }) => {
                 </div>
               </Collapse>
             </div>
-
-            <Button
-              onClick={() => setRating(!rating)}
-              aria-controls="flush-collapseRating"
-              aria-expanded={rating}
-              className="accordion-button bg-transparent shadow-none"
-            >
-              <span className="text-muted text-uppercase fs-12 fw-medium">
-                Rating
-              </span>
-              <span className="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
-            </Button>
-            <Collapse in={rating}>
-              <div id="flush-collapseRating">
-                <div
-                  className="accordion-collapse collapse show"
-                  aria-labelledby="flush-headingRating"
-                >
-                  <div className="accordion-body text-body">
-                    <div
-                      className="d-flex flex-column gap-2 filter-check"
-                      id="rating-filter"
-                    >
-                      {ratings.map((rat, index) => (
-                        <div
-                          className="form-check"
-                          key={index}
-                          onClick={() => setSelectedRating(rat)}
-                        >
-                          <Form.Check
-                            type="radio"
-                            name="rating_check"
-                            value={rat}
-                            id="rating"
-                          />
-                          <Form.Label
-                            className="form-check-label"
-                            htmlFor="rating_check"
-                          >
-                            <span className="text-muted">
-                              {Array.from({ length: rat })
-                                .fill(0)
-                                .map((r, i) => (
-                                  <i
-                                    key={i}
-                                    className="mdi mdi-star text-warning"
-                                  ></i>
-                                ))}
-                              {Array.from({ length: 5 - rat })
-                                .fill(0)
-                                .map((f, idx) => (
-                                  <i key={idx} className="mdi mdi-star"></i>
-                                ))}
-                            </span>{" "}
-                            {rat} Above
-                          </Form.Label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Collapse>
           </div>
         </Card>
       </div>

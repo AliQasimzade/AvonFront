@@ -72,37 +72,37 @@ import SubCatProduct from "../Pages/Product/SubCatProduct";
 import ReferalCodePage from "../Pages/User/ReferalCodePage";
 
 const authProtectedRoutes = [
-  // { path: "/ana-sehife", component: <Home /> },
-  // { path: "/catalog/clothing", component: <Catalog /> },
+  { path: "/ana-sehife", component: <Home /> },
+  { path: "/catalog/clothing", component: <Catalog /> },
 
-  // { path: "/hesabim/unvanlarim", component: <ShopIndex /> },
-  // { path: "/shop/order", component: <Trackorder /> },
-  // { path: "/shop/review", component: <Review />, isLight: "light" },
-  // { path: "/shop/confirm", component: <Confirm /> },
-  // { path: "/shop/orderhistory", component: <Orderhistory /> },
-  // { path: "/shop/shopingcard", component: <Shopingcard /> },
-  // { path: "/resmilesdirme", component: <Checkout /> },
-  // { path: "/shop/wishList", component: <WishList /> },
-  // { path: "/products", component: <Defaultgrid />},
+  { path: "/hesabim/unvanlarim", component: <ShopIndex /> },
+  { path: "/shop/order", component: <Trackorder /> },
+  { path: "/shop/review", component: <Review />, isLight: "light" },
+  { path: "/shop/confirm", component: <Confirm /> },
+  { path: "/shop/orderhistory", component: <Orderhistory /> },
+  { path: "/shop/shopingcard", component: <Shopingcard /> },
+  { path: "/resmilesdirme", component: <Checkout /> },
+  { path: "/shop/wishList", component: <WishList /> },
+  { path: "/products", component: <Defaultgrid />},
 
-  // { path: "/product-details/:skuId", component: <Productdetails /> },
+  { path: "/product-details/:skuId", component: <Productdetails /> },
 
-  // { path: "/kateqoriyalar/:slug", component: <Categories /> },
-  // { path: "/haqqimizda", component: <About /> },
-  // { path: "/purchase-guide", component: <Purchaseguide /> },
-  // { path: "/terms-conditions", component: <Termsconditions /> },
-  // { path: "/privacy-policy", component: <Privacypolicy /> },
-  // { path: "/store-locator", component: <Storelocator /> },
-  // { path: "/ecommerce-faq", component: <FAQ /> },
-  // { path: "/invoice", component: <Invoice /> },
-  // { path: "/elaqe", component: <ContactUs /> },
+  { path: "/kateqoriyalar/:slug", component: <Categories /> },
+  { path: "/haqqimizda", component: <About /> },
+  { path: "/purchase-guide", component: <Purchaseguide /> },
+  { path: "/terms-conditions", component: <Termsconditions /> },
+  { path: "/privacy-policy", component: <Privacypolicy /> },
+  { path: "/store-locator", component: <Storelocator /> },
+  { path: "/ecommerce-faq", component: <FAQ /> },
+  { path: "/invoice", component: <Invoice /> },
+  { path: "/elaqe", component: <ContactUs /> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
   {
     path: "/",
     exact: true,
-    component: <Navigate to="/giris" />,
+    component: <Navigate to="/ana-sehife" />,
   },
 ];
 
@@ -110,22 +110,22 @@ const publicRoutes = [
   { path: "/hesabim", component: <MyAccount /> },
   { path: "/giris", component: <Signin /> },
   { path: "/qeydiyyat", component: <SignUp /> },
-//   { path: "/referal", component: <ReferalCodePage /> },
+  { path: "/referal", component: <ReferalCodePage /> },
 
-  // { path: "/sifreni-sifirla", component: <Passwordreset /> },
-  // { path: "/sifreni-yarat", component: <Passwordcreate /> },
-  // { path: "/auth-success-msg-basic", component: <Successmsg /> },
-  // { path: "/emaili-tesdiqle", component: <Verifyemail /> },
+  { path: "/sifreni-sifirla", component: <Passwordreset /> },
+  { path: "/sifreni-yarat", component: <Passwordcreate /> },
+  { path: "/auth-success-msg-basic", component: <Successmsg /> },
+  { path: "/emaili-tesdiqle", component: <Verifyemail /> },
   { path: "/cixis", component: <Logout /> },
-  // { path: "/xeta-404", component: <Error404 /> },
-  // { path: "/xeta-500", component: <Error500 /> },
-  //  { path: "/coming-soon", component: <Comingsoon /> },
+  { path: "/xeta-404", component: <Error404 /> },
+  { path: "/xeta-500", component: <Error500 /> },
+   { path: "/coming-soon", component: <Comingsoon /> },
 
-  // { path: "/email-black-friday", component: <Blackfriday /> },
-  // { path: "/email-flash-sale", component: <Flashsale /> },
-  // { path: "/email-order-success", component: <Ordersuccess /> },
-  // { path: "/email-order-success-2", component: <Ordersuccess2 /> },
-  // { path: "*", component: <NotFound /> }
+  { path: "/email-black-friday", component: <Blackfriday /> },
+  { path: "/email-flash-sale", component: <Flashsale /> },
+  { path: "/email-order-success", component: <Ordersuccess /> },
+  { path: "/email-order-success-2", component: <Ordersuccess2 /> },
+  { path: "*", component: <NotFound /> }
 ];
 
 export { authProtectedRoutes, publicRoutes };

@@ -685,7 +685,7 @@ export const CardModal = ({ show, handleClose }) => {
       >
         <Offcanvas.Header closeButton className="border-bottom">
           <Offcanvas.Title id="ecommerceCartLabel" as="h5">
-            My Cart{" "}
+            My Cart
             <span className="badge bg-danger align-middle ms-1 cartitem-badge">
               {basket.length}
             </span>
@@ -716,7 +716,7 @@ export const CardModal = ({ show, handleClose }) => {
                           </div>
                         </div>
                         <div className="flex-grow-1">
-                          <Link to="#">
+                          <Link to={`/product-details/${item.product.skuId}`}>
                             <h5 className="fs-15">{item.product.name}</h5>
                           </Link>
                           <div className="d-flex mb-3 gap-2">
@@ -727,7 +727,7 @@ export const CardModal = ({ show, handleClose }) => {
                               </span>
                             </div>
                             <div className="vr"></div>
-                            <span className="text-success fw-medium"></span>
+                            <span className="text-success fw-medium">{item.productCount}</span>
                           </div>
                         </div>
                         <div className="flex-shrink-0 d-flex flex-column justify-content-between align-items-end">

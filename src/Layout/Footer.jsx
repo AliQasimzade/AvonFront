@@ -128,26 +128,8 @@ const Footer = (props) => {
                     </Row>
 
                     <Row className="footer-border-alt mt-4 align-items-center fs-15">
-                        <Col sm={6}>
+                        <Col sm={12}>
                             © AVON.NET.AZ  {new Date().getFullYear()}.  Müəllif hüquqları qorunur. Hazırladı  <a href="https://rgagency.org/" className="text-reset text-decoration-none">RG Agency</a>
-                        </Col>
-                        <Col sm={6}>
-                            <div className="text-sm-end d-none d-sm-block">
-                                <ul className="list-inline mb-0">
-                                    <li className="list-inline-item">
-                                        <Link to="#"><Image src={visa} alt="" height="30" /></Link>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <Link to="#"><Image src={discover} alt="" height="30" /></Link>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <Link to="#"><Image src={americanexpress} alt="" height="30" /></Link>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <Link to="#"><Image src={paypal} alt="" height="30" /></Link>
-                                    </li>
-                                </ul>
-                            </div>
                         </Col>
                     </Row>
                 </Container>

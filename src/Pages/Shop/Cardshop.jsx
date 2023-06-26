@@ -193,11 +193,9 @@ const Cardshop = () => {
           </div>
         </div>
         <h3>
-          Endirimli məhsullar - %
-          {basket.length > 0
-            ? basket.find((i) => i.basketDiscountPrice !== null)
-                .basketDiscountPrice
-            : 0}
+          Endirimli məhsullar -
+          {basket.length > 0 && basket.find((i) => i.basketDiscountPrice !== null) ? `${basket.find((i) => i.basketDiscountPrice !== null).basketDiscountPrice} %` : "Yoxdur"
+            }
         </h3>
         {basket.length > 0 &&
           basket
@@ -450,10 +448,7 @@ const Cardshop = () => {
             subtotal={subtotal}
             total={total}
             dic={
-              basket.length > 0
-                ? basket.find((d) => d.basketDiscountPrice != null)
-                    .basketDiscountPrice
-                : 0
+              basket.length > 0 && basket.find((d) => d.basketDiscountPrice != null) ? basket.find((d) => d.basketDiscountPrice != null).basketDiscountPrice : 0
             }
           />
           <div className="hstack gap-2 justify-content-end">

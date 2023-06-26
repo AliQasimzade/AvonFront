@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Col, Container, Row, Card, Button, Form, Breadcrumb, Image } from 'react-bootstrap';
+import {
+  Col,
+  Container,
+  Row,
+  Card,
+  Button,
+  Form,
+  Breadcrumb,
+  Image,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -46,11 +55,9 @@ const Categories = (props) => {
       );
       if (response.status == 200) {
         const data = response.data;
-        console.log(slug);
         setCategory(data);
         const filterSub = data.find((sub) => sub.name == slug);
         if (filterSub) {
-          console.log(filterSub);
           setSubImage(filterSub.image);
           setProducts([...filterSub.productSubCategories]);
         } else {
@@ -87,9 +94,9 @@ const Categories = (props) => {
                   className="text-white lh-base text-capitalize"
                   data-key="t-category"
                 >
-                  {props.t(slug)}
+                  {slug}
                 </h1>
-                {subImage.length > 0 && (
+                {subImage != '' && (
                   <img
                     src={subImage}
                     style={{
@@ -109,7 +116,8 @@ const Categories = (props) => {
         <Container>
           <TopCategoies title={props.t("AllCategories")} />
           <Row>
-            {category.length > 0 && category.map((cat, ind) => {
+            {category.length > 0 &&
+              category.map((cat, ind) => {
                 return (
                   <Col lg={2} md={3} sm={6} key={ind}>
                     <div className="text-center">
@@ -124,9 +132,7 @@ const Categories = (props) => {
                         <Link to={`/catalog/${cat.name}`}>
                           <h5 className="mb-2 fs-15">{cat.name}</h5>
                         </Link>
-                        <p className="text-muted fs-12">
-                        
-                        </p>
+                        <p className="text-muted fs-12"></p>
                       </div>
                     </div>
                   </Col>
@@ -145,63 +151,90 @@ const Categories = (props) => {
         <Container>
           <TopCategoies title="Slider Products" />
           <Row>
-                {products.length > 0 && products.map((prd, ind) => (
-                    <Col key={ind} lg={4}>
-                      <Card className="overflow-hidden">
-                                        <div className={`bg-subtle rounded-top py-4`}>
-                                            <div className="gallery-product" style={{height:'200px', display:'flex', alignItems:'center' }}>
-                                                <Image src={prd.product.posterImage} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
-                                            </div>
-                                            <div className="product-btn px-3">
-                                                <Link to={`/product-details/${prd.product.skuId}`} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Ətraflı bax</Link>
-                                            </div>
-                                        </div>
-                                        <Card.Body className="card-body">
-                                            <div>
-                                                <Link to={`/product-details/${prd.product.skuId}`}>
-                                                    <h6 className="fs-15 lh-base text-truncate mb-0">{prd.product.name}</h6>
-                                                </Link>
-                                                <div className="mt-3">
-                                                    <span className="float-end">5 <i className="ri-star-half-fill text-warning align-bottom"></i></span>
-                                                    {
-                                                        prd.product.discountPrice > 0 ? (
-                                                            <h5 className="mb-0">{prd.product.discountPrice > 0 ? (prd.product.salePrice - (prd.product.salePrice * prd.product.discountPrice) / 100) : prd.product.salePrice} ₼<span className="text-muted fs-12"><del>{prd.product.salePrice} ₼</del></span></h5>
-                                                        ) : (
-                                                            <h5 className="mb-0">{prd.product.salePrice} ₼</h5>
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                    </Col>
-                  )
-                  )}
-                  </Row>
-
-                {(sliderCategories || []).map((item, key) => (
-                  <SwiperSlide key={key}>
-                    <Card className="card-animate overflow-hidden">
-                      <div className={`bg-${item.bg}-subtle rounded-top py-4`}>
-                        <div className="gallery-product">
-                          <Image
-                            src={item.img}
-                            alt=""
-                            style={{ maxHeight: "215px", maxWidth: "100%" }}
-                            className="mx-auto d-block"
-                          />
-                        </div>
+            {products.length > 0 &&
+              products.map((prd, ind) => (
+                <Col key={ind} lg={4} className="element-item seller">
+                  <Card className="overflow-hidden">
+                    <div className={`bg-subtle rounded-top py-4`}>
+                      <div
+                        className="gallery-product"
+                        style={{
+                          height: "200px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Image
+                          src={prd.product.posterImage}
+                          alt=""
+                          style={{ maxHeight: 215, maxWidth: "100%" }}
+                          className="mx-auto d-block"
+                        />
                       </div>
-                      <Card.Body className="text-center">
-                        <Link to="/product-list" className="stretched-link">
-                          <h6 className="fs-16 lh-base text-truncate">
-                            {item.title}
+                      <div className="product-btn px-3">
+                        <Link
+                          to={`/product-details/${prd.product.skuId}`}
+                          className="btn btn-primary btn-sm w-75 add-btn"
+                        >
+                          <i className="mdi mdi-cart me-1"></i> Ətraflı bax
+                        </Link>
+                      </div>
+                    </div>
+                    <Card.Body className="card-body">
+                      <div>
+                        <Link to={`/product-details/${prd.product.skuId}`}>
+                          <h6 className="fs-15 lh-base text-truncate mb-0">
+                            {prd.product.name}
                           </h6>
                         </Link>
-                      </Card.Body>
-                    </Card>
-                  </SwiperSlide>
-                ))}
+                        <div className="mt-3">
+                          {prd.product.discountPrice > 0 ? (
+                            <h5 className="mb-0">
+                              {prd.product.discountPrice > 0
+                                ? prd.product.salePrice -
+                                  (prd.product.salePrice *
+                                    prd.product.discountPrice) /
+                                    100
+                                : prd.product.salePrice}{" "}
+                              ₼
+                              <span className="text-muted fs-12">
+                                <del>{prd.product.salePrice} ₼</del>
+                              </span>
+                            </h5>
+                          ) : (
+                            <h5 className="mb-0">{prd.product.salePrice} ₼</h5>
+                          )}
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+          </Row>
+
+          {(sliderCategories || []).map((item, key) => (
+            <SwiperSlide key={key}>
+              <Card className="card-animate overflow-hidden">
+                <div className={`bg-${item.bg}-subtle rounded-top py-4`}>
+                  <div className="gallery-product">
+                    <Image
+                      src={item.img}
+                      alt=""
+                      style={{ maxHeight: "215px", maxWidth: "100%" }}
+                      className="mx-auto d-block"
+                    />
+                  </div>
+                </div>
+                <Card.Body className="text-center">
+                  <Link to="/product-list" className="stretched-link">
+                    <h6 className="fs-16 lh-base text-truncate">
+                      {item.title}
+                    </h6>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </SwiperSlide>
+          ))}
         </Container>
       </section>
       <section className="section">

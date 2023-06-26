@@ -15,10 +15,12 @@ import { shopProducDetails } from "../../Common/data";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 const Trackorder = () => {
   const orders = useSelector((state) => state.persistedReducer.Accont.user);
-  console.log(orders);
-  document.title = "Track Order | RGAgency - React FrontEnd";
+
   const [searchOrder, setSearchOrder] = useState(null);
   const [search, setSearch] = useState("");
 
@@ -33,6 +35,7 @@ const Trackorder = () => {
       setSearchOrder(findOrder);
     } else {
       setSearchOrder(null);
+      toast.info('Belə bir sifariş yoxdur')
     }
     setSearch("");
   };
@@ -42,6 +45,19 @@ const Trackorder = () => {
   };
   return (
     <>
+    <Helmet>
+      <title>Sifarişi izləyin | AVONAZ.NET – Online kosmetika mağazası</title>
+    </Helmet>
+     <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
+        theme="light"
+      />
       <Shoptopbar title="Track Order" page="Track Order" />
       <Container className="pb-4">
         <div className="w-25 d-flex flex-column mt-4">

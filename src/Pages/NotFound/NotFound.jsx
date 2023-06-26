@@ -1,13 +1,18 @@
 import React from "react";
-
+import AvonLogo from "../../assets/images/avonLogo.png";
+import { Helmet } from "react-helmet-async";
 const NotFound = () => {
   return (
-    <div>
-      <div className="page-not-found-main">
+    <div style={{height:'100vh'}}>
+      <Helmet>
+        <title>Səhifə tapılmadı – Online kosmetika mağazası</title>
+      </Helmet>
+      <div className="page-not-found-main d-flex justify-content-center flex-column align-items-center h-100">
+        <img src={AvonLogo} alt="Logo" style={{width:'180px', }}/>
         <h2 className="entry-title">
           404 <i className="fas fa-file"></i>
         </h2>
-        <p>Bizə çox təəssüf, amma səhifəsi olduğunuz axtarır, mövcud deyil.</p>
+        <p style={{fontSize:'22px'}}> Çox təəssüf, axtardıqınız səhifə mövcud deyil.</p>
       </div>
     </div>
   );

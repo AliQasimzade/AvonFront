@@ -278,9 +278,8 @@ const Checkout = () => {
                 <Shoporder
                   subtotal={subtotal}
                   dic={
-                    basket.length > 0 ?
-                    basket.find((i) => i.basketDiscountPrice != null)
-                      .basketDiscountPrice : 0
+                    basket.length > 0 &&
+                    basket.find((i) => i.basketDiscountPrice != null) ? basket.find((i) => i.basketDiscountPrice != null) .basketDiscountPrice : 0
                   }
                   charge="2.4"
                   total={total}

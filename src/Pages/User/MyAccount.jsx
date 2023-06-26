@@ -30,7 +30,7 @@ import { storage } from "../../firebase/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { Helmet } from "react-helmet-async";
 const MyAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -80,7 +80,6 @@ const MyAccount = () => {
         checkY
       );
       setReferalUsers(res.noActiveUsers);
-      console.log(res.noActiveUsers);
     }
   };
   const fileRef = useRef(null);
@@ -182,6 +181,9 @@ const MyAccount = () => {
   });
   return (
     <>
+    <Helmet>
+      <title>Mənim hesabım | AVONAZ.NET – Online kosmetika mağazası</title>
+    </Helmet>
       <ToastContainer
         position="top-right"
         autoClose={5000}

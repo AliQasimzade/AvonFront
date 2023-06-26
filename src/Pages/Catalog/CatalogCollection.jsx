@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Row, Col, Card, Button, Image } from "react-bootstrap";
 import "./Catalog.css";
 import { AiFillExclamationCircle } from "react-icons/ai";
@@ -360,26 +360,6 @@ const CatalogCollection = ({
                             </h6>
                           </Link>
                           <div className="mt-2">
-                            {item.relationOfBaseCode[count[i]].comments.length >
-                            0 ? (
-                              <span className="float-end">
-                                {Number(
-                                  item.relationOfBaseCode[count[i]].comments
-                                    .map((retinhg) => retinhg.star)
-                                    .reduce((acc, item) => acc + item, 0) /
-                                    item.relationOfBaseCode[count[i]].comments
-                                      .length
-                                ).toFixed(2)}
-                                :
-                                <i className="ri-star-half-fill text-warning align-bottom"></i>
-                              </span>
-                            ) : (
-                              <span className="float-end">
-                                retingi yoxdur
-                                <i className="ri-star-half-fill text-warning align-bottom"></i>
-                              </span>
-                            )}
-
                             {item?.relationOfBaseCode[count[i]].discountPrice >
                             0 ? (
                               <>

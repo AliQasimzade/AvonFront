@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Əsas Səhifə</title>
+        <title>Əsas Səhifə | AVONAZ.NET – Online kosmetika mağazası</title>
       </Helmet>
       <Collection />
       <Service />

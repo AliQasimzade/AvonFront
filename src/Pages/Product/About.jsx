@@ -10,14 +10,13 @@ import { aboutCard, aboutManagement } from "../../Common/data";
 import { DefauilOffer } from "../../Components/ProductSilde";
 import { CommonService } from "../../Components/CommonService";
 import { getAllSettings } from "../../services/getRequests.js";
-
+import { Helmet } from "react-helmet-async";
 const About = () => {
   const [aboutUs, setAboutUs] = useState([]);
 
   const getAboutUs = async () => {
     const res = await getAllSettings();
     setAboutUs(res);
-    console.log(res);
   };
 
   useEffect(() => {
@@ -25,6 +24,9 @@ const About = () => {
   }, []);
   return (
     <>
+    <Helmet>
+      <title>Haqqımızda | AVONAZ.NET – Online kosmetika mağazası</title>
+    </Helmet>
       <section className="ecommerce-about">
         <div className="effect d-none d-md-block">
           <div className="ecommerce-effect bg-primary"></div>

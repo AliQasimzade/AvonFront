@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { PostMessageWithAboutUs } from "../../services/postRequests";
-
+import { Helmet } from "react-helmet-async";
 const ContactUs = () => {
     const formik = useFormik({
         initialValues: {
@@ -21,7 +21,6 @@ const ContactUs = () => {
         }),
         onSubmit: async (values) => {
            const res = await PostMessageWithAboutUs(values);
-           console.log(res);
         },
     });
 
@@ -31,9 +30,7 @@ const ContactUs = () => {
           try {
             const response = await axios.get('https://avonazerbaijan.com/api/Settings/Manage/GetAll?isDeleted=false');
             setContact(response.data);
-            console.log(response.data);
           } catch (error) {
-            console.log(error.message);
           }
         };
     
@@ -42,6 +39,9 @@ const ContactUs = () => {
 
     return (
         <>
+        <Helmet>
+            <title>Bizimlə Əlaqə | AVONAZ.NET – Online kosmetika mağazası</title>
+        </Helmet>
             <section className="ecommerce-about bg-primary">
                 <Container>
                     <Row className="justify-content-center">

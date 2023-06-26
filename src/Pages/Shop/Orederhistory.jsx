@@ -26,7 +26,7 @@ const Orderhistory = () => {
   return (
     <>
       <Helmet>
-        <title>Sifariş Tarixi</title>
+        <title>Sifariş Tarixi AVONAZ.NET – Online kosmetika mağazası</title>
       </Helmet>
       <Shoptopbar title="Order History" page="Order History" />
       <section className="section">

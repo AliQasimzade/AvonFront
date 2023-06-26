@@ -14,7 +14,6 @@ import Pagination from "./Pagination";
 import { ProductNoui } from "./Homepage";
 
 export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) => {
-    console.log(fileter);
     const isdisplay = isnone;
     //pagination
     const pagination = true;
@@ -80,23 +79,6 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                                             <div className="gallery-product" style={{height:'200px', display:'flex', alignItems:'center' }}>
                                                 <Image src={item.posterImage} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
                                             </div>
-                                            {/* yuxarisindaki filter olmadigina gore buda qaldi */}
-                                            {/* <p className="fs-11 fw-medium badge bg-primary py-2 px-3 product-lable mb-0">{item.best || ''}</p> */}
-                                            <div className="gallery-product-actions">
-                                                <div className="mb-2">
-                                                    <Button type="button" variant="danger" className="btn-sm custom-toggle" data-bs-toggle="button" onClick={(e) => Tooglelike(e.target)}>
-                                                        <span className="icon-on"><i className="mdi mdi-heart-outline align-bottom fs-15"></i></span>
-                                                        <span className="icon-off"><i className="mdi mdi-heart align-bottom fs-15"></i></span>
-                                                    </Button>
-                                                </div>
-
-                                                <div>
-                                                    <Button type="button" variant="success" className=" btn-sm custom-toggle" data-bs-toggle="button" onClick={(e) => Toogleview(e.target)}>
-                                                        <span className="icon-on"><i className="mdi mdi-eye-outline align-bottom fs-15"></i></span>
-                                                        <span className="icon-off"><i className="mdi mdi-eye align-bottom fs-15"></i></span>
-                                                    </Button>
-                                                </div>
-                                            </div>
                                             <div className="product-btn px-3">
                                                 <Link to={`/product-details/${item.skuId}`} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Ətraflı bax</Link>
                                             </div>
@@ -107,7 +89,6 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                                                     <h6 className="fs-15 lh-base text-truncate mb-0">{item.name}</h6>
                                                 </Link>
                                                 <div className="mt-3">
-                                                    <span className="float-end">5 <i className="ri-star-half-fill text-warning align-bottom"></i></span>
                                                     {
                                                         item.discountPrice > 0 ? (
                                                             <h5 className="mb-0">{item.discountPrice > 0 ? (item.salePrice - (item.salePrice * item.discountPrice) / 100) : item.salePrice} ₼<span className="text-muted fs-12"><del>{item.salePrice} ₼</del></span></h5>

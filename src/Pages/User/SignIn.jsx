@@ -72,7 +72,7 @@ const Signin = () => {
 
               dispatch(changeAccont(res.data));
               setTimeout(() => {
-                navigate("/hesabim");
+                navigate("/ana-sehife");
               }, 1000);
             });
         })
