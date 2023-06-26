@@ -26,7 +26,7 @@ const Confirm = () => {
                                         <p className="text-muted mb-2">You will receive an order confirmation email with details of your order.</p>
                                         <div className="mt-4 pt-2 hstack gap-2 justify-content-center">
                                             <Link to='/shop/orderhistory' className="btn btn-primary btn-hover">View Order <i className="ri-arrow-right-line align-bottom ms-1"></i></Link>
-                                            <Link to='/ana-sehife' className="btn btn-soft-danger btn-hover">Back To Home <i className="ri-home-4-line align-bottom ms-1"></i></Link>
+                                            <Link to='/ana-sehife' className="btn btn-soft-danger btn-hover">Əsas səhifəyə qayıt <i className="ri-home-4-line align-bottom ms-1"></i></Link>
                                         </div>
                                     </div>
                                 </Card.Body>

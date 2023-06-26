@@ -25,7 +25,6 @@ const SignUp = () => {
   const [profileImage, setProfileImage] = useState("");
   const addStoreImage = () => {
     formik.setFieldValue("profileImage", fileRef.current.files[0]);
-    console.log(fileRef.current.name);
     const file = fileRef.current.files[0];
     const storageRef = ref(storage, fileRef.current.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -42,7 +41,6 @@ const SignUp = () => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log(downloadURL);
           setProfileImage(downloadURL);
         });
       }
@@ -90,7 +88,6 @@ const SignUp = () => {
         axios
           .post("https://avonazerbaijan.com/api/Account/register", formData)
           .then((response) => {
-            console.log("Response from API:", response.data);
             toast.success(response.data)
             setTimeout(() => {
               navigate("/giris");

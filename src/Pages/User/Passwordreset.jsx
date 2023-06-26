@@ -39,7 +39,6 @@ const Passwordreset = () => {
             body: JSON.stringify({ username: values.email }),
           }
         );
-        console.log(response);
         if (response.ok) {
          toast.success('Zəhmət olmasa e-poçt ünvanınıza keçid edib gələn linkə keçid edin')
          values.email = ""
@@ -174,7 +173,7 @@ const Passwordreset = () => {
                 <Col lg={12}>
                   <div className="text-center">
                     <p className="mb-0 text-muted">
-                      ©{new Date().getFullYear()} RGAgency. Sevgi ilə hazırladı{" "}
+                      ©{new Date().getFullYear()} Avon Azərbaycan Sevgi ilə hazırladı{" "}
                       <i className="mdi mdi-heart text-danger" /> by RGAgency
                     </p>
                   </div>

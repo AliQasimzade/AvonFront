@@ -71,10 +71,7 @@ const ListProductData = ({ listnoslider }) => {
                 <Col xl={12}>
                     <div id="product-list">
                         {
-                            // currentdata && currentdata.length > 0 ?
                             (currentdata || [])?.map((item) => {
-                                console.log("item", item.pr);
-
                                 return (
                                     <Card className="ribbon-box" key={item.id}>
                                         {item.pr && <div className="ribbon ribbon-danger ribbon-shape">{item.pr}</div>}

@@ -21,8 +21,6 @@ const Orderhistory = () => {
   const orders = useSelector(
     (state) => state.persistedReducer.Accont.user.orders
   );
-  console.log(selectedOrder);
-
   return (
     <>
       <Helmet>

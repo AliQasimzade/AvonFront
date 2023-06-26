@@ -458,7 +458,6 @@ export const SearchModal = ({ show, handleClose }) => {
         `${process.env.REACT_APP_BASE_URL}Products/GetAll?isDelete=false&searchword=${value}`
       );
       if (request.status == 200) {
-        console.log(request.data);
         setResult(request.data);
         setLoading(false);
       } else {

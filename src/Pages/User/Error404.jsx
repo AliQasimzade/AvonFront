@@ -19,16 +19,16 @@ const Error404 = () => {
                             <Col className="col-auto">
                                 <ul className="list-unstyled hstack gap-2 mb-0">
                                     <li className="me-md-3">
-                                        <Link to="#" className="text-body fw-medium fs-15">Become a Selling</Link>
+                                        <Link to="#" className="text-body fw-medium fs-15">Satış təmsilçisi olmaq istəyirsən</Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-google-play align-middle me-1" /> Download App
+                                            <i className="bi bi-google-play align-middle me-1" /> Tətbiqi endir
                                         </Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-apple align-middle me-1" /> Download App
+                                            <i className="bi bi-apple align-middle me-1" /> Tətbiqi endir
                                         </Link>
                                     </li>
                                 </ul>
@@ -48,11 +48,10 @@ const Error404 = () => {
                                             </div>
                                             <div className="mt-4 text-center pt-3">
                                                 <div className="position-relative">
-                                                    <h4 className="fs-18 error-subtitle text-uppercase mb-0">Opps, page not found</h4>
-                                                    <p className="fs-15 text-muted mt-3">It will be as simple as Occidental in fact,
-                                                        it will Occidental to an English person</p>
+                                                    <h4 className="fs-18 error-subtitle text-uppercase mb-0">Opps, səhifə tapılmadı</h4>
+                                                    <p className="fs-15 text-muted mt-3">Axtardığınız səhifə silinmiş və ya heç vaxt mövcud olmamış ola bilər</p>
                                                     <div className="mt-4">
-                                                        <Link to='/' className="btn btn-primary"><i className="mdi mdi-home me-1" />Back to home</Link>
+                                                        <Link to='/' className="btn btn-primary"><i className="mdi mdi-home me-1" />Əsas səhifəyə qayıt</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,7 +67,7 @@ const Error404 = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
+                                            {new Date().getFullYear()} Avon Azərbaycan Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
                                         </p>
                                     </div>
                                 </Col>

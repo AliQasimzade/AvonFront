@@ -54,7 +54,6 @@ const MyAccount = () => {
   const getMyPrices = async () => {
      try {
       const req = await axios.get(`${process.env.REACT_APP_BASE_URL}Account/Price?Id=5fffdbbb-64bc-4e19-809a-e7b597297622`)
-      console.log(req.data);
       setMyPrices(req.data)
      } catch (error) {
       
@@ -120,7 +119,6 @@ const MyAccount = () => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log(downloadURL);
           setProfileImage(downloadURL);
         });
       }
@@ -253,7 +251,7 @@ const MyAccount = () => {
                           style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-person-circle align-middle me-1"></i>{" "}
-                          Account Info
+                          Hesab məlumatları
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item as="li">
@@ -265,7 +263,7 @@ const MyAccount = () => {
                           style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-bookmark-check align-middle me-1"></i>{" "}
-                          Wish list
+                          İstək siyahısı
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item as="li">
@@ -288,7 +286,7 @@ const MyAccount = () => {
                           style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-gear align-middle me-1"></i>{" "}
-                          Settings
+                          Parametrlər
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item as="li">
@@ -300,7 +298,7 @@ const MyAccount = () => {
                           style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-person align-middle me-1"></i>{" "}
-                          Referal Users
+                          Biznesim
                         </Nav.Link>
                       </Nav.Item>
 
@@ -326,7 +324,7 @@ const MyAccount = () => {
                           onClick={logOut}
                         >
                           <i className="bi bi-box-arrow-right align-middle me-1"></i>{" "}
-                          Logout
+                          Çıxış
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
@@ -347,7 +345,7 @@ const MyAccount = () => {
                             <Card.Body>
                               <div className="d-flex mb-4">
                                 <h6 className="fs-16 text-decoration-underline flex-grow-1 mb-0">
-                                  Personal Info
+                                  Şəxsi məlumatlar
                                 </h6>
                               </div>
 
@@ -355,38 +353,38 @@ const MyAccount = () => {
                                 <Table className="table-borderless table-sm">
                                   <tbody>
                                     <tr>
-                                      <td>Customer Name</td>
+                                      <td>Ad</td>
                                       <td className="fw-medium">
                                         {userAccountInfo?.name}{" "}
                                         {userAccountInfo?.surname}
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td>My Referal Team Code</td>
+                                      <td>Referal kodum</td>
                                       <td className="fw-medium">
                                         {userAccountInfo?.referalIdforTeam}
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td>Mobile / Phone Number</td>
+                                      <td>Telefon nömrəsi</td>
                                       <td className="fw-medium">
                                         {userAccountInfo?.phoneNumber}
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td>Email Address</td>
+                                      <td>E-poçt</td>
                                       <td className="fw-medium">
                                         {userAccountInfo?.email}
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td>Location</td>
+                                      <td>Ünvan</td>
                                       <td className="fw-medium">
                                         {userAccountInfo?.otherAddress}
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td>Since Member</td>
+                                      <td>Üzvlük başlanğıc tarixi</td>
                                       <td className="fw-medium">
                                         {new Date(
                                           userAccountInfo?.createdTime
@@ -486,13 +484,13 @@ const MyAccount = () => {
                                 <Row>
                                   <Col lg={12}>
                                     <h5 className="fs-16 text-decoration-underline mb-4">
-                                      Persional Details
+                                      Şəxsi məlumatlar
                                     </h5>
                                   </Col>
                                   <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="name">
-                                        Name
+                                        Ad
                                       </Form.Label>
                                       <Form.Control
                                         type="text"
@@ -514,7 +512,7 @@ const MyAccount = () => {
                                   <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="surname">
-                                        Surname
+                                        Soyad
                                       </Form.Label>
                                       <Form.Control
                                         type="text"
@@ -536,7 +534,7 @@ const MyAccount = () => {
                                   <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="phone">
-                                        Phone Number
+                                        Telefon nömrəsi
                                       </Form.Label>
                                       <Form.Control
                                         type="text"
@@ -558,7 +556,7 @@ const MyAccount = () => {
                                   <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="email">
-                                        Email
+                                        E-poçt
                                       </Form.Label>
                                       <Form.Control
                                         type="email"
@@ -580,7 +578,7 @@ const MyAccount = () => {
                                   <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="address">
-                                        Address
+                                        Ünvan
                                       </Form.Label>
                                       <Form.Control
                                         type="text"
@@ -602,7 +600,7 @@ const MyAccount = () => {
                                   <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="address">
-                                        Other Address
+                                        Digər ünvan
                                       </Form.Label>
                                       <Form.Control
                                         type="text"
@@ -624,7 +622,7 @@ const MyAccount = () => {
 
                                   <Col lg={6}>
                                     <Form.Label htmlFor="profileImage">
-                                      Profile Image
+                                      Profil şəkli
                                     </Form.Label>
                                     <Form.Control
                                       id="profileImage"
@@ -639,7 +637,7 @@ const MyAccount = () => {
                                       className="btn btn-primary mt-4   "
                                       type="submit"
                                     >
-                                      Submit
+                                      Təsdiqlə
                                     </button>
                                   </Col>
                                 </Row>
@@ -789,7 +787,7 @@ const MyAccount = () => {
                             referal: e.target.value,
                           })
                         }
-                        placeholder="Search by referal code"
+                        placeholder="Referal kod ilə axtar"
                       />
                       <input
                         className="form-control"
@@ -813,7 +811,7 @@ const MyAccount = () => {
                             month: e.target.value,
                           })
                         }
-                        placeholder="Search by month ex (1)"
+                        placeholder="Aya əsasən axtar"
                       />
                       <input
                         className="form-control"
@@ -825,7 +823,7 @@ const MyAccount = () => {
                             year: e.target.value,
                           })
                         }
-                        placeholder="Search by year ex (2023)"
+                        placeholder="İlə əsasən axtar"
                       />
                       <Button onClick={searchWithTeam}>Axtar</Button>
                     </Form>
@@ -840,14 +838,14 @@ const MyAccount = () => {
                             <Table className="fs-15 align-middle table-nowrap">
                               <thead>
                                 <tr>
-                                  <th scope="col">Referal Code</th>
-                                  <th scope="col">Name</th>
-                                  <th scope="col">Email</th>
-                                  <th scope="col">Phone</th>
-                                  <th scope="col">Total Amount</th>
-                                  <th scope="col">Orders Count</th>
-                                  <th scope="col">Total Orders Amount</th>
-                                  <th scope="col">Monthly Gain</th>
+                                  <th scope="col">Referal kod</th>
+                                  <th scope="col">Ad</th>
+                                  <th scope="col">E-poçt</th>
+                                  <th scope="col">Telefon</th>
+                                  <th scope="col">Ümumi sifariş</th>
+                                  <th scope="col">Sifariş sayı</th>
+                                  <th scope="col">Ümumi sifariş miqdarı</th>
+                                  <th scope="col">Aylıq qazanc</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -889,7 +887,7 @@ const MyAccount = () => {
                                       paddingLeft: "10px",
                                     }}
                                   >
-                                    <p>No Referal Users</p>
+                                    <p>Referal istifadəçi yoxdur</p>
                                   </div>
                                 )}
                               </tbody>
@@ -899,16 +897,6 @@ const MyAccount = () => {
                       </Card>
                     </div>
                   </Tab.Pane>
-
-
-
-
-
-
-
-
-
-
                   <Tab.Pane eventKey="myprices">
                     <div
                       className="tab-pane fade show"
@@ -929,8 +917,6 @@ const MyAccount = () => {
           </Tab.Container>
         </Container>
       </section>
-      {/* <EmailClothe />
-      <CommonService /> */}
     </>
   );
 };

@@ -5,7 +5,6 @@ const SubCatProduct = () => {
     const subcategories = useSelector(state => state.persistedReducer.Subcategories);
     const {name} = useParams();
     const findSubCat = [...subcategories].find(sub => sub.name == name);
-    console.log(findSubCat);
   return (
     <div>SubCatProduct</div>
   )

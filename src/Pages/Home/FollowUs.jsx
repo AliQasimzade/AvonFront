@@ -13,7 +13,6 @@ const FollowUs = (props) => {
     useEffect(() => {
         axios.get("https://avonazerbaijan.com/api/SliderTwos/Manage/GetAll?isDeleted=false&IsMAIN=false").then((data) => {
             setSlider(data.data)
-           console.log(slider);
         });
     }, []);
 

@@ -112,7 +112,6 @@ const CatalogCollection = ({
   const addToCart = async (skuId, appUserId) => {
     const res = await AddToBasket(appUserId, [{ skuId, count: 1 }]);
     const re = await getAllBasket(appUserId);
-    console.log(re);
     toast.success("Məhsul səbətə əlavə olundu");
     dispatch(getAllBaskets(re));
   };
@@ -146,18 +145,15 @@ const CatalogCollection = ({
                 <Form.Select
                   className="form-select w-md"
                   onChange={(e) => {
-                    console.log(e.target.value);
                     if (e.target.value == "lowtohigh") {
                       const sortBy = products.sort(
                         (a, b) => a.salePrice - b.salePrice
                       );
-                      console.log(sortBy);
                       setProducts([...sortBy]);
                     } else {
                       const sortBY = products.sort(
                         (a, b) => b.salePrice - a.salePrice
                       );
-                      console.log(sortBY);
                       setProducts([...sortBY]);
                     }
                   }}

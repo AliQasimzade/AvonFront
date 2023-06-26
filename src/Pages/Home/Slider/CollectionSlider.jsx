@@ -10,14 +10,9 @@ import withRouter from "../../../Components/withRouter";
 import { CommonTitle } from "../../../Components/Homepage";
 import { useSelector } from "react-redux";
 const CollectionSlider = (props) => {
-
     const reviews = useSelector((state) => state.Comments)
-    console.log(reviews);
-
     const [comments, setComments] = useState([]);
     const [brands, setBrands] = useState([])
-
-
     useEffect(() => {
         fetchComments();
         fetchBrands();

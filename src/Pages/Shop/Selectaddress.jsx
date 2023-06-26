@@ -10,9 +10,6 @@ const Selectaddress = ({setAddressData, addressData}) => {
 
     const user = useSelector((state) => state.persistedReducer.Accont);
     document.title = "Shop | Select address | RGAgency - React FrontEnd";
-
-    console.log(addressData);
-
     const handleChangeAddress = (e, d) => {
         if (e.target.checked) {
             setAddressData(d)

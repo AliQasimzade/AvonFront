@@ -21,7 +21,6 @@ const Comingsoon = () => {
             email: Yup.string().email().matches(/^(?!.*@[^,]*,)/).required("Please Enter Your Email")
         }),
         onSubmit: (values) => {
-            // console.log("value", values);
         },
     });
 
@@ -67,16 +66,16 @@ const Comingsoon = () => {
                             <Col className="col-auto">
                                 <ul className="list-unstyled hstack gap-2 mb-0">
                                     <li className="me-md-3">
-                                        <Link to="#" className="text-body fw-medium fs-15">Become a Selling</Link>
+                                        <Link to="#" className="text-body fw-medium fs-15">Satış təmsilçisi ol</Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-google-play align-middle me-1" /> Download App
+                                            <i className="bi bi-google-play align-middle me-1" /> Tətbiqi endir
                                         </Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-apple align-middle me-1" /> Download App
+                                            <i className="bi bi-apple align-middle me-1" /> Tətbiqi endir
                                         </Link>
                                     </li>
                                 </ul>
@@ -141,7 +140,7 @@ const Comingsoon = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
+                                            {new Date().getFullYear()} Avon Azərbaycan Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
                                         </p>
                                     </div>
                                 </Col>

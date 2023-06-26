@@ -126,7 +126,6 @@ const Header = (props) => {
 
   const [isActive, setIsActive] = useState(false);
   const menu = () => {
-    // 👇️ toggle isActive state on click
     setIsActive((current) => !current);
   };
   return (
@@ -188,8 +187,7 @@ const Header = (props) => {
                   id="nav-dropdown-dark-example"
                   title={props.t("catalog")}
                 >
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">
+                  <NavDropdown.Item href="#">
                     {categories.map((category, index) => (
                       <Col lg={2} key={index}>
                         <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
@@ -413,21 +411,19 @@ const Header = (props) => {
                   eventKey="light"
                   onClick={() => props.handleMood("light")}
                 >
-                  <i className="bi bi-sun align-middle me-2"></i> Defualt (light
-                  mode)
+                  <i className="bi bi-sun align-middle me-2"></i> Gündüz
                 </Dropdown.Item>
                 <Dropdown.Item
                   eventKey="dark"
                   onClick={() => props.handleMood("dark")}
                 >
-                  <i className="bi bi-moon align-middle me-2"></i> Dark
+                  <i className="bi bi-moon align-middle me-2"></i> Gecə
                 </Dropdown.Item>
                 <Dropdown.Item
                   eventKey="light"
                   onClick={() => props.handleMood("light")}
                 >
-                  <i className="bi bi-moon-stars align-middle me-2"></i> Auto
-                  (system defualt)
+                  <i className="bi bi-moon-stars align-middle me-2"></i> Avtomatik
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -455,30 +451,30 @@ const Header = (props) => {
                   <Dropdown.Menu>
                     <Dropdown.Item href="/shop/orderhistory">
                       <i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Order History</span>
+                      <span className="align-middle">Sifariş tarixçəsi</span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/shop/order">
                       <i className="bi bi-truck text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Track Orders</span>
+                      <span className="align-middle">Sifariş izlə</span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/hesabim">
                       <i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Dashboard</span>
+                      <span className="align-middle">Hesabım</span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/ecommerce-faq">
                       <i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Help</span>
+                      <span className="align-middle">Kömək</span>
                     </Dropdown.Item>
                     <Dropdown.Item>
                       <i className="bi bi-coin text-muted fs-16 align-middle me-1"></i>{" "}
                       <span className="align-middle">
-                        Balance : <b>₼{userData.balance}</b>
+                        Balans : <b>{userData.balance}₼</b>
                       </span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/ana-sehife" onClick={logOut}>
                       <i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i>{" "}
                       <span className="align-middle" data-key="t-logout">
-                        Logout
+                        Çıxış
                       </span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -486,7 +482,7 @@ const Header = (props) => {
               ) : (
                 <Link to={"/giris"}>
                   <IoLogIn style={{ fontSize: "23px", color: "black" }} />
-                  <span className="ms-2 text-black">Giris et</span>
+                  <span className="ms-2 text-black">Hesabına daxil ol</span>
                 </Link>
               )}
             </div>

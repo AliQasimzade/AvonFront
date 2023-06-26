@@ -24,10 +24,6 @@ const LastestCollection = (props) => {
     useEffect(() => {
         fetchProducts();
     }, [])
-
-    console.log(latestProduct);
-
-
     return (
         <>
 

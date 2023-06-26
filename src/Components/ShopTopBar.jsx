@@ -70,7 +70,6 @@ export const Shoporder = ({
   }, []);
 
   const changePaymentMethod = (e) => {
-    console.log(e.target.id);
     if (e.target.id == "checkoutFromBalance") {
       setSelectedBalance(true);
     } else {

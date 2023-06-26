@@ -63,7 +63,6 @@ const Productdetails = () => {
   }, [skuId]);
 
   const handleSetImg = (id) => {
-    console.log(id);
     setSliderImg(
       proDetail.productImages.filter((selectImg, index) => index === id)
     );
@@ -160,7 +159,6 @@ const Productdetails = () => {
             },
           ]
         );
-        console.log(request.data);
         const re = await axios.get(
           `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userId}`
         );

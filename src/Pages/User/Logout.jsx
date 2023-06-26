@@ -24,16 +24,16 @@ const Logout = () => {
                             <Col className="col-auto">
                                 <ul className="list-unstyled hstack gap-2 mb-0">
                                     <li className="me-md-3">
-                                        <Link to="#" className="text-body fw-medium fs-15">Become a Selling</Link>
+                                        <Link to="#" className="text-body fw-medium fs-15">Satış təmsilçisi ol</Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-google-play align-middle me-1" /> Download App
+                                            <i className="bi bi-google-play align-middle me-1" /> Tətbiqi endir
                                         </Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-apple align-middle me-1" /> Download App
+                                            <i className="bi bi-apple align-middle me-1" /> Tətbiqi endir
                                         </Link>
                                     </li>
                                 </ul>
@@ -53,7 +53,7 @@ const Logout = () => {
                                                     <Image src={auth1} alt="" className="img-fluid" />
                                                 </Col>
                                                 <Col lg={8} xs={9}>
-                                                    <h1 className="text-white lh-base fw-lighter">You are Logged Out</h1>
+                                                    <h1 className="text-white lh-base fw-lighter">Hesabınızdan çıxış etdiniz</h1>
                                                 </Col>
                                             </Row>
                                         </Card.Header>
@@ -61,9 +61,9 @@ const Logout = () => {
                                             <div className="mb-4">
                                                 <Image src={avatar1} alt="" className="avatar-md rounded-circle" />
                                             </div>
-                                            <p className="text-muted fs-15">Thank you for using <span className="fw-semibold">RGAgency</span> admin template</p>
+                                            <p className="text-muted fs-15"><span className="fw-semibold">Avon Azərbaycan </span>tətbiqimizdən istifadə etdiyiniz üçün təşəkkür edirik</p>
                                             <div>
-                                                <Link to='/giris' className="btn btn-primary w-100">Sign In</Link>
+                                                <Link to='/giris' className="btn btn-primary w-100">Daxil ol</Link>
                                             </div>
                                         </Card.Body>
                                     </Card>
@@ -77,7 +77,7 @@ const Logout = () => {
                                 <Col lg={12} >
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
+                                            {new Date().getFullYear()} Avon Azərbaycan Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
                                         </p>
                                     </div>
                                 </Col>

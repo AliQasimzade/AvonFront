@@ -55,7 +55,6 @@ const Productfilter = ({ name, setSelect }) => {
     }
     const handleDic = (event) => {
         setSelect(product?.filter((discount) => discount.dic === event.value))
-        product?.filter((discount) => console.log("dicount", discount.dic, event.value))
     }
     const onUpdate = (value) => {
         setMincost(value[0]);

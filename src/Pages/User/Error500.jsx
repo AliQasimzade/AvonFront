@@ -19,16 +19,16 @@ const Error500 = () => {
                             <Col className="col-auto">
                                 <ul className="list-unstyled hstack gap-2 mb-0">
                                     <li className="me-md-3">
-                                        <Link to="#" className="text-body fw-medium fs-15">Become a Selling</Link>
+                                        <Link to="#" className="text-body fw-medium fs-15">Satış təmsilçisi ol</Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-google-play align-middle me-1" /> Download App
+                                            <i className="bi bi-google-play align-middle me-1" /> Tətbiqi endir
                                         </Link>
                                     </li>
                                     <li className="d-none d-md-block">
                                         <Link to="#" className="btn btn-soft-primary" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="bi bi-apple align-middle me-1" /> Download App
+                                            <i className="bi bi-apple align-middle me-1" /> Tətbiqi endir
                                         </Link>
                                     </li>
                                 </ul>
@@ -51,7 +51,7 @@ const Error500 = () => {
                                                     <h4 className="fs-18 error-subtitle text-uppercase mb-0">Internal Server Error</h4>
                                                     <p className="fs-15 text-muted mt-3">It will be as simple as Occidental in fact, it will Occidental to an English person</p>
                                                     <div className="mt-4">
-                                                        <Link to='/' className="btn btn-primary"><i className="mdi mdi-home me-1" />Back to home</Link>
+                                                        <Link to='/' className="btn btn-primary"><i className="mdi mdi-home me-1" />Əsas səhifəyə qayıt</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -67,7 +67,7 @@ const Error500 = () => {
                                 <Col lg={12}>
                                     <div className="text-center">
                                         <p className="mb-0 text-muted">©
-                                            {new Date().getFullYear()} RGAgency. Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
+                                            {new Date().getFullYear()} Avon Azərbaycan Crafted with <i className="mdi mdi-heart text-danger" /> by RGAgency
                                         </p>
                                     </div>
                                 </Col>

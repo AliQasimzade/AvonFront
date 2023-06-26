@@ -10,7 +10,6 @@ const Collection = () => {
             const request = await axios.get("https://avonazerbaijan.com/api/Sliders/Manage/GetAll?isDeleted=false");
             if (request.status == 200) {
                 const response = request.data;
-                console.log(response);
                 setSlider(response)
             } else {
                 throw new Error("Sorguda xeta bas verdi")
@@ -22,7 +21,6 @@ const Collection = () => {
     useEffect(() => {
         getSlider()
     }, []);
-    console.log(slider);
     return (
         <>
             <section className="position-relative">

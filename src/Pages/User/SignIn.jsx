@@ -203,11 +203,8 @@ const Signin = () => {
                   </Card>
                 </div>
               </Col>
-              {/*end col*/}
             </Row>
-            {/*end row*/}
           </Container>
-          {/*end container*/}
           <footer className="footer">
             <Container>
               <Row>

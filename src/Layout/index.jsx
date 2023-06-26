@@ -14,20 +14,12 @@ const Layout = (props) => {
     footerModeType: state.persistedReducer.Layout.footerModeType,
     layoutThemeMode: state.persistedReducer.Layout.layoutThemeMode
 }));
-  // console.log(footerModeType,layoutThemeMode);
- 
-
-
   const footertheme = props.isLight ? "light" : "dark";
-
-
   const handleThemeMood = (value) => {
       if (changeThemeMood) {
           dispatch(changeThemeMood(value))
       }
   }
-
-  
   const ScrollbarTop = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;

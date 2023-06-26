@@ -78,16 +78,11 @@ const Cardshop = () => {
       : 0;
 
   const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
-
-  console.log("Total blet:" + total);
-  console.log("Subtotal:" + subtotal);
   const countUP = (item, id) => {
-    console.log(item, id);
     dispatch(updateIncBasket(id));
   };
 
   const countDown = (item, id) => {
-    console.log(item, id);
     if (item == 0) {
     } else {
       dispatch(updateDecBasket(id));
@@ -105,7 +100,6 @@ const Cardshop = () => {
         `${process.env.REACT_APP_BASE_URL}Baskets/RemoveBasket?appUserId=${userData.id}`,
         rest
       );
-      console.log(request.data);
       dispatch(getAllBaskets([]));
       toast.success("Səbət uğurla sıfırlandı");
     } catch (error) {
@@ -130,7 +124,6 @@ const Cardshop = () => {
       );
 
       const responses = await Promise.all([request1, request2]);
-      console.log(responses[1].data);
       dispatch(getAllBaskets(responses[1].data));
       toast.success("Səbət uğurla yeniləndi");
     } catch (error) {

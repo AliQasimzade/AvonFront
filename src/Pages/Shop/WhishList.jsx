@@ -2,9 +2,6 @@ import React from "react";
 import { Container, Row, Col, Table, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Shoptopbar } from "../../Components/ShopTopBar";
-import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../Components/CommonService";
-import HotDeals from "../../Components/HotDeals";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteModal from "../../Components/DeleteModal";
 import { useState } from "react";
@@ -32,7 +29,6 @@ const WishList = () => {
 
   const CloseremoveModal = () => setRemoveModel(false);
   const RemoveModel = (id) => {
-    console.log(id);
     setRemoveModel(true);
     setSelectedSkuId(id);
   };
@@ -43,13 +39,11 @@ const WishList = () => {
         `${process.env.REACT_APP_BASE_URL}WishLists/RemoveWishList?skuId=${selectedSkuId}&appUserId=${userId}`
       )
       .then((res) => {
-        console.log(res.data);
         axios
           .get(
             `${process.env.REACT_APP_BASE_URL}WishLists/GetAll?appUserId=${userId}`
           )
           .then((res) => {
-            console.log(res.data);
             dispatch(getAllWisslist(res.data));
           });
       });
@@ -79,7 +73,6 @@ const WishList = () => {
 
         const responses = await Promise.all([request1, request2]);
         const data2 = responses[1].data;
-        console.log(data2);
         dispatch(getAllBaskets(data2));
         toast.success("Səbətə əlavə olundu");
       }
@@ -105,18 +98,18 @@ const WishList = () => {
           <Row>
             <Col lg={12}>
               <div className="table-responsive">
-                <Table className="fs-15 table-nowrap align-middle">
-                  <thead>
-                    <tr>
-                      <th scope="col">Product</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Stock Count</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {wishlistAll.length > 0 ? (
-                      wishlistAll.map((item, inx) => {
+                {wishlistAll.length > 0 ? (
+                  <Table className="fs-15 table-nowrap align-middle">
+                    <thead>
+                      <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Stock Count</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {wishlistAll.map((item, inx) => {
                         return (
                           <tr key={inx}>
                             <td>
@@ -175,12 +168,12 @@ const WishList = () => {
                             </td>
                           </tr>
                         );
-                      })
-                    ) : (
-                      <h1>İstək siyahısında heç bir məlumat yoxdur</h1>
-                    )}
-                  </tbody>
-                </Table>
+                      })}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <h1 style={{textAlign:'center', marginBottom:'5em'}}>İstək siyahısında heç bir məlumat yoxdur</h1>
+                )}
               </div>
               <DeleteModal
                 hideModal={CloseremoveModal}
@@ -189,20 +182,14 @@ const WishList = () => {
               />
               <div className="hstack gap-2 justify-content-end mt-2">
                 <Link to="/products" className="btn btn-hover btn-secondary">
-                  Continue Shopping{" "}
+                  Alışa davam et{" "}
                   <i className="ri-arrow-right-line align-bottom"></i>
-                </Link>
-                <Link to="/resmilesdirme" className="btn btn-hover btn-primary">
-                  Check Out <i className="ri-arrow-right-line align-bottom"></i>
                 </Link>
               </div>
             </Col>
           </Row>
         </Container>
       </section>
-      <HotDeals />
-      <EmailClothe />
-      <CommonService />
     </>
   );
 };
