@@ -37,6 +37,7 @@ const MyAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [referalUsers, setReferalUsers] = useState([]);
+  const [myPrices, setMyPrices] = useState([])
 
   const logOut = () => {
     dispatch(logoutUser());
@@ -49,11 +50,21 @@ const MyAccount = () => {
   const userAccountInfo = useSelector(
     (state) => state.persistedReducer.Accont.user
   );
-  console.log(userAccountInfo);
+ 
+  const getMyPrices = async () => {
+     try {
+      const req = await axios.get(`${process.env.REACT_APP_BASE_URL}Account/Price?Id=5fffdbbb-64bc-4e19-809a-e7b597297622`)
+      console.log(req.data);
+      setMyPrices(req.data)
+     } catch (error) {
+      
+     }
+  }
 
   useEffect(() => {
     if (userAccountInfo) {
       setReferalUsers(userAccountInfo?.noActiveUsers);
+      getMyPrices()
     } else {
       navigate("/giris");
     }
@@ -85,6 +96,9 @@ const MyAccount = () => {
       );
       setReferalUsers(res.noActiveUsers);
     }
+
+
+    
   };
   const fileRef = useRef(null);
   const [proImg, setProfileImage] = useState(userAccountInfo?.profileImage);
@@ -287,6 +301,21 @@ const MyAccount = () => {
                         >
                           <i className="bi bi-person align-middle me-1"></i>{" "}
                           Referal Users
+                        </Nav.Link>
+                      </Nav.Item>
+
+                      
+                      
+                      <Nav.Item as="li">
+                        <Nav.Link
+                          as="a"
+                          eventKey="myprices"
+                          className="fs-15"
+                          role="presentation"
+                          style={{ cursor: "pointer" }}
+                        >
+                          <i className="bi bi-cash-stack align-middle me-1"></i>
+                         Hədiyyələrim
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item as="li">
@@ -870,6 +899,30 @@ const MyAccount = () => {
                       </Card>
                     </div>
                   </Tab.Pane>
+
+
+
+
+
+
+
+
+
+
+                  <Tab.Pane eventKey="myprices">
+                    <div
+                      className="tab-pane fade show"
+                      id="custom-v-pills-setting"
+                      role="tabpanel"
+                    >
+                      <Row>
+                        <Col lg={12}>
+                          
+                        </Col>
+                      </Row>
+                    </div>
+                  </Tab.Pane>
+                  
                 </Tab.Content>
               </Col>
             </Row>
