@@ -67,7 +67,7 @@ const SignUp = () => {
       name: Yup.string().required("Adınızı daxil edin"),
       surname: Yup.string().required("Soyadınızı daxil edin"),
       address: Yup.string().required("Ünvanınızı daxil edin"),
-      otherAddress: Yup.string(),
+      otherAddress: Yup.string().required("İkinci ünvanınızı daxil edin"),
       email: Yup.string().email().required("E-poçt ünvanınızı daxil edin"),
       phone: Yup.string().required("Əlaqə nömrənizi daxil edin"),
       idForReferal: Yup.string(),
@@ -212,6 +212,7 @@ const SignUp = () => {
                             <div className="mb-3 col-12 col-lg-6">
                               <Form.Label htmlFor="otherAddress">
                                 İkinci ünvan
+                                <span className="text-danger">*</span>
                               </Form.Label>
                               <Form.Control
                                 type="text"

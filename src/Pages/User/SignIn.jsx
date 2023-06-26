@@ -138,14 +138,14 @@ const Signin = () => {
                             ) : null}
                           </div>
                           <div className="mb-3">
-                            {/* <div className="float-end">
+                            <div className="float-end">
                               <Link
-                                to={"/auth-pass-reset-basic"}
+                                to={"/sifreni-sifirla "}
                                 className="text-muted"
                               >
                                 Parolu unutdun?
                               </Link>
-                            </div> */}
+                            </div>
                             <Form.Label htmlFor="password-input">
                               Şifrə
                             </Form.Label>

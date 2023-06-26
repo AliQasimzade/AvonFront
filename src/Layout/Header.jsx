@@ -495,7 +495,7 @@ const Header = (props) => {
                       <i className="bi bi-truck text-muted fs-16 align-middle me-1"></i>{" "}
                       <span className="align-middle">Track Orders</span>
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
+                    <Dropdown.Item href="/hesabim">
                       <i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i>{" "}
                       <span className="align-middle">Dashboard</span>
                     </Dropdown.Item>
@@ -503,18 +503,11 @@ const Header = (props) => {
                       <i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>{" "}
                       <span className="align-middle">Help</span>
                     </Dropdown.Item>
-                    <Dropdown.Item href="/hesabim">
+                    <Dropdown.Item>
                       <i className="bi bi-coin text-muted fs-16 align-middle me-1"></i>{" "}
                       <span className="align-middle">
                         Balance : <b>₼{userData.balance}</b>
                       </span>
-                    </Dropdown.Item>
-                    <Dropdown.Item href="/hesabim">
-                      <span className="badge bg-success-subtle text-success mt-1 float-end">
-                        New
-                      </span>
-                      <i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Settings</span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/ana-sehife" onClick={logOut}>
                       <i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i>{" "}
