@@ -36,7 +36,7 @@ const Pagination = ({ pagination, currentpages, pageNumbers, currentPage, handle
                                 <i className="bi bi-search"></i>
                             </div>
                         </div>
-                        <h5>No matching records found</h5>
+                        <h5>Nəticə tapılmadı</h5>
                     </div>
                 </Col>
             </Row>}

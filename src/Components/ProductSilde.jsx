@@ -112,7 +112,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                                         </div>
                                     </div>
 
-                                    <h5>No matching records found</h5>
+                                    <h5>Nəticə tapılmadı</h5>
                                 </div>
                             </Col>
                         </Row>)

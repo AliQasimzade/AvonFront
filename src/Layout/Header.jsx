@@ -22,18 +22,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoLogIn } from "react-icons/io5";
 import { logoutUser } from "../slices/layouts/accont";
 import { logoutToken, logoutUserId } from "../slices/layouts/user";
-import { getAllBrands, getAllCategories } from "../services/getRequests";
 import { getAllBaskets } from "../slices/layouts/basket";
 import { getAllWisslist } from "../slices/layouts/wistliss";
 const Header = (props) => {
+  
   const userData = useSelector((state) => state.persistedReducer.Accont.user);
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
   const wishlistAll = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
   );
-  // kateqoriyalar
-  const [categories, setCategories] = useState([]);
-  const [brendler, setBrendler] = useState([]);
+
   //search modal
   const [show, setShow] = useState(false);
   const [searchWord, setSearchWord] = useState('')
@@ -56,28 +54,6 @@ const Header = (props) => {
     dispatch(getAllWisslist([]));
   };
 
-  useEffect(() => {
-    fetchCategories();
-    fetchDataBrendler();
-  }, []);
-
-  const fetchCategories = async () => {
-    try {
-      const response = await getAllCategories();
-      setCategories(response);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const fetchDataBrendler = async () => {
-    try {
-      const res = await getAllBrands();
-      setBrendler(res);
-    } catch (err) {
-      console.error("error", err);
-    }
-  };
 
   useEffect(() => {
     const pathname = props.router.location.pathname;
@@ -155,7 +131,7 @@ const Header = (props) => {
               className="mx-lg-auto mb-2 mb-lg-0 navbar_responsive_flex "
               id="navigation-menu"
             >
-              <div className="d-flex w-100 align-items-center justify-content-between">
+              <div className="d-flex d-lg-none w-100 align-items-center justify-content-between">
                 <li className="nav-item d-block d-lg-none">
                   <Link
                     to="/ana-sehife"
@@ -178,141 +154,6 @@ const Header = (props) => {
                 >
                   {props.t("home")}
                 </Link>
-              </li>
-
-              {/* hamburvger catalog menu */}
-              <li className="nav-item dropdown_responsive">
-                <NavDropdown
-                  data-key="t-catalog"
-                  id="nav-dropdown-dark-example"
-                  title={props.t("catalog")}
-                >
-                  <NavDropdown.Item href="#">
-                    {categories.map((category, index) => (
-                      <Col lg={2} key={index}>
-                        <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                          <li>
-                            <p
-                              className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title"
-                              data-key={`t-${category.name}`}
-                            >
-                              {category.name}
-                            </p>
-                          </li>
-                          {category.subCategories.map(
-                            (subcategory, subIndex) => (
-                              <li className="nav-item" key={subIndex}>
-                                <Link
-                                  to={`/kateqoriyalar/${subcategory.name}`}
-                                  className="nav-link"
-                                  data-key={`t-${subcategory.name}`}
-                                >
-                                  {props.t(subcategory.name)}
-                                </Link>
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </Col>
-                    ))}
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </li>
-
-              <li className="nav-item dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
-                <Link
-                  to="/ana-sehife"
-                  className="nav-link dropdown-toggle"
-                  data-key="t-catalog"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  {props.t("catalog")}
-                </Link>
-
-                <div className="dropdown-menu p-0">
-                  <Row className="g-0 g-lg-4">
-                    <Col lg={2} className="d-none d-lg-block">
-                      <Card
-                        className="rounded-start rounded-0 border-0 h-100 mb-0 overflow-hidden"
-                        style={{
-                          backgroundImage: `url(${img1})`,
-                          backgroundSize: "cover",
-                        }}
-                      >
-                        <div className="bg-overlay bg-light bg-opacity-25"></div>
-                        <Card.Body className="d-flex align-items-center justify-content-center">
-                          <div className="text-center">
-                            <Link className="btn btn-secondary btn-hover">
-                              <i className="ph-storefront align-middle me-1"></i>{" "}
-                              <span data-key="t-shop-now">
-                                {props.t("shop-now")}
-                              </span>
-                            </Link>
-                          </div>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                    <Col
-                      lg={10}
-                      className="d-none d-lg-block responsive_catalog_none"
-                    >
-                      <Row className="g-0 g-lg-8">
-                        {/* kateqoriyalar */}
-                        {categories.map((category, index) => (
-                          <Col lg={2} key={index}>
-                            <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                              <li>
-                                <p
-                                  className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title"
-                                  data-key={`t-${category.name}`}
-                                >
-                                  {category.name}
-                                </p>
-                              </li>
-                              {category.subCategories.map(
-                                (subcategory, subIndex) => (
-                                  <li className="nav-item" key={subIndex}>
-                                    <Link
-                                      to={`/kateqoriyalar/${subcategory.name}`}
-                                      className="nav-link"
-                                      data-key={`t-${subcategory.name}`}
-                                    >
-                                      {props.t(subcategory.name)}
-                                    </Link>
-                                  </li>
-                                )
-                              )}
-                            </ul>
-                          </Col>
-                        ))}
-                        {/* brendler */}
-                        <Col lg={4} className="d-none d-lg-block">
-                          <div className="p-3">
-                            <p
-                              className="mb-3 text-uppercase fs-11 fw-medium text-muted"
-                              data-key="t-top-brands"
-                            >
-                              {props.t("top-brands")}
-                            </p>
-                            <Row className="g-2 flex-wrap">
-                              {brendler.map((brend) => (
-                                  <Link
-                                  key={brend.id}
-                                    to={`/${brend.name}`}
-                                    className="d-flex p-2 border border-dashed text-center rounded-3 w-auto m-1"
-                                  >
-                                    {brend.name}
-                                  </Link>
-                              ))}
-                            </Row>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </div>
               </li>
               <li className="nav-item" style={{ color: "#A530B0 !important" }}>
                 <Link
