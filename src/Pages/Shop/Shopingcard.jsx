@@ -39,7 +39,6 @@ const Shopingcard = () => {
           </Row>
         </Container>
       </section>
-      <BrandedProduct title="New Branded Products" />
       <EmailClothe />
       <CommonService />
     </>
