@@ -70,6 +70,14 @@ const MyAccount = () => {
     }
   }, []);
 
+
+  const addPrice = async (id) => {
+     try {
+      const req = await axios.post(`${process.env.REACT_APP_BASE_URL}`)
+     } catch (error) {
+      
+     }
+  }
   const [searchKeys, setSearchKeys] = useState({
     referal: "",
     day: "",
@@ -98,7 +106,7 @@ const MyAccount = () => {
     }
 
 
-    
+
   };
   const fileRef = useRef(null);
   const [proImg, setProfileImage] = useState(userAccountInfo?.profileImage);
@@ -916,9 +924,51 @@ const MyAccount = () => {
                       role="tabpanel"
                     >
                       <Row>
-                        <Col lg={12}>
-                          
+                        <div className="d-flex flex-wrap align-items-center gap-2">
+                          {myPrices.length > 0 ? myPrices.map((price, index) => (
+                            <Col key={index}  lg={3} md={6} className="element-item seller ">
+                            <Card className="overflow-hidden">
+                                <div className={`bg-subtle rounded-top py-4`}>
+                                    <div className="gallery-product" style={{height:'200px', display:'flex', alignItems:'center' }}>
+                                        <Image src={price.price.product.posterImage} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
+                                    </div>
+                                    <div className="product-btn px-3">
+                                        <Button onClick={() => addPrice(price.price.product.id)} disabled={price.isEnable == true || price.isTaken == false ? false : true} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Əlavə et</Button>
+                                    </div>
+                                </div>
+                                <Card.Body className="card-body">
+                                    <div>
+                                        <Link to={`/product-details/${price.price.product.skuId}`}>
+                                            <h6 className="fs-15 lh-base text-truncate mb-0">{price.price.product.name}</h6>
+                                        </Link>
+                                        <div className="mt-3">
+                                           {price.price.discountPrice} ₼
+                                        </div>
+                                        <div className="mt-3">
+                                           {price.price.title} 
+                                        </div>
+
+                                        <div className="mt-3">
+                                          {new Date(price.startDate).toLocaleDateString('en-EN')} - {new Date(price.endDate).toLocaleDateString('en-EN')}
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
                         </Col>
+                          )) :   <Row >
+                          <Col lg={12}>
+                            <div className="text-center py-5">
+                              <div className="avatar-lg mx-auto mb-4">
+                                <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
+                                  <i className="bi bi-search"></i>
+                                </div>
+                              </div>
+          
+                              <h5>No prices found</h5>
+                            </div>
+                          </Col>
+                        </Row>}
+                        </div>
                       </Row>
                     </div>
                   </Tab.Pane>
