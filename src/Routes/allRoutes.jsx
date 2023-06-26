@@ -25,7 +25,6 @@ import Signin from "../Pages/User/SignIn";
 import Passwordreset from "../Pages/User/Passwordreset";
 import Passwordcreate from "../Pages/User/Passwordcreate";
 import Successmsg from "../Pages/User/Successmsg";
-import Verifyemail from "../Pages/User/Verifyemail";
 import Logout from "../Pages/User/Logout";
 import Error404 from "../Pages/User/Error404";
 import Error500 from "../Pages/User/Error500";
@@ -114,8 +113,7 @@ const publicRoutes = [
 
   { path: "/sifreni-sifirla", component: <Passwordreset /> },
   { path: "/sifreni-yarat", component: <Passwordcreate /> },
-  { path: "/auth-success-msg-basic", component: <Successmsg /> },
-  { path: "/emaili-tesdiqle", component: <Verifyemail /> },
+  { path: "/hesab-tesdiqi", component: <Successmsg /> },
   { path: "/cixis", component: <Logout /> },
   { path: "/xeta-404", component: <Error404 /> },
   { path: "/xeta-500", component: <Error500 /> },

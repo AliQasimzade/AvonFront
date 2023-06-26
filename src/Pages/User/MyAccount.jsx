@@ -42,8 +42,8 @@ const MyAccount = () => {
     dispatch(logoutUser());
     dispatch(logoutToken());
     dispatch(logoutUserId());
-    dispatch(getAllBaskets([]))
-    dispatch(getAllWisslist([]))
+    dispatch(getAllBaskets([]));
+    dispatch(getAllWisslist([]));
     navigate("/giris");
   };
   const userAccountInfo = useSelector(
@@ -87,7 +87,7 @@ const MyAccount = () => {
     }
   };
   const fileRef = useRef(null);
-  const [proImg, setProfileImage] = useState("");
+  const [proImg, setProfileImage] = useState(userAccountInfo?.profileImage);
   const addStoreImage = () => {
     formik.setFieldValue("profileImage", fileRef.current.files[0]);
     const file = fileRef.current.files[0];
@@ -119,75 +119,56 @@ const MyAccount = () => {
       surname: userAccountInfo?.surname,
       profileImage: proImg,
       email: userAccountInfo?.email,
-      address: userAccountInfo?.otherAddress,
+      address: userAccountInfo?.address,
+      otherAddress: userAccountInfo?.otherAddress,
       phone: userAccountInfo?.phoneNumber,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Please enter your name"),
-      surname: Yup.string().required("Please enter your surname"),
-      address: Yup.string().required("Please enter your address"),
-      email: Yup.string().email().required("Please enter a valid email"),
-      phone: Yup.string().required("Please enter your phone number"),
-      profileImage: Yup.mixed().required(),
+      name: Yup.string().required("Adınızı daxil edin"),
+      surname: Yup.string().required("Soyadınızı daxil edin"),
+      address: Yup.string().required("Ünvanınızı daxil edin"),
+      otherAddress: Yup.string().required("İkinci ünvanınızı daxil edin"),
+      email: Yup.string().email().required("E-poçt ünvanınızı daxil edin"),
+      phone: Yup.string().required("Əlaqə nömrənizi daxil edin"),
+      profileImage: Yup.mixed(),
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       setSubmitting(true);
       try {
-        const profileImage = values.profileImage;
-        const imageRef = ref(storage, "avatars/" + profileImage.name);
-        const uploadTask = uploadBytesResumable(imageRef, profileImage);
-
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
-          },
-          (error) => {
-            setErrors({ file: "Error uploading profile image" });
-            console.error("Error uploading profile image:", error);
-          },
-          async () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              console.log("File available at", downloadURL);
-
-              const formData = { ...values, profileImage: downloadURL };
-              axios
-                .post(
-                  "https://avonazerbaijan.com/api/Account/UpdateProfile",
-                  formData
-                )
-                .then((response) => {
-                  console.log("Response from API:", response.data);
-                  axios
-                    .get(
-                      `https://avonazerbaijan.com/api/Account/MyAccount?id=${userAccountInfo?.id}`
-                    )
-                    .then((res) => dispatch(changeAccont(res.data[0])))
-                    .then(() => location.reload());
-                })
-                .catch((error) => {
-                  console.error("Error posting data:", error);
-                })
-                .finally(() => {
-                  setSubmitting(false);
-                });
-            });
-          }
-        );
+        const formData = { ...values, profileImage: proImg };
+        axios
+          .post(
+            "https://avonazerbaijan.com/api/Account/UpdateProfile",
+            formData
+          )
+          .then((response) => {
+            axios
+              .get(
+                `https://avonazerbaijan.com/api/Account/MyAccount?id=${userAccountInfo?.id}`
+              )
+              .then((res) => {
+                dispatch(changeAccont(res.data));
+                toast.success('İstifadəçi uğurla yeniləndi')
+              })
+          })
+          .catch((error) => {
+            toast.error('Sorğuda xəta baş verdi')
+          })
+          .finally(() => {
+            setSubmitting(false);
+          });
       } catch (error) {
         setSubmitting(false);
         setErrors({ file: "Error uploading profile image" });
-        console.error("Error uploading profile image:", error);
+      
       }
     },
   });
   return (
     <>
-    <Helmet>
-      <title>Mənim hesabım | AVONAZ.NET – Online kosmetika mağazası</title>
-    </Helmet>
+      <Helmet>
+        <title>Mənim hesabım | AVONAZ.NET – Online kosmetika mağazası</title>
+      </Helmet>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -235,15 +216,6 @@ const MyAccount = () => {
                       {userAccountInfo?.otherAddress}
                     </div>
                   </div>
-                  {/* <div className="ms-md-auto">
-                    <Link
-                      to="/product-list"
-                      className="btn btn-success btn-hover"
-                    >
-                      <i className="bi bi-cart4 me-1 align-middle"></i> Shopping
-                      Now
-                    </Link>
-                  </div> */}
                 </div>
               </div>
             </Col>
@@ -348,7 +320,6 @@ const MyAccount = () => {
                                 <h6 className="fs-16 text-decoration-underline flex-grow-1 mb-0">
                                   Personal Info
                                 </h6>
-                               
                               </div>
 
                               <div className="table-responsive table-card px-1">
@@ -503,12 +474,18 @@ const MyAccount = () => {
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                       />
+                                      {formik.touched.name &&
+                                      formik.errors.name ? (
+                                        <div className="text-danger">
+                                          {formik.errors.name}
+                                        </div>
+                                      ) : null}
                                     </div>
                                   </Col>
                                   <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="surname">
-                                        surName
+                                        Surname
                                       </Form.Label>
                                       <Form.Control
                                         type="text"
@@ -519,6 +496,12 @@ const MyAccount = () => {
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                       />
+                                      {formik.touched.surname &&
+                                      formik.errors.surname ? (
+                                        <div className="text-danger">
+                                          {formik.errors.surname}
+                                        </div>
+                                      ) : null}
                                     </div>
                                   </Col>
                                   <Col lg={6}>
@@ -535,12 +518,18 @@ const MyAccount = () => {
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                       />
+                                      {formik.touched.phone &&
+                                      formik.errors.phone ? (
+                                        <div className="text-danger">
+                                          {formik.errors.phone}
+                                        </div>
+                                      ) : null}
                                     </div>
                                   </Col>
                                   <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="email">
-                                        Email Address
+                                        Email
                                       </Form.Label>
                                       <Form.Control
                                         type="email"
@@ -551,12 +540,18 @@ const MyAccount = () => {
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                       />
+                                      {formik.touched.email &&
+                                      formik.errors.email ? (
+                                        <div className="text-danger">
+                                          {formik.errors.email}
+                                        </div>
+                                      ) : null}
                                     </div>
                                   </Col>
-                                  <Col lg={4}>
+                                  <Col lg={6}>
                                     <div className="mb-3">
                                       <Form.Label htmlFor="address">
-                                        address
+                                        Address
                                       </Form.Label>
                                       <Form.Control
                                         type="text"
@@ -567,11 +562,37 @@ const MyAccount = () => {
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                       />
+                                      {formik.touched.address &&
+                                      formik.errors.address ? (
+                                        <div className="text-danger">
+                                          {formik.errors.address}
+                                        </div>
+                                      ) : null}
                                     </div>
                                   </Col>
                                   <Col lg={6}>
-                                    <button type="submit">Submit</button>
+                                    <div className="mb-3">
+                                      <Form.Label htmlFor="address">
+                                        Other Address
+                                      </Form.Label>
+                                      <Form.Control
+                                        type="text"
+                                        id="otherAddress"
+                                        name="otherAddress"
+                                        placeholder="Other Address"
+                                        value={formik.values.otherAddress}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                      />
+                                      {formik.touched.otherAddress &&
+                                      formik.errors.otherAddress ? (
+                                        <div className="text-danger">
+                                          {formik.errors.otherAddress}
+                                        </div>
+                                      ) : null}
+                                    </div>
                                   </Col>
+
                                   <Col lg={6}>
                                     <Form.Label htmlFor="profileImage">
                                       Profile Image
@@ -583,6 +604,14 @@ const MyAccount = () => {
                                       ref={fileRef}
                                       onChange={() => addStoreImage()}
                                     />
+                                  </Col>
+                                  <Col lg={6} className="d-flex align-items-center ">
+                                    <button
+                                      className="btn btn-primary mt-4   "
+                                      type="submit"
+                                    >
+                                      Submit
+                                    </button>
                                   </Col>
                                 </Row>
                               </Form>
