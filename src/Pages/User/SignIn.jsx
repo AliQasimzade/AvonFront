@@ -26,8 +26,6 @@ import { getAllWisslist } from "../../slices/layouts/wistliss";
 const Signin = () => {
   const passwordtype = "password";
   const [password, setPassword] = useState("password");
-  const [userid, setUserid] = useState("");
-  const [token, setToken] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -51,7 +49,6 @@ const Signin = () => {
         )
         .then((rest) => {
           const decoded = jwt_decode(rest.data);
-          
           dispatch(changeUserId(decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']));
           dispatch(changeToken(rest.data));
           axios
@@ -59,6 +56,11 @@ const Signin = () => {
               `https://avonazerbaijan.com/api/Account/MyAccount?id=${decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']}`
             )
             .then((res) => {
+              axios.get(`https://avonazerbaijan.com/api/Baskets/GetAll?appUserId=${decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']}`)
+              .then(res => dispatch(getAllBaskets(res.data)))
+
+              axios.get(`https://avonazerbaijan.com/api/WishLists/GetAll?appUserId=${decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']}`)
+              .then(res => dispatch(getAllWisslist(res.data)))
               toast.success("Uğurla giriş olundu!", {
                 position: "top-right",
                 autoClose: 5000,

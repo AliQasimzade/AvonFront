@@ -42,7 +42,6 @@ import { useParams } from "react-router-dom";
 const Categories = (props) => {
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
-  const [subImage, setSubImage] = useState("");
   const { slug } = useParams();
   useEffect(() => {
     fetchCategory();
@@ -58,10 +57,8 @@ const Categories = (props) => {
         setCategory(data);
         const filterSub = data.find((sub) => sub.name == slug);
         if (filterSub) {
-          setSubImage(filterSub.image);
           setProducts([...filterSub.productSubCategories]);
         } else {
-          setSubImage("");
           setProducts([]);
         }
       } else {
@@ -96,17 +93,6 @@ const Categories = (props) => {
                 >
                   {slug}
                 </h1>
-                {subImage != '' && (
-                  <img
-                    src={subImage}
-                    style={{
-                      width: "90px",
-                      height: "90px",
-                      borderRadius: "50%",
-                    }}
-                    alt={slug}
-                  />
-                )}
               </div>
             </Col>
           </Row>
@@ -121,13 +107,6 @@ const Categories = (props) => {
                 return (
                   <Col lg={2} md={3} sm={6} key={ind}>
                     <div className="text-center">
-                      <Image
-                        src={cat.image}
-                        alt=""
-                        className={` bg-${cat.colorCode}-subtle border border-2 border-${cat.colorCode} border-opacity-10 p-4`}
-                        fluid
-                        roundedCircle
-                      />
                       <div className="mt-4">
                         <Link to={`/catalog/${cat.name}`}>
                           <h5 className="mb-2 fs-15">{cat.name}</h5>
@@ -252,7 +231,7 @@ const Categories = (props) => {
                       Electronics
                     </span>
                   </div>
-                  {/* <Image src={instagram1} className="img-fluid" alt="" /> */}
+                
                 </Link>
               </Card>
             </Col>

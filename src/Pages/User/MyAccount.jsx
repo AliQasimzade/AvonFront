@@ -31,6 +31,8 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
+import { getAllBaskets } from "../../slices/layouts/basket";
+import { getAllWisslist } from "../../slices/layouts/wistliss";
 const MyAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,6 +42,8 @@ const MyAccount = () => {
     dispatch(logoutUser());
     dispatch(logoutToken());
     dispatch(logoutUserId());
+    dispatch(getAllBaskets([]))
+    dispatch(getAllWisslist([]))
     navigate("/giris");
   };
   const userAccountInfo = useSelector(
@@ -266,12 +270,13 @@ const MyAccount = () => {
                           Account Info
                         </Nav.Link>
                       </Nav.Item>
-                      {/* <Nav.Item as="li">
+                      <Nav.Item as="li">
                         <Nav.Link
                           as="a"
-                          eventKey="list"
+                          href="/shop/wishList"
                           className="fs-15"
                           role="presentation"
+                          style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-bookmark-check align-middle me-1"></i>{" "}
                           Wish list
@@ -280,9 +285,10 @@ const MyAccount = () => {
                       <Nav.Item as="li">
                         <Nav.Link
                           as="a"
-                          eventKey="order"
+                          href="/shop/orderhistory"
                           className="fs-15"
                           role="presentation"
+                          style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-bag align-middle me-1"></i> Order
                         </Nav.Link>
@@ -293,11 +299,12 @@ const MyAccount = () => {
                           eventKey="setting"
                           className="fs-15"
                           role="presentation"
+                          style={{ cursor: "pointer" }}
                         >
                           <i className="bi bi-gear align-middle me-1"></i>{" "}
                           Settings
                         </Nav.Link>
-                      </Nav.Item> */}
+                      </Nav.Item>
                       <Nav.Item as="li">
                         <Nav.Link
                           as="a"
@@ -310,17 +317,17 @@ const MyAccount = () => {
                           Referal Users
                         </Nav.Link>
                       </Nav.Item>
-                      {/* <Nav.Item as="li">
+                      <Nav.Item as="li">
                         <Nav.Link
                           as="a"
                           className="fs-15"
-                          href="/cixis"
+                          href="/ana-sehife"
                           onClick={logOut}
                         >
                           <i className="bi bi-box-arrow-right align-middle me-1"></i>{" "}
                           Logout
                         </Nav.Link>
-                      </Nav.Item> */}
+                      </Nav.Item>
                     </Nav>
                   </Card.Body>
                 </Card>
@@ -341,14 +348,7 @@ const MyAccount = () => {
                                 <h6 className="fs-16 text-decoration-underline flex-grow-1 mb-0">
                                   Personal Info
                                 </h6>
-                                {/* <div className="flex-shrink-0">
-                                  <Link
-                                    to="#"
-                                    className="badge badge-soft-dark"
-                                  >
-                                    Edit
-                                  </Link>
-                                </div> */}
+                               
                               </div>
 
                               <div className="table-responsive table-card px-1">
@@ -468,114 +468,6 @@ const MyAccount = () => {
                       </Row>
                     </div>
                   </Tab.Pane>
-                  <Tab.Pane eventKey="list">
-                    <div
-                      className="tab-pane fade show"
-                      id="custom-v-pills-list"
-                      role="tabpanel"
-                    >
-                      <Row>
-                        <Col lg={12}>
-                          <Card className="overflow-hidden">
-                            <Card.Body>
-                              <div className="table-responsive table-card">
-                                <Table className="fs-15 align-middle">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">Product</th>
-                                      <th scope="col">Price</th>
-                                      <th scope="col">Stock Status</th>
-                                      <th scope="col">Action</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {(wishlishProduct || [])?.map(
-                                      (item, inx) => {
-                                        return (
-                                          <tr key={inx}>
-                                            <td>
-                                              <div className="d-flex gap-3">
-                                                <div className="avatar-sm flex-shrink-0">
-                                                  <div
-                                                    className={`avatar-title bg-${item.bg}-subtle rounded`}
-                                                  >
-                                                    <Image
-                                                      src={item.img}
-                                                      alt=""
-                                                      className="avatar-xs"
-                                                    />
-                                                  </div>
-                                                </div>
-                                                <div className="flex-grow-1">
-                                                  <Link to="/product-details">
-                                                    <h6 className="fs-16">
-                                                      {item.title}
-                                                    </h6>
-                                                  </Link>
-                                                  <p className="mb-0 text-muted fs-13">
-                                                    {item.text}
-                                                  </p>
-                                                </div>
-                                              </div>
-                                            </td>
-                                            <td>${item.price}</td>
-                                            <td>
-                                              <span
-                                                className={`badge badge-soft-${item.color}`}
-                                              >
-                                                {item.status}
-                                              </span>
-                                            </td>
-                                            <td>
-                                              <ul className="list-unstyled d-flex gap-3 mb-0">
-                                                <li>
-                                                  <Link
-                                                    to="/shop/shopingcard"
-                                                    className="btn btn-soft-info btn-icon btn-sm"
-                                                  >
-                                                    <i className="ri-shopping-cart-2-line fs-13"></i>
-                                                  </Link>
-                                                </li>
-                                                <li>
-                                                  <Link
-                                                    to="#"
-                                                    className="btn btn-soft-danger btn-icon btn-sm"
-                                                  >
-                                                    <i className="ri-close-line fs-13"></i>
-                                                  </Link>
-                                                </li>
-                                              </ul>
-                                            </td>
-                                          </tr>
-                                        );
-                                      }
-                                    )}
-                                  </tbody>
-                                </Table>
-                              </div>
-                              <div className="hstack gap-2 justify-content-end mt-4">
-                                <Link
-                                  to="/product-list"
-                                  className="btn btn-hover btn-secondary"
-                                >
-                                  Continue Shopping{" "}
-                                  <i className="ri-arrow-right-line align-bottom"></i>
-                                </Link>
-                                <Link
-                                  to="/resmilesdirme"
-                                  className="btn btn-hover btn-primary"
-                                >
-                                  Check Out{" "}
-                                  <i className="ri-arrow-right-line align-bottom"></i>
-                                </Link>
-                              </div>
-                            </Card.Body>
-                          </Card>
-                        </Col>
-                      </Row>
-                    </div>
-                  </Tab.Pane>
-
                   <Tab.Pane eventKey="setting">
                     <div
                       className="tab-pane fade show"

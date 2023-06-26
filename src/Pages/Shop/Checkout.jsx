@@ -79,11 +79,11 @@ const Checkout = () => {
             name: userData.name,
             surname: userData.surname,
             fatherName: "string",
-            apartment: addressData.split(',')[2],
-            streetAddres: addressData.split(',')[1],
+            apartment: addressData,
+            streetAddres: addressData,
             address: addressData,
             isBalance: selectedBalance,
-            city: addressData.split(",")[0],
+            city: addressData,
             message: "string",
             email: userData.email,
             phone: userData.phoneNumber,
@@ -122,7 +122,7 @@ const Checkout = () => {
       />
       <Shoptopbar title="Checkout" page="Checkout" />
       <section className="section">
-        <Container>
+        {basket.length > 0 ? <Container>
           {!user ? (
             <Row>
               <Col lg={12}>
@@ -306,7 +306,19 @@ const Checkout = () => {
               </div>
             </Col>
           </Row>
-        </Container>
+        </Container> : <Row id="search-result-elem" className="d-flex justify-content-center flex-grow-1">
+      <Col lg={12}>
+        <div className="text-center py-5">
+          <div className="avatar-lg mx-auto mb-4">
+            <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
+              <i className="bi bi-search"></i>
+            </div>
+          </div>
+
+          <h5>Səbətdə məhsul yoxdur</h5>
+        </div>
+      </Col>
+    </Row>}
       </section>
       <EmailClothe />
       <CommonService />

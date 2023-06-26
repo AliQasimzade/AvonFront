@@ -189,7 +189,7 @@ const CatalogCollection = ({
                             maxHeight: `${cheight || ""}`,
                             maxWidth: "100%",
                           }}
-                          className="mx-auto d-block rounded-2"
+                          className="mx-auto d-block rounded-2 h-100"
                         />
                         <div className="action vstack gap-2">
                           <Button
