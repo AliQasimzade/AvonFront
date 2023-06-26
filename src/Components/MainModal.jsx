@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Col,
   Modal,
@@ -11,6 +11,7 @@ import {
   Image,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import SimpleBar from "simplebar-react";
 //img
 import modalImg from "../assets/images/subscribe.png";
@@ -97,9 +98,7 @@ export const InvoiceModal = ({
   selectedOrder,
   selectedInvoice,
 }) => {
-  const userData = useSelector(
-    (state) => state.persistedReducer.Accont.user
-  );
+  const userData = useSelector((state) => state.persistedReducer.Accont.user);
 
   const InvoicePrint = () => {
     window.print();
@@ -304,18 +303,23 @@ export const InvoiceModal = ({
                                     </span>
                                   </td>
                                   <td>
-                                  ₼{item.product.salePrice}  - {item.salePrice != item.product.salePrice ? ` ₼${item.salePrice}`:'Yoxdur'} 
+                                    ₼{item.product.salePrice} -{" "}
+                                    {item.salePrice != item.product.salePrice
+                                      ? ` ₼${item.salePrice}`
+                                      : "Yoxdur"}
                                   </td>
                                   <td>{item.count}</td>
                                   <td>{item.discountPrice}</td>
 
                                   <td className="text-end">
                                     ₼
-                                    {item.salePrice != 0 ? Number(
-                                      item.salePrice * item.count
-                                    ).toFixed(2) : Number(
-                                      item.product.salePrice * item.count
-                                    ).toFixed(2)}
+                                    {item.salePrice != 0
+                                      ? Number(
+                                          item.salePrice * item.count
+                                        ).toFixed(2)
+                                      : Number(
+                                          item.product.salePrice * item.count
+                                        ).toFixed(2)}
                                   </td>
                                 </tr>
                               ))}
@@ -335,10 +339,12 @@ export const InvoiceModal = ({
                                 {Number(
                                   selectedOrder?.orderItems.reduce(
                                     (acc, item) => {
-                                      if(item.salePrice > 0) {
-                                         return acc += item.count * item.salePrice
-                                      }else {
-                                         return acc += item.count * item.product.salePrice
+                                      if (item.salePrice > 0) {
+                                        return (acc +=
+                                          item.count * item.salePrice);
+                                      } else {
+                                        return (acc +=
+                                          item.count * item.product.salePrice);
                                       }
                                     },
                                     0
@@ -352,7 +358,13 @@ export const InvoiceModal = ({
                               </td>
                               <td className="text-end">
                                 - %
-                                {selectedOrder.orderItems.find(f => f.discountPrice > 0).discountPrice}
+                                {selectedOrder.orderItems.find(
+                                  (f) => f.discountPrice > 0
+                                )
+                                  ? selectedOrder.orderItems.find(
+                                      (f) => f.discountPrice > 0
+                                    )
+                                  : 0}
                               </td>
                             </tr>
                             <tr>
@@ -416,34 +428,47 @@ export const InvoiceModal = ({
 //=======================================================
 
 //search modal
+
 export const SearchModal = ({ show, handleClose }) => {
   const [value, setValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const searchOption = useRef(null);
+  const dropdown = useRef(null);
+  const searchInput = useRef(null);
+  const [result, setResult] = useState([]);
+
   const handlesearch = (event) => {
     setValue(event.value);
+
+    if (event.value.length > 0) {
+      searchOption.current.classList.remove("d-none");
+    } else {
+      dropdown.current.classList.remove("show");
+      searchOption.current.classList.add("d-none");
+    }
   };
 
-  useEffect(() => {
-    var searchOption = document.getElementById("search-close-options");
-    var dropdown = document.getElementById("search-dropdown");
-    var searchInput = document.getElementById("search-options");
-
-    searchInput?.addEventListener("keyup", function () {
-      if (searchInput?.value.length > 0) {
-        dropdown?.classList.add("show");
-        searchOption?.classList.remove("d-none");
+  const handleSearch = async () => {
+    setLoading(true);
+    dropdown.current.classList.add("show");
+    searchOption.current.classList.add("d-none");
+    setValue("");
+    try {
+      const request = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}Products/GetAll?isDelete=false&searchword=${value}`
+      );
+      if (request.status == 200) {
+        console.log(request.data);
+        setResult(request.data);
+        setLoading(false);
       } else {
-        dropdown?.classList.remove("show");
-        searchOption?.classList.add("d-none");
+        throw new Error("Sorğuda xəta baş verdi");
       }
-    });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-    searchOption?.addEventListener("click", function () {
-      searchInput.value = "";
-      dropdown?.classList.remove("show");
-      searchOption?.classList.add("d-none");
-      setValue("");
-    });
-  }, [value]);
   return (
     <>
       <Modal
@@ -457,158 +482,70 @@ export const SearchModal = ({ show, handleClose }) => {
           <div className="position-relative w-100">
             <Form.Control
               type="text"
+              ref={searchInput}
               className="form-control-lg border-2"
-              placeholder="Search for RGAgency..."
+              placeholder="Search products by name..."
               id="search-options"
               value={value}
               onChange={(e) => handlesearch(e.target)}
             />
             <span className="bi bi-search search-widget-icon fs-17"></span>
-            <Link
-              to="#"
-              className="search-widget-icon fs-14 link-secondary text-decoration-underline search-widget-icon-close"
+            <Button
+              onClick={handleSearch}
+              ref={searchOption}
+              className="search-widget-icon fs-14 d-none link-secondary text-white search-widget-icon-close"
               id="search-close-options"
             >
-              Clear
-            </Link>
+              Axtar
+            </Button>
           </div>
         </Modal.Header>
         <div
+          ref={dropdown}
           className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0 overflow-hidden"
           id="search-dropdown"
         >
-          <div className="dropdown-head rounded-top">
-            <div className="p-3">
-              <Row className="align-items-center">
-                <Col>
-                  <h6 className="m-0 fs-14 text-muted fw-semibold">
-                    {" "}
-                    RECENT SEARCHES{" "}
-                  </h6>
-                </Col>
-              </Row>
-            </div>
-
-            <div className="dropdown-item bg-transparent text-wrap">
-              <Link
-                to="/"
-                className="btn btn-soft-secondary btn-sm btn-rounded"
-              >
-                how to setup{" "}
-                <i className="mdi mdi-magnify ms-1 align-middle"></i>
-              </Link>
-              <Link
-                to="/"
-                className="btn btn-soft-secondary btn-sm btn-rounded"
-              >
-                buttons <i className="mdi mdi-magnify ms-1 align-middle"></i>
-              </Link>
-            </div>
-          </div>
+          <div className="dropdown-head rounded-top"></div>
           <SimpleBar className="pe-2 ps-3 mt-3" style={{ maxHeight: "300px" }}>
             <div className="list-group list-group-flush border-dashed">
               <div className="notification-group-list">
                 <h5 className="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
-                  Apps Pages
+                  Results
                 </h5>
-                <Link
-                  to="#"
-                  className="list-group-item dropdown-item notify-item"
-                >
-                  <i className="bi bi-speedometer2 me-2"></i>{" "}
-                  <span>Analytics Dashboard</span>
-                </Link>
-                <Link
-                  to="#"
-                  className="list-group-item dropdown-item notify-item"
-                >
-                  <i className="bi bi-filetype-psd me-2"></i>{" "}
-                  <span>RGAgency.psd</span>
-                </Link>
-                <Link
-                  to="#"
-                  className="list-group-item dropdown-item notify-item"
-                >
-                  <i className="bi bi-ticket-detailed me-2"></i>{" "}
-                  <span>Support Tickets</span>
-                </Link>
-                <Link
-                  to="#"
-                  className="list-group-item dropdown-item notify-item"
-                >
-                  <i className="bi bi-file-earmark-zip me-2"></i>{" "}
-                  <span>RGAgency.zip</span>
-                </Link>
-              </div>
+                {loading == false ? (
+                  result.length > 0 ? (
+                    result.map((r, index) => (
+                      <Link
+                        key={index}
+                        to={`/product-details/${r.skuId}`}
+                        className="list-group-item dropdown-item notify-item"
+                        onClick={handleClose}
+                      >
+                        <span>{r.name}</span>
+                      </Link>
+                    ))
+                  ) : (
+                    <Row>
+                      <Col lg={12}>
+                        <div className="text-center py-5">
+                          <div className="avatar-lg mx-auto mb-4">
+                            <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
+                              <i className="bi bi-search"></i>
+                            </div>
+                          </div>
 
-              <div className="notification-group-list">
-                <h5 className="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
-                  Links
-                </h5>
-                <Link
-                  to="#"
-                  className="list-group-item dropdown-item notify-item"
-                >
-                  <i className="bi bi-link-45deg me-2 align-middle"></i>{" "}
-                  <span>www.rgagency.org</span>
-                </Link>
-              </div>
-
-              <div className="notification-group-list">
-                <h5 className="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
-                  People
-                </h5>
-                <Link
-                  to="#"
-                  className="list-group-item dropdown-item notify-item"
-                >
-                  <div className="d-flex align-items-center">
-                    <Image
-                      src={avatar1}
-                      alt=""
-                      className="avatar-xs flex-shrink-0 me-2"
-                      roundedCircle
-                    />
-                    <div>
-                      <h6 className="mb-0">Ayaan Bowen</h6>
-                      <span className="fs-12 text-muted">React Developer</span>
-                    </div>
+                          <h5>No matching records found</h5>
+                        </div>
+                      </Col>
+                    </Row>
+                  )
+                ) : (
+                  <div className="d-flex justify-content-center align-items-center">
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
                   </div>
-                </Link>
-                <Link
-                  to="#"
-                  className="list-group-item dropdown-item notify-item"
-                >
-                  <div className="d-flex align-items-center">
-                    <Image
-                      src={avatar7}
-                      alt=""
-                      className="avatar-xs flex-shrink-0 me-2"
-                      roundedCircle
-                    />
-                    <div>
-                      <h6 className="mb-0">Alexander Kristi</h6>
-                      <span className="fs-12 text-muted">React Developer</span>
-                    </div>
-                  </div>
-                </Link>
-                <Link
-                  to="#"
-                  className="list-group-item dropdown-item notify-item"
-                >
-                  <div className="d-flex align-items-center">
-                    <Image
-                      src={avatar7}
-                      alt=""
-                      className="avatar-xs flex-shrink-0 me-2"
-                      roundedCircle
-                    />
-                    <div>
-                      <h6 className="mb-0">Alan Carla</h6>
-                      <span className="fs-12 text-muted">React Developer</span>
-                    </div>
-                  </div>
-                </Link>
+                )}
               </div>
             </div>
           </SimpleBar>
@@ -727,7 +664,9 @@ export const CardModal = ({ show, handleClose }) => {
                               </span>
                             </div>
                             <div className="vr"></div>
-                            <span className="text-success fw-medium">{item.productCount}</span>
+                            <span className="text-success fw-medium">
+                              {item.productCount}
+                            </span>
                           </div>
                         </div>
                         <div className="flex-shrink-0 d-flex flex-column justify-content-between align-items-end">

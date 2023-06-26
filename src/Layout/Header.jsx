@@ -36,6 +36,7 @@ const Header = (props) => {
   const [brendler, setBrendler] = useState([]);
   //search modal
   const [show, setShow] = useState(false);
+  const [searchWord, setSearchWord] = useState('')
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -217,34 +218,6 @@ const Header = (props) => {
                       </Col>
                     ))}
                   </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.3">
-                    <div className="p-3">
-                      <p
-                        className="mb-3 text-uppercase fs-11 fw-medium text-muted"
-                        data-key="t-top-brands"
-                      >
-                        {props.t("top-brands")}
-                      </p>
-                      <Row className="g-2">
-                        {brendler.map((brend) => (
-                          <Col key={brend.id} lg={4}>
-                            <Link
-                              title={brend.name}
-                              to={`/${brend}`}
-                              className="d-flex p-2 border border-dashed justify-content-center align-items-center"
-                              style={{
-                                width: "90px",
-                                height: "90px",
-                                borderRadius: "50%",
-                              }}
-                            >
-                            </Link>
-                          </Col>
-                        ))}
-                      </Row>
-                    </div>
-                  </NavDropdown.Item>
                 </NavDropdown>
               </li>
 
@@ -287,7 +260,7 @@ const Header = (props) => {
                       lg={10}
                       className="d-none d-lg-block responsive_catalog_none"
                     >
-                      <Row className="g-0 g-lg-4">
+                      <Row className="g-0 g-lg-8">
                         {/* kateqoriyalar */}
                         {categories.map((category, index) => (
                           <Col lg={2} key={index}>
@@ -317,7 +290,7 @@ const Header = (props) => {
                           </Col>
                         ))}
                         {/* brendler */}
-                        <Col lg={2} className="d-none d-lg-block">
+                        <Col lg={4} className="d-none d-lg-block">
                           <div className="p-3">
                             <p
                               className="mb-3 text-uppercase fs-11 fw-medium text-muted"
@@ -325,21 +298,15 @@ const Header = (props) => {
                             >
                               {props.t("top-brands")}
                             </p>
-                            <Row className="g-2">
+                            <Row className="g-2 flex-wrap">
                               {brendler.map((brend) => (
-                                <Col key={brend.id} lg={4}>
                                   <Link
-                                    title={brend.name}
+                                  key={brend.id}
                                     to={`/${brend.name}`}
-                                    className="d-block p-2 border border-dashed text-center rounded-3"
+                                    className="d-flex p-2 border border-dashed text-center rounded-3 w-auto m-1"
                                   >
-                                    <Image
-                                      src={brend.image}
-                                      alt={brend.name}
-                                      className="avatar-sm w-100"
-                                    />
+                                    {brend.name}
                                   </Link>
-                                </Col>
                               ))}
                             </Row>
                           </div>
