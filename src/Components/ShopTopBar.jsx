@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { recentlyOrder } from "../Common/data";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getAllDeliveryServices } from "../services/getRequests";
+import { getAllDeliveryServices, getAllProducts } from "../services/getRequests";
 export const Shoptopbar = ({ title, page }) => {
   return (
     <>
@@ -238,6 +238,20 @@ export const BrandedProduct = ({ title }) => {
       event.closest("button").classList.add("active");
     }
   };
+
+  const [products, setProducts] = useState([])
+  const getProdts = async () => {
+    try {
+      const data = await getAllProducts(1);
+      setProducts(data)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  useEffect(() => {
+    getProdts();
+  }, [])
+  console.log(products);
   return (
     <>
       <section className="section">
@@ -247,8 +261,8 @@ export const BrandedProduct = ({ title }) => {
               <div className="d-flex align-items-center justify-content-between mb-4 pb-1">
                 <h4 className="flex-grow-1 mb-0">{title}</h4>
                 <div className="flex-shrink-0">
-                  <Link to="#" className="link-effect link-primary">
-                    All Products{" "}
+                  <Link to="/products" className="link-effect link-primary">
+                    Bütün məhsullara bax{" "}
                     <i className="ri-arrow-right-line ms-1 align-bottom"></i>
                   </Link>
                 </div>
@@ -256,13 +270,13 @@ export const BrandedProduct = ({ title }) => {
             </Col>
           </Row>
           <Row>
-            {(recentlyOrder || []).map((item, inx) => {
+            {(products || [])?.filter(a => a.isDefault == true).slice(3, 7).map((item, inx) => {
               return (
                 <Col xxl={3} lg={4} md={6} key={inx}>
                   <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden card-animate">
                     <div className="bg-light bg-opacity-50 rounded py-4 position-relative">
                       <Image
-                        src={item.img}
+                        src={item.posterImage}
                         alt=""
                         style={{ maxHeight: "200px", maxWidth: "100%" }}
                         className="mx-auto d-block rounded-2"
@@ -282,96 +296,29 @@ export const BrandedProduct = ({ title }) => {
                           </span>
                         </Button>
                       </div>
-                      {item.presentag && (
-                        <div className="avatar-xs label">
-                          <div className="avatar-title bg-danger rounded-circle fs-11">
-                            {item.presentag}
-                          </div>
+                      <div className="avatar-xs label">
+                        <div className="avatar-title bg-danger rounded-circle fs-11">
+                          {item.discountPrice} %
                         </div>
-                      )}
+                      </div>
                     </div>
                     <div className="pt-4">
-                      {item?.color ? (
-                        <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                          <li>
-                            <Form.Control
-                              type="radio"
-                              name="sizes10"
-                              id="product-color-102"
-                            />
-                            <Form.Label
-                              className={`avatar-xxs btn btn-${
-                                item.color[0] || ""
-                              } p-0 d-flex align-items-center justify-content-center rounded-circle`}
-                              htmlFor="product-color-102"
-                            ></Form.Label>
-                          </li>
-                          <li>
-                            <Form.Control
-                              type="radio"
-                              name="sizes10"
-                              id="product-color-103"
-                            />
-                            <Form.Label
-                              className={`avatar-xxs btn btn-${
-                                item.color[1] || ""
-                              } p-0 d-flex align-items-center justify-content-center rounded-circle`}
-                              htmlFor="product-color-103"
-                            ></Form.Label>
-                          </li>
-                          <li>
-                            <Form.Control
-                              type="radio"
-                              name="sizes10"
-                              id="product-color-104"
-                            />
-                            <Form.Label
-                              className={`avatar-xxs btn btn-${
-                                item.color[2] || ""
-                              } p-0 d-flex align-items-center justify-content-center rounded-circle`}
-                              htmlFor="product-color-104"
-                            ></Form.Label>
-                          </li>
-                          <li>
-                            <Form.Control
-                              type="radio"
-                              name="sizes10"
-                              id="product-color-105"
-                            />
-                            <Form.Label
-                              className={`avatar-xxs btn btn-${
-                                item.color[3] || ""
-                              } p-0 d-flex align-items-center justify-content-center rounded-circle`}
-                              htmlFor="product-color-105"
-                            ></Form.Label>
-                          </li>
-                        </ul>
-                      ) : (
-                        <div className="avatar-xxs mb-3">
-                          <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                            <i className={`${item.icone}`}></i>
-                          </div>
-                        </div>
-                      )}
-
                       <Link to="#">
                         <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">
-                          {item.title}
+                          {item.name}
                         </h6>
                       </Link>
                       <div className="mt-2">
-                        <span className="float-end">
-                          {item.ratting}{" "}
-                          <i className="ri-star-half-fill text-warning align-bottom"></i>
+                        <span className="float-end">5<i className="ri-star-half-fill text-warning align-bottom"></i>
                         </span>
-                        <h5 className="mb-0">{item.price}</h5>
+                        <h5 className="mb-0">{item.salePrice} ₼</h5>
                       </div>
                       <div className="mt-3">
                         <Link
-                          to="/shop/shopingcard"
+                          to={`/product-details/${item.skuId}`}
                           className="btn btn-primary w-100 add-btn"
                         >
-                          <i className="mdi mdi-cart me-1"></i> Add To Cart
+                          <i className="mdi mdi-cart me-1"></i> Ətraflı bax
                         </Link>
                       </div>
                     </div>

@@ -15,8 +15,8 @@ import Spinner from "react-bootstrap/Spinner";
 import SimpleBar from "simplebar-react";
 //img
 import modalImg from "../assets/images/subscribe.png";
-import logodark from "../assets/images/avonLogo.png";
-import logolight from "../assets/images/avonLogo.png";
+import logodark from "../assets/images/Logo.svg";
+import logolight from "../assets/images/Logo.svg";
 import avatar1 from "../assets/images/users/avatar-1.jpg";
 import avatar7 from "../assets/images/users/avatar-7.jpg";
 

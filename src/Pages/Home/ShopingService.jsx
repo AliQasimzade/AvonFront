@@ -59,7 +59,7 @@ const Shopping = () => {
                               to={offerOfWeeksData.link}
                               className="btn btn-primary w-md btn-hover"
                             >
-                              Shopping Now
+                              Ətraflı bax
                             </Link>
                           </div>
                         </div>

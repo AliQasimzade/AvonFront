@@ -41,6 +41,7 @@ import { getAllBaskets } from "../../slices/layouts/basket";
 import { getAllWisslist } from "../../slices/layouts/wistliss";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { getAllProducts } from "../../services/getRequests";
 const Productdetails = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [proDetail, setproDetail] = useState([]);
@@ -60,7 +61,20 @@ const Productdetails = () => {
       .then((res) => {
         setproDetail(res.data.product);
       });
+    getProdcts();
   }, [skuId]);
+
+  const [products, setProducts] = useState([]);
+
+  const getProdcts = async () => {
+    try {
+      const data = await getAllProducts(1);
+      setProducts(data)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
   const handleSetImg = (id) => {
     setSliderImg(
@@ -193,11 +207,13 @@ const Productdetails = () => {
   const desc = (data) => {
     return { __html: data };
   };
+  console.log(proDetail);
+  console.log(products);
   return (
     <>
-    <Helmet>
-      <title>{`${proDetail.name} | AVONAZ.NET – Online kosmetika mağazası`}</title>
-    </Helmet>
+      <Helmet>
+        <title>{`${proDetail.name} | AVONAZ.NET – Online kosmetika mağazası`}</title>
+      </Helmet>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -221,12 +237,12 @@ const Productdetails = () => {
           <Row className="justify-content-center">
             <Col lg={6}>
               <div className="text-center">
-                <h1 className="text-white mb-0">Product Details</h1>
+                <h1 className="text-white mb-0">{proDetail.name}</h1>
                 <Breadcrumb bsPrefix="breadcrumb breadcrumb-light justify-content-center mt-4">
-                  <Breadcrumb.Item href="#">Product</Breadcrumb.Item>
+                  <Breadcrumb.Item href="products">Məhsullar</Breadcrumb.Item>
                   <Breadcrumb.Item active aria-current="page">
                     {" "}
-                    Product Details{" "}
+                    {proDetail.name}{" "}
                   </Breadcrumb.Item>
                 </Breadcrumb>
               </div>
@@ -284,11 +300,6 @@ const Productdetails = () => {
                 {/*end col*/}
                 <Col md={10}>
                   <div className="bg-light rounded-2 position-relative ribbon-box overflow-hidden">
-                    <div className="ribbon ribbon-danger ribbon-shape trending-ribbon">
-                      <span className="trending-ribbon-text">Trending</span>
-                      <i className="ri-flashlight-fill text-white align-bottom float-end ms-1" />
-                    </div>
-
                     <Swiper
                       style={{
                         "--swiper-navigation-color": "#fff",
@@ -338,7 +349,7 @@ const Productdetails = () => {
                         onClick={() => hendleClickBasket(skuId, count)}
                       >
                         {" "}
-                        <i className="bi bi-basket2 me-2" /> Add To Cart
+                        <i className="bi bi-basket2 me-2" /> Səbətə əlavə et
                       </Button>
                       <Button
                         className="btn btn-soft-danger custom-toggle btn-hover"
@@ -390,19 +401,19 @@ const Productdetails = () => {
                   <h5 className="fs-24 mb-4">
                     {Number(
                       proDetail.salePrice -
-                        (proDetail.salePrice / 100) * proDetail.discountPrice
-                    ).toFixed(2)}
+                      (proDetail.salePrice / 100) * proDetail.discountPrice
+                    ).toFixed(2)}₼
                     <span className="text-muted fs-14">
-                      <del>{proDetail.salePrice}</del>
+                      <del>{proDetail.salePrice}₼</del>
                     </span>
                     <span className="fs-14 ms-2 text-danger">
                       {" "}
-                      ( {proDetail.discountPrice} off)
+                      ( {proDetail.discountPrice}% endirim)
                     </span>
                   </h5>
                 </div>
                 <div className="d-flex align-items-center mb-4">
-                  <h5 className="fs-15 mb-0">Quanty:</h5>
+                  <h5 className="fs-15 mb-0">Miqdarı:</h5>
                   <div className="input-step ms-2">
                     <Button
                       className="minus"
@@ -442,12 +453,12 @@ const Productdetails = () => {
                     <div>
                       <h6 className="fs-14 fw-medium text-muted">
                         {proDetail?.variant?.type == "color"
-                          ? "Colors"
+                          ? "Rəng çeşidləri"
                           : proDetail?.variant?.type == "size"
-                          ? "Sizes"
-                          : proDetail?.variant?.type == "weight"
-                          ? "Weights"
-                          : "Images"}
+                            ? "Ölçü çeşidləri"
+                            : proDetail?.variant?.type == "weight"
+                              ? "Çəki çeşidləri"
+                              : "Çeşidləri"}
                         :
                       </h6>
                       {proDetail?.variant?.type == "color" ? (
@@ -665,7 +676,7 @@ const Productdetails = () => {
                     <Nav variant="tabs" className="nav-tabs-custom mb-3">
                       <Nav.Item as="li">
                         <Nav.Link as="a" eventKey="Description">
-                          Description
+                          Açıqlama
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
@@ -679,28 +690,36 @@ const Productdetails = () => {
                           <Table className="table-sm table-borderless align-middle">
                             <tbody>
                               <tr>
-                                <th>Type</th>
-                                <td>{proDetail?.variant?.type}</td>
+                                <th>Məhsul kodu</th>
+                                <td>{proDetail?.productCode}</td>
                               </tr>
                               <tr>
-                                <th>uzunluq</th>
-                                <td>{proDetail?.uzunluq}</td>
+                                <th>SKU kodu</th>
+                                <td>{proDetail?.skuId}</td>
                               </tr>
                               <tr>
-                                <th>width</th>
-                                <td>{proDetail?.width}</td>
+                                <th>Brendi</th>
+                                <td>{proDetail?.brand?.name}</td>
                               </tr>
                               <tr>
-                                <th>heigth</th>
-                                <td>{proDetail?.heigth}</td>
+                                <th>Kateqoriyası</th>
+                                <td>{proDetail?.productSubCategories?.[0]?.subCategory?.name}</td>
                               </tr>
                               <tr>
-                                <th>veight</th>
-                                <td>{proDetail?.veight}</td>
+                                <th>Uzunluğu</th>
+                                <td>{proDetail?.uzunluq} sm</td>
                               </tr>
                               <tr>
-                                <th>variant.name</th>
-                                <td>{proDetail?.variant?.name}</td>
+                                <th>Eni</th>
+                                <td>{proDetail?.width} sm</td>
+                              </tr>
+                              <tr>
+                                <th>Hündürlüyü</th>
+                                <td>{proDetail?.heigth} sm</td>
+                              </tr>
+                              <tr>
+                                <th>Çəkisi</th>
+                                <td>{proDetail?.veight} kq</td>
                               </tr>
                             </tbody>
                           </Table>
@@ -727,47 +746,52 @@ const Productdetails = () => {
         <Container>
           <Row>
             <Col lg={12}>
-              <h4 className="mb-4">You might be interested in</h4>
+              <h4 className="mb-4">Həmçinin bunlarda maraqlı ola bilər</h4>
             </Col>
           </Row>
           <Row className="gy-3">
-            {(productInterestedCard || [])?.map((item, idx) => {
-              return (
-                <Col lg={4} key={idx}>
-                  <Card
-                    as="a"
-                    href="/products-grid/right"
-                    className="card mb-3 card-animate stretched-link"
-                  >
-                    <Row className="g-0">
-                      <Col sm={4}>
-                        <Image
-                          src={item.img}
-                          className="rounded-start h-100 object-fit-cover"
-                          alt="..."
-                          fluid
-                        />
-                      </Col>
-                      <Col sm={8}>
-                        <Card.Body className="h-100 d-flex flex-column">
-                          <h4 className={item.class}>{item.title}</h4>
-                          <p className="card-text text-muted">{item.dic}</p>
-                          <div className="mt-auto">
-                            <div className={`btn btn-soft-${item.bg} btn-sm`}>
-                              Shop Now
+            {(products || [])
+              ?.filter((item) => item.isDefault === true)
+              .slice(0, 3)
+              .map((item, idx) => {
+                return (
+                  <Col lg={4} key={idx}>
+                    <Card
+                      as="a"
+                      href={`/products-details/${item.skuId}`}
+                      className="card mb-3 card-animate stretched-link"
+                    >
+                      <Row className="g-0">
+                        <Col sm={4}>
+                          <Image
+                            src={item.posterImage}
+                            className="rounded-start w-100 object-fit-cover"
+                            style={{ maxHeight: '200px', height: '200px' }}
+                            alt="..."
+                            fluid
+                          />
+                        </Col>
+                        <Col sm={8}>
+                          <Card.Body className="h-100 d-flex flex-column">
+                            <p className="card-text text-muted">{item.productSubCategories[0].subCategory.name}</p>
+                            <h4 className="card-title">{item.name}</h4>
+                            <p className="card-text text-muted">{item.salePrice} ₼</p>
+                            <div className="mt-auto">
+                              <div className={`btn btn-soft-secondary btn-sm`}>
+                                Ətraflı bax
+                              </div>
                             </div>
-                          </div>
-                        </Card.Body>
-                      </Col>
-                    </Row>
-                  </Card>
-                </Col>
-              );
-            })}
+                          </Card.Body>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Col>
+                );
+              })}
           </Row>
         </Container>
       </div>
-      <BrandedProduct title="Similar Products" />
+      <BrandedProduct title="Oxşar məhsullar" />
       <EmailClothe />
       <CommonService />
     </>

@@ -16,7 +16,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import jwt_decode from "jwt-decode";
 //img
-import avonLogo from "../../assets/images/avonLogo.png";
+import avonLogo from "../../assets/images/Logo.svg";
 import { useDispatch } from "react-redux";
 import { changeAccont } from "../../slices/layouts/accont";
 import { getAllBaskets } from "../../slices/layouts/basket";

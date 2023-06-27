@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import AvonLogo from "../../assets/images/avonLogo.png";
+import AvonLogo from "../../assets/images/Logo.svg";
 import { useSearchParams,useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";

@@ -3,11 +3,6 @@
 
 .top-tagbar {
     background-color: var(--#{$prefix}top-tagbar-bg);
-    z-index: 1004;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
     height: $top-tagbar-height;
     padding: 0 calc(#{$grid-gutter-width} * 0.5) 0 calc(#{$grid-gutter-width} * 0.5);
     display: flex;

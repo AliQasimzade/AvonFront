@@ -3,7 +3,7 @@ import { Card, Col, Container, Row ,Image} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 //img
-import AvonLogo from "../../assets/images/avonLogo.png";
+import AvonLogo from "../../assets/images/Logo.svg";
 
 const Successmsg = () => {
     return (

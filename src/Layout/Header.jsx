@@ -12,9 +12,8 @@ import {
   Nav,
   NavDropdown,
 } from "react-bootstrap";
-import AvonLogo from "../assets/images/avonLogo.png";
+import AvonLogo from "../assets/images/Logo.svg";
 import "./header.css";
-import img1 from "../assets/images/users/user-dummy-img.jpg";
 import { CardModal, SearchModal } from "../Components/MainModal";
 import { withTranslation } from "react-i18next";
 import withRouter from "../Components/withRouter";
@@ -25,6 +24,8 @@ import { logoutToken, logoutUserId } from "../slices/layouts/user";
 import { getAllBrands, getAllCategories } from "../services/getRequests";
 import { getAllBaskets } from "../slices/layouts/basket";
 import { getAllWisslist } from "../slices/layouts/wistliss";
+import NavbarMenu from "./NavbarMenu";
+
 const Header = (props) => {
   const userData = useSelector((state) => state.persistedReducer.Accont.user);
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
@@ -422,16 +423,24 @@ const Header = (props) => {
                     className="btn btn-icon btn-topbar btn-link rounded-circle"
                     as="a"
                   >
-                    <Image
-                      className="rounded-circle header-profile-user"
-                      src={
-                        userData?.profileImage.includes("https")
-                          ? userData?.profileImage
-                          : img1
-                      }
-                      alt="Header Avatar"
-                    />
+                    <i className="bx bx-search fs-22"></i>
                   </Dropdown.Toggle>
+                  <SearchModal show={show} handleClose={handleClose} />
+                  <div className="topbar-head-dropdown ms-1 header-item">
+                    <Button
+                      type="button"
+                      className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#ecommerceCart"
+                      aria-controls="ecommerceCart"
+                      onClick={handlecardShow}
+                    >
+                      <i className="ph-shopping-cart fs-18"></i>
+                      <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">
+                        {basket.length}
+                      </span>
+                    </Button>
+                  </div>
 
                   <Dropdown.Menu>
                     <Dropdown.Item href="/hesabim/sifaris-tarixcesi">
@@ -474,6 +483,7 @@ const Header = (props) => {
           </div>
         </Container>
       </Navbar>
+      <NavbarMenu/>
       <CardModal show={card} handleClose={handlecardClose} />
     </>
   );
