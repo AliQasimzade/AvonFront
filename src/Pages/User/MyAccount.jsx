@@ -265,6 +265,14 @@ const MyAccount = () => {
                   <Card.Body>
                     <Nav variant="pills" className="flex-column gap-3">
                       <Nav.Item as="li">
+                        <Nav.Link 
+                          as="a"
+                          href="/"
+                          className="fs-15"
+                          style={{ cursor: "pointer" }}
+                        >Əsas səhifəyə qayıt</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item as="li">
                         <Nav.Link
                           as="a"
                           eventKey="profile"

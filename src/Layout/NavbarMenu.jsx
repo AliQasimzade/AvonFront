@@ -22,7 +22,6 @@ export default function NavbarMenu() {
     }, []);
 
 
-
     const fetchCategories = async () => {
         try {
             const response = await getAllCategories();
@@ -33,10 +32,8 @@ export default function NavbarMenu() {
     };
     return (
         <>
-            <Navbar.Toggle aria-controls="avon-mobile-menu" className='d-flex d-lg-none'/>
             <Navbar
-                className="navbar-expand-lg ecommerce-navbar is-sticky"
-                id="navbar"
+                className=""
             >
                 <div className="container mt-3">
                     <Navbar.Collapse>

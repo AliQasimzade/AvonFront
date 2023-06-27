@@ -3,7 +3,6 @@
 //
 
 .ecommerce-navbar {
-    height: 70px;
     transition: all 0.5s ease;
     background-color: var(--#{$prefix}secondary-bg);
     position: sticky;
@@ -258,7 +257,7 @@
 
     .dropdown-menu {
         padding: 20px;
-        top: 40px !important;
+        top: 75px !important;
         left: 13% !important;
         right: 13% !important;
     }
