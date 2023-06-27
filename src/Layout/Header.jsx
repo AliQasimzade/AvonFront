@@ -21,21 +21,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoLogIn } from "react-icons/io5";
 import { logoutUser } from "../slices/layouts/accont";
 import { logoutToken, logoutUserId } from "../slices/layouts/user";
+import { getAllBrands, getAllCategories } from "../services/getRequests";
 import { getAllBaskets } from "../slices/layouts/basket";
 import { getAllWisslist } from "../slices/layouts/wistliss";
 import NavbarMenu from "./NavbarMenu";
 
 const Header = (props) => {
-
   const userData = useSelector((state) => state.persistedReducer.Accont.user);
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
   const wishlistAll = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
   );
-
+  // kateqoriyalar
+  const [categories, setCategories] = useState([]);
+  const [brendler, setBrendler] = useState([]);
   //search modal
   const [show, setShow] = useState(false);
-  const [searchWord, setSearchWord] = useState('')
+  const [searchWord, setSearchWord] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -55,6 +57,28 @@ const Header = (props) => {
     dispatch(getAllWisslist([]));
   };
 
+  useEffect(() => {
+    fetchCategories();
+    fetchDataBrendler();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await getAllCategories();
+      setCategories(response);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchDataBrendler = async () => {
+    try {
+      const res = await getAllBrands();
+      setBrendler(res);
+    } catch (err) {
+      console.error("error", err);
+    }
+  };
 
   useEffect(() => {
     const pathname = props.router.location.pathname;
@@ -103,32 +127,304 @@ const Header = (props) => {
 
   const [isActive, setIsActive] = useState(false);
   const menu = () => {
+    // 👇️ toggle isActive state on click
     setIsActive((current) => !current);
   };
   return (
     <>
-      <Container>
-        <Row className="justify-content-between mt-4">
-          <Col sm={3} className="d-flex align-items-center">
-            <Navbar.Brand href="/" onClick={menu} className="d-none d-lg-block">
-              <div className="logo-dark">
-                <Image src={AvonLogo} alt="Avon logo" height={80} />
-              </div>
-            </Navbar.Brand>
-          </Col>
-          <Col sm={9}>
-            <Row>
-              <Col sm={12}>
-                <div className="d-flex align-items-center justify-content-end">
-                  <Button
-                    type="button"
-                    className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"
-                    data-bs-toggle="modal"
-                    data-bs-target="#searchModal"
-                    onClick={handleShow}
+      <Navbar
+        className="navbar-expand-lg ecommerce-navbar is-sticky"
+        id="navbar"
+      >
+        <Container>
+          <div className="hamburger_manu_icon">
+            <i className="bi bi-list fs-20 " onClick={menu}></i>
+          </div>
+          <Navbar.Brand href="/" onClick={menu} className="d-none d-lg-block">
+            <div className="logo-dark">
+              <Image src={AvonLogo} alt="" height="25" />
+            </div>
+          </Navbar.Brand>
+          {/* <Button className="btn btn-soft-primary btn-icon d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i className="bi bi-list fs-20"></i>
+                    </Button> */}
+          <Navbar.Collapse
+            className={isActive ? "navbar_responsive" : ""}
+            id="xMode"
+          >
+            <Nav
+              as="ul"
+              className="mx-lg-auto mb-2 mb-lg-0 navbar_responsive_flex "
+              id="navigation-menu"
+            >
+              <li className="nav-item">
+                <Link
+                  onClick={menu}
+                  to="/ana-sehife"
+                  className="nav-link"
+                  data-key="t-home"
+                >
+                  {props.t("home")}
+                </Link>
+              </li>
+
+              {/* hamburvger catalog menu */}
+              <li className="nav-item dropdown_responsive">
+                <NavDropdown
+                  data-key="t-catalog"
+                  id="nav-dropdown-dark-example"
+                  title={props.t("catalog")}
+                >
+                  <NavDropdown.Item
+                    href="#action/3.2"
+                    style={{ height: "220px", overflowY: "scroll" }}
+                  >
+                    {categories.length > 0 &&
+                      categories.map((category, index) => (
+                        <Col lg={2} key={index}>
+                          <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                            <li>
+                              <p
+                                className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title"
+                                data-key={`t-${category.name}`}
+                              >
+                                {category.name}
+                              </p>
+                            </li>
+                            {category.subCategories.map(
+                              (subcategory, subIndex) => (
+                                <li className="nav-item" key={subIndex}>
+                                  <Link
+                                    to={`/kateqoriyalar/${subcategory.name}`}
+                                    className="nav-link"
+                                    data-key={`t-${subcategory.name}`}
+                                  >
+                                    {props.t(subcategory.name)}
+                                  </Link>
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        </Col>
+                      ))}
+
+                    {brendler.length > 0 &&
+                      brendler.map((brend) => (
+                        <Link
+                          key={brend.id}
+                          to={`/${brend.name}`}
+                          className="d-flex p-2 border border-dashed text-center rounded-3 w-auto m-1"
+                        >
+                          {brend.name}
+                        </Link>
+                      ))}
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </li>
+
+              <li className="nav-item dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
+                <Link
+                  to="/ana-sehife"
+                  className="nav-link dropdown-toggle"
+                  data-key="t-catalog"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {props.t("catalog")}
+                </Link>
+
+                <div className="dropdown-menu p-0">
+                  <Row className="g-0 g-lg-4">
+                    <Col
+                      lg={12}
+                      className="d-none d-lg-block responsive_catalog_none"
+                    >
+                      <Row className="g-0 g-lg-8 p-3">
+                        {/* kateqoriyalar */}
+                        {categories.length > 0 &&
+                          categories.map((category, index) => (
+                            <Col lg={3} key={index}>
+                              <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                                <li>
+                                  <p
+                                    className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title"
+                                    data-key={`t-${category.name}`}
+                                  >
+                                    {category.name}
+                                  </p>
+                                </li>
+                                {category.subCategories.map(
+                                  (subcategory, subIndex) => (
+                                    <li className="nav-item" key={subIndex}>
+                                      <Link
+                                        to={`/kateqoriyalar/${subcategory.name}`}
+                                        className="nav-link"
+                                        data-key={`t-${subcategory.name}`}
+                                      >
+                                        {props.t(subcategory.name)}
+                                      </Link>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            </Col>
+                          ))}
+                        {/* brendler */}
+                        <Col lg={12} className="d-none d-lg-block">
+                          <div className="p-3">
+                            <p
+                              className="mb-3 text-uppercase fs-11 fw-medium text-muted"
+                              data-key="t-top-brands"
+                            >
+                              {props.t("top-brands")}
+                            </p>
+                            <Row className="g-2 flex-wrap">
+                              {brendler.length > 0 &&
+                                brendler.map((brend) => (
+                                  <Link
+                                    key={brend.id}
+                                    to={`/${brend.name}`}
+                                    className="d-flex p-2 border border-dashed text-center rounded-3 w-auto m-1"
+                                  >
+                                    {brend.name}
+                                  </Link>
+                                ))}
+                            </Row>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </div>
+              </li>
+              <li className="nav-item" style={{ color: "#A530B0 !important" }}>
+                <Link
+                  onClick={menu}
+                  className="nav-link"
+                  to="/products"
+                  data-key="t-contact"
+                >
+                  {props.t("shop")}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  onClick={menu}
+                  className="nav-link"
+                  to="/haqqimizda"
+                  data-key="t-contact"
+                >
+                  {props.t("about")}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  onClick={menu}
+                  className="nav-link"
+                  to="/elaqe"
+                  data-key="t-contact"
+                >
+                  {props.t("contact")}
+                </Link>
+              </li>
+            </Nav>
+          </Navbar.Collapse>
+
+          <div
+            className="bg-overlay navbar-overlay"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent.show"
+          ></div>
+          <div className="d-flex align-items-center">
+            <Button
+              type="button"
+              className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"
+              data-bs-toggle="modal"
+              data-bs-target="#searchModal"
+              onClick={handleShow}
+            >
+              <i className="bx bx-search fs-22"></i>
+            </Button>
+            <SearchModal show={show} handleClose={handleClose} />
+            <div className="topbar-head-dropdown ms-1 header-item">
+              <Button
+                type="button"
+                className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#ecommerceCart"
+                aria-controls="ecommerceCart"
+                onClick={handlecardShow}
+              >
+                <i className="ph-shopping-cart fs-18"></i>
+                <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">
+                  {basket.length}
+                </span>
+              </Button>
+            </div>
+
+            <div className="topbar-head-dropdown ms-1 header-item">
+              <Link to="/shop/wishList">
+                <Button
+                  type="button"
+                  className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"
+                >
+                  <i className="ph-heart-bold fs-18"></i>
+                  <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">
+                    {wishlistAll.length}
+                  </span>
+                </Button>
+              </Link>
+            </div>
+
+            <Dropdown
+              className="topbar-head-dropdown ms-2 header-item dropdown-hover-end"
+              align="start"
+            >
+              <Dropdown.Toggle
+                className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"
+                bsPrefix="btn"
+              >
+                <i className="bi bi-sun align-middle fs-20"></i>
+              </Dropdown.Toggle>
+              <Dropdown.Menu
+                className="dropdown-menu p-2 dropdown-menu-end"
+                id="light-dark-mode"
+              >
+                <Dropdown.Item
+                  eventKey="light"
+                  onClick={() => props.handleMood("light")}
+                >
+                  <i className="bi bi-sun align-middle me-2"></i> Defualt (light
+                  mode)
+                </Dropdown.Item>
+                <Dropdown.Item
+                  eventKey="dark"
+                  onClick={() => props.handleMood("dark")}
+                >
+                  <i className="bi bi-moon align-middle me-2"></i> Dark
+                </Dropdown.Item>
+                <Dropdown.Item
+                  eventKey="light"
+                  onClick={() => props.handleMood("light")}
+                >
+                  <i className="bi bi-moon-stars align-middle me-2"></i> Auto
+                  (system defualt)
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <div className="dropdown header-item dropdown-hover-end">
+              {userData?.email ? (
+                <Dropdown>
+                  <Dropdown.Toggle
+                    id="page-header-user-dropdown"
+                    bsPrefix="btn"
+                    className="btn btn-icon btn-topbar btn-link rounded-circle"
+                    as="a"
                   >
                     <i className="bx bx-search fs-22"></i>
-                  </Button>
+                  </Dropdown.Toggle>
                   <SearchModal show={show} handleClose={handleClose} />
                   <div className="topbar-head-dropdown ms-1 header-item">
                     <Button
@@ -146,172 +442,49 @@ const Header = (props) => {
                     </Button>
                   </div>
 
-                  <div className="topbar-head-dropdown ms-1 header-item">
-                    <Link to="/shop/wishList">
-                      <Button
-                        type="button"
-                        className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"
-                      >
-                        <i className="ph-heart-bold fs-18"></i>
-                        <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">
-                          {wishlistAll.length}
-                        </span>
-                      </Button>
-                    </Link>
-                  </div>
-
-                  <Dropdown
-                    className="topbar-head-dropdown ms-2 header-item dropdown-hover-end"
-                    align="start"
-                  >
-                    <Dropdown.Toggle
-                      style={{ zIndex: 1006 }}
-                      className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"
-                      bsPrefix="btn"
-                    >
-                      <i className="bi bi-sun align-middle fs-20"></i>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu
-                      className="dropdown-menu p-2 dropdown-menu-end"
-                      id="light-dark-mode"
-                    >
-                      <Dropdown.Item
-                        eventKey="light"
-                        onClick={() => props.handleMood("light")}
-                      >
-                        <i className="bi bi-sun align-middle me-2"></i> Gündüz
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        eventKey="dark"
-                        onClick={() => props.handleMood("dark")}
-                      >
-                        <i className="bi bi-moon align-middle me-2"></i> Gecə
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        eventKey="light"
-                        onClick={() => props.handleMood("light")}
-                      >
-                        <i className="bi bi-moon-stars align-middle me-2"></i> Avtomatik
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-
-                  <div className="dropdown header-item dropdown-hover-end">
-                    {userData?.email ? (
-                      <Dropdown>
-                        <Dropdown.Toggle
-                          id="page-header-user-dropdown"
-                          bsPrefix="btn"
-                          className="btn btn-icon btn-topbar btn-link rounded-circle"
-                          as="a"
-                        >
-                          <Image
-                            className="rounded-circle header-profile-user"
-                            src={
-                              userData?.profileImage.includes("https")
-                                ? userData?.profileImage
-                                : img1
-                            }
-                            alt="Header Avatar"
-                          />
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu style={{ zIndex: 1005 }}>
-                          <Dropdown.Item href="/hesabim/sifaris-tarixcesi">
-                            <i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i>{" "}
-                            <span className="align-middle">Sifariş tarixçəsi</span>
-                          </Dropdown.Item>
-                          <Dropdown.Item href="/shop/order">
-                            <i className="bi bi-truck text-muted fs-16 align-middle me-1"></i>{" "}
-                            <span className="align-middle">Sifariş izlə</span>
-                          </Dropdown.Item>
-                          <Dropdown.Item href="/hesabim">
-                            <i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i>{" "}
-                            <span className="align-middle">Hesabım</span>
-                          </Dropdown.Item>
-                          <Dropdown.Item href="/ecommerce-faq">
-                            <i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>{" "}
-                            <span className="align-middle">Kömək</span>
-                          </Dropdown.Item>
-                          <Dropdown.Item>
-                            <i className="bi bi-coin text-muted fs-16 align-middle me-1"></i>{" "}
-                            <span className="align-middle">
-                              Balans : <b>{userData.balance}₼</b>
-                            </span>
-                          </Dropdown.Item>
-                          <Dropdown.Item href="/ana-sehife" onClick={logOut}>
-                            <i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i>{" "}
-                            <span className="align-middle" data-key="t-logout">
-                              Çıxış
-                            </span>
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    ) : (
-                      <Link to={"/giris"}>
-                        <IoLogIn style={{ fontSize: "23px", color: "black" }} />
-                        <span className="ms-2 text-black">Hesabına daxil ol</span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </Col>
-              <Col sm={12} className="d-none d-md-flex justify-content-end">
-                <div>
-                  <Nav
-                    as="ul"
-                    className="mx-lg-auto mb-2 mb-lg-0 navbar_responsive_flex justify-content-end"
-                    id="navigation-menu"
-                  >
-                    <li className="nav-item">
-                      <Link
-                        onClick={menu}
-                        to="/ana-sehife"
-                        className="nav-link"
-                        data-key="t-home"
-                      >
-                        {props.t("home")}
-                      </Link>
-                    </li>
-                    <li className="nav-item" style={{ color: "#A530B0 !important" }}>
-                      <Link
-                        onClick={menu}
-                        className="nav-link"
-                        to="/products"
-                        data-key="t-contact"
-                      >
-                        {props.t("shop")}
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link
-                        onClick={menu}
-                        className="nav-link"
-                        to="/haqqimizda"
-                        data-key="t-contact"
-                      >
-                        {props.t("about")}
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link
-                        onClick={menu}
-                        className="nav-link"
-                        to="/elaqe"
-                        data-key="t-contact"
-                      >
-                        {props.t("contact")}
-                      </Link>
-                    </li>
-                  </Nav>
-                </div>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>
-      <NavbarMenu />
-      {/* <CardModal show={card} handleClose={handlecardClose} /> */}
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="/shop/orderhistory">
+                      <i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i>{" "}
+                      <span className="align-middle">Order History</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/shop/order">
+                      <i className="bi bi-truck text-muted fs-16 align-middle me-1"></i>{" "}
+                      <span className="align-middle">Track Orders</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/hesabim">
+                      <i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i>{" "}
+                      <span className="align-middle">Dashboard</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/ecommerce-faq">
+                      <i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>{" "}
+                      <span className="align-middle">Help</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      <i className="bi bi-coin text-muted fs-16 align-middle me-1"></i>{" "}
+                      <span className="align-middle">
+                        Balance : <b>₼{userData.balance}</b>
+                      </span>
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/ana-sehife" onClick={logOut}>
+                      <i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i>{" "}
+                      <span className="align-middle" data-key="t-logout">
+                        Logout
+                      </span>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : (
+                <Link to={"/giris"}>
+                  <IoLogIn style={{ fontSize: "23px", color: "black" }} />
+                  <span className="ms-2 text-black">Giris et</span>
+                </Link>
+              )}
+            </div>
+          </div>
+        </Container>
+      </Navbar>
+      <NavbarMenu/>
+      <CardModal show={card} handleClose={handlecardClose} />
     </>
   );
 };
