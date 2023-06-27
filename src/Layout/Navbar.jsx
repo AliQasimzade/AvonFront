@@ -48,16 +48,11 @@ export default function Navbar() {
 
     return (
         <>
-
-
-
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-
-
                             {categories.map((cat,ind)=>{
                                 
                             })}
@@ -81,13 +76,6 @@ export default function Navbar() {
                 </Container>
             </Navbar>
             );
-
-
-
-
-
-
-
             <li className="nav-item dropdown_responsive">
                 <NavDropdown
                     data-key="t-catalog"

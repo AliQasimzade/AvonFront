@@ -22,19 +22,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoLogIn } from "react-icons/io5";
 import { logoutUser } from "../slices/layouts/accont";
 import { logoutToken, logoutUserId } from "../slices/layouts/user";
+import { getAllBrands, getAllCategories } from "../services/getRequests";
 import { getAllBaskets } from "../slices/layouts/basket";
 import { getAllWisslist } from "../slices/layouts/wistliss";
 const Header = (props) => {
-
   const userData = useSelector((state) => state.persistedReducer.Accont.user);
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
   const wishlistAll = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
   );
-
+  // kateqoriyalar
+  const [categories, setCategories] = useState([]);
+  const [brendler, setBrendler] = useState([]);
   //search modal
   const [show, setShow] = useState(false);
-  const [searchWord, setSearchWord] = useState('')
+  const [searchWord, setSearchWord] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -54,6 +56,28 @@ const Header = (props) => {
     dispatch(getAllWisslist([]));
   };
 
+  useEffect(() => {
+    fetchCategories();
+    fetchDataBrendler();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await getAllCategories();
+      setCategories(response);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchDataBrendler = async () => {
+    try {
+      const res = await getAllBrands();
+      setBrendler(res);
+    } catch (err) {
+      console.error("error", err);
+    }
+  };
 
   useEffect(() => {
     const pathname = props.router.location.pathname;
@@ -102,6 +126,7 @@ const Header = (props) => {
 
   const [isActive, setIsActive] = useState(false);
   const menu = () => {
+    // 👇️ toggle isActive state on click
     setIsActive((current) => !current);
   };
   return (
@@ -131,20 +156,6 @@ const Header = (props) => {
               className="mx-lg-auto mb-2 mb-lg-0 navbar_responsive_flex "
               id="navigation-menu"
             >
-              <div className="d-flex d-lg-none w-100 align-items-center justify-content-between">
-                <li className="nav-item d-block d-lg-none">
-                  <Link
-                    to="/ana-sehife"
-                    className="d-block p-3 h-auto text-center"
-                  >
-                    {" "}
-                    <Image src={AvonLogo} alt="" height="25" />
-                  </Link>
-                </li>
-                <li className="X_menu">
-                  <i className="bi bi-x-lg" onClick={menu}></i>
-                </li>
-              </div>
               <li className="nav-item">
                 <Link
                   onClick={menu}
@@ -163,35 +174,49 @@ const Header = (props) => {
                   id="nav-dropdown-dark-example"
                   title={props.t("catalog")}
                 >
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">
-                    {categories.length > 0 && categories.map((category, index) => (
-                      <Col lg={2} key={index}>
-                        <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                          <li>
-                            <p
-                              className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title"
-                              data-key={`t-${category.name}`}
-                            >
-                              {category.name}
-                            </p>
-                          </li>
-                          {category.subCategories.map(
-                            (subcategory, subIndex) => (
-                              <li className="nav-item" key={subIndex}>
-                                <Link
-                                  to={`/kateqoriyalar/${subcategory.name}`}
-                                  className="nav-link"
-                                  data-key={`t-${subcategory.name}`}
-                                >
-                                  {props.t(subcategory.name)}
-                                </Link>
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </Col>
-                    ))}
+                  <NavDropdown.Item
+                    href="#action/3.2"
+                    style={{ height: "220px", overflowY: "scroll" }}
+                  >
+                    {categories.length > 0 &&
+                      categories.map((category, index) => (
+                        <Col lg={2} key={index}>
+                          <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                            <li>
+                              <p
+                                className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title"
+                                data-key={`t-${category.name}`}
+                              >
+                                {category.name}
+                              </p>
+                            </li>
+                            {category.subCategories.map(
+                              (subcategory, subIndex) => (
+                                <li className="nav-item" key={subIndex}>
+                                  <Link
+                                    to={`/kateqoriyalar/${subcategory.name}`}
+                                    className="nav-link"
+                                    data-key={`t-${subcategory.name}`}
+                                  >
+                                    {props.t(subcategory.name)}
+                                  </Link>
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        </Col>
+                      ))}
+
+                    {brendler.length > 0 &&
+                      brendler.map((brend) => (
+                        <Link
+                          key={brend.id}
+                          to={`/${brend.name}`}
+                          className="d-flex p-2 border border-dashed text-center rounded-3 w-auto m-1"
+                        >
+                          {brend.name}
+                        </Link>
+                      ))}
                   </NavDropdown.Item>
                 </NavDropdown>
               </li>
@@ -210,62 +235,42 @@ const Header = (props) => {
 
                 <div className="dropdown-menu p-0">
                   <Row className="g-0 g-lg-4">
-                    <Col lg={2} className="d-none d-lg-block">
-                      <Card
-                        className="rounded-start rounded-0 border-0 h-100 mb-0 overflow-hidden"
-                        style={{
-                          backgroundImage: `url(${img1})`,
-                          backgroundSize: "cover",
-                        }}
-                      >
-                        <div className="bg-overlay bg-light bg-opacity-25"></div>
-                        <Card.Body className="d-flex align-items-center justify-content-center">
-                          <div className="text-center">
-                            <Link className="btn btn-secondary btn-hover">
-                              <i className="ph-storefront align-middle me-1"></i>{" "}
-                              <span data-key="t-shop-now">
-                                {props.t("shop-now")}
-                              </span>
-                            </Link>
-                          </div>
-                        </Card.Body>
-                      </Card>
-                    </Col>
                     <Col
-                      lg={10}
+                      lg={12}
                       className="d-none d-lg-block responsive_catalog_none"
                     >
-                      <Row className="g-0 g-lg-8">
+                      <Row className="g-0 g-lg-8 p-3">
                         {/* kateqoriyalar */}
-                        {categories.map((category, index) => (
-                          <Col lg={2} key={index}>
-                            <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                              <li>
-                                <p
-                                  className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title"
-                                  data-key={`t-${category.name}`}
-                                >
-                                  {category.name}
-                                </p>
-                              </li>
-                              {category.subCategories.map(
-                                (subcategory, subIndex) => (
-                                  <li className="nav-item" key={subIndex}>
-                                    <Link
-                                      to={`/kateqoriyalar/${subcategory.name}`}
-                                      className="nav-link"
-                                      data-key={`t-${subcategory.name}`}
-                                    >
-                                      {props.t(subcategory.name)}
-                                    </Link>
-                                  </li>
-                                )
-                              )}
-                            </ul>
-                          </Col>
-                        ))}
+                        {categories.length > 0 &&
+                          categories.map((category, index) => (
+                            <Col lg={3} key={index}>
+                              <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                                <li>
+                                  <p
+                                    className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title"
+                                    data-key={`t-${category.name}`}
+                                  >
+                                    {category.name}
+                                  </p>
+                                </li>
+                                {category.subCategories.map(
+                                  (subcategory, subIndex) => (
+                                    <li className="nav-item" key={subIndex}>
+                                      <Link
+                                        to={`/kateqoriyalar/${subcategory.name}`}
+                                        className="nav-link"
+                                        data-key={`t-${subcategory.name}`}
+                                      >
+                                        {props.t(subcategory.name)}
+                                      </Link>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            </Col>
+                          ))}
                         {/* brendler */}
-                        <Col lg={4} className="d-none d-lg-block">
+                        <Col lg={12} className="d-none d-lg-block">
                           <div className="p-3">
                             <p
                               className="mb-3 text-uppercase fs-11 fw-medium text-muted"
@@ -274,15 +279,16 @@ const Header = (props) => {
                               {props.t("top-brands")}
                             </p>
                             <Row className="g-2 flex-wrap">
-                              {brendler.length > 0 && brendler.map((brend) => (
+                              {brendler.length > 0 &&
+                                brendler.map((brend) => (
                                   <Link
-                                  key={brend.id}
+                                    key={brend.id}
                                     to={`/${brend.name}`}
                                     className="d-flex p-2 border border-dashed text-center rounded-3 w-auto m-1"
                                   >
                                     {brend.name}
                                   </Link>
-                              ))}
+                                ))}
                             </Row>
                           </div>
                         </Col>
@@ -388,19 +394,21 @@ const Header = (props) => {
                   eventKey="light"
                   onClick={() => props.handleMood("light")}
                 >
-                  <i className="bi bi-sun align-middle me-2"></i> Gündüz
+                  <i className="bi bi-sun align-middle me-2"></i> Defualt (light
+                  mode)
                 </Dropdown.Item>
                 <Dropdown.Item
                   eventKey="dark"
                   onClick={() => props.handleMood("dark")}
                 >
-                  <i className="bi bi-moon align-middle me-2"></i> Gecə
+                  <i className="bi bi-moon align-middle me-2"></i> Dark
                 </Dropdown.Item>
                 <Dropdown.Item
                   eventKey="light"
                   onClick={() => props.handleMood("light")}
                 >
-                  <i className="bi bi-moon-stars align-middle me-2"></i> Avtomatik
+                  <i className="bi bi-moon-stars align-middle me-2"></i> Auto
+                  (system defualt)
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -426,32 +434,32 @@ const Header = (props) => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="/hesabim/sifaris-tarixcesi">
+                    <Dropdown.Item href="/shop/orderhistory">
                       <i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Sifariş tarixçəsi</span>
+                      <span className="align-middle">Order History</span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/shop/order">
                       <i className="bi bi-truck text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Sifariş izlə</span>
+                      <span className="align-middle">Track Orders</span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/hesabim">
                       <i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Hesabım</span>
+                      <span className="align-middle">Dashboard</span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/ecommerce-faq">
                       <i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>{" "}
-                      <span className="align-middle">Kömək</span>
+                      <span className="align-middle">Help</span>
                     </Dropdown.Item>
                     <Dropdown.Item>
                       <i className="bi bi-coin text-muted fs-16 align-middle me-1"></i>{" "}
                       <span className="align-middle">
-                        Balans : <b>{userData.balance}₼</b>
+                        Balance : <b>₼{userData.balance}</b>
                       </span>
                     </Dropdown.Item>
                     <Dropdown.Item href="/ana-sehife" onClick={logOut}>
                       <i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i>{" "}
                       <span className="align-middle" data-key="t-logout">
-                        Çıxış
+                        Logout
                       </span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -459,7 +467,7 @@ const Header = (props) => {
               ) : (
                 <Link to={"/giris"}>
                   <IoLogIn style={{ fontSize: "23px", color: "black" }} />
-                  <span className="ms-2 text-black">Hesabına daxil ol</span>
+                  <span className="ms-2 text-black">Giris et</span>
                 </Link>
               )}
             </div>

@@ -9,6 +9,9 @@
 .dropdown_responsive {
     display: none;
 }
+.hamburger_manu_icon {
+    z-index: 9999999 !important;
+}
 
 @media screen and (max-width: 991px) {
     .navbar_responsive {
