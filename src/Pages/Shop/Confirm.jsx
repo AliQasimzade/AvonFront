@@ -22,10 +22,10 @@ const Confirm = () => {
                                         <Image src={success} alt="" className="w-50" />
                                     </div>
                                     <div className="text-center mt-5 pt-1">
-                                        <h4 className="mb-3 text-capitalize">Your Order Is Completed !</h4>
-                                        <p className="text-muted mb-2">You will receive an order confirmation email with details of your order.</p>
+                                        <h4 className="mb-3 text-capitalize">Sifarişiniz qeydə alındı!</h4>
+                                        <p className="text-muted mb-2">Sifarişin təsdiqlənməsi ilə bağlı e-poçt ünvanınıza bildiriş göndəriləcək</p>
                                         <div className="mt-4 pt-2 hstack gap-2 justify-content-center">
-                                            <Link to='/hesabim/sifaris-tarixcesi' className="btn btn-primary btn-hover">View Order <i className="ri-arrow-right-line align-bottom ms-1"></i></Link>
+                                            <Link to='/hesabim/sifaris-tarixcesi' className="btn btn-primary btn-hover">Sifarişə bax <i className="ri-arrow-right-line align-bottom ms-1"></i></Link>
                                             <Link to='/ana-sehife' className="btn btn-soft-danger btn-hover">Əsas səhifəyə qayıt <i className="ri-home-4-line align-bottom ms-1"></i></Link>
                                         </div>
                                     </div>

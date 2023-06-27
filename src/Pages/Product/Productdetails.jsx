@@ -207,8 +207,6 @@ const Productdetails = () => {
   const desc = (data) => {
     return { __html: data };
   };
-  console.log(proDetail);
-  console.log(products);
   return (
     <>
       <Helmet>
@@ -239,7 +237,7 @@ const Productdetails = () => {
               <div className="text-center">
                 <h1 className="text-white mb-0">{proDetail.name}</h1>
                 <Breadcrumb bsPrefix="breadcrumb breadcrumb-light justify-content-center mt-4">
-                  <Breadcrumb.Item href="products">Məhsullar</Breadcrumb.Item>
+                  <Breadcrumb.Item href="/mehsullar">Məhsullar</Breadcrumb.Item>
                   <Breadcrumb.Item active aria-current="page">
                     {" "}
                     {proDetail.name}{" "}
@@ -468,7 +466,7 @@ const Productdetails = () => {
                               (color, index) => (
                                 <Link
                                   key={index}
-                                  to={`/product-details/${color.skuId}`}
+                                  to={`/mehsul-detallari/${color.skuId}`}
                                 >
                                   <li>
                                     <Form.Control
@@ -504,7 +502,7 @@ const Productdetails = () => {
                               (color, index) => (
                                 <Link
                                   key={index}
-                                  to={`/products-details/${color.skuId}`}
+                                  to={`/mehsul-detallari/${color.skuId}`}
                                 >
                                   <li>
                                     <Form.Control
@@ -541,7 +539,7 @@ const Productdetails = () => {
                               (color, index) => (
                                 <Link
                                   key={index}
-                                  to={`/products-details/${color.skuId}`}
+                                  to={`/mehsul-detallari/${color.skuId}`}
                                 >
                                   <li>
                                     <Form.Control
@@ -616,7 +614,7 @@ const Productdetails = () => {
                               (color, index) => (
                                 <Link
                                   key={index}
-                                  to={`/product-details/${color.skuId}`}
+                                  to={`/mehsul-detallari/${color.skuId}`}
                                 >
                                   <li>
                                     <Form.Control
@@ -758,7 +756,7 @@ const Productdetails = () => {
                   <Col lg={4} key={idx}>
                     <Card
                       as="a"
-                      href={`/products-details/${item.skuId}`}
+                      href={`/mehsul-detallari/${item.skuId}`}
                       className="card mb-3 card-animate stretched-link"
                     >
                       <Row className="g-0">

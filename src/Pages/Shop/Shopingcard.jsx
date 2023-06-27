@@ -8,11 +8,11 @@ import { CommonService } from "../../Components/CommonService";
 
 const Shopingcard = () => {
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
-  document.title = "Shop Cart | RGAgency - React Frontend";
+  document.title = "Səbət | Avon Azərbaycan";
 
   return (
     <>
-      <Shoptopbar title="Shopping Cart" page="Shopping Cart" />
+      <Shoptopbar title="Səbət" page="Səbət" />
       <section className="section">
         <Container>
           <Row className="product-list justify-content-center">

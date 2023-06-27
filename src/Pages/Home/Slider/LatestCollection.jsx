@@ -71,7 +71,7 @@ const LastestCollection = (props) => {
                                                 </div>
                                                 <Card.Body >
                                                     <div>
-                                                        <Link to={`product-details/${item.skuId}`}>
+                                                        <Link to={`mehsul-detallari/${item.skuId}`}>
                                                             <h6 className="fs-15 lh-base text-truncate mb-0" data-key={`t-${item.name}`}>{props.t(`${item.name}`)}</h6>
                                                         </Link>
                                                         <div className="mt-3">
@@ -85,7 +85,7 @@ const LastestCollection = (props) => {
                                                             }
                                                         </div>
                                                         <div className="mt-3">
-                                                            <Link to={`/product-details/${item.skuId}`} className="btn btn-primary btn-sm">
+                                                            <Link to={`/mehsul-detallari/${item.skuId}`} className="btn btn-primary btn-sm">
                                                                 <i className="mdi mdi-cart me-1"></i>
                                                                 Ətrafı bax
                                                             </Link>

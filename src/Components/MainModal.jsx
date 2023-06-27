@@ -507,7 +507,7 @@ export const SearchModal = ({ show, handleClose }) => {
                     result.map((r, index) => (
                       <Link
                         key={index}
-                        to={`/product-details/${r.skuId}`}
+                        to={`/mehsul-detallari/${r.skuId}`}
                         className="list-group-item dropdown-item notify-item"
                         onClick={handleClose}
                       >
@@ -642,7 +642,7 @@ export const CardModal = ({ show, handleClose }) => {
                           </div>
                         </div>
                         <div className="flex-grow-1">
-                          <Link to={`/product-details/${item.product.skuId}`}>
+                          <Link to={`/mehsul-detallari/${item.product.skuId}`}>
                             <h5 className="fs-15">{item.product.name}</h5>
                           </Link>
                           <div className="d-flex mb-3 gap-2">
@@ -724,7 +724,7 @@ export const CardModal = ({ show, handleClose }) => {
           </div>
           <Row className="g-2">
             <Col xs={6}>
-              <Link to="/shop/shopingcard" onClick={handleClose}>
+              <Link to="/sebet" onClick={handleClose}>
                 <Button variant="light" className="btn w-100" id="reset-layout">
                   Səbətə bax
                 </Button>

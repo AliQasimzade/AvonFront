@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAllBaskets } from "../../slices/layouts/basket";
 const WishList = () => {
-  document.title = "Wishlist | RGAgency - React Frontend";
+  document.title = "İstək siyahısı | Avon Azərbaycan";
 
   const dispatch = useDispatch();
   const wishlistAll = useSelector(
@@ -92,7 +92,7 @@ const WishList = () => {
         progress={undefined}
         theme="light"
       />
-      <Shoptopbar title="Wishlist" page="Wishlist" />
+      <Shoptopbar title="İstək siyahısı" page="İstək siyahısı" />
       <section className="section">
         <Container>
           <Row>
@@ -102,10 +102,9 @@ const WishList = () => {
                   <Table className="fs-15 table-nowrap align-middle">
                     <thead>
                       <tr>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stock Count</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Məhsul</th>
+                        <th scope="col">Qiyməti</th>
+                        <th scope="col">Düzəliş</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -119,12 +118,13 @@ const WishList = () => {
                                     <Image
                                       src={item.product.posterImage}
                                       alt=""
-                                      className="avatar-xs"
+                                      style={{objectFit:'cover'}}
+                                      className="w-100 h-100"
                                     />
                                   </div>
                                 </div>
                                 <div className="flex-grow-1">
-                                  <Link to={`product-details/${item.skuId}`}>
+                                  <Link to={`/mehsul-detallari/${item.skuId}`}>
                                     <h6 className="fs-16">
                                       {item.product.name}
                                     </h6>
@@ -138,10 +138,7 @@ const WishList = () => {
                                 </div>
                               </div>
                             </td>
-                            <td>${item.product.salePrice}</td>
-                            <td>
-                              <span>{item.product.stockCount}</span>
-                            </td>
+                            <td>{item.product.salePrice}₼</td>
                             <td>
                               <ul className="list-unstyled d-flex gap-3 mb-0">
                                 <li>
@@ -181,7 +178,7 @@ const WishList = () => {
                 deleteData={deleteData}
               />
               <div className="hstack gap-2 justify-content-end mt-2">
-                <Link to="/products" className="btn btn-hover btn-secondary">
+                <Link to="/mehsullar" className="btn btn-hover btn-secondary">
                   Alışa davam et{" "}
                   <i className="ri-arrow-right-line align-bottom"></i>
                 </Link>

@@ -80,12 +80,12 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                                                 <Image src={item.posterImage} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
                                             </div>
                                             <div className="product-btn px-3">
-                                                <Link to={`/product-details/${item.skuId}`} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Ətraflı bax</Link>
+                                                <Link to={`/mehsul-detallari/${item.skuId}`} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Ətraflı bax</Link>
                                             </div>
                                         </div>
                                         <Card.Body className="card-body">
                                             <div>
-                                                <Link to={`/product-details/${item.skuId}`}>
+                                                <Link to={`/mehsul-detallari/${item.skuId}`}>
                                                     <h6 className="fs-15 lh-base text-truncate mb-0">{item.name}</h6>
                                                 </Link>
                                                 <div className="mt-3">
@@ -307,7 +307,7 @@ export const CommonProduct = ({ cxxl, clg, cmd }) => {
                             <p className="text-uppercase fw-semibold text-dark mb-2">Summer Sales</p>
                             <h1 className="lh-base ff-secondary display-6 display-xl-5">Trendy Fashion Clothes</h1>
                             <div className="product-btn mt-3 mt-xl-4">
-                                <Link to='/products-grid/right' className="link-effect link-primary fs-14">Shop Now <i className="bi bi-arrow-right ms-2"></i></Link>
+                                <Link to='/mehsullar' className="link-effect link-primary fs-14">Shop Now <i className="bi bi-arrow-right ms-2"></i></Link>
                             </div>
                         </div>
                     </div>

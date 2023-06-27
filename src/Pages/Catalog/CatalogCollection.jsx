@@ -350,7 +350,7 @@ const CatalogCollection = ({
                             </div>
                           )}
 
-                          <Link to={`/product-details/${item.skuId}`}>
+                          <Link to={`/mehsul-detallari/${item.skuId}`}>
                             <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">
                               {item?.name}
                             </h6>

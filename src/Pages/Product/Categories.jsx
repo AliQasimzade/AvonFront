@@ -152,7 +152,7 @@ const Categories = (props) => {
                       </div>
                       <div className="product-btn px-3">
                         <Link
-                          to={`/product-details/${prd.product.skuId}`}
+                          to={`/mehsul-detallari/${prd.product.skuId}`}
                           className="btn btn-primary btn-sm w-75 add-btn"
                         >
                           <i className="mdi mdi-cart me-1"></i> Ətraflı bax
@@ -161,7 +161,7 @@ const Categories = (props) => {
                     </div>
                     <Card.Body className="card-body">
                       <div>
-                        <Link to={`/product-details/${prd.product.skuId}`}>
+                        <Link to={`/mehsul-detallari/${prd.product.skuId}`}>
                           <h6 className="fs-15 lh-base text-truncate mb-0">
                             {prd.product.name}
                           </h6>
@@ -223,7 +223,7 @@ const Categories = (props) => {
             <Col lg={7}>
               <Card className="card-height-100">
                 <Link
-                  to="/products"
+                  to="/mehsullar"
                   className="insta-img categrory-box rounded-3"
                 >
                   <div className="categrory-content text-center">
@@ -240,7 +240,7 @@ const Categories = (props) => {
                 <Col lg={12}>
                   <Card className="mb-0">
                     <Link
-                      to="/products"
+                      to="/mehsullar"
                       className="insta-img categrory-box rounded-3"
                     >
                       <div className="categrory-content text-center">
@@ -255,7 +255,7 @@ const Categories = (props) => {
                 <Col lg={12}>
                   <Card className="mb-0">
                     <Link
-                      to="/products"
+                      to="/mehsullar"
                       className="insta-img categrory-box rounded-3"
                     >
                       <div className="categrory-content text-center">

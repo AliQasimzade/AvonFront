@@ -79,12 +79,12 @@ const authProtectedRoutes = [
   { path: "/shop/review", component: <Review />, isLight: "light" },
   { path: "/shop/confirm", component: <Confirm /> },
   { path: "/hesabim/sifaris-tarixcesi", component: <Orderhistory /> },
-  { path: "/shop/shopingcard", component: <Shopingcard /> },
+  { path: "sebet", component: <Shopingcard /> },
   { path: "/resmilesdirme", component: <Checkout /> },
-  { path: "/shop/wishList", component: <WishList /> },
-  { path: "/products", component: <Defaultgrid />},
+  { path: "/istek-siyahisi", component: <WishList /> },
+  { path: "/mehsullar", component: <Defaultgrid />},
 
-  { path: "/product-details/:skuId", component: <Productdetails /> },
+  { path: "/mehsul-detallari/:skuId", component: <Productdetails /> },
 
   { path: "/kateqoriyalar/:slug", component: <Categories /> },
   { path: "/haqqimizda", component: <About /> },

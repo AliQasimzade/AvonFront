@@ -97,8 +97,6 @@ export const getAllSliderTwos = async () => {
             const response = request.data;
             return response
         }
-
-
     } catch (error) {
         return error.message
     }
@@ -219,3 +217,4 @@ export const getAllBasket = async (userId) => {
         return error.message
     }
 }
+

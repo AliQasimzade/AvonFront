@@ -43,7 +43,7 @@ const TopProducts = (props) => {
                             show="show"
                         />
                         <div className="mt-4 text-center">
-                            <Link to='/products' className="btn btn-soft-primary btn-hover" data-key="t-view-all-products">{props.t('view-all-products')} <i className="mdi mdi-arrow-right align-middle ms-1"></i></Link>
+                            <Link to="/mehsullar" className="btn btn-soft-primary btn-hover" data-key="t-view-all-products">{props.t('view-all-products')} <i className="mdi mdi-arrow-right align-middle ms-1"></i></Link>
                         </div>
                     </Row>
                 </Container>

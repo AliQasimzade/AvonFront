@@ -200,7 +200,7 @@ const ListProductData = ({ listnoslider }) => {
                                                     </div>
                                                     <div className="mt-3 hstack gap-2 justify-content-end">
 
-                                                        <Link to="/shop/shopingcard" className="btn btn-primary" style={{backgroundColor:"#8b02ef"}}>
+                                                        <Link to="/sebet" className="btn btn-primary" style={{backgroundColor:"#8b02ef"}}>
 
                                                             <i className="ri-shopping-cart-2-fill align-bottom me-1" />
                                                             Səbətə əlavə et

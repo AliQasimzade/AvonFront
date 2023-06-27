@@ -13,7 +13,7 @@ const HotDeals = () => {
                             <div className="d-flex align-items-center justify-content-between mb-4 pb-1">
                                 <h3 className="flex-grow-1 mb-0">Digərləri bunlarıda aldı</h3>
                                 <div className="flex-shrink-0">
-                                    <Link to="/products" className="link-effect link-success fw-medium">Digərlərinə bax<i className="ri-arrow-right-line ms-1 align-bottom"></i></Link>
+                                    <Link to="/mehsullar" className="link-effect link-success fw-medium">Digərlərinə bax<i className="ri-arrow-right-line ms-1 align-bottom"></i></Link>
                                 </div>
                             </div>
                         </Col>

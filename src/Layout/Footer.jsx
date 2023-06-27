@@ -7,7 +7,7 @@ import withRouter from "../Components/withRouter";
 //img
 import logolight from "../assets/images/Logo.svg";
 import logodark from "../assets/images/Logo.svg";
-import { getAllCategories } from "../services/getRequests";
+import { getAllCategories, getAllSettings } from "../services/getRequests";
 
 const Footer = (props) => {
 
@@ -15,6 +15,7 @@ const Footer = (props) => {
 
     useEffect(() => {
         getCategory();
+        getSocials();
     }, [])
 
     const getCategory = async () => {
@@ -25,6 +26,20 @@ const Footer = (props) => {
             console.error("Error:", error);
         }
     }
+
+    const [setting, setSetting] = useState([])
+    const getSocials = async () => {
+        try {
+            const res = await getAllSettings()
+            setSetting(res)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    console.log(setting);
+
+
     return (
         <>
             <section className="section footer-landing pb-0">

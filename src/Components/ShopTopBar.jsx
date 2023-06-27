@@ -25,7 +25,7 @@ export const Shoptopbar = ({ title, page }) => {
               <div className="text-center d-flex align-items-center justify-content-between">
                 <h4 className="text-white mb-0">{title}</h4>
                 <Breadcrumb bsPrefix=" breadcrumb breadcrumb-light justify-content-center mb-0 fs-15">
-                  <Breadcrumb.Item href="#">Shop</Breadcrumb.Item>
+                  <Breadcrumb.Item href="/mehsullar">Alış veriş</Breadcrumb.Item>
                   <Breadcrumb.Item active aria-current="page">
                     {page}
                   </Breadcrumb.Item>
@@ -97,7 +97,7 @@ export const Shoporder = ({
                       </Form.Label>
                     </td>
                     <td>
-                      <div className="mt-1">
+                      <div className="mt-1 d-flex justify-content-between">
                         <Form.Check
                           type="radio"
                           onClick={(e) => changePaymentMethod(e)}
@@ -105,7 +105,7 @@ export const Shoporder = ({
                           id="checkoutFromBalance"
                           className="form-Check-input"
                         />
-                        {user.user.balance} AZN
+                        {user.user.balance} ₼
                       </div>
                     </td>
                   </tr>
@@ -166,7 +166,7 @@ export const Shoporder = ({
                             id={de.name}
                             className="form-Check-input"
                           />
-                          <span>{de.price} AZN</span>
+                          <span>{de.price} ₼</span>
                         </div>
                       </td>
                     </tr>
@@ -187,7 +187,7 @@ export const Shoporder = ({
                   <td>
                     Endirim miqdarı <span className="text-muted"></span>:
                   </td>
-                  <td className="text-end cart-discount">%{dic}</td>
+                  <td className="text-end cart-discount">{dic}%</td>
                 </tr>
                 {pathname === "/resmilesdirme" && (
                   <tr>
@@ -251,7 +251,6 @@ export const BrandedProduct = ({ title }) => {
   useEffect(() => {
     getProdts();
   }, [])
-  console.log(products);
   return (
     <>
       <section className="section">
@@ -261,7 +260,7 @@ export const BrandedProduct = ({ title }) => {
               <div className="d-flex align-items-center justify-content-between mb-4 pb-1">
                 <h4 className="flex-grow-1 mb-0">{title}</h4>
                 <div className="flex-shrink-0">
-                  <Link to="/products" className="link-effect link-primary">
+                  <Link to="/mehsullar" className="link-effect link-primary">
                     Bütün məhsullara bax{" "}
                     <i className="ri-arrow-right-line ms-1 align-bottom"></i>
                   </Link>

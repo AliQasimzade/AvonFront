@@ -257,12 +257,12 @@ const Cardshop = () => {
                       </Col>
                       <Col className="col-sm-auto">
                         <div className="text-lg-end">
-                          <p className="text-muted mb-1 fs-12">Item Price:</p>
+                          <p className="text-muted mb-1 fs-12">Qiyməti:</p>
                           <h5 className="fs-16">
-                            $
                             <span className="product-price">
                               {Number(item.product.salePrice).toFixed(2)}
                             </span>
+                            ₼
                           </h5>
                         </div>
                       </Col>
@@ -282,7 +282,7 @@ const Cardshop = () => {
                               }
                             >
                               <i className="ri-delete-bin-fill text-muted align-bottom me-1"></i>{" "}
-                              Remove
+                              Sil
                             </Button>
                           </div>
                           <div>
@@ -291,7 +291,7 @@ const Cardshop = () => {
                               onClick={() => addWishlist(item.skuId)}
                             >
                               <i className="ri-star-fill text-muted align-bottom me-1"></i>
-                              Add Wishlist
+                              İstək siyahısına əlavə et
                             </Button>
                           </div>
                         </div>
@@ -300,12 +300,12 @@ const Cardshop = () => {
                         <div className="d-flex align-items-center gap-2 text-muted">
                           <div>Total :</div>
                           <h5 className="fs-14 mb-0">
-                            $
                             <span className="product-line-price">
                               {Number(
                                 item.productCount *
                                   item.product.salePrice.toFixed(2)
                               ).toFixed(2)}
+                              ₼
                             </span>
                           </h5>
                         </div>
@@ -376,12 +376,11 @@ const Cardshop = () => {
                       </Col>
                       <Col className="col-sm-auto">
                         <div className="text-lg-end">
-                          <p className="text-muted mb-1 fs-12">Item Price:</p>
+                          <p className="text-muted mb-1 fs-12">Qiyməti:</p>
                           <h5 className="fs-16">
-                            $
                             <span className="product-price">
                               {Number(item.product.salePrice).toFixed(2)}
-                            </span>
+                            </span>₼
                           </h5>
                         </div>
                       </Col>
@@ -401,7 +400,7 @@ const Cardshop = () => {
                               }
                             >
                               <i className="ri-delete-bin-fill text-muted align-bottom me-1"></i>{" "}
-                              Remove
+                              Sil
                             </Button>
                           </div>
                           <div>
@@ -410,21 +409,20 @@ const Cardshop = () => {
                               onClick={() => addWishlist(item.skuId)}
                             >
                               <i className="ri-star-fill text-muted align-bottom me-1"></i>
-                              Add Wishlist
+                              İstək siyahısına əlavə et
                             </Button>
                           </div>
                         </div>
                       </Col>
                       <Col className="col-sm-auto">
                         <div className="d-flex align-items-center gap-2 text-muted">
-                          <div>Total :</div>
+                          <div>Yekun :</div>
                           <h5 className="fs-14 mb-0">
-                            $
                             <span className="product-line-price">
                               {Number(
                                 item.productCount *
                                   item.product.salePrice.toFixed(2)
-                              ).toFixed(2)}
+                              ).toFixed(2)}₼
                             </span>
                           </h5>
                         </div>
@@ -445,7 +443,7 @@ const Cardshop = () => {
             }
           />
           <div className="hstack gap-2 justify-content-end">
-            <Link to="/products" variant="danger" className="btn btn-hover">
+            <Link to="/mehsullar" variant="danger" className="btn btn-hover">
               Alış-verişə davam et
             </Link>
             <Link

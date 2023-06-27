@@ -279,7 +279,7 @@ const MyAccount = () => {
                       <Nav.Item as="li">
                         <Nav.Link
                           as="a"
-                          href="/shop/wishList"
+                          href="/istek-siyahisi"
                           className="fs-15"
                           role="presentation"
                           style={{ cursor: "pointer" }}
@@ -977,7 +977,7 @@ const MyAccount = () => {
                                   <Card.Body className="card-body">
                                     <div>
                                       <Link
-                                        to={`/product-details/${price.price.product.skuId}`}
+                                        to={`/mehsul-detallari/${price.price.product.skuId}`}
                                       >
                                         <h6 className="fs-15 lh-base text-truncate mb-0">
                                           {price.price.product.name}

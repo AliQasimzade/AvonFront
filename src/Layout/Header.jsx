@@ -302,7 +302,7 @@ const Header = (props) => {
                 <Link
                   onClick={menu}
                   className="nav-link"
-                  to="/products"
+                  to="/mehsullar"
                   data-key="t-contact"
                 >
                   {props.t("shop")}
@@ -364,7 +364,7 @@ const Header = (props) => {
             </div>
 
             <div className="topbar-head-dropdown ms-1 header-item">
-              <Link to="/shop/wishList">
+              <Link to="/istek-siyahisi">
                 <Button
                   type="button"
                   className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted"

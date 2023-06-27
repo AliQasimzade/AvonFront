@@ -84,7 +84,7 @@ const Orderhistory = () => {
                   </Table>
                 </div>
                 <div className="text-end">
-                  <Link to="/products" variant="primary" className="btn btn-hover">
+                  <Link to="/mehsullar" variant="primary" className="btn btn-hover">
                     Alışa davam et{" "}
                     <i className="ri-arrow-right-line align-middle ms-1"></i>
                   </Link>

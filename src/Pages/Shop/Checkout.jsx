@@ -66,7 +66,7 @@ const Checkout = () => {
       : 0;
 
   const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
-  document.title = "Checkout | RGAgency - React FrontEnd";
+  document.title = "Sifarişi rəsmiləşdirmə | Avon Azərbaycan";
 
   const postOrder = async () => {
     try {
@@ -120,7 +120,7 @@ const Checkout = () => {
         progress={undefined}
         theme="light"
       />
-      <Shoptopbar title="Checkout" page="Checkout" />
+      <Shoptopbar title="Sifarişi rəsmiləşdirmə" page="Sifarişi rəsmiləşdirmə" />
       <section className="section">
         {basket.length > 0 ? <Container>
           {!user ? (
@@ -290,7 +290,7 @@ const Checkout = () => {
                 />
                 <div className="hstack gap-2 justify-content-between justify-content-end">
                   <Link
-                    to="/shop/shopingcard"
+                    to="/sebet"
                     className="btn btn-hover btn-soft-info w-100"
                   >
                     <i className="ri-arrow-left-line label-icon align-middle ms-1"></i>{" "}
