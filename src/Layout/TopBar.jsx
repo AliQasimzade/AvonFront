@@ -21,70 +21,73 @@ const TopBar = () => {
 
   return (
     <>
-      <div className="top-tagbar">
-        <Container fluid>
-          <Row className="justify-content-between align-items-center">
-            <Col md={4} xs={9}>
-              <div className="fs-14 fw-medium">
-                <FaShippingFast style={{ color: "grey" }} />
-                <span style={{ marginLeft: "8px" }}> SÜRƏTLİ ÇATDIRILMA</span>
-              </div>
-            </Col>
-            <Col md={4} xs={3}>
-              <div className="d-flex align-items-center justify-content-end gap-3 fs-14">
-                <div className="text-reset fw-normal d-none d-lg-block">
-                  <i className="bi bi-telephone-outbound align-middle me-2"></i>{" "}
-                  +994 10 722 16 16
+      <Container className="px-0">
+        <div className="top-tagbar px-0">
+          <Container fluid >
+            <Row className="justify-content-between align-items-center">
+              <Col md={4} xs={9}>
+                <div className="fs-14 fw-medium">
+                  <FaShippingFast style={{ color: "grey" }} />
+                  <span style={{ marginLeft: "8px" }}> SÜRƏTLİ ÇATDIRILMA</span>
                 </div>
-                <hr className="vr d-none d-lg-block" />
-                <Dropdown className="topbar-head-dropdown topbar-tag-dropdown justify-content-end">
-                  <Dropdown.Toggle
-                    id="language-dropdown"
-                    type="button"
-                    className="btn btn-icon btn-topbar rounded-circle text-reset fs-14 bg-transparent border-0 arrow-none"
-                  >
-                    <Image
-                      id="header-lang-img"
-                      src={get(languages, `${selectlanguage}.icon`)}
-                      alt="Header Language"
-                      height="16"
-                      className="me-2"
-                      roundedCircle
-                    />{" "}
-                    <span id="lang-name">
-                      {get(languages, `${selectlanguage}.lable`)}
-                    </span>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu className="dropdown-menu dropdown-menu-end">
-                    {Object.keys(languages)?.map((key) => {
-                      return (
-                        <Dropdown.Item
-                          key={key}
-                          href="#"
-                          className="dropdown-item notify-item language py-2"
-                          data-lang={key}
-                          title={get(languages, `${key}.title`)}
-                          onClick={() => changelanguage(key)}
-                        >
-                          <Image
-                            src={get(languages, `${key}.icon`)}
-                            alt=""
-                            className="me-2 rounded-circle"
-                            height="18"
-                          />
-                          <span className="align-middle">
-                            {get(languages, `${key}.lable`)}
-                          </span>
-                        </Dropdown.Item>
-                      );
-                    })}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+              </Col>
+              <Col md={4} xs={3}>
+                <div className="d-flex align-items-center justify-content-end gap-3 fs-14">
+                  <div className="text-reset fw-normal d-none d-lg-block">
+                    <i className="bi bi-telephone-outbound align-middle me-2"></i>{" "}
+                    +994 10 722 16 16
+                  </div>
+                  <hr className="vr d-none d-lg-block" />
+                  <Dropdown className="topbar-head-dropdown topbar-tag-dropdown justify-content-end">
+                    <Dropdown.Toggle
+                      id="language-dropdown"
+                      type="button"
+                      className="btn btn-icon btn-topbar rounded-circle text-reset fs-14 bg-transparent border-0 arrow-none"
+                    >
+                      <Image
+                        id="header-lang-img"
+                        src={get(languages, `${selectlanguage}.icon`)}
+                        alt="Header Language"
+                        height="16"
+                        className="me-2"
+                        roundedCircle
+                      />{" "}
+                      <span id="lang-name">
+                        {get(languages, `${selectlanguage}.lable`)}
+                      </span>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu className="dropdown-menu dropdown-menu-end">
+                      {Object.keys(languages)?.map((key) => {
+                        return (
+                          <Dropdown.Item
+                            key={key}
+                            href="#"
+                            className="dropdown-item notify-item language py-2"
+                            data-lang={key}
+                            title={get(languages, `${key}.title`)}
+                            onClick={() => changelanguage(key)}
+                          >
+                            <Image
+                              src={get(languages, `${key}.icon`)}
+                              alt=""
+                              className="me-2 rounded-circle"
+                              height="18"
+                            />
+                            <span className="align-middle">
+                              {get(languages, `${key}.lable`)}
+                            </span>
+                          </Dropdown.Item>
+                        );
+                      })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </Container>
+
     </>
   );
 };

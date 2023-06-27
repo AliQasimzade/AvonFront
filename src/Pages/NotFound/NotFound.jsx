@@ -1,5 +1,5 @@
 import React from "react";
-import AvonLogo from "../../assets/images/avonLogo.png";
+import AvonLogo from "../../assets/images/Logo.svg";
 import { Helmet } from "react-helmet-async";
 const NotFound = () => {
   return (

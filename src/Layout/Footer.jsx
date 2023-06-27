@@ -5,8 +5,8 @@ import { withTranslation } from "react-i18next";
 import withRouter from "../Components/withRouter";
 
 //img
-import logolight from "../assets/images/avonLogo.png";
-import logodark from "../assets/images/avonLogo.png";
+import logolight from "../assets/images/Logo.svg";
+import logodark from "../assets/images/Logo.svg";
 import visa from "../assets/images/ecommerce/payment/visa.png";
 import discover from "../assets/images/ecommerce/payment/discover.png";
 import americanexpress from "../assets/images/ecommerce/payment/american-express.png";

@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 //img
-import avonLogo from "../../assets/images/avonLogo.png";
+import avonLogo from "../../assets/images/Logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

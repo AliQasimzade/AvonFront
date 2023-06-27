@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
-import avonLogo from "../../assets/images/avonLogo.png";
+import avonLogo from "../../assets/images/Logo.svg";
 import { storage } from "../../firebase/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { ToastContainer, toast } from "react-toastify";
