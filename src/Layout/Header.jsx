@@ -313,7 +313,7 @@ const Header = (props) => {
           </Col>
         </Row>
       </Container>
-      <NavbarMenu />
+      <NavbarMenu isActive={isActive}/>
       {/* <CardModal show={card} handleClose={handlecardClose} /> */}
     </>
   );
