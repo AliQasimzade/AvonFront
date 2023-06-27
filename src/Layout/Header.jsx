@@ -24,6 +24,7 @@ import { logoutToken, logoutUserId } from "../slices/layouts/user";
 import { getAllBaskets } from "../slices/layouts/basket";
 import { getAllWisslist } from "../slices/layouts/wistliss";
 import NavbarMenu from "./NavbarMenu";
+
 const Header = (props) => {
 
   const userData = useSelector((state) => state.persistedReducer.Accont.user);
@@ -255,7 +256,7 @@ const Header = (props) => {
                   </div>
                 </div>
               </Col>
-              <Col sm={12} className="d-none d-md-flex">
+              <Col sm={12} className="d-none d-md-flex justify-content-end">
                 <div>
                   <Nav
                     as="ul"

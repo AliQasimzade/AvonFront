@@ -33,13 +33,13 @@ export default function NavbarMenu() {
     };
     return (
         <>
+            <Navbar.Toggle aria-controls="avon-mobile-menu" className='d-flex d-lg-none'/>
             <Navbar
-                className="navbar-expand-lg ecommerce-navbar d-none d-lg-flex is-sticky"
+                className="navbar-expand-lg ecommerce-navbar is-sticky"
                 id="navbar"
             >
                 <div className="container mt-3">
-                    <Navbar.Toggle aria-controls="avon-mobile-menu" className='d-flex d-lg-none' />
-                    <Navbar.Collapse id="avon-mobile-menu">
+                    <Navbar.Collapse>
                         <ul className='d-flex list-unstyled justify-content-between w-100'>
                             {categories.map((category, index) => {
                                 console.log(category);
