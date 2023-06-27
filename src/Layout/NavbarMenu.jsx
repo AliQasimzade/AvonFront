@@ -42,11 +42,10 @@ export default function NavbarMenu() {
                     <Navbar.Collapse>
                         <ul className='d-flex list-unstyled justify-content-between w-100'>
                             {categories.map((category, index) => {
-                                console.log(category);
                                 return (
                                     <Nav key={index} className="nav-item py-3 dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
                                         <Link
-                                            to="/ana-sehife"
+                                            to="/"
                                             className="nav-link dropdown-toggle"
                                             data-key="t-catalog"
                                             role="button"

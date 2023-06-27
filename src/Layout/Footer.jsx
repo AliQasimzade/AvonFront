@@ -37,9 +37,6 @@ const Footer = (props) => {
         }
     }
 
-    console.log(setting);
-
-
     return (
         <>
             <section className="section footer-landing pb-0">
