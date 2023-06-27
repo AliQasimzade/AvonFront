@@ -1,4 +1,4 @@
-import React, { useState, useEffect,memo } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { withTranslation } from "react-i18next";
@@ -7,28 +7,20 @@ import withRouter from "../Components/withRouter";
 //img
 import logolight from "../assets/images/Logo.svg";
 import logodark from "../assets/images/Logo.svg";
-import visa from "../assets/images/ecommerce/payment/visa.png";
-import discover from "../assets/images/ecommerce/payment/discover.png";
-import americanexpress from "../assets/images/ecommerce/payment/american-express.png";
-import paypal from "../assets/images/ecommerce/payment/paypal.png";
+import { getAllCategories } from "../services/getRequests";
 
 const Footer = (props) => {
 
     const [category, setCategory] = useState([]);
 
     useEffect(() => {
-        // getCategory();
+        getCategory();
     }, [])
 
     const getCategory = async () => {
         try {
-            const response = await fetch("http://avontest0910-001-site1.atempurl.com/api/Categories/Manage/GetAll?isDeleted=false");
-            if (response.ok) {
-                const data = await response.json();
-                setCategory(data);
-            } else {
-                console.error("Error:", response.statusText);
-            }
+            const response = await getAllCategories();
+            setCategory(response);
         } catch (error) {
             console.error("Error:", error);
         }
@@ -40,9 +32,9 @@ const Footer = (props) => {
                     <Row>
                         <Col lg={4}>
                             <div className="footer-info">
-                                <Image src={logolight} alt="" height="28" className="logo-light" />
-                                <Image src={logodark} alt="" height="28" className="logo-dark" />
-                                <p className="footer-desc mt-4 mb-2 me-3">RGAgency provides best fashion experience for both men and women at best pricing. We follow New fashion approach to give best premium feel.</p>
+                                <Image src={logolight} alt="" height="88" className="logo-light" />
+                                <Image src={logodark} alt="" height="88" className="logo-dark" />
+                                <p className="footer-desc mt-4 mb-2 me-3">Avon Azərbaycan</p>
 
                                 <div className="footer-social mt-4">
                                     <ul className="list-inline mb-0">
