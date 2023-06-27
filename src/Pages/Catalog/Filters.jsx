@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Nouislider from "nouislider-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,7 +7,6 @@ import { Collapse, Button, Card, Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import axios from "axios";
 const Filters = ({ name, products, setProducts }) => {
-  let newList = [];
   const [mincost, setMincost] = useState(0);
   const [maxcost, setMaxcost] = useState(2000);
 
@@ -16,12 +15,27 @@ const Filters = ({ name, products, setProducts }) => {
   const [changeInput, setChangeInput] = useState("");
   //discount
   const [discount, setDiscount] = useState(false);
+  const [brand, setBrand] = useState(false);
+
   const [discounts, setDiscounts] = useState([50, 40, 30, 20, 10]);
+  const [brands, setBrands] = useState([]);
+const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedDiscount, setSelectedDiscount] = useState("");
   const [selectedSubs, setSelectedSubs] = useState([]);
 
   const [selectedRating, setSelectedRating] = useState("");
 
+  const getBrands = async () => {
+     try {
+      const req = await axios.get(`https://avonazerbaijan.com/api/Brands/GetAll`)
+      setBrands(req.data)
+     } catch (error) {
+      
+     }
+  }
+useEffect(() => {
+  getBrands()
+},[])
   const searchProducts = async () => {
     try {
       const queryParams = {
@@ -30,6 +44,7 @@ const Filters = ({ name, products, setProducts }) => {
         disCount: selectedDiscount != "" ? selectedDiscount : null,
         rating: selectedRating != "" ? selectedRating : null,
         searchWord: changeInput != "" ? changeInput : null,
+        BrandId: selectedBrand != "" ? selectedBrand : null
       };
       const req = await axios.get(
         `${process.env.REACT_APP_BASE_URL}Products/GetAll?page=1&count=30&isDelete=false`,
@@ -211,6 +226,91 @@ const Filters = ({ name, products, setProducts }) => {
                               htmlFor="discount_check"
                             >
                               {disc}% {disc == 10 ? "-dən az" : "və ya üzəri"}
+                            </Form.Label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Collapse>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="flush-headingDiscount">
+                <Button
+                  onClick={() => setBrand(!brand)}
+                  aria-controls="flush-collapseDiscount"
+                  aria-expanded={brand}
+                  className="accordion-button bg-transparent shadow-none"
+                >
+                  <span className="text-muted text-uppercase fs-12 fw-medium">
+                 Brendlər
+                  </span>
+                  <span className="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
+                </Button>
+              </h2>
+              <Collapse in={brand}>
+                <div id="flush-collapseDiscount">
+                  <div
+                    className="accordion-collapse collapse show"
+                    aria-labelledby="flush-headingDiscount"
+                  >
+                    <div className="accordion-body text-body pt-1">
+                      <div
+                        className="d-flex flex-column gap-2 filter-check"
+                        id="discount-filter"
+                      >
+                        {brands.length > 0 && brands.map((disc, index) => (
+                          <div
+                            className="form-check"
+                            key={index}
+                            onClick={() => setSelectedBrand(disc.id)}
+                          >
+                            <Form.Check
+                              type="radio"
+                              value={disc}
+                              name="discount_check"
+                              id="productdiscountRadio6"
+                            />
+                            <Form.Label
+                              className="form-check-label"
+                              htmlFor="discount_check"
+                            >
+                              {disc.name}
                             </Form.Label>
                           </div>
                         ))}
