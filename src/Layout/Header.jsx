@@ -108,6 +108,9 @@ const Header = (props) => {
   return (
     <>
       <Container>
+      <div className="hamburger_manu_icon">
+            <i className="bi bi-list fs-20 " onClick={menu}></i>
+          </div>
         <Row className="justify-content-between mt-4">
           <Col sm={3} className="d-flex align-items-center">
             <Navbar.Brand href="/" onClick={menu} className="d-none d-lg-block">
