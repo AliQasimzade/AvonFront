@@ -32,13 +32,12 @@ export default function NavbarMenu() {
     };
     return (
         <>
-            <Navbar
-                className=""
-            >
+            <header className="">
                 <div className="container mt-3">
                     <Navbar.Collapse>
                         <ul className='d-flex list-unstyled justify-content-between w-100'>
                             {categories.map((category, index) => {
+                                console.log(category);
                                 return (
                                     <Nav key={index} className="nav-item py-3 dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
                                         <Link
@@ -66,7 +65,7 @@ export default function NavbarMenu() {
                                                                     (subcategory, subIndex) => (
                                                                         <Nav className="nav-item" key={subIndex}>
                                                                             <Nav.Link
-                                                                                to={`/kateqoriyalar/${subcategory.name}`}
+                                                                                href={`/kateqoriyalar/${subcategory?.slug}`}
                                                                                 className="nav-link text-black"
                                                                                 data-key={`t-${subcategory.name}`}
                                                                             >
@@ -80,18 +79,17 @@ export default function NavbarMenu() {
                                                         <Col lg={6}>
                                                             <h6>Brendlər</h6>
                                                             <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                                {category.brands.map(
-                                                                    (brand, subIndex) => (
-                                                                        <li className="nav-item" key={subIndex}>
-                                                                            <Link
-                                                                                to={`/kateqoriyalar/${brand.name}`}
-                                                                                className="nav-link text-black"
-                                                                                data-key={`t-${brand.name}`}
-                                                                            >
-                                                                                {brand.name}
-                                                                            </Link>
-                                                                        </li>
-                                                                    )
+                                                                {category.brands.map((brand, subIndex) => (
+                                                                    <li className="nav-item" key={subIndex}>
+                                                                        <Link
+                                                                            to={`/brendler/${brand?.slug}`}
+                                                                            className="nav-link text-black"
+                                                                            data-key={`t-${brand.name}`}
+                                                                        >
+                                                                            {brand.name}
+                                                                        </Link>
+                                                                    </li>
+                                                                )
                                                                 )}
                                                             </ul>
                                                         </Col>
@@ -105,7 +103,7 @@ export default function NavbarMenu() {
                         </ul>
                     </Navbar.Collapse>
                 </div>
-            </Navbar>
+            </header>
         </>
     )
 }

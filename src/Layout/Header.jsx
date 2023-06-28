@@ -107,7 +107,7 @@ const Header = (props) => {
   return (
     <>
       <Navbar className="navbar-expand-lg ecommerce-navbar is-sticky" id="navbar">
-        <Container >
+        <Container className="d-flex flex-column">
           <Row className="w-100">
             <div className="col-4 d-flex align-items-center">
               <div className="hamburger_manu_icon">
@@ -166,13 +166,11 @@ const Header = (props) => {
                           </Dropdown.Toggle>
 
                           <Dropdown.Menu >
-                            <Dropdown.Item href='/shop/orderhistory'><i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Order History</span></Dropdown.Item>
-                            <Dropdown.Item href='/shop/order'><i className="bi bi-truck text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Track Orders</span></Dropdown.Item>
-                            <Dropdown.Item href="#/action-3"><i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Dashboard</span></Dropdown.Item>
-                            <Dropdown.Item href='/ecommerce-faq'><i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Help</span></Dropdown.Item>
-                            <Dropdown.Item href='/hesabim'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balance : <b>₼{userData.balance}</b></span></Dropdown.Item>
-                            <Dropdown.Item href='/hesabim'><span className="badge bg-success-subtle text-success mt-1 float-end">New</span><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></Dropdown.Item>
-                            <Dropdown.Item href='/ana-sehife' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Logout</span></Dropdown.Item>
+                            <Dropdown.Item href='/hesabim/sifaris-tarixcesi'><i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Sifariş tarixçəsi</span></Dropdown.Item>
+                            <Dropdown.Item href='/sifaris-izleme'><i className="bi bi-truck text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Sifarişini izlə</span></Dropdown.Item>
+                            <Dropdown.Item href="/hesabim"><i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Hesabım</span></Dropdown.Item>
+                            <Dropdown.Item href='#'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balans: <b>{userData.balance}₼</b></span></Dropdown.Item>
+                            <Dropdown.Item href='/ana-sehife' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Çıxış</span></Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown> : <Link to={"/giris"}>< IoLogIn style={{ fontSize: "23px", color: "black" }} />
                           <span className="ms-2 text-black">Giris et</span>
@@ -232,7 +230,7 @@ const Header = (props) => {
                         </NavDropdown>
                       </li>
                       <li className="nav-item" style={{ color: '#A530B0 !important' }}>
-                        <Link onClick={menu} className="nav-link" to='/products' data-key="t-contact">{props.t('shop')}</Link>
+                        <Link onClick={menu} className="nav-link" to='/mehsullar' data-key="t-contact">{props.t('shop')}</Link>
                       </li>
                       <li className="nav-item">
                         <Link onClick={menu} className="nav-link" to='/haqqimizda' data-key="t-contact">{props.t('about')}</Link>
@@ -247,9 +245,11 @@ const Header = (props) => {
             </div>
 
           </Row>
+          <Row>
+            <NavbarMenu />
+          </Row>
         </Container>
       </Navbar>
-      <NavbarMenu />
       <CardModal show={card} handleClose={handlecardClose} />
     </>
   )

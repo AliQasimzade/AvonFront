@@ -8,7 +8,7 @@ import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { CommonService } from "../../Components/CommonService";
 
 const Confirm = () => {
-    document.title = "Order Completed | RGAgency - React FrontEnd";
+    document.title = "Sifariş təsdiqləndi | Avon Azərbaycan";
     return (
         <>
             <Shoptopbar title="Confirmation" page="Order Confirm" />

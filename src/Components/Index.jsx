@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CatalogCollection from "../Pages/Catalog/CatalogCollection";
 import Filters from "../Pages/Catalog/Filters";
 import { getAllProducts } from "../services/getRequests";
-import {  Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 const Index = ({ name, cxxl, clg, cmd, cxl }) => {
   const [products, setProducts] = useState([]);
@@ -28,11 +28,10 @@ const Index = ({ name, cxxl, clg, cmd, cxl }) => {
   }, [currentPage]);
   return (
     <>
-   <Helmet>
-    <title>Məhsullar | AVONAZ.NET – Online kosmetika mağazası</title>
-   </Helmet>
-        <Filters name={name} products={products} setProducts={setProducts} />
-      
+      <Helmet>
+        <title>Məhsullar | AVONAZ.NET – Online kosmetika mağazası</title>
+      </Helmet>
+      <Filters name={name} products={products} setProducts={setProducts} />
       {products.length > 0 ? (
         <CatalogCollection
           cxxl={cxxl}
@@ -46,19 +45,19 @@ const Index = ({ name, cxxl, clg, cmd, cxl }) => {
           products={products}
           setProducts={setProducts}
         />
-      ) :  <Row id="search-result-elem" className="d-flex justify-content-center flex-grow-1">
-      <Col lg={12}>
-        <div className="text-center py-5">
-          <div className="avatar-lg mx-auto mb-4">
-            <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
-              <i className="bi bi-search"></i>
+      ) : <Row id="search-result-elem" className="d-flex justify-content-center flex-grow-1">
+        <Col lg={12}>
+          <div className="text-center py-5">
+            <div className="avatar-lg mx-auto mb-4">
+              <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
+                <i className="bi bi-search"></i>
+              </div>
             </div>
-          </div>
 
-          <h5>Nəticə tapılmadı</h5>
-        </div>
-      </Col>
-    </Row>}
+            <h5>Nəticə tapılmadı</h5>
+          </div>
+        </Col>
+      </Row>}
     </>
   );
 };

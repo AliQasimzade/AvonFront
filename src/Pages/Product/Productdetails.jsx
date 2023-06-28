@@ -43,11 +43,12 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { getAllProducts } from "../../services/getRequests";
 const Productdetails = () => {
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
   const [count, setCount] = useState(1);
-  const { skuId } = useParams();
+  const { slug } = useParams();
   const userId = useSelector((state) => state.persistedReducer.User.userId);
   const wisslistProID = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
@@ -55,14 +56,12 @@ const Productdetails = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `${process.env.REACT_APP_BASE_URL}Products/Manage/ProductGetForSkuId?SkuId=${skuId}`
-      )
+      .get(`https://avonazerbaijan.com/mehsullar?slug=${slug}`)
       .then((res) => {
         setproDetail(res.data.product);
       });
     getProdcts();
-  }, [skuId]);
+  }, [slug]);
 
   const [products, setProducts] = useState([]);
 
@@ -466,7 +465,7 @@ const Productdetails = () => {
                               (color, index) => (
                                 <Link
                                   key={index}
-                                  to={`/mehsul-detallari/${color.skuId}`}
+                                  to={`/mehsul-detallari/${proDetail.slug}`}
                                 >
                                   <li>
                                     <Form.Control
@@ -502,7 +501,7 @@ const Productdetails = () => {
                               (color, index) => (
                                 <Link
                                   key={index}
-                                  to={`/mehsul-detallari/${color.skuId}`}
+                                  to={`/mehsul-detallari/${proDetail.slug}`}
                                 >
                                   <li>
                                     <Form.Control
@@ -539,7 +538,7 @@ const Productdetails = () => {
                               (color, index) => (
                                 <Link
                                   key={index}
-                                  to={`/mehsul-detallari/${color.skuId}`}
+                                  to={`/mehsul-detallari/${proDetail.slug}`}
                                 >
                                   <li>
                                     <Form.Control
@@ -614,7 +613,7 @@ const Productdetails = () => {
                               (color, index) => (
                                 <Link
                                   key={index}
-                                  to={`/mehsul-detallari/${color.skuId}`}
+                                  to={`/mehsul-detallari/${proDetail.slug}`}
                                 >
                                   <li>
                                     <Form.Control
@@ -756,7 +755,7 @@ const Productdetails = () => {
                   <Col lg={4} key={idx}>
                     <Card
                       as="a"
-                      href={`/mehsul-detallari/${item.skuId}`}
+                      href={`/mehsul-detallari/${item.slug}`}
                       className="card mb-3 card-animate stretched-link"
                     >
                       <Row className="g-0">

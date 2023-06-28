@@ -72,19 +72,19 @@ import ReferalCodePage from "../Pages/User/ReferalCodePage";
 
 const authProtectedRoutes = [
   { path: "/ana-sehife", component: <Home /> },
-  { path: "/catalog/clothing", component: <Catalog /> },
+  { path: "/brendler/:slug", component: <Catalog /> },
 
   { path: "/hesabim/unvanlarim", component: <ShopIndex /> },
-  { path: "/shop/order", component: <Trackorder /> },
+  { path: "/sifaris-izleme", component: <Trackorder /> },
   { path: "/shop/review", component: <Review />, isLight: "light" },
-  { path: "/shop/confirm", component: <Confirm /> },
+  { path: "/sifarisiniz-tesdiqlendi", component: <Confirm /> },
   { path: "/hesabim/sifaris-tarixcesi", component: <Orderhistory /> },
   { path: "sebet", component: <Shopingcard /> },
   { path: "/resmilesdirme", component: <Checkout /> },
   { path: "/istek-siyahisi", component: <WishList /> },
   { path: "/mehsullar", component: <Defaultgrid />},
 
-  { path: "/mehsul-detallari/:skuId", component: <Productdetails /> },
+  { path: "/mehsul-detallari/:slug", component: <Productdetails /> },
 
   { path: "/kateqoriyalar/:slug", component: <Categories /> },
   { path: "/haqqimizda", component: <About /> },

@@ -985,7 +985,7 @@ const MyAccount = () => {
                                   <Card.Body className="card-body">
                                     <div>
                                       <Link
-                                        to={`/mehsul-detallari/${price.price.product.skuId}`}
+                                        to={`/mehsul-detallari/${price.price.product.slug}`}
                                       >
                                         <h6 className="fs-15 lh-base text-truncate mb-0">
                                           {price.price.product.name}

@@ -80,12 +80,12 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                                                 <Image src={item.posterImage} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
                                             </div>
                                             <div className="product-btn px-3">
-                                                <Link to={`/mehsul-detallari/${item.skuId}`} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Ətraflı bax</Link>
+                                                <Link to={`/mehsul-detallari/${item.slug}`} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Ətraflı bax</Link>
                                             </div>
                                         </div>
                                         <Card.Body className="card-body">
                                             <div>
-                                                <Link to={`/mehsul-detallari/${item.skuId}`}>
+                                                <Link to={`/mehsul-detallari/${item.slug}`}>
                                                     <h6 className="fs-15 lh-base text-truncate mb-0">{item.name}</h6>
                                                 </Link>
                                                 <div className="mt-3">

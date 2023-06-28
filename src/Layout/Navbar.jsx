@@ -116,7 +116,7 @@ export default function Navbar() {
 
             <li className="nav-item dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
                 <Link
-                    to="/ana-sehife"
+                    to="/"
                     className="nav-link dropdown-toggle"
                     data-key="t-catalog"
                     role="button"
@@ -195,7 +195,7 @@ export default function Navbar() {
                                             {brendler.map((brend) => (
                                                 <Link
                                                     key={brend.id}
-                                                    to={`/${brend.name}`}
+                                                    to={`/brendler/${brend.slug}`}
                                                     className="d-flex p-2 border border-dashed text-center rounded-3 w-auto m-1"
                                                 >
                                                     {brend.name}

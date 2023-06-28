@@ -170,6 +170,7 @@ const CatalogCollection = ({
         <Row id="product-grid">
           {products.length > 0 ? (
             products.map((item, i) => {
+              console.log(item);
               return (
                 !cxl && (
                   <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
@@ -231,7 +232,7 @@ const CatalogCollection = ({
                       </div>
                       <div className="pt-4">
                         <div>
-                          {item.variant.type == "color" ? (
+                          {item?.variant?.type == 'color' ? (
                             item.relationOfBaseCode.length > 0 ? (
                               <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                                 {item.relationOfBaseCode.map((color, index) => (
@@ -273,7 +274,7 @@ const CatalogCollection = ({
                                 </div>
                               </div>
                             )
-                          ) : item.variant.type == "file" ? (
+                          ) : item?.variant?.type == 'file' ? (
                             item.relationOfBaseCode.length > 0 ? (
                               <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                                 {item.relationOfBaseCode.map((color, index) => (
@@ -313,7 +314,7 @@ const CatalogCollection = ({
                                 </div>
                               </div>
                             )
-                          ) : item.variant.type == "size" ? (
+                          ) : item?.variant?.type == 'size' ? (
                             item.relationOfBaseCode.length > 0 ? (
                               <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                                 {item.relationOfBaseCode.map((color) => (
@@ -350,7 +351,7 @@ const CatalogCollection = ({
                             </div>
                           )}
 
-                          <Link to={`/mehsul-detallari/${item.skuId}`}>
+                          <Link to={`/mehsul-detallari/${item.slug}`}>
                             <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">
                               {item?.name}
                             </h6>

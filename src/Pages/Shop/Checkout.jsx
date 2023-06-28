@@ -102,7 +102,7 @@ const Checkout = () => {
         dispatch(changeAccont(responses[1].data))
         toast.success("Sifarişiniz qeydə alındı");
         dispatch(getAllBaskets([]))
-        navigate('/shop/confirm')
+        navigate('/sifarisiniz-tesdiqlendi')
       }
     } catch (error) {
       toast.error(error.message);

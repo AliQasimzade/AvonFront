@@ -314,7 +314,7 @@ export const BrandedProduct = ({ title }) => {
                       </div>
                       <div className="mt-3">
                         <Link
-                          to={`/product-details/${item.skuId}`}
+                          to={`/mehsul-detallari/${item.slug}`}
                           className="btn btn-primary w-100 add-btn"
                         >
                           <i className="mdi mdi-cart me-1"></i> Ətraflı bax

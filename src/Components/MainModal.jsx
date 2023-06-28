@@ -507,7 +507,7 @@ export const SearchModal = ({ show, handleClose }) => {
                     result.map((r, index) => (
                       <Link
                         key={index}
-                        to={`/mehsul-detallari/${r.skuId}`}
+                        to={`/mehsul-detallari/${r.slug}`}
                         className="list-group-item dropdown-item notify-item"
                         onClick={handleClose}
                       >
@@ -642,7 +642,7 @@ export const CardModal = ({ show, handleClose }) => {
                           </div>
                         </div>
                         <div className="flex-grow-1">
-                          <Link to={`/mehsul-detallari/${item.product.skuId}`}>
+                          <Link to={`/mehsul-detallari/${item.product.slug}`}>
                             <h5 className="fs-15">{item.product.name}</h5>
                           </Link>
                           <div className="d-flex mb-3 gap-2">

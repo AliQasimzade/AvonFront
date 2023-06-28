@@ -124,7 +124,7 @@ const WishList = () => {
                                   </div>
                                 </div>
                                 <div className="flex-grow-1">
-                                  <Link to={`/mehsul-detallari/${item.skuId}`}>
+                                  <Link to={`/mehsul-detallari/${item.slug}`}>
                                     <h6 className="fs-16">
                                       {item.product.name}
                                     </h6>
