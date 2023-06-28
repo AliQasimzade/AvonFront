@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Table, Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { Shoptopbar } from "../../Components/ShopTopBar";
-import { CommonService } from "../../Components/CommonService";
 import { InvoiceModal } from "../../Components/MainModal";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet-async";
@@ -45,7 +43,7 @@ const Orderhistory = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {(orders || [])?.map((item, inx) => {
+                      {(orders || [])?.map((item, inx) => { 
                         return (
                           <tr key={inx}>
                             <td>
