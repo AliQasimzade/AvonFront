@@ -180,7 +180,7 @@ const CatalogCollection = ({
                         style={{ height: "250px" }}
                       >
                         <Image
-                          src={item.productImages[0]?.image}
+                          src={item.productImages?.[0]?.image}
                           alt=""
                           style={{
                             maxHeight: `${cheight || ""}`,

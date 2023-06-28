@@ -51,7 +51,7 @@ export default function NavbarMenu() {
                                             {category.name}
                                         </Link>
 
-                                        <div className="dropdown-menu p-0 p-4" style={{ width: '75%' }}>
+                                        <div className="dropdown-menu p-0 p-4" style={{ width: '100%' }}>
                                             <Row className="g-0 g-lg-4">
                                                 <Col
                                                     lg={10}

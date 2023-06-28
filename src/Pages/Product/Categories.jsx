@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import bannerimg from '../../assets/images/ecommerce/banner.jpg';
+
 import {
   Col,
   Container,
@@ -16,8 +18,8 @@ import profileBg from "../../assets/images/profile-bg.jpg";
 import { CommonProduct, DefauilOffer } from "../../Components/ProductSilde";
 import { CommonService } from "../../Components/CommonService";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
-
 export const TopCategoies = ({ title }) => {
   return (
     <Row className="justify-content-center">
@@ -31,23 +33,56 @@ export const TopCategoies = ({ title }) => {
   );
 };
 import { useParams } from "react-router-dom";
+import Filters from "../Catalog/Filters";
+import CatalogCollection from "../Catalog/CatalogCollection";
 const Categories = (props) => {
+  const navigate = useNavigate();
   const [category, setCategory] = useState([]);
+  const [products, setProducts] = useState([]);
   const { slug } = useParams();
   useEffect(() => {
-    axios.get(`https://avonazerbaijan.com/kateqoriyalar?slug=${slug}`)
+    axios
+      .get(`https://avonazerbaijan.com/kateqoriyalar?slug=${slug}`)
       .then((res) => {
-        setCategory(res)
+        if (res.status === 200) {
+          setCategory(res.data);
+          setProducts(res.data.productSubCategories);
+        } else {
+          navigate('/');
+        }
       })
-  }, [slug]);
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        navigate('/');
+      });
+  }, [slug, navigate]);
 
   console.log(category);
+  const [count, setCount] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const getProducts = async () => {
+    const res = await getAllProducts(currentPage);
+    const findDefaults = res
+      .map((product) => {
+        if (product.isDefault == true) {
+          return product;
+        }
+      })
+      .filter(Boolean);
+    const allPros = [...products, ...findDefaults];
+    setProducts(allPros);
+    setCount(Array.from({ length: allPros.length }).fill(0));
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, [currentPage]);
 
   return (
     <>
       <Helmet>
-        <title>{brands.name} kateqoriyası | Avon Azərbaycan</title>
+        <title>{`${category.name}`} kateqoriyası | Avon Azərbaycan</title>
       </Helmet>
       <section className="section pb-0 mt-4">
         <Container fluid >
@@ -55,7 +90,7 @@ const Categories = (props) => {
             <Row className="justify-content-end">
               <Col xxl={4}>
                 <div className="text-end py-4 px-5 mx-xxl-5">
-                  <h1 className="text-white display-5 lh-base text-capitalize ff-secondary mb-3 fst-italic">{brands.name} kateqoriyasının məhsulları</h1>
+                  <h1 className="text-white display-5 lh-base text-capitalize ff-secondary mb-3 fst-italic">{category.name} kateqoriyasının məhsulları</h1>
                 </div>
               </Col>
             </Row>
@@ -72,7 +107,6 @@ const Categories = (props) => {
                 cxxl={3}
                 clg={4}
                 cmd={6}
-                cxl={cxl}
                 count={count}
                 setCount={setCount}
                 currentPage={currentPage}

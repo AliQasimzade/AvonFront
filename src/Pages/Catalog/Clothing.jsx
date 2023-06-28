@@ -16,6 +16,26 @@ const Clothing = () => {
     const { slug } = useParams();
     const [brands, setBrands] = useState([])
     const [products, setProducts] = useState([])
+    const [count, setCount] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const getProducts = async () => {
+        const res = await getAllProducts(currentPage);
+        const findDefaults = res
+            .map((product) => {
+                if (product.isDefault == true) {
+                    return product;
+                }
+            })
+            .filter(Boolean);
+        const allPros = [...products, ...findDefaults];
+        setProducts(allPros);
+        setCount(Array.from({ length: allPros.length }).fill(0));
+    };
+
+    useEffect(() => {
+        getProducts();
+    }, [currentPage]);
     useEffect(() => {
         axios.get(`https://avonazerbaijan.com/Brendler?slug=${slug}`)
             .then((res) => {
