@@ -14,7 +14,7 @@ import {
     NavDropdown,
 } from "react-bootstrap";
 
-export default function NavbarMenu() {
+export default function NavbarMenu({isActive}) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -34,7 +34,8 @@ export default function NavbarMenu() {
         <>
             <header className="">
                 <div className="container mt-3">
-                    <Navbar.Collapse>
+                    <Navbar.Collapse   className={isActive ? "navbar_responsive" : ""}
+            id="xMode">
                         <ul className='d-flex list-unstyled justify-content-between w-100'>
                             {categories.map((category, index) => {
                                 console.log(category);

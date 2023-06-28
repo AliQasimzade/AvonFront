@@ -243,7 +243,6 @@ const Header = (props) => {
                 </div>
               </Row>
             </div>
-
           </Row>
           <Row>
             <NavbarMenu />
