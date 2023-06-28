@@ -87,8 +87,6 @@ const MyAccount = () => {
       );
 
       const requests = await Promise.all([req1, req2]);
-      console.log(requests[0].data);
-      console.log(requests[1].data);
       dispatch(changeAccont(requests[1].data));
       toast.success("Hədiyyəni əlavə etdiniz");
     } catch (error) {

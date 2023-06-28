@@ -49,9 +49,6 @@ const Categories = (props) => {
     })
   }, [slug]);
 
-  console.log(category);
-
-
   return (
     <>
       <section

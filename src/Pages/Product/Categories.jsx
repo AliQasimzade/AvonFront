@@ -57,7 +57,6 @@ const Categories = (props) => {
       });
   }, [slug, navigate]);
 
-  console.log(category);
   const [count, setCount] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 

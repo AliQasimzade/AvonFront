@@ -36,7 +36,6 @@ const [selectedBrand, setSelectedBrand] = useState('');
 useEffect(() => {
   getBrands()
 },[])
-console.log(brands);
   const searchProducts = async () => {
     try {
       const queryParams = {

@@ -38,7 +38,6 @@ export default function NavbarMenu({isActive}) {
             id="xMode">
                         <ul className='d-flex list-unstyled justify-content-between w-100'>
                             {categories.map((category, index) => {
-                                console.log(category);
                                 return (
                                     <Nav key={index} className="nav-item py-3 dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
                                         <Link

@@ -170,7 +170,6 @@ const CatalogCollection = ({
         <Row id="product-grid">
           {products.length > 0 ? (
             products.map((item, i) => {
-              console.log(item);
               return (
                 !cxl && (
                   <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>

@@ -455,7 +455,7 @@ export const SearchModal = ({ show, handleClose }) => {
         throw new Error("Sorğuda xəta baş verdi");
       }
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 

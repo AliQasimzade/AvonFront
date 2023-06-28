@@ -18,8 +18,6 @@ const Defaultgrid = () => {
         }
     }
 
-    console.log(sliderTwoData);
-
     useEffect(() => {
         getSliders();
     }, [])

@@ -17,7 +17,6 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
     const isdisplay = isnone;
     //pagination
     const pagination = true;
-    console.log(fileter);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentpages, setCurrentpages] = useState([]);
     const perPageData = 9;
