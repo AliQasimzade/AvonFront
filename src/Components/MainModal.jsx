@@ -635,8 +635,9 @@ export const CardModal = ({ show, handleClose }) => {
                             >
                               <Image
                                 src={item.product.posterImage}
-                                alt=""
-                                className="avatar-sm"
+                                alt={`${item.product.name} sekli`}
+                                className=""
+                                style={{width:'100%', height:'100%', objectFit:'cover'}}
                               />
                             </div>
                           </div>

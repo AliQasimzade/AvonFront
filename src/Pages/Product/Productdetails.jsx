@@ -54,11 +54,13 @@ const Productdetails = () => {
     (state) => state.persistedReducer.Wisslist.wisslist
   );
 
+  const skuId = proDetail.skuId
   useEffect(() => {
     axios
       .get(`https://avonazerbaijan.com/mehsullar?slug=${slug}`)
       .then((res) => {
         setproDetail(res.data.product);
+        console.log(res.data.product)
       });
     getProdcts();
   }, [slug]);
