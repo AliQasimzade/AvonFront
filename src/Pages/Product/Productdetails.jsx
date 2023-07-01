@@ -772,7 +772,7 @@ const Productdetails = () => {
                         </Col>
                         <Col sm={8}>
                           <Card.Body className="h-100 d-flex flex-column">
-                            <p className="card-text text-muted">{item.productSubCategories[0].subCategory.name}</p>
+                            {/* <p className="card-text text-muted">{item.productSubCategories[0].subCategory.name}</p> */}
                             <h4 className="card-title">{item.name}</h4>
                             <p className="card-text text-muted">{item.salePrice} ₼</p>
                             <div className="mt-auto">

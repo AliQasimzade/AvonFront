@@ -78,3 +78,16 @@
     object-fit: cover;
   }
   
+  .react-horizontal-scrolling-menu--inner-wrapper {
+    align-items: center !important;
+    gap: 21px !important;
+    
+  }
+  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .react-horizontal-scrolling-menu--item {
+    display: flex;
+    align-items: center;
+  }

@@ -28,6 +28,7 @@ const CatalogCollection = ({
 }) => {
   const [selectItem, setSelectItem] = useState([]);
 
+  console.log(products);
   const userId = useSelector((state) => state.persistedReducer.User.userId);
   const wishlistAll = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
@@ -231,7 +232,7 @@ const CatalogCollection = ({
                       </div>
                       <div className="pt-4">
                         <div>
-                          {item?.variant?.type == 'color' ? (
+                          {item?.variant?.type == "color" ? (
                             item.relationOfBaseCode.length > 0 ? (
                               <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                                 {item.relationOfBaseCode.map((color, index) => (
@@ -273,7 +274,7 @@ const CatalogCollection = ({
                                 </div>
                               </div>
                             )
-                          ) : item?.variant?.type == 'file' ? (
+                          ) : item?.variant?.type == "file" ? (
                             item.relationOfBaseCode.length > 0 ? (
                               <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                                 {item.relationOfBaseCode.map((color, index) => (
@@ -313,7 +314,7 @@ const CatalogCollection = ({
                                 </div>
                               </div>
                             )
-                          ) : item?.variant?.type == 'size' ? (
+                          ) : item?.variant?.type == "size" ? (
                             item.relationOfBaseCode.length > 0 ? (
                               <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
                                 {item.relationOfBaseCode.map((color) => (
@@ -413,7 +414,8 @@ const CatalogCollection = ({
                                 }
                               }}
                             >
-                              <i className="mdi mdi-cart me-1"></i> Səbətə əlavə et
+                              <i className="mdi mdi-cart me-1"></i> Səbətə əlavə
+                              et
                             </Link>
                           </div>
                         </div>

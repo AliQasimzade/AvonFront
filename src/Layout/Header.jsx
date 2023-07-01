@@ -138,7 +138,7 @@ const Header = (props) => {
                     </div>
 
                     <div className="topbar-head-dropdown ms-1 header-item">
-                      <Link to="/shop/wishList">
+                      <Link to="/istek-siyahisi">
                         <Button type="button" className="btn btn-icon btn-topbar btn-ghost-dark rounded-circle text-muted">
                           <i className="ph-heart-bold fs-18"></i>
                           <span className="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-danger">{wishlistAll.length}</span>
