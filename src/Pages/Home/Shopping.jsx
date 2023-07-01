@@ -57,7 +57,7 @@ const Shoping = (props) => {
                                                 <div className="mt-3">
                                                     <Link to="#"><h5 className="fs-17 lh-base">{item.name}</h5></Link>
                                                     <div className="text-muted fs-15 mt-2" dangerouslySetInnerHTML={desc(item.content)}></div>
-                                                    <Link to="#" className="link-effect link-info">Oxumağa davam edin <i className="bi bi-arrow-right ms-2"></i></Link>
+                                                    <Link to={`/xeberler/${item.slug}`} className="link-effect link-info">Oxumağa davam edin <i className="bi bi-arrow-right ms-2"></i></Link>
                                                 </div>
                                             </Card.Body>
                                         </Card>
@@ -67,7 +67,7 @@ const Shoping = (props) => {
                         }
 
                         <div className="mt-4 text-center">
-                            <Link to="#" className="btn btn-soft-primary btn-hover" data-key="t-view-more-articles">{props.t('view-more-articles')} <i className="bi bi-arrow-right ms-2"></i></Link>
+                            <Link to="/xeberler" className="btn btn-soft-primary btn-hover" data-key="t-view-more-articles">{props.t('view-more-articles')} <i className="bi bi-arrow-right ms-2"></i></Link>
                         </div>
                     </Row>
                 </Container>

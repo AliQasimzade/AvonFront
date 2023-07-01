@@ -114,7 +114,7 @@ const Header = (props) => {
                 <i className="bi bi-list fs-20 " onClick={menu}></i>
               </div>
               <Navbar.Brand href="/" onClick={menu} className="d-none d-lg-block">
-                <div className="logo-dark">
+                <div >
                   <Image src={AvonLogo} alt="" height="95" />
                 </div>
               </Navbar.Brand>

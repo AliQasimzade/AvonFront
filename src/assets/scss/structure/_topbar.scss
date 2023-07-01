@@ -8,6 +8,9 @@
     display: flex;
     align-items: center;
 }
+[data-bs-theme=dark] .top-tagbar {
+    background-color: #0c192c;
+}
 
 .topbar-tag-dropdown {
     height: $top-tagbar-height;

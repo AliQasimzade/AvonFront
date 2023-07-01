@@ -69,6 +69,8 @@ import ContactUs from "../Pages/ContactUs/Contact";
 import NotFound from "../Pages/NotFound/NotFound";
 import SubCatProduct from "../Pages/Product/SubCatProduct";
 import ReferalCodePage from "../Pages/User/ReferalCodePage";
+import News from "../Pages/News/News";
+import NewsDetail from "../Pages/News/NewsDetail/NewsDetail";
 
 const authProtectedRoutes = [
   { path: "/ana-sehife", component: <Home /> },
@@ -95,6 +97,8 @@ const authProtectedRoutes = [
   { path: "/ecommerce-faq", component: <FAQ /> },
   { path: "/invoice", component: <Invoice /> },
   { path: "/elaqe", component: <ContactUs /> },
+  { path: "/xeberler", component: <News /> },
+   { path: "/xeberler/:slug", component: <NewsDetail /> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
@@ -118,7 +122,6 @@ const publicRoutes = [
   { path: "/xeta-404", component: <Error404 /> },
   { path: "/xeta-500", component: <Error500 /> },
    { path: "/coming-soon", component: <Comingsoon /> },
-
   { path: "/email-black-friday", component: <Blackfriday /> },
   { path: "/email-flash-sale", component: <Flashsale /> },
   { path: "/email-order-success", component: <Ordersuccess /> },

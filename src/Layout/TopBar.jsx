@@ -21,8 +21,8 @@ const TopBar = () => {
 
   return (
     <>
-      <Container className="px-0">
-        <div className="top-tagbar px-0">
+      <Container className="px-0" >
+        <div className="top-tagbar px-0" >
           <Container fluid >
             <Row className="justify-content-between align-items-center">
               <Col md={4} xs={9}>

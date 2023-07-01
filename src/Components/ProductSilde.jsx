@@ -269,51 +269,74 @@ export const Selectores = ({ setSelect, searchProducts }) => {
     )
 }
 
-export const CommonProduct = ({ cxxl, clg, cmd }) => {
-    return (
+export const CommonProduct = ({ cxxl, clg, cmd,news = null }) => {
+    const desc = (data) => {
+        return { __html: data };
+      };
+    if(news == null)  return (
         <Container fluid>
-            <Row className="g-3">
-                <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
-                    <div className="product-banner-1 mt-3 mt-lg-0 rounded overflow-hidden">
-                        <Image src={features3} alt="" fluid rounded />
-                        <div className="bg-overlay blue"></div>
-                        <div className="product-content p-4">
-                            <p className="text-uppercase fw-semibold text-white mb-2">Up to 50-70%</p>
-                            <h1 className="text-white lh-base ff-secondary display-6 display-xl-5"> Women's Sportwere Sales</h1>
-                            <div className="product-btn mt-3 mt-xl-4">
-                                <Link to="#" className="link-effect link-light fs-14">Shop Now <i className="bi bi-arrow-right ms-2"></i></Link>
-                            </div>
+        <Row className="g-3">
+            <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
+                <div className="product-banner-1 mt-3 mt-lg-0 rounded overflow-hidden">
+                    <Image src={features3} alt="" fluid rounded />
+                    <div className="bg-overlay blue"></div>
+                    <div className="product-content p-4">
+                        <p className="text-uppercase fw-semibold text-white mb-2">Up to 50-70%</p>
+                        <h1 className="text-white lh-base ff-secondary display-6 display-xl-5"> Women's Sportwere Sales</h1>
+                        <div className="product-btn mt-3 mt-xl-4">
+                            <Link to="#" className="link-effect link-light fs-14">Shop Now <i className="bi bi-arrow-right ms-2"></i></Link>
                         </div>
                     </div>
-                </Col>
-                <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
-                    <div className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden right">
-                        <Image src={features2} alt="" fluid rounded />
-                        <div className="bg-overlay"></div>
-                        <div className="product-content p-4 text-end">
-                            <p className="text-uppercase text-white fw-semibold mb-2">MEGA SALE</p>
-                            <h1 className="text-white lh-base ff-secondary display-6 display-xl-5">Running Shoes Sales Up to 50%</h1>
-                            <div className="product-btn mt-3 mt-xl-4">
-                                <Link to="#" className="link-effect link-light fs-14">Shop Now <i className="bi bi-arrow-right ms-2"></i></Link>
-                            </div>
+                </div>
+            </Col>
+            <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
+                <div className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden right">
+                    <Image src={features2} alt="" fluid rounded />
+                    <div className="bg-overlay"></div>
+                    <div className="product-content p-4 text-end">
+                        <p className="text-uppercase text-white fw-semibold mb-2">MEGA SALE</p>
+                        <h1 className="text-white lh-base ff-secondary display-6 display-xl-5">Running Shoes Sales Up to 50%</h1>
+                        <div className="product-btn mt-3 mt-xl-4">
+                            <Link to="#" className="link-effect link-light fs-14">Shop Now <i className="bi bi-arrow-right ms-2"></i></Link>
                         </div>
                     </div>
-                </Col>
-                <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
-                    <div className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden">
-                        <Image src={features1} alt="" fluid rounded />
-                        <div className="product-content p-4">
-                            <p className="text-uppercase fw-semibold text-dark mb-2">Summer Sales</p>
-                            <h1 className="lh-base ff-secondary display-6 display-xl-5">Trendy Fashion Clothes</h1>
-                            <div className="product-btn mt-3 mt-xl-4">
-                                <Link to='/mehsullar' className="link-effect link-primary fs-14">Shop Now <i className="bi bi-arrow-right ms-2"></i></Link>
-                            </div>
+                </div>
+            </Col>
+            <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
+                <div className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden">
+                    <Image src={features1} alt="" fluid rounded />
+                    <div className="product-content p-4">
+                        <p className="text-uppercase fw-semibold text-dark mb-2">Summer Sales</p>
+                        <h1 className="lh-base ff-secondary display-6 display-xl-5">Trendy Fashion Clothes</h1>
+                        <div className="product-btn mt-3 mt-xl-4">
+                            <Link to='/mehsullar' className="link-effect link-primary fs-14">Shop Now <i className="bi bi-arrow-right ms-2"></i></Link>
                         </div>
                     </div>
-                </Col>
-            </Row>
-        </Container>
+                </div>
+            </Col>
+        </Row>
+    </Container>
     )
+    else return <Container fluid>
+        <Row className="g-3">
+      {news.map((n, index) => (
+          <Col key={index} xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
+          <div className="product-banner-1 mt-3 mt-lg-0 rounded overflow-hidden">
+              <Image src={n.posterImage} alt={n.name} fluid rounded />
+              <div className="bg-overlay blue"></div>
+              <div className="product-content p-4">
+                  <p className="text-uppercase fw-semibold text-white mb-2">{n.name}</p>
+                  <div className="text-white" dangerouslySetInnerHTML={desc(n.content)}></div>
+                  <div><p className="text-white">{new Date(n.createdAt).toLocaleDateString()}</p></div>
+                  <div className="product-btn mt-3 mt-xl-4">
+                      <Link to={`/xeberler/${n.slug}`} className="link-effect link-light fs-14">Oxumağa davam edin <i className="bi bi-arrow-right ms-2"></i></Link>
+                  </div>
+              </div>
+          </div>
+      </Col>
+      ))}
+        </Row>
+    </Container>
 }
 
 export const DefauilOffer = () => {

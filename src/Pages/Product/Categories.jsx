@@ -80,6 +80,7 @@ function CardMenu({ onClick, title }) {
   return (
     <div
       className="text-center"
+      id="hover_card"
       onClick={() => onClick(visibility)}
       style={{
         width: "160px",
@@ -105,7 +106,7 @@ const Categories = (props) => {
   const { slug } = useParams();
   useEffect(() => {
     fetchCategory();
-  }, []);
+  }, [slug]);
 
   const fetchCategory = async () => {
     try {
