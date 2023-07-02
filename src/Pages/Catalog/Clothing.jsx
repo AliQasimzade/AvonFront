@@ -20,7 +20,6 @@ const {slug} = useParams()
     try {
       const req = await axios.get(`https://avonazerbaijan.com/Brendler?slug=${slug}`);
       if(req.status === 200) {
-        console.log(req.data);
         setProducts(req.data.products);
         setCount(Array.from({ length: req.data.length }).fill(0))
       }else {
