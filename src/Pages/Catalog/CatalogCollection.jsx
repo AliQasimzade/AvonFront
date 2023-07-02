@@ -396,7 +396,6 @@ const CatalogCollection = ({
                                 ₼
                               </del>
                             </span>}
-                           
                           </h5>}
                           </div>
                           <div className="tn mt-3">
