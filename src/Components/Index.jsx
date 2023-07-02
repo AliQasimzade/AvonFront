@@ -4,7 +4,7 @@ import Filters from "../Pages/Catalog/Filters";
 import { getAllProducts } from "../services/getRequests";
 import { Row, Col } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
-const Index = ({ name, cxxl, clg, cmd, cxl }) => {
+const Index = ({ name, cxxl, clg, cmd }) => {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,13 +31,12 @@ const Index = ({ name, cxxl, clg, cmd, cxl }) => {
       <Helmet>
         <title>Məhsullar | AVONAZ.NET – Online kosmetika mağazası</title>
       </Helmet>
-      <Filters name={name} products={products} setProducts={setProducts} />
+      <Filters name={name} products={products} setProducts={setProducts} setCount={setCount}/>
       {products.length > 0 ? (
         <CatalogCollection
           cxxl={cxxl}
           clg={clg}
-          cmd={cmd}
-          cxl={cxl}
+          cmd={cmd}      
           count={count}
           setCount={setCount}
           currentPage={currentPage}

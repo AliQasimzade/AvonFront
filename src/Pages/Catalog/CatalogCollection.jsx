@@ -25,10 +25,10 @@ const CatalogCollection = ({
   setCurrentPage,
   products,
   setProducts,
+  slug = null
 }) => {
   const [selectItem, setSelectItem] = useState([]);
 
-  console.log(products);
   const userId = useSelector((state) => state.persistedReducer.User.userId);
   const wishlistAll = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
@@ -180,7 +180,7 @@ const CatalogCollection = ({
                         style={{ height: "250px" }}
                       >
                         <Image
-                          src={item.productImages?.[0]?.image}
+                          src={item?.posterImage}
                           alt=""
                           style={{
                             maxHeight: `${cheight || ""}`,
@@ -221,14 +221,14 @@ const CatalogCollection = ({
                             </span>
                           </Button>
                         </div>
-                        {item?.relationOfBaseCode[count[i]] && (
+                        {item?.relationOfBaseCode !== null &&
                           <div className="avatar-xs label">
                             <div className="avatar-title bg-danger rounded-circle fs-11">
-                              {item?.relationOfBaseCode[count[i]].discountPrice}
+                              {item?.relationOfBaseCode != null && item?.relationOfBaseCode[count[i]]?.discountPrice}
                               %
                             </div>
                           </div>
-                        )}
+                        }
                       </div>
                       <div className="pt-4">
                         <div>
@@ -343,13 +343,7 @@ const CatalogCollection = ({
                                 </div>
                               </div>
                             )
-                          ) : (
-                            <div className="avatar-xxs mb-3">
-                              <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                                <AiFillExclamationCircle />
-                              </div>
-                            </div>
-                          )}
+                          ) : null}
 
                           <Link to={`/mehsul-detallari/${item.slug}`}>
                             <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">
@@ -357,7 +351,7 @@ const CatalogCollection = ({
                             </h6>
                           </Link>
                           <div className="mt-2">
-                            {item?.relationOfBaseCode[count[i]].discountPrice >
+                            { item?.relationOfBaseCode != null ? item?.relationOfBaseCode[count[i]]?.discountPrice >
                             0 ? (
                               <>
                                 <h5 className="text-secondary mb-0">
@@ -384,9 +378,26 @@ const CatalogCollection = ({
                               </>
                             ) : (
                               <h5 className="text-secondary mb-0">
-                                {item?.relationOfBaseCode[count[i]].salePrice} ₼
+                                { item?.relationOfBaseCode[count[i]]?.salePrice} ₼
                               </h5>
-                            )}
+                            ) :  <h5 className="text-secondary mb-0">
+                            {Number(
+                              item?.salePrice -
+                                (item?.salePrice /
+                                  100) *
+                                  item?.discountPrice
+                            ).toFixed(2)}{" "}
+                            ₼
+                            {item?.discountPrice != 0 &&  <span className="text-muted fs-12">
+                              <del>
+                                { 
+                                item?.salePrice
+                                }
+                                ₼
+                              </del>
+                            </span>}
+                           
+                          </h5>}
                           </div>
                           <div className="tn mt-3">
                             <Link
@@ -443,9 +454,9 @@ const CatalogCollection = ({
             </>
           )}
         </Row>
-        <Button onClick={() => setCurrentPage(currentPage + 1)}>
+        {slug == null && <Button onClick={() => setCurrentPage(currentPage + 1)}>
           Daha Çoxu
-        </Button>
+        </Button> }
       </div>
     </>
   );
