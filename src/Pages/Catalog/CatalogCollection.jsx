@@ -400,12 +400,12 @@ const CatalogCollection = ({
                           </h5>}
                           </div>
                           <div className="tn mt-3">
-                            <Link
+                            <Button
                               className="btn btn-primary btn-hover w-100 add-btn"
                               onClick={() => {
                                 if (userId) {
                                   addToCart(
-                                    item.relationOfBaseCode[count[i]].skuId,
+                                    item?.relationOfBaseCode != null ? item.relationOfBaseCode[count[i]]?.skuId : item?.skuId,
                                     userId
                                   );
                                 } else {
@@ -427,7 +427,7 @@ const CatalogCollection = ({
                             >
                               <i className="mdi mdi-cart me-1"></i> Səbətə əlavə
                               et
-                            </Link>
+                            </Button>
                           </div>
                         </div>
                       </div>
