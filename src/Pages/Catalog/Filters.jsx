@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 const Filters = ({ name, products, setProducts, slug, setCount }) => {
+  
   const [mincost, setMincost] = useState(0);
   const [maxcost, setMaxcost] = useState(0);
   const pathname = useLocation();
