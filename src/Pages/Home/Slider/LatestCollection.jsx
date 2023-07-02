@@ -75,7 +75,7 @@ const LastestCollection = (props) => {
                                                             <h6 className="fs-15 lh-base text-truncate mb-0" data-key={`t-${item.name}`}>{props.t(`${item.name}`)}</h6>
                                                         </Link>
                                                         <div className="mt-3">
-                                                            <span className="float-end">5 <i className="ri-star-half-fill text-warning align-bottom"></i></span>
+                                                        
                                                             {
                                                                 item.discountPrice > 0 ? (
                                                                     <h5 className="mb-0">{item.discountPrice > 0 ? (item.salePrice - (item.salePrice * item.discountPrice) / 100) : item.salePrice} ₼<span className="text-muted fs-12"><del>{item.salePrice} ₼</del></span></h5>

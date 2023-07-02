@@ -457,8 +457,7 @@ const Productdetails = () => {
                             ? "Ölçü çeşidləri"
                             : proDetail?.variant?.type == "weight"
                               ? "Çəki çeşidləri"
-                              : "Çeşidləri"}
-                        :
+                              : "Çeşidləri Yoxdur"}
                       </h6>
                       {proDetail?.variant?.type == "color" ? (
                         proDetail?.relationOfBaseCode.length > 0 ? (
@@ -569,88 +568,8 @@ const Productdetails = () => {
                             </div>
                           </div>
                         )
-                      ) : (
-                        <div className="avatar-xxs mb-3">
-                          <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                            <AiFillExclamationCircle />
-                          </div>
-                        </div>
-                      )}
-                      {proDetail?.variant?.type == "size" ? (
-                        proDetail?.relationOfBaseCode.length > 0 ? (
-                          <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                            {proDetail?.relationOfBaseCode.map(
-                              (color, index) => (
-                                <li key={index}>
-                                  <Form.Control
-                                    type="radio"
-                                    name="size1"
-                                    id={`product-color-${color?.skuId}`}
-                                  />
-                                  <Form.Label
-                                    className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                    htmlFor={`product-color-${color?.skuId}`}
-                                  >
-                                    {color.colorCode == null ? (
-                                      <FaCheck />
-                                    ) : (
-                                      <span>{color.colorCode}</span>
-                                    )}
-                                  </Form.Label>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        ) : (
-                          <div className="avatar-xxs mb-3">
-                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                              <AiFillExclamationCircle />
-                            </div>
-                          </div>
-                        )
-                      ) : proDetail?.variant?.type == "file" ? (
-                        proDetail.relationOfBaseCode.length > 0 ? (
-                          <ul className="clothe-colors list-unstyled hstack gap-1 mb-3 flex-wrap">
-                            {proDetail.relationOfBaseCode.map(
-                              (color, index) => (
-                                <Link
-                                  key={index}
-                                  to={`/mehsul-detallari/${proDetail.slug}`}
-                                >
-                                  <li>
-                                    <Form.Control
-                                      type="radio"
-                                      name="size1"
-                                      id={`product-color-${color.skuId}`}
-                                    />
-                                    <Form.Label
-                                      className={`avatar-xxs btn p-0 d-flex align-items-center justify-content-center rounded-circle `}
-                                      htmlFor={`product-color-${color.skuId}`}
-                                      style={{
-                                        backgroundImage: `url(${color.colorCode})`,
-                                      }}
-                                    >
-                                      {color.colorCode == null && <FaCheck />}
-                                    </Form.Label>
-                                  </li>
-                                </Link>
-                              )
-                            )}
-                          </ul>
-                        ) : (
-                          <div className="avatar-xxs mb-3">
-                            <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                              <AiFillExclamationCircle />
-                            </div>
-                          </div>
-                        )
-                      ) : (
-                        <div className="avatar-xxs mb-3">
-                          <div className="avatar-title bg-light text-muted rounded cursor-pointer">
-                            <AiFillExclamationCircle />
-                          </div>
-                        </div>
-                      )}
+                      ) : null}
+                      
                     </div>
                   </Col>
                 </Row>

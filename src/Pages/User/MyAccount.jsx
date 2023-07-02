@@ -63,7 +63,7 @@ const MyAccount = () => {
 
   useEffect(() => {
     if (userAccountInfo) {
-      setReferalUsers(userAccountInfo?.noActiveUsers);
+      setReferalUsers(userAccountInfo?.referalUsers);
       getMyPrices();
     } else {
       navigate("/giris");
@@ -117,7 +117,7 @@ const MyAccount = () => {
         checkM,
         checkY
       );
-      setReferalUsers(res.noActiveUsers);
+      setReferalUsers(res.referalUsers);
     }
   };
   const fileRef = useRef(null);
