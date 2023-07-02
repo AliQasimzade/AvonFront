@@ -277,7 +277,7 @@ export const BrandedProduct = ({ title }) => {
                       <Image
                         src={item.posterImage}
                         alt=""
-                        style={{ maxHeight: "200px", maxWidth: "100%" }}
+                        style={{ maxHeight: "200px", maxWidth: "100%", objectFit:'cover' }}
                         className="mx-auto d-block rounded-2"
                       />
                       <div className="action vstack gap-2">

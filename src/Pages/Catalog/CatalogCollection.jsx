@@ -185,6 +185,7 @@ const CatalogCollection = ({
                           style={{
                             maxHeight: `${cheight || ""}`,
                             maxWidth: "100%",
+                            objectFit: 'cover'
                           }}
                           className="mx-auto d-block rounded-2 h-100"
                         />
@@ -351,18 +352,18 @@ const CatalogCollection = ({
                             </h6>
                           </Link>
                           <div className="mt-2">
-                            { item?.relationOfBaseCode != null ? item?.relationOfBaseCode[count[i]]?.discountPrice >
-                            0 ? (
+                            {item?.relationOfBaseCode != null ? item?.relationOfBaseCode[count[i]]?.discountPrice >
+                              0 ? (
                               <>
                                 <h5 className="text-secondary mb-0">
                                   {Number(
                                     item?.relationOfBaseCode[count[i]]
                                       .salePrice -
-                                      (item?.relationOfBaseCode[count[i]]
-                                        .salePrice /
-                                        100) *
-                                        item?.relationOfBaseCode[count[i]]
-                                          .discountPrice
+                                    (item?.relationOfBaseCode[count[i]]
+                                      .salePrice /
+                                      100) *
+                                    item?.relationOfBaseCode[count[i]]
+                                      .discountPrice
                                   ).toFixed(2)}{" "}
                                   ₼
                                   <span className="text-muted fs-12">
@@ -378,26 +379,26 @@ const CatalogCollection = ({
                               </>
                             ) : (
                               <h5 className="text-secondary mb-0">
-                                { item?.relationOfBaseCode[count[i]]?.salePrice} ₼
+                                {item?.relationOfBaseCode[count[i]]?.salePrice} ₼
                               </h5>
-                            ) :  <h5 className="text-secondary mb-0">
-                            {Number(
-                              item?.salePrice -
+                            ) : <h5 className="text-secondary mb-0">
+                              {Number(
+                                item?.salePrice -
                                 (item?.salePrice /
                                   100) *
-                                  item?.discountPrice
-                            ).toFixed(2)}{" "}
-                            ₼
-                            {item?.discountPrice != 0 &&  <span className="text-muted fs-12">
-                              <del>
-                                { 
-                                item?.salePrice
-                                }
-                                ₼
-                              </del>
-                            </span>}
-                           
-                          </h5>}
+                                item?.discountPrice
+                              ).toFixed(2)}{" "}
+                              ₼
+                              {item?.discountPrice != 0 && <span className="text-muted fs-12">
+                                <del>
+                                  {
+                                    item?.salePrice
+                                  }
+                                  ₼
+                                </del>
+                              </span>}
+
+                            </h5>}
                           </div>
                           <div className="tn mt-3">
                             <Link
@@ -425,8 +426,7 @@ const CatalogCollection = ({
                                 }
                               }}
                             >
-                              <i className="mdi mdi-cart me-1"></i> Səbətə əlavə
-                              et
+                              <i className="mdi mdi-cart me-1"></i>Səbətə əlavə et
                             </Link>
                           </div>
                         </div>
@@ -456,7 +456,7 @@ const CatalogCollection = ({
         </Row>
         {slug == null && <Button onClick={() => setCurrentPage(currentPage + 1)}>
           Daha Çoxu
-        </Button> }
+        </Button>}
       </div>
     </>
   );
