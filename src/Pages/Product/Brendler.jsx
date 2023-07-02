@@ -88,7 +88,7 @@ const Categories = (props) => {
                   <Col lg={2} md={3} sm={6} key={ind}>
                     <div className="text-center">
                       <div className="mt-4">
-                        <Link to={`/catalog/${cat.name}`}>
+                        <Link to={`/catalog/${cat.slug}`}>
                           <h5 className="mb-2 fs-15">{cat.name}</h5>
                         </Link>
                         <p className="text-muted fs-12"></p>

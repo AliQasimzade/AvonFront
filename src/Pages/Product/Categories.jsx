@@ -36,7 +36,7 @@ export const TopCategoies = ({ title }) => {
       <Col lg={12}>
         <div className="mb-5 text-center">
           <h2 className="mb-3">{title}</h2>
-          <p className="text-muted fs-15 mb-0">Bütün məhsullara bax</p>
+          <p className="text-muted fs-15 mb-0">{title} kateqoriyası üzrə məhsullara</p>
         </div>
       </Col>
     </Row>
@@ -117,7 +117,6 @@ const Categories = (props) => {
         const data = response.data;
         setCategory(data);
         const filterSub = data.find((sub) => sub.slug == slug);
-        console.log(filterSub);
         setSubCatName(filterSub.name);
         if (filterSub) {
           setProducts([...filterSub.productSubCategories]);
@@ -177,7 +176,7 @@ const Categories = (props) => {
       </section>
       <section className="mt-5">
         <Container>
-          <TopCategoies title={props.t("AllCategories")} />
+          <TopCategoies title={"Bütün kateqoriyalar"} />
           <Row>
             <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
               {category.length > 0 &&
@@ -272,7 +271,6 @@ const Categories = (props) => {
                         <i className="bi bi-search"></i>
                       </div>
                     </div>
-
                     <h5>Uyğun nəticə tapılmadı</h5>
                   </div>
                 </Col>
