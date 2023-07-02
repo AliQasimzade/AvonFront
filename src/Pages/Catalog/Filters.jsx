@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 const Filters = ({ name, products, setProducts, slug, setCount }) => {
-  
   const [mincost, setMincost] = useState(0);
   const [maxcost, setMaxcost] = useState(0);
   const pathname = useLocation();
@@ -15,7 +14,6 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
   const subs = useSelector((state) => state.persistedReducer.Subcategories);
 
   const [changeInput, setChangeInput] = useState("");
-  //discount
   const [discount, setDiscount] = useState(false);
   const [brand, setBrand] = useState(
     pathname.pathname.includes("brendler") ? true : false
