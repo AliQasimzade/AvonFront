@@ -60,7 +60,6 @@ const Productdetails = () => {
       .get(`https://avonazerbaijan.com/mehsullar?slug=${slug}`)
       .then((res) => {
         setproDetail(res.data.product);
-        console.log(res.data.product)
       });
     getProdcts();
   }, [slug]);

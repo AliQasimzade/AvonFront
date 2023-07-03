@@ -386,27 +386,27 @@ const CatalogCollection = ({
                                 item?.salePrice -
                                 (item?.salePrice /
                                   100) *
-                                item?.discountPrice
-                              ).toFixed(2)}{" "}
-                              ₼
-                              {item?.discountPrice != 0 && <span className="text-muted fs-12">
-                                <del>
-                                  {
-                                    item?.salePrice
-                                  }
-                                  ₼
-                                </del>
-                              </span>}
-
-                            </h5>}
+                                  item?.discountPrice
+                            ).toFixed(2)}{" "}
+                            ₼
+                            {item?.discountPrice != 0 &&  <span className="text-muted fs-12">
+                              <del>
+                                { 
+                                item?.salePrice
+                                }
+                                ₼
+                              </del>
+                            </span>}
+                           
+                          </h5>}
                           </div>
                           <div className="tn mt-3">
-                            <Link
+                            <Button
                               className="btn btn-primary btn-hover w-100 add-btn"
                               onClick={() => {
                                 if (userId) {
                                   addToCart(
-                                    item.relationOfBaseCode[count[i]].skuId,
+                                    item?.relationOfBaseCode != null ? item.relationOfBaseCode[count[i]]?.skuId : item?.skuId,
                                     userId
                                   );
                                 } else {
@@ -426,8 +426,9 @@ const CatalogCollection = ({
                                 }
                               }}
                             >
-                              <i className="mdi mdi-cart me-1"></i>Səbətə əlavə et
-                            </Link>
+                              <i className="mdi mdi-cart me-1"></i> Səbətə əlavə
+                              et
+                            </Button>
                           </div>
                         </div>
                       </div>

@@ -26,21 +26,20 @@ const {slug} = useParams()
         throw new Error("Request is faield !")
       }
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
     }
   };
   const getCatProducts = async () => {
     try {
       const req = await axios.get(`https://avonazerbaijan.com/kateqoriyalar?slug=${slug}`);
       if(req.status === 200) {
-        console.log(req.data);
         setProducts(req.data.productSubCategories.map(p => p.product));
         setCount(Array.from({ length: req.data.length }).fill(0))
       }else {
         throw new Error("Request is faield !")
       }
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
     }
   };
 

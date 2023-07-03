@@ -10,7 +10,6 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
   const [mincost, setMincost] = useState(0);
   const [maxcost, setMaxcost] = useState(0);
   const pathname = useLocation();
-  console.log(pathname.pathname.split("/")[2]);
   const subs = useSelector((state) => state.persistedReducer.Subcategories);
 
   const [changeInput, setChangeInput] = useState("");
