@@ -13,7 +13,6 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
   const subs = useSelector((state) => state.persistedReducer.Subcategories);
 
   const [changeInput, setChangeInput] = useState("");
-  //discount
   const [discount, setDiscount] = useState(false);
   const [brand, setBrand] = useState(
     pathname.pathname.includes("brendler") ? true : false
