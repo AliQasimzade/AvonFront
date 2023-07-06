@@ -8,7 +8,6 @@ import Catalog from "../Pages/Catalog";
 //shop
 import ShopIndex from "../Pages/Shop";
 import Trackorder from "../Pages/Shop/Trackorder";
-import Review from "../Pages/Shop/Review";
 import Confirm from "../Pages/Shop/Confirm";
 import Orderhistory from "../Pages/Shop/Orederhistory";
 import Shopingcard from "../Pages/Shop/Shopingcard";
@@ -25,16 +24,6 @@ import Signin from "../Pages/User/SignIn";
 import Passwordreset from "../Pages/User/Passwordreset";
 import Passwordcreate from "../Pages/User/Passwordcreate";
 import Successmsg from "../Pages/User/Successmsg";
-import Logout from "../Pages/User/Logout";
-import Error404 from "../Pages/User/Error404";
-import Error500 from "../Pages/User/Error500";
-import Comingsoon from "../Pages/User/Comingsoon";
-
-//../pages / Email
-import Blackfriday from "../Pages/Product/Email Product/Blackfriday";
-import Flashsale from "../Pages/Product/Email Product/Flashsale";
-import Ordersuccess from "../Pages/Product/Email Product/Ordersuccess";
-import Ordersuccess2 from "../Pages/Product/Email Product/Ordersuccess2";
 
 //Productdetails
 import Productdetails from "../Pages/Product/Productdetails";
@@ -45,30 +34,17 @@ import Categories from "../Pages/Product/Categories";
 //about
 import About from "../Pages/Product/About";
 
-//Purchase Guide
-import Purchaseguide from "../Pages/Product/Purchaseguide";
-
 //Terms of Conditions
 import Termsconditions from "../Pages/Product/Termsconditions";
 
 //Privacy Policy
 import Privacypolicy from "../Pages/Product/Privacypolicy";
 
-//Storelocator
-import Storelocator from "../Pages/Product/Storelocator";
-
-//FAQ
-import FAQ from "../Pages/Product/FAQ";
-
-//Invoice
-import Invoice from "../Pages/Product/Invoice";
 
 //elaqe
 import ContactUs from "../Pages/ContactUs/Contact";
 //
 import NotFound from "../Pages/NotFound/NotFound";
-import SubCatProduct from "../Pages/Product/SubCatProduct";
-import ReferalCodePage from "../Pages/User/ReferalCodePage";
 import News from "../Pages/News/News";
 import NewsDetail from "../Pages/News/NewsDetail/NewsDetail";
 
@@ -78,7 +54,6 @@ const authProtectedRoutes = [
 
   { path: "/hesabim/unvanlarim", component: <ShopIndex /> },
   { path: "/sifaris-izleme", component: <Trackorder /> },
-  { path: "/shop/review", component: <Review />, isLight: "light" },
   { path: "/sifarisiniz-tesdiqlendi", component: <Confirm /> },
   { path: "/hesabim/sifaris-tarixcesi", component: <Orderhistory /> },
   { path: "sebet", component: <Shopingcard /> },
@@ -90,12 +65,8 @@ const authProtectedRoutes = [
 
   { path: "/kateqoriyalar/:slug", component: <Categories /> },
   { path: "/haqqimizda", component: <About /> },
-  { path: "/purchase-guide", component: <Purchaseguide /> },
   { path: "/terms-conditions", component: <Termsconditions /> },
   { path: "/privacy-policy", component: <Privacypolicy /> },
-  { path: "/store-locator", component: <Storelocator /> },
-  { path: "/ecommerce-faq", component: <FAQ /> },
-  { path: "/invoice", component: <Invoice /> },
   { path: "/elaqe", component: <ContactUs /> },
   { path: "/xeberler", component: <News /> },
    { path: "/xeberler/:slug", component: <NewsDetail /> },
@@ -113,19 +84,10 @@ const publicRoutes = [
   { path: "/hesabim", component: <MyAccount /> },
   { path: "/giris", component: <Signin /> },
   { path: "/qeydiyyat", component: <SignUp /> },
-  { path: "/referal", component: <ReferalCodePage /> },
 
   { path: "/sifreni-sifirla", component: <Passwordreset /> },
   { path: "/sifreni-yarat", component: <Passwordcreate /> },
   { path: "/hesab-tesdiqi", component: <Successmsg /> },
-  { path: "/cixis", component: <Logout /> },
-  { path: "/xeta-404", component: <Error404 /> },
-  { path: "/xeta-500", component: <Error500 /> },
-   { path: "/coming-soon", component: <Comingsoon /> },
-  { path: "/email-black-friday", component: <Blackfriday /> },
-  { path: "/email-flash-sale", component: <Flashsale /> },
-  { path: "/email-order-success", component: <Ordersuccess /> },
-  { path: "/email-order-success-2", component: <Ordersuccess2 /> },
   { path: "*", component: <NotFound /> }
 ];
 

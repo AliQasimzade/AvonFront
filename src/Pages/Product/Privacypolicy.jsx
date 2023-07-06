@@ -3,7 +3,6 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { PublishedProduct } from "../../Components/ProductSilde";
-import { CommonService } from "../../Components/CommonService";
 
 const Privacypolicy = () => {
     return (
@@ -108,7 +107,6 @@ const Privacypolicy = () => {
                 </Container>
             </section>
             <EmailClothe />
-            <CommonService />
         </>
     )
 }

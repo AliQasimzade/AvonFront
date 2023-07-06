@@ -3,7 +3,6 @@ import { Card, Col, Container, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
-import { latestProduct } from "../../../Common/data";
 import { CommonTitle } from "../../../Components/Homepage";
 import "swiper/css";
 import "swiper/css/pagination";

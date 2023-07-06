@@ -4,7 +4,6 @@ import Cardshop from "./Cardshop";
 import { useSelector } from "react-redux";
 import { BrandedProduct, Shoptopbar } from "../../Components/ShopTopBar";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../Components/CommonService";
 
 const Shopingcard = () => {
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
@@ -40,7 +39,7 @@ const Shopingcard = () => {
         </Container>
       </section>
       <EmailClothe />
-      <CommonService />
+       
     </>
   );
 };

@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import { Shoptopbar } from "../../Components/ShopTopBar";
 import { shopProducDetails } from "../../Common/data";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../Components/CommonService";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -50,7 +49,7 @@ const Trackorder = () => {
     </Helmet>
      <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1500}
         hideProgressBar={false}
         closeOnClick={true}
         pauseOnHover={true}
@@ -326,7 +325,7 @@ const Trackorder = () => {
       )}
 
       <EmailClothe />
-      <CommonService />
+       
     </>
   );
 };

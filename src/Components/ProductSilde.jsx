@@ -1,71 +1,15 @@
-import React, { useState, useMemo, useEffect } from "react";
 import { Col, Container, Row, Card, Button, Form, Breadcrumb, Image } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import Nouislider from "nouislider-react";
-import { product } from "../Common/data";
 
 //img
-import features1 from "../assets/images/ecommerce/features/img-1.jpg";
-import features2 from "../assets/images/ecommerce/features/img-2.jpg";
-import features3 from "../assets/images/ecommerce/features/img-3.jpg";
+
 import profilebg from '../assets/images/profile-bg.jpg';
 import profileBg from "../assets/images/profile-bg.jpg";
-import Pagination from "./Pagination";
 import { ProductNoui } from "./Homepage";
 
 export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) => {
-    const isdisplay = isnone;
-    //pagination
-    const pagination = true;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [currentpages, setCurrentpages] = useState([]);
-    const perPageData = 9;
-
-    const handleClick = (e) => {
-        setCurrentPage(Number(e.target.id));
-    };
-    const indexOfLast = currentPage * perPageData;
-    const indexOfFirst = indexOfLast - perPageData;
-    const currentdata = useMemo(() => product.slice(indexOfFirst, indexOfLast), [indexOfFirst, indexOfLast])
-    useEffect(() => {
-        setCurrentpages(currentdata)
-    }, [currentPage, currentdata])
-    const pageNumbers = [];
-
-    for (let i = 1; i <= Math.ceil(product.length / perPageData); i++) {
-        pageNumbers.push(i);
-    }
-    const handleprevPage = () => {
-        let prevPage = currentPage - 1;
-        setCurrentPage(prevPage);
-    };
-    const handlenextPage = () => {
-        let nextPage = currentPage + 1;
-        setCurrentPage(nextPage);
-    };
-    useEffect(() => {
-        if (pageNumbers.length && pageNumbers.length < currentPage) {
-            setCurrentPage(pageNumbers.length)
-        }
-    }, [currentPage, pageNumbers.length]);
-
-    //product like function
-    const Tooglelike = (event) => {
-        if (event?.closest("button").classList.contains("active")) {
-            event.closest("button").classList.remove("active")
-        } else {
-            event.closest("button").classList.add("active");
-        }
-    }
-    //product view function
-    const Toogleview = (event) => {
-        if (event?.closest("button").classList.contains("active")) {
-            event.closest("button").classList.remove("active")
-        } else {
-            event.closest("button").classList.add("active");
-        }
-    }
-
+  
     return (
         <>
             <Row className={cid || ''} style={{ position: position, height: height }}>
@@ -117,19 +61,6 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                         </Row>)
                 }
             </Row>
-            {
-
-                !isdisplay &&
-                <Pagination
-                    pagination={pagination}
-                    pageNumbers={pageNumbers}
-                    currentpages={currentpages}
-                    currentPage={currentPage}
-                    handleprevPage={handleprevPage}
-                    handleClick={handleClick}
-                    handlenextPage={handlenextPage}
-                />
-            }
 
         </>
     )
@@ -278,7 +209,6 @@ export const CommonProduct = ({ cxxl, clg, cmd,news = null }) => {
         <Row className="g-3">
             <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
                 <div className="product-banner-1 mt-3 mt-lg-0 rounded overflow-hidden">
-                    <Image src={features3} alt="" fluid rounded />
                     <div className="bg-overlay blue"></div>
                     <div className="product-content p-4">
                         <p className="text-uppercase fw-semibold text-white mb-2">Up to 50-70%</p>
@@ -291,7 +221,6 @@ export const CommonProduct = ({ cxxl, clg, cmd,news = null }) => {
             </Col>
             <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
                 <div className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden right">
-                    <Image src={features2} alt="" fluid rounded />
                     <div className="bg-overlay"></div>
                     <div className="product-content p-4 text-end">
                         <p className="text-uppercase text-white fw-semibold mb-2">MEGA SALE</p>
@@ -304,7 +233,6 @@ export const CommonProduct = ({ cxxl, clg, cmd,news = null }) => {
             </Col>
             <Col xxl={cxxl || ''} lg={clg || ''} md={cmd || ''}>
                 <div className="product-banner-1 mt-4 mt-lg-0 rounded overflow-hidden">
-                    <Image src={features1} alt="" fluid rounded />
                     <div className="product-content p-4">
                         <p className="text-uppercase fw-semibold text-dark mb-2">Summer Sales</p>
                         <h1 className="lh-base ff-secondary display-6 display-xl-5">Trendy Fashion Clothes</h1>

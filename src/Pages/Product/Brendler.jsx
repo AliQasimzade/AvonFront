@@ -23,7 +23,6 @@ import profileBg from "../../assets/images/profile-bg.jpg";
 //component
 import { CommonProduct, DefauilOffer } from "../../Components/ProductSilde";
 import { sliderCategories } from "../../Common/data";
-import { CommonService } from "../../Components/CommonService";
 import axios from "axios";
 
 export const TopCategoies = ({ title }) => {
@@ -256,7 +255,6 @@ const Categories = (props) => {
         </Container>
       </section>
       <DefauilOffer />
-      <CommonService />
     </>
   );
 };

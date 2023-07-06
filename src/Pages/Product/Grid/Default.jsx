@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmailClothe from "../../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../../Components/CommonService";
 import { getAllSliderTwos } from "../../../services/getRequests";
 import Index from "../../../Components/Index";
 const Defaultgrid = () => {
@@ -57,7 +56,7 @@ const Defaultgrid = () => {
                 </Container>
             </section>
             <EmailClothe />
-            <CommonService />
+             
         </ >
     )
 }

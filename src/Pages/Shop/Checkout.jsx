@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import { Shoporder, Shoptopbar } from "../../Components/ShopTopBar";
 import { Link } from "react-router-dom";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../Components/CommonService";
 import { useSelector,useDispatch } from "react-redux";
 import { useState } from "react";
 import Selectaddress from "./Selectaddress";
@@ -112,7 +111,7 @@ const Checkout = () => {
     <>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1500}
         hideProgressBar={false}
         closeOnClick={true}
         pauseOnHover={true}
@@ -321,7 +320,7 @@ const Checkout = () => {
     </Row>}
       </section>
       <EmailClothe />
-      <CommonService />
+       
     </>
   );
 };

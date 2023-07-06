@@ -8,7 +8,6 @@ import ecommerce4 from "../../assets/images/ecommerce/img-4.jpg";
 import ecommerce5 from "../../assets/images/ecommerce/img-5.jpg";
 import { aboutCard, aboutManagement } from "../../Common/data";
 import { DefauilOffer } from "../../Components/ProductSilde";
-import { CommonService } from "../../Components/CommonService";
 import { getAllSettings } from "../../services/getRequests.js";
 import { Helmet } from "react-helmet-async";
 const About = () => {
@@ -162,7 +161,6 @@ const About = () => {
         </Container>
       </section>
       <DefauilOffer />
-      <CommonService />
     </>
   );
 };

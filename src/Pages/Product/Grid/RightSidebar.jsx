@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form } from 'react-bootstrap';
 import EmailClothe from '../../../Pages/Catalog/EmailClothe';
-import { CommonService } from '../../../Components/CommonService';
 import { ProductGrid, ProductSide } from '../../../Components/ProductSilde';
 import ProductFilter from './ProductFilter';
 import { product } from '../../../Common/data';
@@ -37,7 +36,7 @@ const RightSidebar = () => {
                 </Container>
             </section>
             <EmailClothe />
-            <CommonService />
+             
         </ >
     )
 }

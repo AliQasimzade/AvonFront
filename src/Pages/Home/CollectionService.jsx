@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import { CommonService } from "../../Components/CommonService";
 import { withTranslation } from "react-i18next";
 import withRouter from "../../Components/withRouter";
 import axios from "axios";
@@ -17,7 +16,6 @@ const Service = (props) => {
     }, []);
     return (
         <>
-            <CommonService />
             <section className="section pt-0">
                 <Container>
                     <Row >

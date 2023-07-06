@@ -18,11 +18,16 @@ export const PostMessageWithAboutUs = async (values) => {
     }
 }
 
-export const AddToBasket = async ( appUserId,arr) => {
+export const AddToBasket = async (appUserId, arr) => {
     try {
-        const request = await axios.post(`${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${appUserId}`,arr)
-        return request.data
+        const request = await axios.post(`${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${appUserId}`, arr)
+        if (request.status == 400) {
+            throw new Error("Stokda bu məhsul yoxdur !")
+        } else {
+            return request.data;
+        }
+
     } catch (error) {
-        return error.message
+        return "Stokda bu məhsul yoxdur !";
     }
 }

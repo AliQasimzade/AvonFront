@@ -19,7 +19,6 @@ import { getUsersWithTeam } from "../../services/getRequests";
 import profilebg from "../../assets/images/profile-bg.jpg";
 import { orderHistorys, wishlishProduct } from "../../Common/data";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../Components/CommonService";
 import { changeAccont, logoutUser } from "../../slices/layouts/accont";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -75,7 +74,7 @@ const MyAccount = () => {
   const addPrice = async (id) => {
     try {
       const req1 = axios.post(
-        `${process.env.REACT_APP_BASE_URL}Account/PriceOrder?id=${id}`,
+        `${process.env.REACT_APP_BASE_URL}Account/PriceOrder?id=${id}&IsBalance=true`,
         {
           name: userAccountInfo?.name,
           address: userAccountInfo?.address,
@@ -206,7 +205,7 @@ const MyAccount = () => {
       </Helmet>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1500}
         hideProgressBar={false}
         closeOnClick={true}
         pauseOnHover={true}

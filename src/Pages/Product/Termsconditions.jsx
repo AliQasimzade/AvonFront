@@ -3,7 +3,6 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { PublishedProduct } from "../../Components/ProductSilde";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../Components/CommonService";
 
 const Termsconditions = () => {
     return (
@@ -141,7 +140,7 @@ const Termsconditions = () => {
                 </Container>
             </section>
             <EmailClothe />
-            <CommonService />
+             
         </>
     )
 }

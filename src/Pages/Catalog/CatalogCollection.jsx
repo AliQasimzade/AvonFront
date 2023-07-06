@@ -25,8 +25,9 @@ const CatalogCollection = ({
   setCurrentPage,
   products,
   setProducts,
-  slug = null
+  slug = null,
 }) => {
+  console.log(products);
   const [selectItem, setSelectItem] = useState([]);
 
   const userId = useSelector((state) => state.persistedReducer.User.userId);
@@ -110,11 +111,23 @@ const CatalogCollection = ({
   const handleSKUChange = (a) => {
     setSelectItem(a);
   };
-  const addToCart = async (skuId, appUserId) => {
-    const res = await AddToBasket(appUserId, [{ skuId, count: 1 }]);
-    const re = await getAllBasket(appUserId);
-    toast.success("Məhsul səbətə əlavə olundu");
-    dispatch(getAllBaskets(re));
+  const addToCart = async (skuId, appUserId, stockCount) => {
+    console.log(stockCount);
+    if (stockCount == 0) {
+      toast.info("Bu məhsul stokda yoxdur");
+    } else {
+      const res = await AddToBasket(appUserId, [{ skuId, count: 1 }]);
+      console.log(res);
+      if(typeof res == "string") {
+        toast.info(res)
+      }else {
+        const re = await getAllBasket(appUserId);
+        
+        toast.success("Məhsul səbətə əlavə olundu");
+        dispatch(getAllBaskets(re));
+      }
+     
+    }
   };
 
   return (
@@ -122,7 +135,7 @@ const CatalogCollection = ({
       <div className="flex-grow-1">
         <ToastContainer
           position="top-right"
-          autoClose={5000}
+          autoClose={1500}
           hideProgressBar={false}
           closeOnClick={true}
           pauseOnHover={true}
@@ -185,7 +198,7 @@ const CatalogCollection = ({
                           style={{
                             maxHeight: `${cheight || ""}`,
                             maxWidth: "100%",
-                            objectFit: 'cover'
+                            objectFit: "cover",
                           }}
                           className="mx-auto d-block rounded-2 h-100"
                         />
@@ -222,14 +235,16 @@ const CatalogCollection = ({
                             </span>
                           </Button>
                         </div>
-                        {item?.relationOfBaseCode !== null &&
+                        {item?.relationOfBaseCode !== null && (
                           <div className="avatar-xs label">
                             <div className="avatar-title bg-danger rounded-circle fs-11">
-                              {item?.relationOfBaseCode != null && item?.relationOfBaseCode[count[i]]?.discountPrice}
+                              {item?.relationOfBaseCode != null &&
+                                item?.relationOfBaseCode[count[i]]
+                                  ?.discountPrice}
                               %
                             </div>
                           </div>
-                        }
+                        )}
                       </div>
                       <div className="pt-4">
                         <div>
@@ -352,53 +367,56 @@ const CatalogCollection = ({
                             </h6>
                           </Link>
                           <div className="mt-2">
-                            {item?.relationOfBaseCode != null ? item?.relationOfBaseCode[count[i]]?.discountPrice >
-                              0 ? (
-                              <>
+                            {item?.relationOfBaseCode != null ? (
+                              item?.relationOfBaseCode[count[i]]
+                                ?.discountPrice > 0 ? (
+                                <>
+                                  <h5 className="text-secondary mb-0">
+                                    {Number(
+                                      item?.relationOfBaseCode[count[i]]
+                                        .salePrice -
+                                        (item?.relationOfBaseCode[count[i]]
+                                          .salePrice /
+                                          100) *
+                                          item?.relationOfBaseCode[count[i]]
+                                            .discountPrice
+                                    ).toFixed(2)}{" "}
+                                    ₼
+                                    <span className="text-muted fs-12">
+                                      <del>
+                                        {
+                                          item?.relationOfBaseCode[count[i]]
+                                            .salePrice
+                                        }{" "}
+                                        ₼
+                                      </del>
+                                    </span>
+                                  </h5>
+                                </>
+                              ) : (
                                 <h5 className="text-secondary mb-0">
-                                  {Number(
+                                  {
                                     item?.relationOfBaseCode[count[i]]
-                                      .salePrice -
-                                    (item?.relationOfBaseCode[count[i]]
-                                      .salePrice /
-                                      100) *
-                                    item?.relationOfBaseCode[count[i]]
-                                      .discountPrice
-                                  ).toFixed(2)}{" "}
+                                      ?.salePrice
+                                  }{" "}
                                   ₼
-                                  <span className="text-muted fs-12">
-                                    <del>
-                                      {
-                                        item?.relationOfBaseCode[count[i]]
-                                          .salePrice
-                                      }{" "}
-                                      ₼
-                                    </del>
-                                  </span>
                                 </h5>
-                              </>
+                              )
                             ) : (
                               <h5 className="text-secondary mb-0">
-                                {item?.relationOfBaseCode[count[i]]?.salePrice} ₼
-                              </h5>
-                            ) : <h5 className="text-secondary mb-0">
-                              {Number(
-                                item?.salePrice -
-                                (item?.salePrice /
-                                  100) *
-                                  item?.discountPrice
-                            ).toFixed(2)}{" "}
-                            ₼
-                            {item?.discountPrice != 0 &&  <span className="text-muted fs-12">
-                              <del>
-                                { 
-                                item?.salePrice
-                                }
+                                {Number(
+                                  item?.salePrice -
+                                    (item?.salePrice / 100) *
+                                      item?.discountPrice
+                                ).toFixed(2)}{" "}
                                 ₼
-                              </del>
-                            </span>}
-                           
-                          </h5>}
+                                {item?.discountPrice != 0 && (
+                                  <span className="text-muted fs-12">
+                                    <del>{item?.salePrice}₼</del>
+                                  </span>
+                                )}
+                              </h5>
+                            )}
                           </div>
                           <div className="tn mt-3">
                             <Button
@@ -406,8 +424,13 @@ const CatalogCollection = ({
                               onClick={() => {
                                 if (userId) {
                                   addToCart(
-                                    item?.relationOfBaseCode != null ? item.relationOfBaseCode[count[i]]?.skuId : item?.skuId,
-                                    userId
+                                    item?.relationOfBaseCode != null
+                                      ? item.relationOfBaseCode[count[i]]?.skuId
+                                      : item?.skuId,
+                                    userId,
+                                    item?.relationOfBaseCode != null
+                                      ? item?.stockCount
+                                      : null
                                   );
                                 } else {
                                   toast.error(
@@ -455,9 +478,11 @@ const CatalogCollection = ({
             </>
           )}
         </Row>
-        {slug == null && <Button onClick={() => setCurrentPage(currentPage + 1)}>
-          Daha Çoxu
-        </Button>}
+        {slug == null && (
+          <Button onClick={() => setCurrentPage(currentPage + 1)}>
+            Daha Çoxu
+          </Button>
+        )}
       </div>
     </>
   );

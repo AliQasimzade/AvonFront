@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { CommonService } from '../../../Components/CommonService';
 import { ProductGrid, ProductSelector, ProductSide, Selectores } from '../../../Components/ProductSilde';
-import Deals from '../../../Pages/Catalog/deals';
 import EmailClothe from '../../../Pages/Catalog/EmailClothe';
 import { product } from '../../../Common/data';
 
@@ -60,9 +58,8 @@ const Nosider = () => {
                     </div>
                 </Container>
             </section>
-            <Deals />
             <EmailClothe />
-            <CommonService />
+             
         </>
     )
 }

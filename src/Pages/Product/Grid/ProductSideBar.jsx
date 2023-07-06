@@ -4,8 +4,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Adevertise from "../../../Pages/Catalog/adevertise";
 import EmailClothe from "../../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../../Components/CommonService";
-import Deals from "../../../Pages/Catalog/deals";
 import Index from "../../../Components/Index";
 
 const ProductSidebar = () => {
@@ -35,9 +33,8 @@ const ProductSidebar = () => {
                     </div>
                 </Container>
             </section>
-            <Deals />
             <EmailClothe />
-            <CommonService />
+             
         </>
     )
 }

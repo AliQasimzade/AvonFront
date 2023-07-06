@@ -28,7 +28,6 @@ import "swiper/css/thumbs";
 //components
 import { productInterestedCard, productprogress } from "../../Common/data";
 import { BrandedProduct } from "../../Components/ShopTopBar";
-import { CommonService } from "../../Components/CommonService";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -42,8 +41,8 @@ import { getAllWisslist } from "../../slices/layouts/wistliss";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { getAllProducts } from "../../services/getRequests";
+import { AddToBasket } from "../../services/postRequests";
 const Productdetails = () => {
-
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [proDetail, setproDetail] = useState([]);
   const [sliderImg, setSliderImg] = useState([]);
@@ -54,7 +53,7 @@ const Productdetails = () => {
     (state) => state.persistedReducer.Wisslist.wisslist
   );
 
-  const skuId = proDetail.skuId
+  const skuId = proDetail.skuId;
   useEffect(() => {
     axios
       .get(`https://avonazerbaijan.com/mehsullar?slug=${slug}`)
@@ -69,12 +68,11 @@ const Productdetails = () => {
   const getProdcts = async () => {
     try {
       const data = await getAllProducts(1);
-      setProducts(data)
+      setProducts(data);
     } catch (error) {
       console.error(error);
     }
-  }
-
+  };
 
   const handleSetImg = (id) => {
     setSliderImg(
@@ -110,16 +108,7 @@ const Productdetails = () => {
               .then((res) => dispatch(getAllWisslist(res.data)));
           });
 
-        toast.success("İstək siyahısından silindi", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success("İstək siyahısından silindi");
       } else {
         axios
           .post(
@@ -136,71 +125,40 @@ const Productdetails = () => {
               )
               .then((res) => dispatch(getAllWisslist(res.data)));
           });
-        toast.success("İstək siyahısına əlavə olundu", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success("İstək siyahısına əlavə olundu");
       }
     } else {
-      toast.error("Zəhmət olmasa hesabınıza daxil olun", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Zəhmət olmasa hesabınıza daxil olun");
     }
   };
-  const hendleClickBasket = async (skuId, count) => {
+
+  const hendleClickBasket = async (skuId, count, stockCount) => {
     try {
       if (userId) {
-        const request = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}Baskets/AddBasket?appUserId=${userId}`,
-          [
+        if (count > stockCount) {
+          toast.info(`${skuId}-li məhsulun stokda sayı ${stockCount} qədərdir`);
+        } else {
+          const request = await AddToBasket(userId, [
             {
               skuId: skuId,
-              appUserId: userId,
               count: Number(count),
             },
-          ]
-        );
-        const re = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userId}`
-        );
-        dispatch(getAllBaskets(re.data));
-        toast.success("Səbətə əlavə olundu", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+          ]);
+          if (request == "Stokda bu məhsul yoxdur !") {
+            toast.info(request);
+          } else {
+            const re = await axios.get(
+              `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userId}`
+            );
+            dispatch(getAllBaskets(re.data));
+            toast.success("Səbətə əlavə olundu");
+          }
+        }
       } else {
         throw new Error("Zəhmət olmasa giriş edin");
       }
     } catch (error) {
-      toast.error("Zəhmət olmasa hesabınıza daxil olun", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error(`${error.message}`);
     }
   };
 
@@ -214,7 +172,7 @@ const Productdetails = () => {
       </Helmet>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={1500}
         hideProgressBar={false}
         closeOnClick={true}
         pauseOnHover={true}
@@ -344,7 +302,9 @@ const Productdetails = () => {
                       <Button
                         variant="success"
                         className="btn btn-hover w-100"
-                        onClick={() => hendleClickBasket(skuId, count)}
+                        onClick={() =>
+                          hendleClickBasket(skuId, count, proDetail?.stockCount)
+                        }
                       >
                         {" "}
                         <i className="bi bi-basket2 me-2" /> Səbətə əlavə et
@@ -399,8 +359,9 @@ const Productdetails = () => {
                   <h5 className="fs-24 mb-4">
                     {Number(
                       proDetail.salePrice -
-                      (proDetail.salePrice / 100) * proDetail.discountPrice
-                    ).toFixed(2)}₼
+                        (proDetail.salePrice / 100) * proDetail.discountPrice
+                    ).toFixed(2)}
+                    ₼
                     <span className="text-muted fs-14">
                       <del>{proDetail.salePrice}₼</del>
                     </span>
@@ -453,10 +414,10 @@ const Productdetails = () => {
                         {proDetail?.variant?.type == "color"
                           ? "Rəng çeşidləri"
                           : proDetail?.variant?.type == "size"
-                            ? "Ölçü çeşidləri"
-                            : proDetail?.variant?.type == "weight"
-                              ? "Çəki çeşidləri"
-                              : "Çeşidləri Yoxdur"}
+                          ? "Ölçü çeşidləri"
+                          : proDetail?.variant?.type == "weight"
+                          ? "Çəki çeşidləri"
+                          : "Çeşidləri Yoxdur"}
                       </h6>
                       {proDetail?.variant?.type == "color" ? (
                         proDetail?.relationOfBaseCode.length > 0 ? (
@@ -568,7 +529,6 @@ const Productdetails = () => {
                           </div>
                         )
                       ) : null}
-                      
                     </div>
                   </Col>
                 </Row>
@@ -620,7 +580,12 @@ const Productdetails = () => {
                               </tr>
                               <tr>
                                 <th>Kateqoriyası</th>
-                                <td>{proDetail?.productSubCategories?.[0]?.subCategory?.name}</td>
+                                <td>
+                                  {
+                                    proDetail?.productSubCategories?.[0]
+                                      ?.subCategory?.name
+                                  }
+                                </td>
                               </tr>
                               <tr>
                                 <th>Uzunluğu</th>
@@ -683,7 +648,7 @@ const Productdetails = () => {
                           <Image
                             src={item.posterImage}
                             className="rounded-start w-100 object-fit-cover"
-                            style={{ maxHeight: '200px', height: '200px' }}
+                            style={{ maxHeight: "200px", height: "200px" }}
                             alt="..."
                             fluid
                           />
@@ -692,7 +657,9 @@ const Productdetails = () => {
                           <Card.Body className="h-100 d-flex flex-column">
                             {/* <p className="card-text text-muted">{item.productSubCategories[0].subCategory.name}</p> */}
                             <h4 className="card-title">{item.name}</h4>
-                            <p className="card-text text-muted">{item.salePrice} ₼</p>
+                            <p className="card-text text-muted">
+                              {item.salePrice} ₼
+                            </p>
                             <div className="mt-auto">
                               <div className={`btn btn-soft-secondary btn-sm`}>
                                 Ətraflı bax
@@ -710,7 +677,6 @@ const Productdetails = () => {
       </div>
       <BrandedProduct title="Oxşar məhsullar" />
       <EmailClothe />
-      <CommonService />
     </>
   );
 };

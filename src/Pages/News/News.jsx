@@ -12,7 +12,6 @@ import { withTranslation } from "react-i18next";
 import withRouter from "../../Components/withRouter";
 import profileBg from "../../assets/images/profile-bg.jpg";
 import { CommonProduct, DefauilOffer } from "../../Components/ProductSilde";
-import { CommonService } from "../../Components/CommonService";
 import axios from "axios";
 
 import { Helmet } from "react-helmet-async";
@@ -81,7 +80,6 @@ const News = () => {
       </section>
 
       <DefauilOffer />
-      <CommonService />
     </>
   );
 };

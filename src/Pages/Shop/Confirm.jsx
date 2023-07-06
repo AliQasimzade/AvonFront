@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Shoptopbar } from "../../Components/ShopTopBar";
 import success from "../../assets/images/success-img.png";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { CommonService } from "../../Components/CommonService";
 
 const Confirm = () => {
     document.title = "Sifariş təsdiqləndi | Avon Azərbaycan";
@@ -36,7 +35,7 @@ const Confirm = () => {
                 </Container>
             </section>
             <EmailClothe />
-            <CommonService />
+             
         </>
     )
 }

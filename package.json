@@ -29,7 +29,6 @@
     "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
-    "react-horizontal-scrolling-menu": "^4.1.0",
     "react-i18next": "^12.2.0",
     "react-icons": "^4.9.0",
     "react-paginate": "^8.2.0",
@@ -49,7 +48,8 @@
   },
   "scripts": {
     "start": "set PORT=8000 && react-scripts start",
-    "build": "react-scripts build --no-static-folder",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "winBuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
