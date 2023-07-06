@@ -106,7 +106,7 @@ const Header = (props) => {
   };
   return (
     <>
-      <Navbar className="navbar-expand-lg ecommerce-navbar is-sticky" id="navbar">
+      <Navbar className="navbar-expand-lg ecommerce-navbar" id="navbar">
         <Container className="d-flex flex-column">
           <Row className="w-100">
             <div className="col-4 d-flex align-items-center">

@@ -25,7 +25,6 @@ const Home = () => {
       <TopProducts />
       <Shopping />
       <LastestCollection />
-      <CollectionSlider />
       <Shoping />
       <FollowUs />
     </>
