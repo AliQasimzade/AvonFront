@@ -176,14 +176,17 @@ const CatalogCollection = ({
                   <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
                     <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
                       <div
-                        className="bg-light bg-opacity-50 rounded py-4 position-relative"
+                        className="bg-light bg-opacity-50 rounded position-relative"
                         style={{ height: "250px" }}
                       >
                         <Image
+                        
                           src={item?.posterImage}
                           alt=""
                           style={{
-                            maxHeight: `${cheight || ""}`,
+                            height:'250px',
+                            width:'100%',
+                            maxHeight: '100%',
                             maxWidth: "100%",
                             objectFit: 'cover'
                           }}

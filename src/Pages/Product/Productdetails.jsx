@@ -256,47 +256,8 @@ const Productdetails = () => {
           <Row className="gx-2">
             <Col lg={6}>
               <Row>
-                <Col md={2}>
-                  <div className="swiper productSwiper mb-3 mb-lg-0 swiper-initialized swiper-vertical swiper-pointer-events swiper-free-mode swiper-watch-progress swiper-backface-hidden swiper-thumbs">
-                    <div
-                      className="swiper-wrapper"
-                      id="swiper-wrapper-6100bf53c3db1675b"
-                      aria-live="polite"
-                      style={{
-                        transform: "translate3d(0px, 0px, 0px)",
-                        transitionDuration: "0ms",
-                      }}
-                    >
-                      {/* {(proDetail.productImages || [])?.map((item, idx) => {
-                        return (
-                          <div
-                            key={idx}
-                            className="swiper-slide swiper-slide-thumb-active swiper-slide-visible swiper-slide-next"
-                            role="group"
-                            aria-label={`${idx} / ${proDetail.productImages.length} `}
-                            style={{ height: "105px", marginBottom: "10px" }}
-                          >
-                            <div className="product-thumb rounded cursor-pointer">
-                              <Image
-                                src={item?.image}
-                                alt=""
-                                fluid
-                                onClick={() => handleSetImg(idx)}
-                              />
-                            </div>
-                          </div>
-                        );
-                      })} */}
-                    </div>
-                    <span
-                      className="swiper-notification"
-                      aria-live="assertive"
-                      aria-atomic="true"
-                    />
-                  </div>
-                </Col>
-                {/*end col*/}
-                <Col md={10}>
+               
+                <Col md={12}>
                   <div className="bg-light rounded-2 position-relative ribbon-box overflow-hidden">
                     <Swiper
                       style={{
@@ -396,19 +357,26 @@ const Productdetails = () => {
                     className="text-muted mb-4"
                     dangerouslySetInnerHTML={desc(proDetail.description)}
                   ></p>
-                  <h5 className="fs-24 mb-4">
-                    {Number(
-                      proDetail.salePrice -
-                      (proDetail.salePrice / 100) * proDetail.discountPrice
-                    ).toFixed(2)}₼
-                    <span className="text-muted fs-14">
-                      <del>{proDetail.salePrice}₼</del>
-                    </span>
-                    <span className="fs-14 ms-2 text-danger">
-                      {" "}
-                      ( {proDetail.discountPrice}% endirim)
-                    </span>
-                  </h5>
+                  {
+                    proDetail.discountPrice > 0
+                      ? <h5 className="fs-24 mb-4">
+                        {Number(
+                          proDetail.salePrice -
+                          (proDetail.salePrice / 100) * proDetail.discountPrice
+                        ).toFixed(2)}₼
+                        <span className="text-muted fs-14">
+                          <del>{proDetail.salePrice}₼</del>
+                        </span>
+                        <span className="fs-14 ms-2 text-danger">
+                          {" "}
+                          ( {proDetail.discountPrice}% endirim)
+                        </span> : null
+                      </h5>
+                      : <h5 className="fs-24 mb-4">
+                        {proDetail.salePrice} ₼
+                      </h5>
+                  }
+
                 </div>
                 <div className="d-flex align-items-center mb-4">
                   <h5 className="fs-15 mb-0">Miqdarı:</h5>
@@ -568,7 +536,7 @@ const Productdetails = () => {
                           </div>
                         )
                       ) : null}
-                      
+
                     </div>
                   </Col>
                 </Row>
@@ -621,18 +589,6 @@ const Productdetails = () => {
                               <tr>
                                 <th>Kateqoriyası</th>
                                 <td>{proDetail?.productSubCategories?.[0]?.subCategory?.name}</td>
-                              </tr>
-                              <tr>
-                                <th>Uzunluğu</th>
-                                <td>{proDetail?.uzunluq} sm</td>
-                              </tr>
-                              <tr>
-                                <th>Eni</th>
-                                <td>{proDetail?.width} sm</td>
-                              </tr>
-                              <tr>
-                                <th>Hündürlüyü</th>
-                                <td>{proDetail?.heigth} sm</td>
                               </tr>
                               <tr>
                                 <th>Çəkisi</th>

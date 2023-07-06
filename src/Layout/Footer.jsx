@@ -26,7 +26,6 @@ const Footer = (props) => {
             console.error("Error:", error);
         }
     }
-
     const [setting, setSetting] = useState([])
     const getSocials = async () => {
         try {
@@ -76,13 +75,13 @@ const Footer = (props) => {
                                             {
                                                 category.slice(0, 5).map((cat, ind) => (
                                                     <li key={ind}>
-                                                        <Link to={`category/${cat.name}`}>{cat.name}</Link>
+                                                        <Link to="#">{cat.name}</Link>
                                                     </li>
                                                 ))
                                             }
                                             {category.length > 5 && (
                                                 <li>
-                                                    <Link to="/categories" data-key="t-see-all-categories">{props.t('see-all-categories')}</Link>
+                                                    <Link to="#navbar" data-key="t-see-all-categories">{props.t('see-all-categories')}</Link>
                                                 </li>
                                             )}
                                         </ul>
