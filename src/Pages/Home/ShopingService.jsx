@@ -26,8 +26,7 @@ const Shopping = () => {
         <Container>
           <Carousel id="ecommerceHero" data-bs-ride="carousel">
             {offerOfWeeks.length > 0 &&
-              offerOfWeeks.map((offerOfWeeksData) => {
-                return (
+              offerOfWeeks.map((offerOfWeeksData) => (
                   <Carousel.Item key={offerOfWeeksData.id}>
                     <Row className="align-items-center">
                       <Col lg={6}>
@@ -75,8 +74,8 @@ const Shopping = () => {
                       </Col>
                     </Row>
                   </Carousel.Item>
-                );
-              })}
+                )
+              )}
           </Carousel>
         </Container>
       </section>

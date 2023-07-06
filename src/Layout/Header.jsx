@@ -205,9 +205,8 @@ const Header = (props) => {
                           title={props.t('catalog')}
 
                         >
-                          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                           <NavDropdown.Item href="#action/3.2">
-                            {categories.map((category, index) => (
+                            {categories.length > 0 && categories.map((category, index) => (
                               <Col lg={2} key={index}>
                                 <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
                                   <li>
@@ -217,7 +216,7 @@ const Header = (props) => {
                                   </li>
                                   {category.subCategories.map((subcategory, subIndex) => (
                                     <li className="nav-item" key={subIndex}>
-                                      <Link to={`/catalog/${subcategory.name}`} className="nav-link" data-key={`t-${subcategory.name}`}>
+                                      <Link to={`/kateqoriyalar/${subcategory.slug}`} className="nav-link" data-key={`t-${subcategory.name}`}>
                                         {props.t(subcategory.name)}
                                       </Link>
                                     </li>

@@ -11,6 +11,7 @@
     font-family: "Material Design Icons";
 }
 
+
 .dropdown-menu {
     box-shadow: $box-shadow-lg;
     animation-name: DropDownSlide;
@@ -18,7 +19,7 @@
     animation-fill-mode: both;
     position: absolute;
     z-index: 1000;
-
+    left: -112px !important;
     &.dropdown-megamenu {
         padding: 20px;
         left: 0 !important;

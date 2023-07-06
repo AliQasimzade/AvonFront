@@ -37,8 +37,7 @@ export default function NavbarMenu({isActive}) {
                     <Navbar.Collapse   className={isActive ? "navbar_responsive" : ""}
             id="xMode">
                         <ul className='d-flex list-unstyled justify-content-between w-100'>
-                            {categories.map((category, index) => {
-                                return (
+                            {categories.length > 0 && categories.map((category, index) => (
                                     <Nav key={index} className="nav-item py-3 dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
                                         <Link
                                             to="/"
@@ -48,7 +47,7 @@ export default function NavbarMenu({isActive}) {
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         >
-                                            {category.name}
+                                            {category?.name}
                                         </Link>
 
                                         <div className="dropdown-menu p-0 p-4" style={{ width: '100%' }}>
@@ -61,7 +60,7 @@ export default function NavbarMenu({isActive}) {
                                                         <Col lg={6}>
                                                             <h6>Kateqoriyalar</h6>
                                                             <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                                {category.subCategories.map(
+                                                                {category?.subCategories.map(
                                                                     (subcategory, subIndex) => (
                                                                         <Nav className="nav-item" key={subIndex}>
                                                                             <Nav.Link
@@ -79,7 +78,7 @@ export default function NavbarMenu({isActive}) {
                                                         <Col lg={6}>
                                                             <h6>Brendlər</h6>
                                                             <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                                {category.brands.map((brand, subIndex) => (
+                                                                {category?.brands.map((brand, subIndex) => (
                                                                     <li className="nav-item" key={subIndex}>
                                                                         <Link
                                                                             to={`/brendler/${brand?.slug}`}
@@ -99,7 +98,7 @@ export default function NavbarMenu({isActive}) {
                                         </div>
                                     </Nav>
                                 )
-                            })}
+                            )}
                         </ul>
                     </Navbar.Collapse>
                 </div>
