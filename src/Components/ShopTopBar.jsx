@@ -273,11 +273,17 @@ export const BrandedProduct = ({ title }) => {
               return (
                 <Col xxl={3} lg={4} md={6} key={inx}>
                   <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden card-animate">
-                    <div className="bg-light bg-opacity-50 rounded py-4 position-relative">
+                    <div className="bg-light bg-opacity-50 rounded position-relative">
                       <Image
                         src={item.posterImage}
                         alt=""
-                        style={{ maxHeight: "200px", maxWidth: "100%", objectFit:'cover' }}
+                        style={{
+                          height: '250px',
+                          width: '100%',
+                          maxHeight: '100%',
+                          maxWidth: "100%",
+                          objectFit: 'cover'
+                        }}
                         className="mx-auto d-block rounded-2"
                       />
                       <div className="action vstack gap-2">
