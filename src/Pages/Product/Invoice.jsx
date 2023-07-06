@@ -155,17 +155,6 @@ const Invoice = () => {
                                                 <p className="text-muted mb-1">Card Number: <span className="fw-medium" id="card-number">xxx xxxx xxxx 1234</span></p>
                                                 <p className="text-muted">Total Amount: <span id="card-total-amount">1406.92</span><span className="fw-medium"> ₼</span></p>
                                             </div>
-                                            <div className="mt-4">
-                                                <Alert variant="info">
-                                                    <p className="mb-0"><span className="fw-semibold">NOTES:</span>
-                                                        <span id="note">All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque or
-                                                            credit card or direct payment online. If account is not paid within 7
-                                                            days the credits details supplied as confirmation of work undertaken
-                                                            will be charged the agreed quoted fee noted above.
-                                                        </span>
-                                                    </p>
-                                                </Alert>
-                                            </div>
                                             <div className="hstack gap-2 justify-content-end d-print-none mt-4">
                                                 <Link to='/invoice' className="btn btn-success" onClick={handlePrint} ><i className="ri-printer-line align-bottom me-1"></i> Print</Link>
                                                 <Link to="#" className="btn btn-primary"><i className="ri-download-2-line align-bottom me-1"></i> Download</Link>

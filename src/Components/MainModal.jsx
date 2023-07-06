@@ -176,7 +176,7 @@ export const InvoiceModal = ({
                       <Row className="g-3">
                         <Col lg={3} xs={6}>
                           <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">
-                            İnvoys NO
+                            İnvoys nömrəsi
                           </p>
                           <h5 className="fs-15 mb-0">#{selectedInvoice}</h5>
                         </Col>
@@ -209,7 +209,7 @@ export const InvoiceModal = ({
 
                         <Col lg={3} xs={6}>
                           <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">
-                            Payment Status
+                            Sifarişin statusu
                           </p>
                           <span
                             className={`badge badge-soft-${
@@ -227,7 +227,7 @@ export const InvoiceModal = ({
 
                         <Col lg={3} xs={6}>
                           <p className="text-muted mb-2 text-uppercase fw-semibold fs-14">
-                            Total Amount
+                            Yekun məbləğ
                           </p>
                           <h5 className="fs-15 mb-0">
                             ₼
@@ -297,21 +297,19 @@ export const InvoiceModal = ({
                                   <td>
                                     ₼{item.product.salePrice} -{" "}
                                     {item.salePrice != item.product.salePrice
-                                      ? ` ₼${item.salePrice}`
+                                      ? `${item.salePrice} ₼`
                                       : "Yoxdur"}
                                   </td>
                                   <td>{item.count}</td>
                                   <td>{item.discountPrice}</td>
-
                                   <td className="text-end">
-                                    ₼
                                     {item.salePrice != 0
                                       ? Number(
                                           item.salePrice * item.count
                                         ).toFixed(2)
                                       : Number(
                                           item.product.salePrice * item.count
-                                        ).toFixed(2)}
+                                        ).toFixed(2)} ₼
                                   </td>
                                 </tr>
                               ))}
@@ -361,15 +359,14 @@ export const InvoiceModal = ({
                             <tr>
                               <td>Çatdırılma miqdarı</td>
                               <td className="text-end">
-                                ₼{selectedOrder.deliveryAdress.price}
+                                {selectedOrder.deliveryAdress.price}₼
                               </td>
                             </tr>
                             <tr className="border-top border-top-dashed fs-15">
                               <th scope="row">Ümumi məbləğ</th>
                               <th className="text-end">
-                                ₼
                                 {selectedOrder?.totalAmount +
-                                  selectedOrder.deliveryAdress.price}
+                                  selectedOrder.deliveryAdress.price}₼
                               </th>
                             </tr>
                           </tbody>
@@ -380,29 +377,20 @@ export const InvoiceModal = ({
                           <p className="mb-0">
                             <span className="fw-semibold">Qeydlər:</span>
                             <span id="note">
-                              All accounts are to be paid within 7 days from
-                              receipt of invoice. To be paid by cheque or credit
-                              card or direct payment online. If account is not
-                              paid within 7 days the credits details supplied as
-                              confirmation of work undertaken will be charged
-                              the agreed quoted fee noted above.
+                              Bütün sifarişlərin maksimum gözləmə və qəbul olunma müddəti 7 gündür. 7 gün ərzində sifarişinizə baxılmazsa bizimlə əlaqə saxlayın
                             </span>
                           </p>
                         </div>
                       </div>
                       <div className="hstack gap-2 justify-content-end d-print-none mt-4">
-                        <Link
+                        <Button
                           to="print()"
                           className="btn btn-success"
                           onClick={InvoicePrint}
                         >
                           <i className="ri-printer-line align-bottom me-1"></i>{" "}
                           Çap et
-                        </Link>
-                        <Link to="#" className="btn btn-primary">
-                          <i className="ri-download-2-line align-bottom me-1"></i>{" "}
-                          Yüklə
-                        </Link>
+                        </Button>
                       </div>
                     </Card.Body>
                   </Col>

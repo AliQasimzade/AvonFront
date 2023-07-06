@@ -37,6 +37,7 @@ const MyAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [referalUsers, setReferalUsers] = useState([]);
+  const [noActiveUsers, setNoActiveUsers] = useState([]);
   const [myPrices, setMyPrices] = useState([]);
 
   const logOut = () => {
@@ -58,12 +59,13 @@ const MyAccount = () => {
         `${process.env.REACT_APP_BASE_URL}Account/Price?Id=${userAccountInfo?.id}`
       );
       setMyPrices(req.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
     if (userAccountInfo) {
       setReferalUsers(userAccountInfo?.referalUsers);
+      setNoActiveUsers(userAccountInfo?.noActiveUsers)
       getMyPrices();
     } else {
       navigate("/giris");
@@ -118,6 +120,7 @@ const MyAccount = () => {
         checkY
       );
       setReferalUsers(res.referalUsers);
+      setNoActiveUsers(res.noActiveUsers)
     }
   };
   const fileRef = useRef(null);
@@ -263,7 +266,7 @@ const MyAccount = () => {
                   <Card.Body>
                     <Nav variant="pills" className="flex-column gap-3">
                       <Nav.Item as="li">
-                        <Nav.Link 
+                        <Nav.Link
                           as="a"
                           href="/"
                           className="fs-15"
@@ -302,7 +305,7 @@ const MyAccount = () => {
                           role="presentation"
                           style={{ cursor: "pointer" }}
                         >
-                          <i className="bi bi-bag align-middle me-1"></i> Order
+                          <i className="bi bi-bag align-middle me-1"></i> Sifarişlərim
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item as="li">
@@ -528,7 +531,7 @@ const MyAccount = () => {
                                         onBlur={formik.handleBlur}
                                       />
                                       {formik.touched.name &&
-                                      formik.errors.name ? (
+                                        formik.errors.name ? (
                                         <div className="text-danger">
                                           {formik.errors.name}
                                         </div>
@@ -550,7 +553,7 @@ const MyAccount = () => {
                                         onBlur={formik.handleBlur}
                                       />
                                       {formik.touched.surname &&
-                                      formik.errors.surname ? (
+                                        formik.errors.surname ? (
                                         <div className="text-danger">
                                           {formik.errors.surname}
                                         </div>
@@ -572,7 +575,7 @@ const MyAccount = () => {
                                         onBlur={formik.handleBlur}
                                       />
                                       {formik.touched.phone &&
-                                      formik.errors.phone ? (
+                                        formik.errors.phone ? (
                                         <div className="text-danger">
                                           {formik.errors.phone}
                                         </div>
@@ -594,7 +597,7 @@ const MyAccount = () => {
                                         onBlur={formik.handleBlur}
                                       />
                                       {formik.touched.email &&
-                                      formik.errors.email ? (
+                                        formik.errors.email ? (
                                         <div className="text-danger">
                                           {formik.errors.email}
                                         </div>
@@ -616,7 +619,7 @@ const MyAccount = () => {
                                         onBlur={formik.handleBlur}
                                       />
                                       {formik.touched.address &&
-                                      formik.errors.address ? (
+                                        formik.errors.address ? (
                                         <div className="text-danger">
                                           {formik.errors.address}
                                         </div>
@@ -638,7 +641,7 @@ const MyAccount = () => {
                                         onBlur={formik.handleBlur}
                                       />
                                       {formik.touched.otherAddress &&
-                                      formik.errors.otherAddress ? (
+                                        formik.errors.otherAddress ? (
                                         <div className="text-danger">
                                           {formik.errors.otherAddress}
                                         </div>
@@ -864,63 +867,104 @@ const MyAccount = () => {
                       <Card>
                         <Card.Body>
                           <div className="table-responsive table-card">
-                            <Table className="fs-15 align-middle table-nowrap">
-                              <thead>
-                                <tr>
-                                  <th scope="col">Referal kod</th>
-                                  <th scope="col">Ad</th>
-                                  <th scope="col">E-poçt</th>
-                                  <th scope="col">Telefon</th>
-                                  <th scope="col">Ümumi sifariş</th>
-                                  <th scope="col">Sifariş sayı</th>
-                                  <th scope="col">Ümumi sifariş miqdarı</th>
-                                  <th scope="col">Aylıq qazanc</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {referalUsers.length > 0 ? (
-                                  referalUsers.map((item, inx) => {
-                                    return (
-                                      <tr key={inx}>
-                                        <td>{item.referalIdforTeam}</td>
-                                        <td>
-                                          {" "}
-                                          <img
-                                            src={item.profileImage}
-                                            alt={item.name}
-                                            style={{ width: "20px" }}
-                                          />
-                                          {item.name}
-                                        </td>
-                                        <td>{item.email}</td>
-                                        <td>{item.phoneNumber}</td>
-                                        <td>{item.totalAmount}</td>
-                                        <td>{item.orders.length}</td>
-                                        <td>
-                                          {item.orders
-                                            .map((order) => order.totalAmount)
-                                            .reduce(
-                                              (acc, it) => acc + it,
-                                              0
-                                            )}{" "}
-                                          AZN
-                                        </td>
-                                        <td>{item.gain}</td>
-                                      </tr>
-                                    );
-                                  })
-                                ) : (
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      paddingLeft: "10px",
-                                    }}
-                                  >
-                                    <p>Referal istifadəçi yoxdur</p>
-                                  </div>
-                                )}
-                              </tbody>
-                            </Table>
+                            {referalUsers.length > 0 ?
+                              (<Table className="fs-15 align-middle table-nowrap">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Referal kod</th>
+                                    <th scope="col">Vəzifəsi</th>
+                                    <th scope="col">Ad</th>
+                                    <th scope="col">E-poçt</th>
+                                    <th scope="col">Telefon</th>
+                                    <th scope="col">Öz satışı</th>
+                                    <th scope="col">Əmək haqqına hesablanan satış</th>
+                                    <th scope="col">Sifariş sayı</th>
+                                    <th scope="col">Qrupla birlikdə satış</th>
+                                    <th scope="col">Qrupla birlikdə əmək haqqına hesablanan satış</th>
+                                    <th scope="col">I generasiya faizi</th>
+                                    <th scope="col">II generasiya faizi</th>
+                                    <th scope="col">III generasiya faizi</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {
+                                    referalUsers.map((item, inx) => {
+                                      return (
+                                        <tr key={inx}>
+                                          <td>{item.referalIdforTeam}</td>
+                                          <td>{item.position == null ? "Satış nümayəndəsi" : item.position}</td>
+                                          <td>
+                                            {" "}
+                                            <img
+                                              src={item.profileImage}
+                                              alt={item.name}
+                                              style={{ width: "20px" }}
+                                            />
+                                            {item.name}
+                                          </td>
+                                          <td>{item.email}</td>
+                                          <td>{item.phoneNumber}</td>
+                                          <td>{item.firstAmount}</td>
+                                          <td>{item.firstAmountSalary}</td>
+                                          <td>
+                                            {item.orders
+                                              .map((order) => order.totalAmount)
+                                              .reduce(
+                                                (acc, it) => acc + it,
+                                                0
+                                              )}{" "}
+                                            AZN
+                                          </td>
+                                          <td>{item.totalAmount}</td>
+                                          <td>{item.totalAmountForSalary}</td>
+                                          <td>{item.gain}</td>
+                                          <td>{item.gain2}</td>
+                                          <td>{item.gain3}</td>
+                                        </tr>
+                                      );
+                                    })
+                                  }
+                                </tbody>
+                              </Table>) : (<h3 className="my-4 ps-2">Təəssüf ki, sizin aktiv komandanız yoxdur.</h3>)
+                            }
+                            {
+                              noActiveUsers.length > 0 ? (
+                                <Table className="fs-15 align-middle table-nowrap">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Referal kod</th>
+                                    <th scope="col">Vəzifəsi</th>
+                                    <th scope="col">Ad</th>
+                                    <th scope="col">E-poçt</th>
+                                    <th scope="col">Telefon</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {
+                                    noActiveUsers.map((item, inx) => {
+                                      return (
+                                        <tr key={inx}>
+                                          <td>{item.referalIdforTeam}</td>
+                                          <td>{item.position == null ? "Satış nümayəndəsi" : item.position}</td>
+                                          <td>
+                                            {" "}
+                                            <img
+                                              src={item.profileImage}
+                                              alt={item.name}
+                                              style={{ width: "20px" }}
+                                            />
+                                            {item.name}
+                                          </td>
+                                          <td>{item.email}</td>
+                                          <td>{item.phoneNumber}</td>
+                                        </tr>
+                                      );
+                                    })
+                                  }
+                                </tbody>
+                              </Table>
+                              ) : (<h3>Təbriklər sizin aktiv olmayan komanda üzvünüz yoxdur</h3>)
+                            }
                           </div>
                         </Card.Body>
                       </Card>
@@ -969,7 +1013,7 @@ const MyAccount = () => {
                                         }
                                         disabled={
                                           price.isEnable == true &&
-                                          price.isTaked == false
+                                            price.isTaked == false
                                             ? false
                                             : true
                                         }
@@ -1020,7 +1064,7 @@ const MyAccount = () => {
                                     </div>
                                   </div>
 
-                                  <h5>No prices found</h5>
+                                  <h5>Aylıq hədiyyələr mövcud deyil</h5>
                                 </div>
                               </Col>
                             </Row>
