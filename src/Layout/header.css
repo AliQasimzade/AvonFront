@@ -51,3 +51,18 @@
         display: block;
     }
 }
+
+
+
+@media (min-width:200px) and (max-width:768px) {
+    .mobile-logo img{
+        height: 45px !important;
+        margin-left: 40px !important;
+    }
+}
+
+@media (min-width:769px) {
+    .mobile-logo img{
+        height: 95px !important;
+    }
+}

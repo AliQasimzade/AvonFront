@@ -69,7 +69,7 @@ const Passwordreset = () => {
           <Container fluid>
             <Row className="justify-content-between align-items-center">
               <Col xs={2}>
-                <Link className="navbar-brand mb-2 mb-sm-0" to="index.html">
+                <Link className="navbar-brand mb-2 mb-sm-0" to="/">
                   <Image
                     src={avonLogo}
                     className="card-logo card-logo-dark"

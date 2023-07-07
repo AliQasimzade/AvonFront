@@ -101,7 +101,6 @@ const Header = (props) => {
 
   const [isActive, setIsActive] = useState(false);
   const menu = () => {
-    // 👇️ toggle isActive state on click
     setIsActive(current => !current);
   };
   return (
@@ -109,20 +108,20 @@ const Header = (props) => {
       <Navbar className="navbar-expand-lg ecommerce-navbar" id="navbar">
         <Container className="d-flex flex-column">
           <Row className="w-100">
-            <div className="col-4 d-flex align-items-center">
+            <div className="col-2 d-flex align-items-center">
               <div className="hamburger_manu_icon">
                 <i className="bi bi-list fs-20 " onClick={menu}></i>
               </div>
-              <Navbar.Brand href="/" onClick={menu} className="d-none d-lg-block">
-                <div >
-                  <Image src={AvonLogo} alt="" height="95" />
+              <Navbar.Brand href="/" onClick={menu} className="mobile-logo">
+                <div>
+                  <Image src={AvonLogo} alt="Avon logo" />
                 </div>
               </Navbar.Brand>
               {/* <Button className="btn btn-soft-primary btn-icon d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i className="bi bi-list fs-20"></i>
                     </Button> */}
             </div>
-            <div className="col-8">
+            <div className="col-10">
               <Row>
                 <div className="col-12">
                   <div className="d-flex align-items-center justify-content-end">

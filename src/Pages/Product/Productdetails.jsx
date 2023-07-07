@@ -447,16 +447,15 @@ const Productdetails = () => {
                   <Col lg={8}>
                     <div className="hstack gap-2">
                       <Button
-                        variant="success"
+                        variant="danger"
                         className="btn btn-hover w-100"
                         onClick={() =>
                           hendleClickBasket(skuId, count, proDetail?.stockCount)
                         }
                       >
                         {" "}
-                        <i className="bi bi-basket2 me-2" /> Səbətə əlavə et
+                        <i className="bi bi-basket2 me-2" />Səbətə əlavə et
                       </Button>
-
                     </div>
                   </Col>
 

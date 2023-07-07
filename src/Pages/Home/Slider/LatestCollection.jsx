@@ -41,8 +41,12 @@ const LastestCollection = (props) => {
                                     prevEl: ".swiper-button-prev",
                                 }}
                                 breakpoints={{
+                                    300:{
+                                        slidesPerView: 2,
+                                        spaceBetween: 10,
+                                    },
                                     640: {
-                                        slidesPerView: 4,
+                                        slidesPerView: 2,
                                         spaceBetween: 30,
                                     },
                                     768: {

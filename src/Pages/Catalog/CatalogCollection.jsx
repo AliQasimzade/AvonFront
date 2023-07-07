@@ -186,7 +186,7 @@ const CatalogCollection = ({
             products.map((item, i) => {
               return (
                 !cxl && (
-                  <Col key={item.id} xxl={cxxl} lg={clg} md={cmd}>
+                  <Col key={item.id} xxl={cxxl} lg={clg} md={cmd} className="col-6">
                     <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
                       <div
                         className="bg-light bg-opacity-50 rounded position-relative"
@@ -452,8 +452,7 @@ const CatalogCollection = ({
                                 }
                               }}
                             >
-                              <i className="mdi mdi-cart me-1"></i> Səbətə əlavə
-                              et
+                              <i className="mdi mdi-cart me-1"></i>Səbətə əlavə et
                             </Button>
                           </div>
                         </div>
