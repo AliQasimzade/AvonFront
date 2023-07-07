@@ -172,7 +172,7 @@ const Header = (props) => {
                             <Dropdown.Item href='/ana-sehife' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Çıxış</span></Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown> : <Link to={"/giris"}>< IoLogIn style={{ fontSize: "23px", color: "black" }} />
-                          <span className="ms-2 text-black">Daxil ol</span>
+                          <span className="ms-2 text-black d-none d-md-flex">Daxil ol</span>
                         </Link>
                       }
 
