@@ -48,7 +48,6 @@ const {slug} = useParams()
     getBrandsProducts();
    }else {
     getCatProducts()
-    
    }
   }, [currentPage,slug]);
   return (
