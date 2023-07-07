@@ -35,6 +35,7 @@ const {slug} = useParams()
       const req = await axios.get(`https://avonazerbaijan.com/kateqoriyalar?slug=${slug}`);
       if(req.status === 200) {
         setProducts(req.data.productSubCategories.map(p => p.product));
+        console.log(req.data.productSubCategories);
         setCount(Array.from({ length: req.data.length }).fill(0))
       }else {
         throw new Error("Request is faield !")
