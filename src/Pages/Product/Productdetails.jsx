@@ -180,18 +180,11 @@ const Productdetails = () => {
         progress={undefined}
         theme="light"
       />
-      <section
-        className="ecommerce-about"
-        style={{
-          backgroundImage: `url(${proDetail.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <section className="ecommerce-about" >
         <div className="bg-overlay bg-primary" style={{ opacity: "0.85" }} />
         <Container>
           <Row className="justify-content-center">
-            <Col lg={6}>
+            <Col lg={12}>
               <div className="text-center">
                 <h1 className="text-white mb-0">{proDetail.name}</h1>
                 <Breadcrumb bsPrefix="breadcrumb breadcrumb-light justify-content-center mt-4">
@@ -214,7 +207,6 @@ const Productdetails = () => {
           <Row className="gx-2">
             <Col lg={6}>
               <Row>
-               
                 <Col md={12}>
                   <div className="bg-light rounded-2 position-relative ribbon-box overflow-hidden">
                     <Swiper
@@ -257,53 +249,7 @@ const Productdetails = () => {
                   </div>
                 </Col>
                 {/*end col*/}
-                <Col lg={12}>
-                  <div className="mt-3">
-                    <div className="hstack gap-2">
-                      <Button
-                        variant="success"
-                        className="btn btn-hover w-100"
-                        onClick={() =>
-                          hendleClickBasket(skuId, count, proDetail?.stockCount)
-                        }
-                      >
-                        {" "}
-                        <i className="bi bi-basket2 me-2" /> Səbətə əlavə et
-                      </Button>
-                      <Button
-                        className="btn btn-soft-danger custom-toggle btn-hover"
-                        data-bs-toggle="button"
-                        aria-pressed="false"
-                        onClick={(ele) => handleLikeIcone(skuId)}
-                      >
-                        <span
-                          className="icon-on"
-                          style={
-                            wisslistProID.find(
-                              (wish) => wish.productId == proDetail.id
-                            )
-                              ? { display: "none" }
-                              : { display: "block" }
-                          }
-                        >
-                          <i className="ri-heart-line" />
-                        </span>
-                        <span
-                          className="icon-off"
-                          style={
-                            wisslistProID.find(
-                              (wish) => wish.productId == proDetail.id
-                            )
-                              ? { display: "block" }
-                              : { display: "none" }
-                          }
-                        >
-                          <i className="ri-heart-fill" />
-                        </span>
-                      </Button>
-                    </div>
-                  </div>
-                </Col>
+
                 {/*end col*/}
               </Row>
               {/*end row*/}
@@ -313,13 +259,9 @@ const Productdetails = () => {
               <div className="ecommerce-product-widgets mt-4 mt-lg-0">
                 <div className="mb-4">
                   <h4 className="lh-base mb-1">{proDetail.name}</h4>
-                  <p
-                    className="text-muted mb-4"
-                    dangerouslySetInnerHTML={desc(proDetail.description)}
-                  ></p>
                   {
                     proDetail.discountPrice > 0
-                      ? <h5 className="fs-24 mb-4">
+                      ? <h5 className="mb-4" style={{ fontSize: '38px', color: '#e5004b' }}>
                         {Number(
                           proDetail.salePrice -
                           (proDetail.salePrice / 100) * proDetail.discountPrice
@@ -332,48 +274,13 @@ const Productdetails = () => {
                           ( {proDetail.discountPrice}% endirim)
                         </span> : null
                       </h5>
-                      : <h5 className="fs-24 mb-4">
+                      : <h5 className="mb-4" style={{ fontSize: '38px', color: '#e5004b' }}>
                         {proDetail.salePrice} ₼
                       </h5>
                   }
 
                 </div>
-                <div className="d-flex align-items-center mb-4">
-                  <h5 className="fs-15 mb-0">Miqdarı:</h5>
-                  <div className="input-step ms-2">
-                    <Button
-                      className="minus"
-                      onClick={() => {
-                        if (count > 1) {
-                          setCount(count - 1);
-                        } else {
-                          toast.info("Məhsulun minimum miqdarı 1 olmalıdır");
-                        }
-                      }}
-                    >
-                      –
-                    </Button>
-                    <Form.Control
-                      type="number"
-                      className="product-quantity1"
-                      value={count}
-                      min={1}
-                      max={5}
-                    />
-                    <Button
-                      className="plus"
-                      onClick={() => {
-                        if (count < 5) {
-                          setCount(count + 1);
-                        } else {
-                          toast.info("Məhsulun maksimum miqdarı 5 olmalıdır");
-                        }
-                      }}
-                    >
-                      +
-                    </Button>
-                  </div>
-                </div>
+
                 <Row className="gy-3">
                   <Col md={6}>
                     <div>
@@ -381,10 +288,10 @@ const Productdetails = () => {
                         {proDetail?.variant?.type == "color"
                           ? "Rəng çeşidləri"
                           : proDetail?.variant?.type == "size"
-                          ? "Ölçü çeşidləri"
-                          : proDetail?.variant?.type == "weight"
-                          ? "Çəki çeşidləri"
-                          : "Çeşidləri Yoxdur"}
+                            ? "Ölçü çeşidləri"
+                            : proDetail?.variant?.type == "weight"
+                              ? "Çəki çeşidləri"
+                              : "Çeşidləri Yoxdur"}
                       </h6>
                       {proDetail?.variant?.type == "color" ? (
                         proDetail?.relationOfBaseCode.length > 0 ? (
@@ -499,6 +406,99 @@ const Productdetails = () => {
                     </div>
                   </Col>
                 </Row>
+                <Row>
+                  <Col lg={4}>
+                    <div className="d-flex align-items-center">
+                      <div className="input-step ms-2">
+                        <Button
+                          className="minus"
+                          onClick={() => {
+                            if (count > 1) {
+                              setCount(count - 1);
+                            } else {
+                              toast.info("Məhsulun minimum miqdarı 1 olmalıdır");
+                            }
+                          }}
+                        >
+                          –
+                        </Button>
+                        <Form.Control
+                          type="number"
+                          className="product-quantity1"
+                          value={count}
+                          min={1}
+                          max={5}
+                        />
+                        <Button
+                          className="plus"
+                          onClick={() => {
+                            if (count < 5) {
+                              setCount(count + 1);
+                            } else {
+                              toast.info("Məhsulun maksimum miqdarı 5 olmalıdır");
+                            }
+                          }}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col lg={8}>
+                    <div className="hstack gap-2">
+                      <Button
+                        variant="success"
+                        className="btn btn-hover w-100"
+                        onClick={() =>
+                          hendleClickBasket(skuId, count, proDetail?.stockCount)
+                        }
+                      >
+                        {" "}
+                        <i className="bi bi-basket2 me-2" /> Səbətə əlavə et
+                      </Button>
+
+                    </div>
+                  </Col>
+
+
+                  <Col lg={12}>
+                    <div className="mt-3">
+                      <div className="hstack gap-2 justify-content-end">
+                        <Button
+                          className="btn btn-soft-danger custom-toggle btn-hover"
+                          data-bs-toggle="button"
+                          aria-pressed="false"
+                          onClick={() => handleLikeIcone(skuId)}
+                        >
+                          <span
+                            className="icon-on"
+                            style={
+                              wisslistProID.find(
+                                (wish) => wish.productId == proDetail.id
+                              )
+                                ? { display: "none" }
+                                : { display: "block" }
+                            }
+                          >
+                            <i className="ri-heart-line" /> Sevimlilərə əlavə et
+                          </span>
+                          <span
+                            className="icon-off"
+                            style={
+                              wisslistProID.find(
+                                (wish) => wish.productId == proDetail.id
+                              )
+                                ? { display: "block" }
+                                : { display: "none" }
+                            }
+                          >
+                            <i className="ri-heart-fill" /> Sevimlilərdən çıxar
+                          </span>
+                        </Button>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
               </div>
             </Col>
             {/*end col*/}
@@ -523,9 +523,28 @@ const Productdetails = () => {
                           Açıqlama
                         </Nav.Link>
                       </Nav.Item>
+                      <Nav.Item as="li">
+                        <Nav.Link as="a" eventKey="Others">
+                          Digər xüsusiyyətlər
+                        </Nav.Link>
+                      </Nav.Item>
                     </Nav>
                     <Tab.Content>
                       <Tab.Pane eventKey="Description">
+                        <div
+                          className="tab-pane active show"
+                          id="profile1"
+                          role="tabpanel"
+                        >
+                          <p
+                            className="text-muted fs-15"
+                            dangerouslySetInnerHTML={desc(
+                              proDetail.description
+                            )}
+                          ></p>
+                        </div>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="Others">
                         <div
                           className="tab-pane active show"
                           id="profile1"
@@ -560,12 +579,6 @@ const Productdetails = () => {
                               </tr>
                             </tbody>
                           </Table>
-                          <p
-                            className="text-muted fs-15"
-                            dangerouslySetInnerHTML={desc(
-                              proDetail.description
-                            )}
-                          ></p>
                         </div>
                       </Tab.Pane>
                     </Tab.Content>
@@ -573,12 +586,9 @@ const Productdetails = () => {
                 </Row>
               </Tab.Container>
             </Col>
-            {/*end col*/}
           </Row>
-          {/*end row*/}
         </Container>
       </section>
-
       <div className="position-relative">
         <Container>
           <Row>
