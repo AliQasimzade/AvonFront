@@ -28,7 +28,7 @@ const Successmsg = () => {
                                             </div>
                                             <p className="text-muted fs-15">E-poçtunuz uğurla təsdiqləndi</p>
                                             <div>
-                                                <Link to='/hesabim' className="btn btn-success w-100">Hesabına geri dön</Link>
+                                                <Link to='/giris' className="btn btn-success w-100">Giriş Et</Link>
                                             </div>
                                         </Card.Body>
                                     </Card>

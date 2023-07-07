@@ -90,12 +90,12 @@ const SignUp = () => {
           .then((response) => {
             toast.success(response.data)
             setTimeout(() => {
-              navigate("/giris");
-            }, 1000);
+              navigate("/ana-sehife");
+            }, 3000);
           })
           .catch((error) => {
             console.error("Error posting data:", error);
-            toast.error(error.message);
+            toast.error("Bu istifadəçi artıq var");
           })
           .finally(() => {
             setSubmitting(false);
@@ -111,7 +111,7 @@ const SignUp = () => {
     <>
       <ToastContainer
         position="top-right"
-        autoClose={1500}
+        autoClose={5000}
         hideProgressBar={false}
         closeOnClick={true}
         pauseOnHover={true}
