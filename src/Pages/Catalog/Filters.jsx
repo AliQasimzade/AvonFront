@@ -6,10 +6,11 @@ import { Collapse, Button, Card, Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-const Filters = ({ name, products, setProducts, slug, setCount }) => {
+const Filters = ({ name, products, setProducts, slug = null, setCount }) => {
   const [mincost, setMincost] = useState(0);
   const [maxcost, setMaxcost] = useState(0);
   const pathname = useLocation();
+  const [subCats, setSubCats] = useState([]);
   const subs = useSelector((state) => state.persistedReducer.Subcategories);
 
   const [changeInput, setChangeInput] = useState("");
@@ -32,8 +33,36 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
       setBrands(req.data);
     } catch (error) {}
   };
+
+  const getAllCategories = async () => {
+    try {
+      const request = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}Categories/GetAll`
+      );
+      const findBySlugSubCat = subs.find((su) => su.slug == slug);
+      if (findBySlugSubCat) {
+        const findCatByName = request.data.find((cat) =>
+          cat.subCategories.find((su) => {
+            if (su.name == findBySlugSubCat.name) {
+              return cat;
+            }
+          })
+        );
+        setSubCats([...findCatByName.subCategories]);
+      } else {
+        toast.error("Belə bir alt kateqoriya yoxdur !");
+      }
+    } catch (error) {
+      toast.error("Sorğuda xəta baş verdi");
+    }
+  };
   useEffect(() => {
-    getBrands();
+    if (pathname.pathname.includes("kateqoriyalar")) {
+      getAllCategories();
+    } else {
+      getBrands();
+      setSubCats([...subs]);
+    }
   }, []);
   const searchProducts = async () => {
     try {
@@ -116,26 +145,34 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
                     Kateqoriyalar
                   </p>
                   <ul className="list-unstyled mb-0 filter-list">
-                    {subs.length > 0 &&
-                      subs.map((cat, index) => {
+                    {subCats.length > 0 &&
+                      subCats.map((cat, index) => {
                         return (
                           <li key={cat.id}>
                             <div
                               className="form-check d-flex"
                               onClick={(e) => {
-                                if(selectedSubs.find(s => s == cat.id) != undefined) {
-                                  setSelectedSubs(selectedSubs.filter(s => s != cat.id))
-                                  e.target.checked = false
-                                }else {
+                                if (
+                                  selectedSubs.find((s) => s == cat.id) !=
+                                  undefined
+                                ) {
+                                  setSelectedSubs(
+                                    selectedSubs.filter((s) => s != cat.id)
+                                  );
+                                  e.target.checked = false;
+                                } else {
                                   setSelectedSubs((selectedSubs) => [
                                     ...selectedSubs,
                                     cat.id,
                                   ]);
-                                  e.target.checked = true
+                                  e.target.checked = true;
                                 }
                               }}
                             >
-                              <Form.Check type="radio" id={`sub${index}`}  />
+                              <Form.Check
+                                type="radio"
+                                id={`sub${index}`}
+                              />
                               <Form.Label
                                 htmlFor={`sub${index}`}
                                 className="d-flex align-items-center"
@@ -148,11 +185,8 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
                                 <div className="flex-shrink-0 ms-2">
                                   <span className="badge bg-light text-muted">
                                     {
-                                      cat.productSubCategories.filter((s) => {
-                                        if (s.product.isDefault) {
-                                          return s;
-                                        }
-                                      }).length
+                                      subs.find((su) => su.name == cat.name)
+                                        ?.productSubCategories.length
                                     }
                                   </span>
                                 </div>
@@ -232,7 +266,6 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
                                   value={disc}
                                   name="discount_check"
                                   id="productdiscountRadio6"
-                                  
                                 />
                                 <Form.Label
                                   className="form-check-label"
@@ -283,12 +316,12 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
                                   className="form-check"
                                   key={index}
                                   onClick={(e) => {
-                                    if(selectedBrand == disc.id) {
-                                      setSelectedBrand('')
-                                      e.target.checked = false
-                                    }else {
-                                      setSelectedBrand(disc.id)
-                                      e.target.checked = true
+                                    if (selectedBrand == disc.id) {
+                                      setSelectedBrand("");
+                                      e.target.checked = false;
+                                    } else {
+                                      setSelectedBrand(disc.id);
+                                      e.target.checked = true;
                                     }
                                   }}
                                 >
@@ -297,7 +330,6 @@ const Filters = ({ name, products, setProducts, slug, setCount }) => {
                                     value={disc}
                                     name="discount_check"
                                     id="productdiscountRadio6"
-                                    
                                   />
 
                                   <Form.Label

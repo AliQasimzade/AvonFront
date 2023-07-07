@@ -29,6 +29,7 @@ const {slug} = useParams()
       console.error(error.message)
     }
   };
+
   const getCatProducts = async () => {
     try {
       const req = await axios.get(`https://avonazerbaijan.com/kateqoriyalar?slug=${slug}`);
