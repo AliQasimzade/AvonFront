@@ -125,9 +125,9 @@ const MyAccount = () => {
   const fileRef = useRef(null);
   const [proImg, setProfileImage] = useState(userAccountInfo?.profileImage);
   const addStoreImage = () => {
-    formik.setFieldValue("profileImage", fileRef.current.files[0]);
+
     const file = fileRef.current.files[0];
-    const storageRef = ref(storage, fileRef.current.name);
+    const storageRef = ref(storage, file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(

@@ -24,9 +24,9 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState("");
   const addStoreImage = () => {
-    formik.setFieldValue("profileImage", fileRef.current.files[0]);
+  
     const file = fileRef.current.files[0];
-    const storageRef = ref(storage, fileRef.current.name);
+    const storageRef = ref(storage, file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
@@ -343,7 +343,6 @@ const SignUp = () => {
                               <Form.Control
                                 type="file"
                                 id="profileImage"
-                                name="profileImage"
                                 ref={fileRef}
                                 onChange={() => addStoreImage()}
                               />
