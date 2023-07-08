@@ -26,7 +26,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [addressData, setAddressData] = useState("");
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("");
-  const [selectedBalance, setSelectedBalance] = useState(true);
+  const [selectedBalance, setSelectedBalance] = useState(false);
   const basket = useSelector((state) => state.persistedReducer.Basket.basket);
   const user = useSelector((state) => state.persistedReducer.User.userId);
   const token = useSelector((state) => state.persistedReducer.User.token);

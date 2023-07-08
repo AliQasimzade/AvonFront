@@ -53,6 +53,7 @@ const Productdetails = () => {
     (state) => state.persistedReducer.Wisslist.wisslist
   );
   const skuId = proDetail.skuId;
+  const productName = proDetail?.name
   useEffect(() => {
     axios
       .get(`https://avonazerbaijan.com/mehsullar?slug=${slug}`)
@@ -135,7 +136,7 @@ const Productdetails = () => {
     try {
       if (userId) {
         if (count > stockCount) {
-          toast.info(`${skuId}-li məhsulun stokda sayı ${stockCount} qədərdir`);
+          toast.info(`Təəssüf ki, ${productName} məhsulundan anbarda cəmi ${stockCount} qalıb`);
         } else {
           const request = await AddToBasket(userId, [
             {

@@ -79,7 +79,12 @@ const Cardshop = () => {
 
   const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
   const countUP = (item, id) => {
-    dispatch(updateIncBasket(id));
+    const prod = basket.find(a => a.skuId == id);
+    if (item > (prod?.product?.stockCount - 1)) {
+      toast.info("Bu məhsul üzrə ala biləcəyiniz maksimum miqdara çatdınız")
+    } else {
+      dispatch(updateIncBasket(id));
+    }
   };
 
   const countDown = (item, id) => {
@@ -195,7 +200,7 @@ const Cardshop = () => {
               let ferqliFaizler;
               if (item?.basketDiscountPrice !== null) {
                 ferqliFaizler = item.basketDiscountPrice
-              } else{
+              } else {
                 ferqliFaizler = null
               }
               return (

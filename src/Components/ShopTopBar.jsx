@@ -63,6 +63,7 @@ export const Shoporder = ({
     fetchDelivery();
   }, []);
 
+  console.log(selectedBalance);
   const changePaymentMethod = (e) => {
     if (e.target.id == "checkoutFromBalance") {
       setSelectedBalance(true);
@@ -175,7 +176,7 @@ export const Shoporder = ({
                 <tr>
                   <td>Ümumi məhsulların qiyməti :</td>
                   <td className="text-end cart-subtotal">
-                    {subtotal || "0.00"} ₼
+                    {subtotal.toFixed(2) || "0.00"} ₼
                   </td>
                 </tr>
                 <tr>
