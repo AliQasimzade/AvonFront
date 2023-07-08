@@ -161,7 +161,7 @@ const Header = (props) => {
                         userData?.email ? <Dropdown>
                           <Dropdown.Toggle id="page-header-user-dropdown" bsPrefix="btn" className="btn btn-icon btn-topbar btn-link rounded-circle" as="a">
 
-                            <Image className="rounded-circle header-profile-user" src={userData?.profileImage.includes('https') ? userData?.profileImage : img1} alt="Header Avatar" />
+                            <Image className="rounded-circle header-profile-user" style={{objectFit:'contain'}} src={userData?.profileImage.includes('https') ? userData?.profileImage : img1} alt="Header Avatar" />
                           </Dropdown.Toggle>
 
                           <Dropdown.Menu >

@@ -237,9 +237,10 @@ const MyAccount = () => {
                           ? userAccountInfo?.profileImage
                           : userProfile
                       }
-                      alt=""
+                      alt="User profile picture"
                       className="avatar-xl p-1 bg-light mt-n3"
                       rounded
+                      style={{objectFit:'contain'}}
                     />
                   }
 
