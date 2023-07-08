@@ -31,9 +31,9 @@ const Collection = () => {
                         slider.map((foto, ind) => {
                             return (
                                 <Carousel.Item key={ind} >
-                                    <div style={{ maxWidth: "1600px", maxHeight: '400px', height: "400px" }} className="ecommerce-home bg-danger-subtle">
-                                        <Link style={{ display: "block", width: "100%", height:'400px' }} to={foto.link}>
-                                            <img style={{ width: "100%", height: "400px", objectFit:'cover' }} src={foto.image} />
+                                    <div style={{ maxWidth: "1600px", maxHeight: '100%', height: "100%" }} className="ecommerce-home bg-danger-subtle">
+                                        <Link style={{ display: "block", width: "100%", height:'100%' }} to={foto.link}>
+                                            <img style={{ width: "100%", height: "100%", objectFit:'cover' }} src={foto.image} />
                                         </Link>
                                     </div>
                                 </Carousel.Item>

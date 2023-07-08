@@ -54,6 +54,7 @@ const Productdetails = () => {
   );
 
   const skuId = proDetail.skuId;
+  console.log(proDetail);
   useEffect(() => {
     axios
       .get(`https://avonazerbaijan.com/mehsullar?slug=${slug}`)
@@ -186,14 +187,8 @@ const Productdetails = () => {
           <Row className="justify-content-center">
             <Col lg={12}>
               <div className="text-center">
-                <h1 className="text-white mb-0">{proDetail.name}</h1>
-                <Breadcrumb bsPrefix="breadcrumb breadcrumb-light justify-content-center mt-4">
-                  <Breadcrumb.Item href="/mehsullar">Məhsullar</Breadcrumb.Item>
-                  <Breadcrumb.Item active aria-current="page">
-                    {" "}
-                    {proDetail.name}{" "}
-                  </Breadcrumb.Item>
-                </Breadcrumb>
+                <h1 className="text-white mb-0" style={{fontSize:'28px'}}>{proDetail.name}</h1>
+                
               </div>
             </Col>
             {/*end col*/}

@@ -32,12 +32,12 @@ export default function NavbarMenu({isActive}) {
     };
     return (
         <>
-            <header className="">
-                <div className="container mt-3">
+            <header className="mb-4">
+                <div className="container mt-1" style={{borderBottom:'3px solid #e5004b'}}>
                     <Navbar.Collapse 
                         className={isActive ? "navbar_responsive" : ""}
                         id="xMode">
-                        <ul className='d-flex list-unstyled justify-content-between w-100'>
+                        <ul className='d-flex list-unstyled justify-content-between w-100 mb-0'>
                             {categories.length > 0 && categories.map((category, index) => (
                                     <Nav key={index} className="nav-item py-3 dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
                                         <Link

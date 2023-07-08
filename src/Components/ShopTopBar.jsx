@@ -24,12 +24,6 @@ export const Shoptopbar = ({ title, page }) => {
             <Col lg={12}>
               <div className="text-center d-flex align-items-center justify-content-between">
                 <h4 className="text-white mb-0">{title}</h4>
-                <Breadcrumb bsPrefix=" breadcrumb breadcrumb-light justify-content-center mb-0 fs-15">
-                  <Breadcrumb.Item href="/mehsullar">Alış veriş</Breadcrumb.Item>
-                  <Breadcrumb.Item active aria-current="page">
-                    {page}
-                  </Breadcrumb.Item>
-                </Breadcrumb>
               </div>
             </Col>
           </Row>
@@ -104,6 +98,7 @@ export const Shoporder = ({
                           name="formRadios"
                           id="checkoutFromBalance"
                           className="form-Check-input"
+                          disabled={user.user.balance <= 0}
                         />
                         {user.user.balance} ₼
                       </div>
@@ -156,7 +151,7 @@ export const Shoporder = ({
                         <div className="d-flex justify-content-between mt-1">
                           <Form.Check
                             type="radio"
-                            checked={
+                            defaultChecked={
                               selectedDeliveryMethod.name == de.name
                                 ? true
                                 : false
@@ -187,7 +182,7 @@ export const Shoporder = ({
                   <td>
                     Endirim miqdarı <span className="text-muted"></span>:
                   </td>
-                  <td className="text-end cart-discount">{dic}%</td>
+                  <td className="text-end cart-discount">-{(Number(subtotal) - Number(total)).toFixed(2)} ₼</td>
                 </tr>
                 {pathname === "/resmilesdirme" && (
                   <tr>

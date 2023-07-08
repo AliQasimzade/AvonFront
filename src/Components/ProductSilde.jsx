@@ -76,11 +76,6 @@ export const ProductGrid = ({ title }) => {
                         <Col lg={6}>
                             <div className="text-center">
                                 <h1 className="text-white mb-0"> {title}</h1>
-                                <Breadcrumb bsPrefix="breadcrumb breadcrumb-light justify-content-center mt-4">
-                                    <Breadcrumb.Item href="#">Product</Breadcrumb.Item>
-                                    <Breadcrumb.Item href="#">Grid View</Breadcrumb.Item>
-                                    <Breadcrumb.Item active aria-current="page">{title}</Breadcrumb.Item>
-                                </Breadcrumb>
                             </div>
                         </Col>
                     </Row>

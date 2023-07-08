@@ -150,7 +150,7 @@ const Checkout = () => {
               <Card>
                 <Card.Body>
                   <div className="table-responsive table-card">
-                    <Table className="align-middle table-borderless table-nowrap text-center mb-0">
+                    <Table className="align-middle table-borderless text-center mb-0">
                       <thead>
                         <tr>
                           <th scope="col">Məhsulun adı</th>
@@ -167,9 +167,9 @@ const Checkout = () => {
                             .map((item, inx) => {
                               return (
                                 <tr key={inx}>
-                                  <td className="text-start">
+                                  <td className="text-start" style={{width:'35%'}}>
                                     <div className="d-flex align-items-center gap-2">
-                                      <div className="avatar-sm flex-shrink-0">
+                                      <div className="flex-shrink-0" style={{width:'50px', height:'50px'}}>
                                         <div
                                           className={`avatar-title bg-${item.bg}-subtle rounded-3`}
                                         >
@@ -177,8 +177,8 @@ const Checkout = () => {
                                             src={item.product.posterImage}
                                             alt=""
                                             style={{
-                                              width: "80px",
-                                              height: "113px",
+                                              width: "50px",
+                                              height: "50px",
                                               objectFit: "cover",
                                             }}
                                           />
@@ -192,15 +192,15 @@ const Checkout = () => {
                                       </div>
                                     </div>
                                   </td>
-                                  <td> {item.originalPrice.toFixed(2)} ₼</td>
-                                  <td> {item.productCount}</td>
+                                  <td>{item.originalPrice.toFixed(2)} ₼</td>
+                                  <td>{item.productCount} x {item?.basketDiscountPrice}%</td>
                                   <td>
                                     {" "}
                                     {item.product.salePrice.toFixed(2)} ₼
                                   </td>
                                   <td className="">
-                                    {item.product.salePrice.toFixed(2) *
-                                      item.productCount}{" "}
+                                    {(item.product.salePrice.toFixed(2) *
+                                      item.productCount).toFixed(2)}{" "}
                                     ₼
                                   </td>
                                 </tr>
