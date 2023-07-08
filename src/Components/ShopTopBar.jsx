@@ -137,7 +137,7 @@ export const Shoporder = ({
                           style={{
                             width: "30px",
                             height: "30px",
-                            objectFit: "cover",
+                            objectFit: "contain",
                             borderRadius: "50%",
                             marginRight: "15px",
                           }}

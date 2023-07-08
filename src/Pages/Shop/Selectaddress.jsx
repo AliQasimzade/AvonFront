@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 const Selectaddress = ({setAddressData, addressData}) => {
 
     const user = useSelector((state) => state.persistedReducer.Accont);
-    document.title = "Shop | Select address | RGAgency - React FrontEnd";
+    document.title = "Alış-veriş | Avon Azərbaycan";
     const handleChangeAddress = (e, d) => {
         if (e.target.checked) {
             setAddressData(d)
