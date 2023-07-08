@@ -27,7 +27,6 @@ const CatalogCollection = ({
   setProducts,
   slug = null,
 }) => {
-  console.log(products);
   const [selectItem, setSelectItem] = useState([]);
 
   const userId = useSelector((state) => state.persistedReducer.User.userId);
@@ -112,12 +111,10 @@ const CatalogCollection = ({
     setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId, stockCount) => {
-    console.log(stockCount);
     if (stockCount == 0) {
       toast.info("Bu məhsul stokda yoxdur");
     } else {
       const res = await AddToBasket(appUserId, [{ skuId, count: 1 }]);
-      console.log(res);
       if(typeof res == "string") {
         toast.info(res)
       }else {

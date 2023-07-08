@@ -122,7 +122,6 @@ const Cardshop = () => {
       const request2 = await axios.get(
         `${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userData.id}`
       );
-
       const responses = await Promise.all([request1, request2]);
       dispatch(getAllBaskets(responses[1].data));
       toast.success("Səbət uğurla yeniləndi");
@@ -199,7 +198,6 @@ const Cardshop = () => {
               } else{
                 ferqliFaizler = null
               }
-              console.log(ferqliFaizler);
               return (
                 <Card key={inx} className="product">
                   <Card.Body className="p-4">
