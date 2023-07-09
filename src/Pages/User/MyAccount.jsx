@@ -32,6 +32,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
 import { getAllBaskets } from "../../slices/layouts/basket";
 import { getAllWisslist } from "../../slices/layouts/wistliss";
+import ReferalOrgChart from "./ReferalOrgChart";
 const MyAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -330,6 +331,18 @@ const MyAccount = () => {
                         >
                           <i className="bi bi-person align-middle me-1"></i>{" "}
                           Biznesim
+                        </Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item as="li">
+                        <Nav.Link
+                          as="a"
+                          eventKey="referalChart"
+                          className="fs-15"
+                          role="presentation"
+                          style={{ cursor: "pointer" }}
+                        >
+                          <i className="bi bi-person align-middle me-1"></i>{" "}
+                          Biznes diaqramı
                         </Nav.Link>
                       </Nav.Item>
 
@@ -806,6 +819,7 @@ const MyAccount = () => {
                       </Row>
                     </div>
                   </Tab.Pane>
+                  
 
                   <Tab.Pane eventKey="referalUsers">
                     <Form className="d-flex mb-3 gap-2">
@@ -966,6 +980,19 @@ const MyAccount = () => {
                               ) : (<h3>Təbriklər sizin aktiv olmayan komanda üzvünüz yoxdur</h3>)
                             }
                           </div>
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="referalChart">
+                    <div
+                      className="tab-pane fade show"
+                      id="custom-v-pills-order"
+                      role="tabpanel"
+                    >
+                      <Card>
+                        <Card.Body>
+                          <ReferalOrgChart/>
                         </Card.Body>
                       </Card>
                     </div>

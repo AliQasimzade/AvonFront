@@ -25,13 +25,13 @@ const TopBar = () => {
         <div className="top-tagbar px-0" >
           <Container fluid >
             <Row className="justify-content-between align-items-center">
-              <Col md={4} xs={9}>
+              <Col md={6} xs={6}>
                 <div className="fs-14 fw-medium">
                   <FaShippingFast style={{ color: "grey" }} />
                   <span style={{ marginLeft: "8px" }}> SÜRƏTLİ ÇATDIRILMA</span>
                 </div>
               </Col>
-              <Col md={4} xs={3}>
+              <Col md={6} xs={6}>
                 <div className="d-flex align-items-center justify-content-end gap-3 fs-14">
                   <div className="text-reset fw-normal d-none d-lg-block">
                     <i className="bi bi-telephone-outbound align-middle me-2"></i>{" "}

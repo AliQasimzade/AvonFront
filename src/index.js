@@ -10,7 +10,10 @@ import thunk from 'redux-thunk';
 import rootreducer from './slices/index';
 import { configureStore } from '@reduxjs/toolkit';
 import { HelmetProvider } from 'react-helmet-async';
-
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
 const helmetContext = {};
 
 const persistConfig = {

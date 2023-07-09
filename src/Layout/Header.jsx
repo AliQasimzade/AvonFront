@@ -161,7 +161,7 @@ const Header = (props) => {
                         userData?.email ? <Dropdown>
                           <Dropdown.Toggle id="page-header-user-dropdown" bsPrefix="btn" className="btn btn-icon btn-topbar btn-link rounded-circle" as="a">
 
-                            <Image className="rounded-circle header-profile-user" style={{objectFit:'contain'}} src={userData?.profileImage.includes('https') ? userData?.profileImage : img1} alt="Header Avatar" />
+                            <Image className="rounded-circle header-profile-user" style={{ objectFit: 'contain' }} src={userData?.profileImage.includes('https') ? userData?.profileImage : img1} alt="Header Avatar" />
                           </Dropdown.Toggle>
 
                           <Dropdown.Menu >
@@ -171,9 +171,17 @@ const Header = (props) => {
                             <Dropdown.Item href='#'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balans: <b>{userData.balance}₼</b></span></Dropdown.Item>
                             <Dropdown.Item href='/ana-sehife' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Çıxış</span></Dropdown.Item>
                           </Dropdown.Menu>
-                        </Dropdown> : <Link to={"/giris"}>< IoLogIn style={{ fontSize: "23px", color: "black" }} />
-                          <span className="ms-2 text-black d-none d-md-flex">Daxil ol</span>
-                        </Link>
+                        </Dropdown>
+                          : <div className="d-flex align-items-center">
+                            <Link className="d-flex" to={"/giris"}>
+                              <IoLogIn style={{ fontSize: "23px", color: "black" }} />
+                              <span className="ms-2 text-black d-none d-md-flex">Daxil ol {" "}</span>
+                            </Link>
+                                                       
+                            <Link className="d-flex" to={"/qeydiyyat"}>
+                              <span className="ms-2 text-black d-none d-md-flex"> / Qeydiyyatdan keç</span>
+                            </Link>
+                          </div>
                       }
 
                     </div>

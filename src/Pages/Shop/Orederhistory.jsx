@@ -9,7 +9,7 @@ const Orderhistory = () => {
   //modal
   const [modal, setModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null)
-  const [selectedInvoice,setSelectedInvoice] = useState('')
+  const [selectedInvoice, setSelectedInvoice] = useState('')
   const handleInvoice = (it, invoice) => {
     setModal(true)
     setSelectedInvoice(invoice)
@@ -38,24 +38,27 @@ const Orderhistory = () => {
                         <th scope="col">Məhsul sayı</th>
                         <th scope="col">Sifariş tarixi</th>
                         <th scope="col">Sifariş məbləği</th>
+                        <th scope="col">Sifariş ödənişi</th>
                         <th scope="col">Sifarişin statusu</th>
                         <th scope="col">Sifariş detalları</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {(orders || [])?.map((item, inx) => { 
+                      {(orders || [])?.map((item, inx) => {
+                        console.log(orders);
                         return (
                           <tr key={inx}>
                             <td>
-                                {item?.codePrefix + item?.codeNumber}                      
+                              {item?.codePrefix + item?.codeNumber}
                             </td>
                             <td>
-                                {item?.orderItems.length} məhsul
+                              {item?.orderItems.length} məhsul
                             </td>
                             <td>
                               <span className="text-muted">{new Date(item?.createdAt).toLocaleDateString()}</span>
                             </td>
                             <td className="fw-medium">{item?.totalAmount} ₼</td>
+                            <td className="fw-medium">{item?.isBalance == true ? "Balansdan ödəmə" : "Nağd ödəmə"}</td>
                             <td>
                               <span className={`badge bg-${item?.status == "Gözləmədə" ? 'warning' : item?.status == 'Qəbul' ? 'success' : 'danger'}`}>
                                 {item?.status}
