@@ -15,6 +15,10 @@ import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 const helmetContext = {};
+import {QueryClientProvider,QueryClient} from "@tanstack/react-query"
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+const queryClient = new QueryClient();
 
 const persistConfig = {
   key: 'root',
@@ -39,7 +43,11 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <HelmetProvider context={helmetContext}>
+          <QueryClientProvider client={queryClient}>
           <App />
+          <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>
+          </QueryClientProvider>
+      
         </HelmetProvider>
       </BrowserRouter>
     </PersistGate>

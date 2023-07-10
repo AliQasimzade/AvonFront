@@ -4,26 +4,45 @@ import { get } from "lodash";
 import i18n from "../Common/i18n";
 import { languages } from "../Common/data/languages";
 import { FaShippingFast } from "react-icons/fa";
-
+import { useQuery } from "@tanstack/react-query";
+import { getAllBasket } from "../services/getRequests";
+import { getAllBaskets } from "../slices/layouts/basket";
+import { useSelector, useDispatch } from "react-redux";
 const TopBar = () => {
   const [selectlanguage, setSelectlanguage] = useState("");
-
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.persistedReducer.User.userId);
   const changelanguage = (lan) => {
     i18n.changeLanguage(lan);
     setSelectlanguage(lan);
     localStorage.setItem("I18NLANGUAGE", lan);
   };
-
   useEffect(() => {
     const currentlanguage = localStorage.getItem("I18NLANGUAGE");
     setSelectlanguage(currentlanguage);
   }, []);
 
+  if (userId) {
+    const getBasketss = useQuery({
+      queryKey: ["basket"],
+      queryFn: async () => {
+        const res = await getAllBasket(userId);
+        return res;
+      },
+    });
+
+    if (getBasketss.data) {
+      dispatch(getAllBaskets(getBasketss.data));
+    } else {
+      console.log("hecc");
+    }
+  }
+
   return (
     <>
-      <Container className="px-0" >
-        <div className="top-tagbar px-0" >
-          <Container fluid >
+      <Container className="px-0">
+        <div className="top-tagbar px-0">
+          <Container fluid>
             <Row className="justify-content-between align-items-center">
               <Col md={6} xs={6}>
                 <div className="fs-14 fw-medium">
@@ -87,7 +106,6 @@ const TopBar = () => {
           </Container>
         </div>
       </Container>
-
     </>
   );
 };
