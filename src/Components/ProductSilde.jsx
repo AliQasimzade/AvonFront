@@ -14,7 +14,7 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
         <>
             <Row className={cid || ''} style={{ position: position, height: height }}>
                 {
-                    fileter.length > 0 ? fileter.map((item, inx) => {
+                    fileter.length > 0 ? fileter.filter((_, i) => i < 12).map((item, inx) => {
                             return (
                                 <Col key={inx} xxl={cxxl || ''} lg={4} md={6} className="element-item seller col-6"  data-category={item.productSubCategories.length > 0 && item.productSubCategories[0]?.subCategory?.name}>
                                     <Card className="overflow-hidden">
