@@ -14,8 +14,7 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
 const helmetContext = {};
-import {QueryClientProvider,QueryClient} from "@tanstack/react-query"
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 
 const queryClient = new QueryClient();
 
@@ -43,10 +42,8 @@ root.render(
       <BrowserRouter>
         <HelmetProvider context={helmetContext}>
           <QueryClientProvider client={queryClient}>
-          <App />
-          <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>
+            <App />
           </QueryClientProvider>
-      
         </HelmetProvider>
       </BrowserRouter>
     </PersistGate>
