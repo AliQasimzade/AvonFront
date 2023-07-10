@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 const Home = () => {
   const dispatch = useDispatch();
 
+  
   const getSubCats = useQuery({
     queryKey: ["subs"],
     queryFn: fetchSubCategories()
