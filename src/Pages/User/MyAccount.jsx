@@ -333,7 +333,7 @@ const MyAccount = () => {
                           Biznesim
                         </Nav.Link>
                       </Nav.Item>
-                      <Nav.Item as="li">
+                      {/* <Nav.Item as="li">
                         <Nav.Link
                           as="a"
                           eventKey="referalChart"
@@ -344,7 +344,7 @@ const MyAccount = () => {
                           <i className="bi bi-person align-middle me-1"></i>{" "}
                           Biznes diaqramı
                         </Nav.Link>
-                      </Nav.Item>
+                      </Nav.Item> */}
 
                       <Nav.Item as="li">
                         <Nav.Link
@@ -984,7 +984,7 @@ const MyAccount = () => {
                       </Card>
                     </div>
                   </Tab.Pane>
-                  <Tab.Pane eventKey="referalChart">
+                  {/* <Tab.Pane eventKey="referalChart">
                     <div
                       className="tab-pane fade show"
                       id="custom-v-pills-order"
@@ -996,7 +996,7 @@ const MyAccount = () => {
                         </Card.Body>
                       </Card>
                     </div>
-                  </Tab.Pane>
+                  </Tab.Pane> */}
                   <Tab.Pane eventKey="myprices">
                     <div
                       className="tab-pane fade show"

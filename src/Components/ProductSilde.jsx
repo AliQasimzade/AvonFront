@@ -14,13 +14,13 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
         <>
             <Row className={cid || ''} style={{ position: position, height: height }}>
                 {
-                    fileter.length > 0 ? fileter.map((item, inx) => {
+                    fileter.length > 0 ? fileter.slice(0,12).map((item, inx) => {
                             return (
                                 <Col key={inx} xxl={cxxl || ''} lg={4} md={6} className="element-item seller col-6"  data-category={item.productSubCategories.length > 0 && item.productSubCategories[0]?.subCategory?.name}>
                                     <Card className="overflow-hidden">
                                         <div className={`bg-${item.bg}-subtle rounded-top py-4`}>
                                             <div className="gallery-product" style={{height:'200px', display:'flex', alignItems:'center' }}>
-                                                <Image src={item.posterImage} alt="" style={{ maxHeight: 215, maxWidth: "100%" }} className="mx-auto d-block" />
+                                                <Image src={item.posterImage} alt="" style={{ maxHeight: 175, maxWidth: "100%" }} className="mx-auto d-block" />
                                             </div>
                                             <div className="product-btn px-3">
                                                 <Link to={`/mehsul-detallari/${item.slug}`} className="btn btn-primary btn-sm w-75 add-btn"><i className="mdi mdi-cart me-1"></i> Ətraflı bax</Link>
@@ -34,9 +34,9 @@ export const ProductSide = ({ cid, position, height, fileter, cxxl, isnone }) =>
                                                 <div className="mt-3">
                                                     {
                                                         item.discountPrice > 0 ? (
-                                                            <h5 className="mb-0">{item.discountPrice > 0 ? (item.salePrice - (item.salePrice * item.discountPrice) / 100) : item.salePrice} ₼<span className="text-muted fs-12"><del>{item.salePrice} ₼</del></span></h5>
+                                                            <h5 className="mb-0">{item.discountPrice > 0 ? (item.salePrice - (item.salePrice * item.discountPrice) / 100) : item.salePrice} ₼<span className="text-muted fs-12"><del>{item.salePrice.toFixed(2)} ₼</del></span></h5>
                                                         ) : (
-                                                            <h5 className="mb-0">{item.salePrice} ₼</h5>
+                                                            <h5 className="mb-0">{item.salePrice.toFixed(2)} ₼</h5>
                                                         )
                                                     }
                                                 </div>
