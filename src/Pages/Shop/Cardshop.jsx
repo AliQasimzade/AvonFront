@@ -207,9 +207,9 @@ const Cardshop = () => {
                 <Card key={inx} className="product">
                   <Card.Body className="p-4">
                     <Row className="gy-3">
-                      <Col className="col-sm-auto" style={{ borderRight: '1px solid #e9ebec' }}>
-                        <div className="avatar-lg">
-                          <div className={`avatar-title bg-subtle rounded`}>
+                      <Col className="col-3" style={{ borderRight: '1px solid #e9ebec' }}>
+                        <div className="w-100 h-100">
+                          <div className={`avatar-title mx-auto bg-subtle rounded`}>
                             <Link to={`/mehsul-detallari/${item.product.slug}`}>
                               <Image
                                 src={item.product.posterImage}
@@ -225,7 +225,7 @@ const Cardshop = () => {
                           </div>
                         </div>
                       </Col>
-                      <Col className="col-sm">
+                      <Col className="col-5">
                         <Link to={`/mehsul-detallari/${item.product.slug}`}>
                           <h5 className="fs-16 lh-base mb-1">
                             {item.product.name}
@@ -271,7 +271,7 @@ const Cardshop = () => {
                           </Button>
                         </div>
                       </Col>
-                      <Col className="col-sm-auto">
+                      <Col className="col-4">
                         <div className="text-lg-end">
                           <p className="text-muted mb-1 fs-12">Qiyməti:</p>
                           <h5 className="fs-16">
@@ -341,9 +341,9 @@ const Cardshop = () => {
                 <Card key={inx} className="product">
                   <Card.Body className="p-4">
                     <Row className="gy-3">
-                      <Col className="col-sm-auto">
-                        <div className="avatar-lg h-100">
-                          <div className={`avatar-title bg-subtle rounded`}>
+                      <Col className="col-3">
+                        <div className="w-100 h-100">
+                          <div className={`avatar-title mx-auto bg-subtle rounded`}>
                             <Image
                               src={item.product.posterImage}
                               alt=""
@@ -357,7 +357,7 @@ const Cardshop = () => {
                           </div>
                         </div>
                       </Col>
-                      <Col className="col-sm">
+                      <Col className="col-5">
                         <Link to="#">
                           <h5 className="fs-16 lh-base mb-1">
                             {item.product.name}
@@ -390,7 +390,7 @@ const Cardshop = () => {
                           </Button>
                         </div>
                       </Col>
-                      <Col className="col-sm-auto">
+                      <Col className="col-4">
                         <div className="text-lg-end">
                           <p className="text-muted mb-1 fs-12">Qiyməti:</p>
                           <h5 className="fs-16">
