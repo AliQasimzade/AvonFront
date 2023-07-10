@@ -45,7 +45,6 @@ const Orderhistory = () => {
                     </thead>
                     <tbody>
                       {(orders || [])?.map((item, inx) => {
-                        console.log(orders);
                         return (
                           <tr key={inx}>
                             <td>

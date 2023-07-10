@@ -20,7 +20,6 @@ const Index = ({ name, cxxl, clg, cmd }) => {
       .filter(Boolean);
     const allPros = [...products, ...findDefaults];
     const removeDuplicates = allPros.filter((v,i,a)=>a.findIndex(v2=>(v2.id===v.id))===i);
-    console.log(removeDuplicates);
     setProducts(removeDuplicates);
     setCount(Array.from({ length: removeDuplicates.length }).fill(0));
   };

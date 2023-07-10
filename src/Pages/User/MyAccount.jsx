@@ -64,7 +64,6 @@ const MyAccount = () => {
 
 
   useEffect(() => {
-    console.log("success");
     if (userAccountInfo) {
       setReferalUsers(userAccountInfo?.referalUsers);
       setNoActiveUsers(userAccountInfo?.noActiveUsers);

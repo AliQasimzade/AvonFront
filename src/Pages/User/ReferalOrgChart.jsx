@@ -167,12 +167,7 @@ export default function ReferalOrgChart() {
     useEffect(() => {
         fetchData();
     }, [])
-
-    console.log(myData);
-    console.log(dummy)
     const formattedData = formatData(dummy);
-    console.log(formattedData);
-
     const nodeTemplate = (node) => {
         if (node.type === 'person') {
             return (

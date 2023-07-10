@@ -32,7 +32,6 @@ const CatalogCollection = ({
   const queryClient = useQueryClient();
   const addNewProductMutation = useMutation({
     mutationFn: async (props) => {
-      console.log(props);
       const skuID = props.sku;
       const res = await AddToBasket(props.id, [{ skuId: skuID, count: 1 }]);
       return res;
@@ -125,7 +124,6 @@ const CatalogCollection = ({
     setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId, stockCount) => {
-    console.log(skuId);
     if (stockCount == 0) {
       toast.info("Bu məhsul stokda yoxdur");
     } else {

@@ -185,7 +185,7 @@ const Header = (props) => {
                             <Dropdown.Item href='/hesabim/sifaris-tarixcesi'><i className="bi bi-cart4 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Sifariş tarixçəsi</span></Dropdown.Item>
                             <Dropdown.Item href='/sifaris-izleme'><i className="bi bi-truck text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Sifarişini izlə</span></Dropdown.Item>
                             <Dropdown.Item href="/hesabim"><i className="bi bi-speedometer2 text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Hesabım</span></Dropdown.Item>
-                            <Dropdown.Item href='#'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balans: <b>{userData.balance}₼</b></span></Dropdown.Item>
+                            <Dropdown.Item href='/hesabim/balans-tarixcesi'><i className="bi bi-coin text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balans: <b>{userData.balance}₼</b></span></Dropdown.Item>
                             <Dropdown.Item href='/ana-sehife' onClick={logOut}><i className="bi bi-box-arrow-right text-muted fs-16 align-middle me-1"></i> <span className="align-middle" data-key="t-logout">Çıxış</span></Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>

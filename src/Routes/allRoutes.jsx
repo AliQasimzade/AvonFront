@@ -47,6 +47,7 @@ import ContactUs from "../Pages/ContactUs/Contact";
 import NotFound from "../Pages/NotFound/NotFound";
 import News from "../Pages/News/News";
 import NewsDetail from "../Pages/News/NewsDetail/NewsDetail";
+import BalanceHistory from "../Pages/Shop/BalanceHistory";
 
 const authProtectedRoutes = [
   { path: "/ana-sehife", component: <Home /> },
@@ -56,6 +57,7 @@ const authProtectedRoutes = [
   { path: "/sifaris-izleme", component: <Trackorder /> },
   { path: "/sifarisiniz-tesdiqlendi", component: <Confirm /> },
   { path: "/hesabim/sifaris-tarixcesi", component: <Orderhistory /> },
+  { path: "/hesabim/balans-tarixcesi", component: <BalanceHistory /> },
   { path: "sebet", component: <Shopingcard /> },
   { path: "/resmilesdirme", component: <Checkout /> },
   { path: "/istek-siyahisi", component: <WishList /> },

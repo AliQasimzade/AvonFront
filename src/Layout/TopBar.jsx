@@ -33,9 +33,7 @@ const TopBar = () => {
 
     if (getBasketss.data) {
       dispatch(getAllBaskets(getBasketss.data));
-    } else {
-      console.log("hecc");
-    }
+    } 
   }
 
   return (
