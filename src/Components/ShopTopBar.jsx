@@ -98,7 +98,6 @@ export const Shoporder = ({
                           name="formRadios"
                           id="checkoutFromBalance"
                           className="form-Check-input"
-                          disabled={user.user.balance <= 0}
                         />
                         {user.user.balance} ₼
                       </div>
