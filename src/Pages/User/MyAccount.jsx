@@ -845,7 +845,7 @@ const MyAccount = () => {
                             day: e.target.value,
                           })
                         }
-                        placeholder="Search by day ex: (20)"
+                        placeholder="Gün ilə axtar: (20)"
                       />
                       <input
                         className="form-control"
@@ -900,13 +900,14 @@ const MyAccount = () => {
                                       Qrupla birlikdə əmək haqqına hesablanan
                                       satış
                                     </th>
-                                    <th scope="col">I generasiya faizi</th>
-                                    <th scope="col">II generasiya faizi</th>
-                                    <th scope="col">III generasiya faizi</th>
+                                    <th scope="col">Son sifariş tarixi</th>
+                                    <th scope="col">Son sifarişin miqdarı</th>
+                                    <th scope="col">Sifarişin təhvil statusu</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {referalUsers.map((item, inx) => {
+                                    console.log(item);
                                     return (
                                       <tr key={inx}>
                                         <td>{item.referalIdforTeam}</td>
@@ -916,18 +917,12 @@ const MyAccount = () => {
                                             : item.position}
                                         </td>
                                         <td>
-                                          {" "}
-                                          <img
-                                            src={item.profileImage}
-                                            alt={item.name}
-                                            style={{ width: "20px" }}
-                                          />
                                           {item.name}
                                         </td>
                                         <td>{item.email}</td>
                                         <td>{item.phoneNumber}</td>
-                                        <td>{item.firstAmount}</td>
-                                        <td>{item.firstAmountSalary}</td>
+                                        <td>{item.firstAmount} ₼</td>
+                                        <td>{item.firstAmountSalary} ₼</td>
                                         <td>
                                           {item.orders
                                             .map((order) => order.totalAmount)
@@ -935,10 +930,10 @@ const MyAccount = () => {
                                               (acc, it) => acc + it,
                                               0
                                             )}{" "}
-                                          AZN
+                                          ₼
                                         </td>
-                                        <td>{item.totalAmount}</td>
-                                        <td>{item.totalAmountForSalary}</td>
+                                        <td>{item.totalAmount} ₼</td>
+                                        <td>{item.totalAmountForSalary} ₼</td>
                                         <td>{item.gain}</td>
                                         <td>{item.gain2}</td>
                                         <td>{item.gain3}</td>

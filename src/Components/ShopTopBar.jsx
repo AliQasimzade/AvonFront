@@ -99,7 +99,7 @@ export const Shoporder = ({
                           id="checkoutFromBalance"
                           className="form-Check-input"
                         />
-                        {user.user.balance} ₼
+                        {user?.user?.balance} ₼
                       </div>
                     </td>
                   </tr>
@@ -143,7 +143,7 @@ export const Shoporder = ({
                           alt=""
                         />
                         <Form.Label htmlFor={de.name} className="text-muted">
-                          {de.name}
+                          {de?.name}
                         </Form.Label>
                       </td>
                       <td>
@@ -151,16 +151,16 @@ export const Shoporder = ({
                           <Form.Check
                             type="radio"
                             defaultChecked={
-                              selectedDeliveryMethod.name == de.name
+                              selectedDeliveryMethod?.name == de.name
                                 ? true
                                 : false
                             }
                             onClick={(e) => handleDeliveryChanger(e, de)}
                             name="delivery"
-                            id={de.name}
+                            id={de?.name}
                             className="form-Check-input"
                           />
-                          <span>{de.price} ₼</span>
+                          <span>{de?.price} ₼</span>
                         </div>
                       </td>
                     </tr>
@@ -187,9 +187,9 @@ export const Shoporder = ({
                   <tr>
                     <td>Çatdırılma xidməti :</td>
                     <td className="text-end cart-shipping">
-                      {!selectedDeliveryMethod.price
+                      {!selectedDeliveryMethod?.price
                         ? 0
-                        : selectedDeliveryMethod.price}{" "}
+                        : selectedDeliveryMethod?.price}{" "}
                       ₼
                     </td>
                   </tr>
@@ -210,7 +210,7 @@ export const Shoporder = ({
                     <th>Yekun ödəniləcək məbləğ :</th>
                     <td className="text-end">
                       <span className="fw-semibold cart-total">
-                        {Number(selectedDeliveryMethod.price) + Number(total)} ₼
+                        {Number(selectedDeliveryMethod?.price) + Number(total)} ₼
                       </span>
                     </td>
                   </tr>
@@ -281,6 +281,7 @@ export const BrandedProduct = ({ title }) => {
                         className="mx-auto d-block rounded-2"
                       />
                       <div className="action vstack gap-2">
+                      {item.discountPrice > 0 && <div className="bg-primary rounded-circle d-flex justify-content-center align-items-center text-white" style={{ width: 40, height: 40 }}>-{item?.discountPrice}%</div>}
                         <Button
                           variant="danger"
                           className="btn avatar-xs p-0 btn-soft-warning custom-toggle product-action"
@@ -297,24 +298,24 @@ export const BrandedProduct = ({ title }) => {
                       </div>
                       <div className="avatar-xs label">
                         <div className="avatar-title bg-danger rounded-circle fs-11">
-                          {item.discountPrice} %
+                          {item?.discountPrice} %
                         </div>
                       </div>
                     </div>
                     <div className="pt-4">
                       <Link to="#">
                         <h6 className="text-capitalize fs-15 lh-base text-truncate mb-0">
-                          {item.name}
+                          {item?.name}
                         </h6>
                       </Link>
                       <div className="mt-2">
                         <span className="float-end">5<i className="ri-star-half-fill text-warning align-bottom"></i>
                         </span>
-                        <h5 className="mb-0">{item.salePrice} ₼</h5>
+                        <h5 className="mb-0">{item?.salePrice} ₼</h5>
                       </div>
                       <div className="mt-3">
                         <Link
-                          to={`/mehsul-detallari/${item.slug}`}
+                          to={`/mehsul-detallari/${item?.slug}`}
                           className="btn btn-primary w-100 add-btn"
                         >
                           <i className="mdi mdi-cart me-1"></i> Ətraflı bax

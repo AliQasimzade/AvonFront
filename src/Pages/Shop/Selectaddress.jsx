@@ -63,10 +63,10 @@ const Selectaddress = ({setAddressData, addressData}) => {
                                     <Col lg={6}>
                                         <div>
                                             <div className="form-check card-radio">
-                                                <Form.Control id="shippingAddress1" name="shippingAddress" type="radio" className="form-check-input" onChange={(e) => handleChangeAddress(e, user.user.address)} />
+                                                <Form.Control id="shippingAddress1" name="shippingAddress" type="radio" className="form-check-input" onChange={(e) => handleChangeAddress(e, user?.user?.address)} />
                                                 <Form.Label className="form-check-label" htmlFor="shippingAddress1">
                                                     <span className="mb-4 fw-semibold fs-12 d-block text-muted text-uppercase">Ev ünvanı</span>
-                                                    <span className="fs-14 mb-2 fw-semibold  d-block">{user.user.address}</span>
+                                                    <span className="fs-14 mb-2 fw-semibold  d-block">{user?.user?.address}</span>
                                                 </Form.Label>
                                             </div>
                                         </div>
@@ -74,10 +74,10 @@ const Selectaddress = ({setAddressData, addressData}) => {
                                     <Col lg={6}>
                                         <div>
                                             <div className="form-check card-radio">
-                                                <Form.Control id="shippingAddress2" name="shippingAddress" type="radio" className="form-check-input" onChange={(e) => handleChangeAddress(e, user.user.otherAddress)} />
+                                                <Form.Control id="shippingAddress2" name="shippingAddress" type="radio" className="form-check-input" onChange={(e) => handleChangeAddress(e, user?.user?.otherAddress)} />
                                                 <Form.Label className="form-check-label" htmlFor="shippingAddress2">
                                                     <span className="mb-4 fw-semibold fs-12 d-block text-muted text-uppercase">İş ünvanı</span>
-                                                    <span className="fs-14 mb-2 fw-semibold  d-block">{user.user.otherAddress}</span>
+                                                    <span className="fs-14 mb-2 fw-semibold  d-block">{user?.user?.otherAddress}</span>
                                                 </Form.Label>
                                             </div>
                                         </div>

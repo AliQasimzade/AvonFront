@@ -10,7 +10,7 @@ const Confirm = () => {
     document.title = "Sifariş təsdiqləndi | Avon Azərbaycan";
     return (
         <>
-            <Shoptopbar title="Confirmation" page="Order Confirm" />
+            <Shoptopbar title="Sifarişin təsdiqlənməsi" page="Sifarişin təsdiqlənməsi" />
             <section className="section">
                 <Container>
                     <Row className="justify-content-center">

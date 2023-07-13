@@ -6,13 +6,13 @@ import { Collapse, Button, Card, Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-const Filters = ({ name, products, setProducts, slug = null, setCount }) => {
+const Filters = ({ name, products, setProducts, slug, setCount }) => {
   const [mincost, setMincost] = useState(0);
   const [maxcost, setMaxcost] = useState(0);
   const pathname = useLocation();
   const [subCats, setSubCats] = useState([]);
   const subs = useSelector((state) => state.persistedReducer.Subcategories);
-
+  
   const [changeInput, setChangeInput] = useState("");
   const [discount, setDiscount] = useState(false);
   const [brand, setBrand] = useState(
@@ -31,34 +31,47 @@ const Filters = ({ name, products, setProducts, slug = null, setCount }) => {
         `https://avonazerbaijan.com/api/Brands/GetAll`
       );
       setBrands(req.data);
-    } catch (error) {}
+    } catch (error) { }
   };
+
+  const [parentCat, setParentCat] = useState([]);
+  
+  const getParentCategory = async () => {
+    try {
+      const req = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}Categories/ustkateqoriyalar?slug=${pathname.pathname.split("/")[2]}`
+      )
+      const res = await req.data;
+      setParentCat(res)
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const getAllCategories = async () => {
     try {
       const request = await axios.get(
         `${process.env.REACT_APP_BASE_URL}Categories/GetAll`
       );
-      const findBySlugSubCat = subs.find((su) => su.slug == slug);
+      const res = await request.data;
+      console.log(res);
+      const findBySlugSubCat = parentCat.subCategories.find((su) => su.slug == slug);
+      console.log(parentCat);
       if (findBySlugSubCat) {
-        const findCatByName = request.data.find((cat) =>
-          cat.subCategories.find((su) => {
-            if (su.name == findBySlugSubCat.name) {
-              return cat;
-            }
-          })
-        );
-        setSubCats([...findCatByName.subCategories]);
+        setSubCats([...parentCat.subCategories]);
       } else {
-        toast.error("Belə bir alt kateqoriya yoxdur !");
+        console.log("Belə bir alt kateqoriya yoxdur !");
       }
     } catch (error) {
+      console.log(error);
       toast.error("Sorğuda xəta baş verdi");
     }
   };
+  console.log(subCats);
   useEffect(() => {
     if (pathname.pathname.includes("kateqoriyalar")) {
       getAllCategories();
+      getParentCategory();
     } else {
       getBrands();
       setSubCats([...subs]);

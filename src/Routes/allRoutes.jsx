@@ -66,6 +66,7 @@ const authProtectedRoutes = [
   { path: "/mehsul-detallari/:slug", component: <Productdetails /> },
 
   { path: "/kateqoriyalar/:slug", component: <Categories /> },
+  { path: "/kateqoriyalar/:slug/:slug", component: <Categories /> },
   { path: "/haqqimizda", component: <About /> },
   { path: "/terms-conditions", component: <Termsconditions /> },
   { path: "/privacy-policy", component: <Privacypolicy /> },

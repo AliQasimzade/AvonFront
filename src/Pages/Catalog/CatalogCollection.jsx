@@ -132,10 +132,10 @@ const CatalogCollection = ({
         sku: skuId,
       });
 
-      if(res == "Stokda bu məhsul yoxdur !") {
-         toast.info(res)
-      }else {
-         toast.success("Məhsul səbətə əlavə olundu")
+      if (res == "Stokda bu məhsul yoxdur !") {
+        toast.info(res)
+      } else {
+        toast.success("Məhsul səbətə əlavə olundu")
       }
     }
   };
@@ -221,6 +221,7 @@ const CatalogCollection = ({
                           className="mx-auto d-block rounded-2 h-100"
                         />
                         <div className="action vstack gap-2">
+                          {item.discountPrice > 0 && <div className="bg-primary rounded-circle d-flex justify-content-center align-items-center text-white" style={{ width: 40, height: 40 }}>-{item?.discountPrice}%</div>}
                           <Button
                             color="danger"
                             className="avatar-xs p-0 btn-soft-warning custom-toggle product-action"
@@ -393,11 +394,11 @@ const CatalogCollection = ({
                                     {Number(
                                       item?.relationOfBaseCode[count[i]]
                                         .salePrice -
-                                        (item?.relationOfBaseCode[count[i]]
-                                          .salePrice /
-                                          100) *
-                                          item?.relationOfBaseCode[count[i]]
-                                            .discountPrice
+                                      (item?.relationOfBaseCode[count[i]]
+                                        .salePrice /
+                                        100) *
+                                      item?.relationOfBaseCode[count[i]]
+                                        .discountPrice
                                     ).toFixed(2)}{" "}
                                     ₼
                                     <span className="text-muted fs-12">
@@ -424,8 +425,8 @@ const CatalogCollection = ({
                               <h5 className="text-secondary mb-0">
                                 {Number(
                                   item?.salePrice -
-                                    (item?.salePrice / 100) *
-                                      item?.discountPrice
+                                  (item?.salePrice / 100) *
+                                  item?.discountPrice
                                 ).toFixed(2)}{" "}
                                 ₼
                                 {item?.discountPrice != 0 && (

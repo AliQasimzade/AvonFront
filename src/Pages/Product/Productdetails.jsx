@@ -187,14 +187,10 @@ const Productdetails = () => {
             <Col lg={12}>
               <div className="text-center">
                 <h1 className="text-white mb-0" style={{fontSize:'28px'}}>{proDetail.name}</h1>
-                
               </div>
             </Col>
-            {/*end col*/}
           </Row>
-          {/*end row*/}
         </Container>
-        {/*end container*/}
       </section>
       <section className="section">
         <Container>
@@ -259,14 +255,14 @@ const Productdetails = () => {
                         {Number(
                           proDetail.salePrice -
                           (proDetail.salePrice / 100) * proDetail.discountPrice
-                        ).toFixed(2)}₼
+                        ).toFixed(2)}₼ {" "}
                         <span className="text-muted fs-14">
                           <del>{proDetail.salePrice}₼</del>
                         </span>
                         <span className="fs-14 ms-2 text-danger">
                           {" "}
                           ( {proDetail.discountPrice}% endirim)
-                        </span> : null
+                        </span>
                       </h5>
                       : <h5 className="mb-4" style={{ fontSize: '38px', color: '#e5004b' }}>
                         {proDetail.salePrice} ₼

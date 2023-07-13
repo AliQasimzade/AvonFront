@@ -97,10 +97,10 @@ export const InvoiceModal = ({
   selectedInvoice,
 }) => {
   const userData = useSelector((state) => state.persistedReducer.Accont.user);
-
   const InvoicePrint = () => {
     window.print();
   };
+  console.log(selectedOrder);
   return (
     <>
       {selectedOrder != null && (
@@ -142,7 +142,7 @@ export const InvoiceModal = ({
                           </h6>
                           <p className="text-muted mb-1" id="address-details">
                             <span>{selectedOrder?.city}</span>,{" "}
-                            <span>{selectedOrder.streetAddres}</span>
+                            <span>{selectedOrder?.streetAddres}</span>
                           </p>
                         </div>
                       </div>
@@ -212,13 +212,12 @@ export const InvoiceModal = ({
                             Sifarişin statusu
                           </p>
                           <span
-                            className={`badge badge-soft-${
-                              selectedOrder?.status == "Gözləmədə"
-                                ? "warning"
-                                : selectedOrder?.status == "Qəbul"
+                            className={`badge badge-soft-${selectedOrder?.status == "Gözləmədə"
+                              ? "warning"
+                              : selectedOrder?.status == "Qəbul"
                                 ? "success"
                                 : "danger"
-                            }`}
+                              }`}
                             id="payment-status"
                           >
                             {selectedOrder?.status}
@@ -230,9 +229,8 @@ export const InvoiceModal = ({
                             Yekun məbləğ
                           </p>
                           <h5 className="fs-15 mb-0">
-                            ₼
                             <span id="total-amount">
-                              {selectedOrder?.totalAmount}
+                              {selectedOrder?.totalAmount} ₼
                             </span>
                           </h5>
                         </Col>
@@ -254,7 +252,7 @@ export const InvoiceModal = ({
                             id="billing-address-line-1"
                           >
                             {" "}
-                            {userData?.otherAddress}
+                            {userData?.address}
                           </p>
                           <p className="text-muted mb-1">
                             <span>Telefon: +</span>
@@ -285,35 +283,34 @@ export const InvoiceModal = ({
                             </tr>
                           </thead>
                           <tbody id="products-list">
-                            {selectedOrder?.orderItems.length > 0 &&
-                              selectedOrder?.orderItems.map((item, index) => (
+                            {selectedOrder?.orderItems?.length > 0 &&
+                              selectedOrder?.orderItems?.map((item, index) => (
                                 <tr key={index}>
                                   <th scope="row">{index + 1}</th>
                                   <td className="text-start">
                                     <span className="fw-medium">
-                                      {item.product.name}
+                                      {item?.product?.name}
                                     </span>
                                   </td>
                                   <td>
-                                    ₼{item.product.salePrice} -{" "}
-                                    {item.salePrice != item.product.salePrice
-                                      ? `${item.salePrice} ₼`
-                                      : "Yoxdur"}
+                                    <span>{item?.product?.salePrice} ₼</span> -{" "}
+                                    <span>
+                                      {item?.salePrice !== item?.product?.salePrice
+                                        ? `${item?.salePrice} ₼`
+                                        : "Yoxdur"}
+                                    </span>
                                   </td>
-                                  <td>{item.count}</td>
-                                  <td>{item.discountPrice}</td>
+                                  <td>{item?.count}</td>
+                                  <td>{item?.discountPrice} %</td>
                                   <td className="text-end">
-                                    {item.salePrice != 0
-                                      ? Number(
-                                          item.salePrice * item.count
-                                        ).toFixed(2)
-                                      : Number(
-                                          item.product.salePrice * item.count
-                                        ).toFixed(2)} ₼
+                                    {item?.salePrice !== 0
+                                      ? (item?.salePrice * item?.count).toFixed(2)
+                                      : (item?.product.salePrice * item?.count).toFixed(2)} ₼
                                   </td>
                                 </tr>
                               ))}
                           </tbody>
+
                         </Table>
                       </div>
                       <div className="border-top border-top-dashed mt-2">
@@ -328,12 +325,12 @@ export const InvoiceModal = ({
                                 {Number(
                                   selectedOrder?.orderItems.reduce(
                                     (acc, item) => {
-                                      if (item.salePrice > 0) {
+                                      if (item?.salePrice > 0) {
                                         return (acc +=
-                                          item.count * item.salePrice);
+                                          item?.count * item?.salePrice);
                                       } else {
                                         return (acc +=
-                                          item.count * item.product.salePrice);
+                                          item?.count * item?.product.salePrice);
                                       }
                                     },
                                     0
@@ -346,27 +343,27 @@ export const InvoiceModal = ({
                                 Endirim miqdarı <small className="text-muted"></small>
                               </td>
                               <td className="text-end">
-                                - 
-                                {selectedOrder.orderItems.find(
+                                -
+                                {selectedOrder?.orderItems.find(
                                   (f) => f.discountPrice > 0
                                 )
-                                  ? selectedOrder.orderItems.find(
-                                      (f) => f.discountPrice > 0
-                                    )
+                                  ? selectedOrder?.orderItems.find(
+                                    (f) => f.discountPrice > 0
+                                  )
                                   : 0} %
                               </td>
                             </tr>
                             <tr>
                               <td>Çatdırılma miqdarı</td>
                               <td className="text-end">
-                                {selectedOrder.deliveryAdress.price}₼
+                                {selectedOrder?.deliveryAdress.price}₼
                               </td>
                             </tr>
                             <tr className="border-top border-top-dashed fs-15">
                               <th scope="row">Ümumi məbləğ</th>
                               <th className="text-end">
                                 {selectedOrder?.totalAmount +
-                                  selectedOrder.deliveryAdress.price}₼
+                                  selectedOrder?.deliveryAdress.price}₼
                               </th>
                             </tr>
                           </tbody>
@@ -625,7 +622,7 @@ export const CardModal = ({ show, handleClose }) => {
                                 src={item.product.posterImage}
                                 alt={`${item.product.name} sekli`}
                                 className=""
-                                style={{width:'100%', height:'100%', objectFit:'cover'}}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                               />
                             </div>
                           </div>
@@ -636,7 +633,7 @@ export const CardModal = ({ show, handleClose }) => {
                           </Link>
                           <div className="d-flex mb-3 gap-2">
                             <div className="text-muted fw-medium mb-0">
-                              
+
                               <span className="product-price">
                                 {Number(item.product.salePrice).toFixed(2)} ₼
                               </span>
@@ -657,7 +654,7 @@ export const CardModal = ({ show, handleClose }) => {
                             <i className="ri-close-fill fs-16"></i>
                           </Button>
                           <div className="fw-medium mb-0 fs-16">
-                            
+
                             <span className="product-line-price">
                               {item.product.salePrice.toFixed(2)} ₼
                             </span>
@@ -674,16 +671,16 @@ export const CardModal = ({ show, handleClose }) => {
                   <tr>
                     <td>Cəmi :</td>
                     <td className="text-end cart-subtotal">
-                      
+
                       {basket.length > 0
                         ? Number(
-                            basket.reduce(
-                              (acc, item) =>
-                                acc +
-                                item.product.salePrice * item.productCount,
-                              0
-                            )
-                          ).toFixed(2)
+                          basket.reduce(
+                            (acc, item) =>
+                              acc +
+                              item.product.salePrice * item.productCount,
+                            0
+                          )
+                        ).toFixed(2)
                         : 0} ₼
                     </td>
                   </tr>
@@ -697,16 +694,16 @@ export const CardModal = ({ show, handleClose }) => {
             <h6 className="m-0 fs-16 text-muted">Yekun ödəniləcək:</h6>
             <div className="px-2">
               <h6 className="m-0 fs-16 cart-total">
-                
+
                 {basket.length > 0
                   ? Number(
-                      basket.reduce(
-                        (acc, it) =>
-                          acc +
-                          it.productCount * it.product.salePrice.toFixed(2),
-                        0
-                      )
-                    ).toFixed(2)
+                    basket.reduce(
+                      (acc, it) =>
+                        acc +
+                        it.productCount * it.product.salePrice.toFixed(2),
+                      0
+                    )
+                  ).toFixed(2)
                   : 0} ₼
               </h6>
             </div>

@@ -13,13 +13,13 @@ import { useNavigate } from "react-router-dom";
 import { Shoporder, Shoptopbar } from "../../Components/ShopTopBar";
 import { Link } from "react-router-dom";
 import EmailClothe from "../../Pages/Catalog/EmailClothe";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import Selectaddress from "./Selectaddress";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import {getAllBaskets} from "../../slices/layouts/basket"
+import { getAllBaskets } from "../../slices/layouts/basket"
 import { changeAccont } from "../../slices/layouts/accont";
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -34,34 +34,37 @@ const Checkout = () => {
   const userData = useSelector(
     (state) => state.persistedReducer.Accont.user
   );
-
+  const totalWeight = basket.reduce((acc, item) => {
+    const productWeight = Number(item?.product?.veight);
+    return acc + productWeight;
+  }, 0);
   const total =
     basket.length > 0
       ? Number(
-          basket.reduce(
-            (acc, item) => acc + item.productCount * item.product.salePrice,
-            0
-          )
-        ).toFixed(2)
+        basket.reduce(
+          (acc, item) => acc + item.productCount * item.product.salePrice,
+          0
+        )
+      ).toFixed(2)
       : 0;
 
   const filterByOriginalPriceNotNull =
     basket.length > 0
       ? basket
-          .filter((item) => item.originalPrice != null)
-          .reduce(
-            (acc, item) => acc + item.productCount * item.originalPrice,
-            0
-          )
+        .filter((item) => item.originalPrice != null)
+        .reduce(
+          (acc, item) => acc + item.productCount * item.originalPrice,
+          0
+        )
       : 0;
   const filterByOriginalPriceNull =
     basket.length > 0
       ? basket
-          .filter((item) => item.originalPrice == null)
-          .reduce(
-            (acc, item) => acc + item.productCount * item.product.salePrice,
-            0
-          )
+        .filter((item) => item.originalPrice == null)
+        .reduce(
+          (acc, item) => acc + item.productCount * item.product.salePrice,
+          0
+        )
       : 0;
 
   const subtotal = filterByOriginalPriceNotNull + filterByOriginalPriceNull;
@@ -107,6 +110,17 @@ const Checkout = () => {
       toast.error(error.message);
     }
   };
+  const stockBadge = (count) => {
+    if (count > 50) {
+      return <span className="badge bg-success text-white "> Stokda var</span>
+    } else if (50 > count && count > 10) {
+      return <span className="badge bg-primary text-white "> Məhdud saydadır</span>
+    } else if (1 < count && count < 10) {
+      return <span className="badge bg-primary text-white "> Bitmək üzrədir</span>
+    } else {
+      return <span className="badge bg-dark text-white "> Anbarda yoxdur</span>
+    }
+  }
   return (
     <>
       <ToastContainer
@@ -150,7 +164,7 @@ const Checkout = () => {
               <Card>
                 <Card.Body>
                   <div className="table-responsive table-card">
-                    <Table className="align-middle table-borderless text-center mb-0">
+                    <Table className="align-middle table-borderless text-center mb-5">
                       <thead>
                         <tr>
                           <th scope="col">Məhsulun adı</th>
@@ -167,9 +181,9 @@ const Checkout = () => {
                             .map((item, inx) => {
                               return (
                                 <tr key={inx}>
-                                  <td className="text-start" style={{width:'35%'}}>
+                                  <td className="text-start" style={{ width: '35%' }}>
                                     <div className="d-flex align-items-center gap-2">
-                                      <div className="flex-shrink-0" style={{width:'50px', height:'50px'}}>
+                                      <div className="flex-shrink-0" style={{ width: '50px', height: '50px' }}>
                                         <div
                                           className={`avatar-title bg-${item.bg}-subtle rounded-3`}
                                         >
@@ -185,9 +199,10 @@ const Checkout = () => {
                                         </div>
                                       </div>
                                       <div className="flex-grow-1">
-                                        <h6>{item.product.name}</h6>
+                        
+                                        <h6>{item.product.name} </h6>
                                         <p className="text-muted mb-0">
-                                          SKU ID: {item.product.skuId}{" "}
+                                          SKU ID: {item.product.skuId}{" "} <h5>{stockBadge(item.product.stockCount)}</h5>
                                         </p>
                                       </div>
                                     </div>
@@ -208,10 +223,20 @@ const Checkout = () => {
                             })}
                       </tbody>
                     </Table>
+                  </div>
+                </Card.Body>
+              </Card>
+              <Card>
+                <Card.Body>
+                  <div className="table-responsive table-card">
                     <Table className="align-middle table-borderless table-nowrap text-center mb-0">
                       <thead>
                         <tr>
-                          <th scope="col">Endirimsiz məhsullar</th>
+                          <th colSpan={5}>Əməkhaqqına hesablanmayan məhsullar</th>
+                        </tr>
+                        <tr>
+                          <th scope="col">Məhsulun şəkli</th>
+                          <th scope="col">Məhsulun adı</th>
                           <th scope="col">Qiyməti</th>
                           <th scope="col">Sayı</th>
                           <th scope="col">Yekun qiyməti</th>
@@ -224,9 +249,9 @@ const Checkout = () => {
                             .map((item, inx) => {
                               return (
                                 <tr key={inx}>
-                                  <td className="text-start">
-                                    <div className="d-flex align-items-center gap-2">
-                                      <div className="avatar-sm flex-shrink-0">
+                                  <td>
+                                    <div className="d-flex align-items-center">
+                                      <div style={{ width: '100%', height: '100%', objectFit: 'contain' }}>
                                         <div
                                           className={`avatar-title bg-${item.bg}-subtle rounded-3`}
                                         >
@@ -235,28 +260,30 @@ const Checkout = () => {
                                             alt=""
                                             style={{
                                               width: "80px",
-                                              height: "113px",
+                                              height: "80px",
                                               objectFit: "cover",
                                             }}
                                           />
                                         </div>
                                       </div>
-                                      <div className="flex-grow-1">
-                                        <h6>{item.product.name}</h6>
-                                        <p className="text-muted mb-0">
-                                          SKU ID: {item.product.skuId}{" "}
-                                        </p>
-                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="text-start">
+                                    <div className="">
+                                      <h6>{item.product.name}</h6>
+                                      <p className="text-muted mb-0">
+                                        SKU ID: {item.product.skuId}{" "}<h5>{stockBadge(item.product.stockCount)}</h5>
+                                      </p>
                                     </div>
                                   </td>
                                   <td>
                                     {" "}
                                     {item.product.salePrice.toFixed(2)} ₼
                                   </td>
-                                  <td> {item.productCount}</td>
+                                  <td> {item.productCount} ədəd</td>
                                   <td className="">
-                                    {item.product.salePrice.toFixed(2) *
-                                      item.productCount}{" "}
+                                    {(item.product.salePrice.toFixed(2) *
+                                      item.productCount).toFixed(2)}{" "}
                                     ₼
                                   </td>
                                 </tr>
@@ -267,6 +294,7 @@ const Checkout = () => {
                   </div>
                 </Card.Body>
               </Card>
+              <h5 className="flex-grow-1 fw-medium">Səbətinizdə olan məhsulların ümumi çəkisi: {totalWeight > 0 ? totalWeight.toFixed(3) : 0} kq</h5>
               <Selectaddress
                 addressData={addressData}
                 setAddressData={setAddressData}
@@ -278,9 +306,9 @@ const Checkout = () => {
                   subtotal={subtotal}
                   dic={
                     basket.length > 0 &&
-                    basket.find((i) => i.basketDiscountPrice != null) ? basket.find((i) => i.basketDiscountPrice != null) .basketDiscountPrice : 0
+                      basket.find((i) => i.basketDiscountPrice != null) ? basket.find((i) => i.basketDiscountPrice != null).basketDiscountPrice : 0
                   }
-                  charge="2.4"
+                  charge="1"
                   total={total}
                   selectedBalance={selectedBalance}
                   setSelectedBalance={setSelectedBalance}
@@ -306,21 +334,21 @@ const Checkout = () => {
             </Col>
           </Row>
         </Container> : <Row id="search-result-elem" className="d-flex justify-content-center flex-grow-1">
-      <Col lg={12}>
-        <div className="text-center py-5">
-          <div className="avatar-lg mx-auto mb-4">
-            <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
-              <i className="bi bi-search"></i>
-            </div>
-          </div>
+          <Col lg={12}>
+            <div className="text-center py-5">
+              <div className="avatar-lg mx-auto mb-4">
+                <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
+                  <i className="bi bi-search"></i>
+                </div>
+              </div>
 
-          <h5>Səbətdə məhsul yoxdur</h5>
-        </div>
-      </Col>
-    </Row>}
+              <h5>Səbətdə məhsul yoxdur</h5>
+            </div>
+          </Col>
+        </Row>}
       </section>
       <EmailClothe />
-       
+
     </>
   );
 };

@@ -5,6 +5,7 @@ import { Shoptopbar } from "../../Components/ShopTopBar";
 import { InvoiceModal } from "../../Components/MainModal";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet-async";
+import { getMyAccount } from "../../services/getRequests";
 const Orderhistory = () => {
   //modal
   const [modal, setModal] = useState(false);
@@ -15,10 +16,29 @@ const Orderhistory = () => {
     setSelectedInvoice(invoice)
     setSelectedOrder(it)
   };
+  console.log(selectedOrder);
+  console.log(selectedInvoice);
   const handleClose = () => setModal(false);
-  const orders = useSelector(
-    (state) => state.persistedReducer.Accont.user.orders
+  
+  const [orders, setOrders] = useState([]);
+  const uid = useSelector(
+    (state) => state.persistedReducer.User.userId
   );
+  const getData = async () => {
+    try {
+      if (uid) {
+        const res = await getMyAccount(uid)
+        setOrders(res.orders)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  console.log(orders);
+  useEffect(()=>{
+    getData()
+  },[])
+
   return (
     <>
       <Helmet>

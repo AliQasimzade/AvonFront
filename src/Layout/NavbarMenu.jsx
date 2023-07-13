@@ -41,71 +41,65 @@ export default function NavbarMenu({ isActive }) {
                             {categories.length > 0 && categories.map((category, index) => (
                                 <Nav key={index} className="nav-item py-3 dropdown dropdown-hover dropdown-mega-full responsive_catalog_none">
                                     {
-                                        category?.id == 25
-                                            ? <Link
-                                                to='/kateqoriyalar/outlet'
-                                                className="nav-link"
-                                            >Outlet
+                                        <>
+                                            <Link
+                                                to={`/kateqoriyalar/${category?.slug}`}
+                                                className="nav-link dropdown-toggle"
+                                                data-key="t-catalog"
+                                                role="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                {category?.name}
                                             </Link>
-                                            : <>
-                                                <Link
-                                                    to="/"
-                                                    className="nav-link dropdown-toggle"
-                                                    data-key="t-catalog"
-                                                    role="button"
-                                                    data-bs-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                >
-                                                    {category?.name}
-                                                </Link>
 
-                                                <div className="dropdown-menu p-0 p-4" style={{ width: '100%' }}>
-                                                    <Row className="g-0 g-lg-4">
-                                                        <Col
-                                                            lg={10}
-                                                            className="d-none d-lg-block responsive_catalog_none"
-                                                        >
-                                                            <Row className="g-0 g-lg-8">
-                                                                <Col lg={6}>
-                                                                    <h6>Kateqoriyalar</h6>
-                                                                    <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                                        {category?.subCategories.map(
-                                                                            (subcategory, subIndex) => (
-                                                                                <Nav className="nav-item" key={subIndex}>
-                                                                                    <Nav.Link
-                                                                                        href={`/kateqoriyalar/${subcategory?.slug}`}
-                                                                                        className="nav-link text-black"
-                                                                                        data-key={`t-${subcategory.name}`}
-                                                                                    >
-                                                                                        {subcategory.name}
-                                                                                    </Nav.Link>
-                                                                                </Nav>
-                                                                            )
-                                                                        )}
-                                                                    </ul>
-                                                                </Col>
-                                                                <Col lg={6}>
-                                                                    <h6>Brendlər</h6>
-                                                                    <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
-                                                                        {category?.brands.map((brand, subIndex) => (
-                                                                            <li className="nav-item" key={subIndex}>
-                                                                                <Link
-                                                                                    to={`/brendler/${brand?.slug}`}
+                                            <div className="dropdown-menu p-0 p-4" style={{ width: '100%' }}>
+                                                <Row className="g-0 g-lg-4">
+                                                    <Col
+                                                        lg={10}
+                                                        className="d-none d-lg-block responsive_catalog_none"
+                                                    >
+                                                        <Row className="g-0 g-lg-8">
+                                                            <Col lg={6}>
+                                                                <h6>Kateqoriyalar</h6>
+                                                                <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                                                                    {category?.subCategories.map(
+                                                                        (subcategory, subIndex) => (
+                                                                            <Nav className="nav-item" key={subIndex}>
+                                                                                <Nav.Link
+                                                                                    href={`/kateqoriyalar/${category?.slug}/${subcategory?.slug}`}
                                                                                     className="nav-link text-black"
-                                                                                    data-key={`t-${brand.name}`}
+                                                                                    data-key={`t-${subcategory.name}`}
                                                                                 >
-                                                                                    {brand.name}
-                                                                                </Link>
-                                                                            </li>
+                                                                                    {subcategory.name}
+                                                                                </Nav.Link>
+                                                                            </Nav>
                                                                         )
-                                                                        )}
-                                                                    </ul>
-                                                                </Col>
-                                                            </Row>
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            </>
+                                                                    )}
+                                                                </ul>
+                                                            </Col>
+                                                            <Col lg={6}>
+                                                                <h6>Brendlər</h6>
+                                                                <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
+                                                                    {category?.brands.map((brand, subIndex) => (
+                                                                        <li className="nav-item" key={subIndex}>
+                                                                            <Link
+                                                                                to={`/brendler/${brand?.slug}`}
+                                                                                className="nav-link text-black"
+                                                                                data-key={`t-${brand.name}`}
+                                                                            >
+                                                                                {brand.name}
+                                                                            </Link>
+                                                                        </li>
+                                                                    )
+                                                                    )}
+                                                                </ul>
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </>
                                     }
 
 

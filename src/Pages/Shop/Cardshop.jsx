@@ -20,7 +20,7 @@ const Cardshop = () => {
   const wishlistAll = useSelector(
     (state) => state.persistedReducer.Wisslist.wisslist
   );
-
+  console.log(basket);
   const userData = useSelector(
     (state) => state.persistedReducer.Accont.user
   );
@@ -49,6 +49,11 @@ const Cardshop = () => {
     }
   };
 
+
+  const totalWeight = basket.reduce((acc, item) => {
+    const productWeight = Number(item?.product?.veight);
+    return acc + productWeight;
+  }, 0);
   const total =
     basket.length > 0
       ? Number(
@@ -157,6 +162,20 @@ const Cardshop = () => {
       toast.error("Sorğuda xəta baş verdi");
     }
   };
+
+
+  const stockBadge = (count) => {
+    if (count > 50) {
+      return <span className="badge bg-success text-white "> Stokda var</span>
+    } else if (50 > count && count > 10) {
+      return <span className="badge bg-primary text-white "> Məhdud saydadır</span>
+    } else if (1 < count && count < 10) {
+      return <span className="badge bg-primary text-white "> Bitmək üzrədir</span>
+    } else {
+      return <span className="badge bg-dark text-white "> Anbarda yoxdur</span>
+    }
+  }
+
   return (
     <>
       <ToastContainer
@@ -188,11 +207,9 @@ const Cardshop = () => {
             </Button>
           </div>
         </div>
-
         {basket.length > 0 && basket.find((i) => i.basketDiscountPrice !== null)
-          ? <h3 className="mb-3 flex-grow-1 fw-medium">Təbriklər! Bu məhsulları - {" "}{basket.find((i) => i.basketDiscountPrice !== null).basketDiscountPrice} % endirimlə alırsınz!</h3>
+          ? <h3 className="mb-3 flex-grow-1 fw-medium">Təbriklər! Bu məhsulları endirimli qiymətlərdlə əldə edirsiniz!</h3>
           : <h3 className='mb-3 flex-grow-1 fw-medium'>Səbətinizdə endirimli məhsul yoxdur</h3>}
-
         {basket.length > 0 &&
           basket
             .filter((it) => it.originalPrice !== null)
@@ -210,13 +227,13 @@ const Cardshop = () => {
                       <Col className="col-3" style={{ borderRight: '1px solid #e9ebec' }}>
                         <div className="w-100 h-100">
                           <div className={`avatar-title mx-auto bg-subtle rounded`}>
-                            <Link to={`/mehsul-detallari/${item.product.slug}`}>
+                            <Link className="w-100 h-100" to={`/mehsul-detallari/${item.product.slug}`}>
                               <Image
                                 src={item.product.posterImage}
                                 alt=""
                                 style={{
-                                  width: "100px",
-                                  height: "100px",
+                                  width: "100%",
+                                  height: "100%",
                                   objectFit: "cover",
                                 }}
                                 className="avatar-md"
@@ -227,6 +244,7 @@ const Cardshop = () => {
                       </Col>
                       <Col className="col-5">
                         <Link to={`/mehsul-detallari/${item.product.slug}`}>
+                          <h5>{stockBadge(item.product.stockCount)}</h5>
                           <h5 className="fs-16 lh-base mb-1">
                             {item.product.name}
                           </h5>
@@ -331,8 +349,7 @@ const Cardshop = () => {
                 </Card>
               );
             })}
-
-        <h3 className="mb-3 flex-grow-1 fw-medium">Endirimdən kənar olan məhsullar</h3>
+        <h3 className="mb-3 flex-grow-1 fw-medium">Endirimsiz məhsullar</h3>
         {basket.length > 0 &&
           basket
             .filter((it) => it.originalPrice == null)
@@ -343,23 +360,26 @@ const Cardshop = () => {
                     <Row className="gy-3">
                       <Col className="col-3">
                         <div className="w-100 h-100">
-                          <div className={`avatar-title mx-auto bg-subtle rounded`}>
-                            <Image
-                              src={item.product.posterImage}
-                              alt=""
-                              style={{
-                                width: "100px",
-                                height: "100px",
-                                objectFit: "cover",
-                              }}
-                              className="avatar-md"
-                            />
+                          <div className={`avatar-title mx-auto bg-subtle rounded position-relative`}>
+                            <Link className="w-100 h-100" to={`/mehsul-detallari/${item.product.slug}`}>
+                              <Image
+                                src={item.product.posterImage}
+                                alt=""
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                }}
+                                className="avatar-md"
+                              />
+                            </Link>
                           </div>
                         </div>
                       </Col>
                       <Col className="col-5">
+                        <h5>{stockBadge(item.product.stockCount)}</h5>
                         <Link to="#">
-                          <h5 className="fs-16 lh-base mb-1">
+                          <h5 className="fs-16 lh-base mb-4">
                             {item.product.name}
                           </h5>
                         </Link>
@@ -448,6 +468,7 @@ const Cardshop = () => {
                 </Card>
               );
             })}
+        <h3 className="flex-grow-1 fw-medium">Səbətinizdə olan məhsulların ümumi çəkisi: {totalWeight > 0 ? totalWeight.toFixed(3) : 0} kq</h3>
       </Col>
       <div className="col-xl-4">
         <div className="sticky-side-div">

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoLogIn } from "react-icons/io5"
 import { logoutUser } from "../slices/layouts/accont";
 import { logoutToken, logoutUserId } from "../slices/layouts/user";
-import {  getAllCategories,getMyAccount } from "../services/getRequests";
+import { getAllCategories, getMyAccount } from "../services/getRequests";
 import { getAllBaskets } from "../slices/layouts/basket";
 import { getAllWisslist } from "../slices/layouts/wistliss";
 import { changeAccont } from "../slices/layouts/accont";
@@ -194,7 +194,7 @@ const Header = (props) => {
                               <IoLogIn style={{ fontSize: "23px", color: "black" }} />
                               <span className="ms-2 text-black d-none d-md-flex">Daxil ol {" "}</span>
                             </Link>
-                                                       
+
                             <Link className="d-flex" to={"/qeydiyyat"}>
                               <span className="ms-2 text-black d-none d-md-flex"> / Qeydiyyatdan keç</span>
                             </Link>
@@ -234,9 +234,9 @@ const Header = (props) => {
                               <Col lg={2} key={index}>
                                 <ul className="dropdown-menu-list list-unstyled mb-0 py-3">
                                   <li>
-                                    <p className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title" data-key={`t-${category.name}`}>
+                                    <Link to={`/kateqoriyalar/${category.slug}`} className="mb-2 text-uppercase fs-11 fw-medium text-muted menu-title nav-link">
                                       {category.name}
-                                    </p>
+                                    </Link>
                                   </li>
                                   {category.subCategories.map((subcategory, subIndex) => (
                                     <li className="nav-item" key={subIndex}>
