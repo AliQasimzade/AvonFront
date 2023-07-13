@@ -10,17 +10,11 @@ import FollowUs from "./FollowUs";
 import { fetchSubCategories } from "../../slices/layouts/subcategories";
 import { useDispatch } from "react-redux";
 import { Helmet } from "react-helmet-async";
-import { useQuery } from "@tanstack/react-query";
-
 const Home = () => {
   const dispatch = useDispatch();
-
-  
-  const getSubCats = useQuery({
-    queryKey: ["subs"],
-    queryFn: fetchSubCategories()
-  })
- 
+  useEffect(() => {
+    dispatch(fetchSubCategories());
+  }, []);
   return (
     <>
       <Helmet>

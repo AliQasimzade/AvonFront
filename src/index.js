@@ -14,9 +14,12 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
 const helmetContext = {};
+<<<<<<< HEAD
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 
 const queryClient = new QueryClient();
+=======
+>>>>>>> 2398077442b22dc8212937dda5d060925b93cb7e
 
 const persistConfig = {
   key: 'root',
@@ -41,12 +44,15 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <HelmetProvider context={helmetContext}>
+<<<<<<< HEAD
           <QueryClientProvider client={queryClient}>
             <App />
           </QueryClientProvider>
+=======
+          <App />
+>>>>>>> 2398077442b22dc8212937dda5d060925b93cb7e
         </HelmetProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider >
 );
-

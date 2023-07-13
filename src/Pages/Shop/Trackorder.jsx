@@ -18,18 +18,19 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
 const Trackorder = () => {
-  const orders = useSelector((state) => state.persistedReducer.Accont.user);
+  const orders = useSelector((state) => state.persistedReducer.Accont.user.orders);
 
   const [searchOrder, setSearchOrder] = useState(null);
   const [search, setSearch] = useState("");
 
   const handleSearch = () => {
-    const findOrder = orders.orders.find((order) => {
+    const findOrder = orders.find((order) => {
       const code = order.codePrefix + order.codeNumber;
       if (code == search) {
         return order;
       }
     });
+    console.log(findOrder);
     if (findOrder) {
       setSearchOrder(findOrder);
     } else {
@@ -291,11 +292,13 @@ const Trackorder = () => {
                             <small className="text-muted">(RGAgency15)</small>
                           </td>
                           <td className="text-end">
-                            -{" "}
+                            -
                             {
                               searchOrder?.orderItems.find(
                                 (s) => s.discountPrice > 0
-                              ).discountPrice
+                              ) ? searchOrder?.orderItems.find(
+                                (s) => s.discountPrice > 0
+                              ).discountPrice : 0
                             }
                             %
                           </td>
