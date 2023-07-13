@@ -238,13 +238,8 @@ const Productdetails = () => {
                     </Swiper>
                   </div>
                 </Col>
-                {/*end col*/}
-
-                {/*end col*/}
               </Row>
-              {/*end row*/}
             </Col>
-            {/*end col*/}
             <Col lg={5} className="ms-auto">
               <div className="ecommerce-product-widgets mt-4 mt-lg-0">
                 <div className="mb-4">
@@ -453,6 +448,8 @@ const Productdetails = () => {
                   <Col lg={12}>
                     <div className="mt-3">
                       <div className="hstack gap-2 justify-content-end">
+                      {item.discountPrice > 0 && <div className="bg-primary rounded-circle d-flex justify-content-center align-items-center text-white" style={{ width: 40, height: 40 }}>-{item?.discountPrice}%</div>}
+
                         <Button
                           className="btn btn-soft-danger custom-toggle btn-hover"
                           data-bs-toggle="button"

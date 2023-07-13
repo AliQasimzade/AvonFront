@@ -12,14 +12,13 @@ const Orderhistory = () => {
   const [selectedOrder, setSelectedOrder] = useState(null)
   const [selectedInvoice, setSelectedInvoice] = useState('')
   const handleInvoice = (it, invoice) => {
+    console.log(it);
+    console.log(invoice);
     setModal(true)
     setSelectedInvoice(invoice)
     setSelectedOrder(it)
   };
-  console.log(selectedOrder);
-  console.log(selectedInvoice);
   const handleClose = () => setModal(false);
-  
   const [orders, setOrders] = useState([]);
   const uid = useSelector(
     (state) => state.persistedReducer.User.userId
@@ -36,9 +35,10 @@ const Orderhistory = () => {
   }
   console.log(orders);
   useEffect(()=>{
-    getData()
+    if (uid) {
+      getData()
+    }
   },[])
-
   return (
     <>
       <Helmet>
