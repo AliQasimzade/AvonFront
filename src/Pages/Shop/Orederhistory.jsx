@@ -8,12 +8,12 @@ import { Helmet } from "react-helmet-async";
 const Orderhistory = () => {
   //modal
   const [modal, setModal] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState(null)
-  const [selectedInvoice, setSelectedInvoice] = useState('')
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedInvoice, setSelectedInvoice] = useState("");
   const handleInvoice = (it, invoice) => {
-    setModal(true)
-    setSelectedInvoice(invoice)
-    setSelectedOrder(it)
+    setModal(true);
+    setSelectedInvoice(invoice);
+    setSelectedOrder(it);
   };
   const handleClose = () => setModal(false);
   const orders = useSelector(
@@ -45,26 +45,43 @@ const Orderhistory = () => {
                     </thead>
                     <tbody>
                       {(orders || [])?.map((item, inx) => {
-                        console.log(orders);
                         return (
                           <tr key={inx}>
+                            <td>{item?.codePrefix + item?.codeNumber}</td>
+                            <td>{item?.orderItems.length} məhsul</td>
                             <td>
-                              {item?.codePrefix + item?.codeNumber}
-                            </td>
-                            <td>
-                              {item?.orderItems.length} məhsul
-                            </td>
-                            <td>
-                              <span className="text-muted">{new Date(item?.createdAt).toLocaleDateString()}</span>
+                              <span className="text-muted">
+                                {new Date(item?.createdAt).toLocaleDateString()}
+                              </span>
                             </td>
                             <td className="fw-medium">{item?.totalAmount} ₼</td>
-                            <td className="fw-medium">{item?.isBalance == true ? "Balansdan ödəmə" : "Nağd ödəmə"}</td>
+                            <td className="fw-medium">
+                              {item?.isBalance == true
+                                ? "Balansdan ödəmə"
+                                : "Nağd ödəmə"}
+                            </td>
                             <td>
-                              <span className={`badge bg-${item?.status == "Gözləmədə" ? 'warning' : item?.status == 'Qəbul' ? 'success' : 'danger'}`}>
+                              <span
+                                className={`badge bg-${
+                                  item?.status == "Gözləmədə"
+                                    ? "warning"
+                                    : item?.status == "Qəbul"
+                                    ? "success"
+                                    : "danger"
+                                }`}
+                              >
                                 {item?.status}
                               </span>
                               <span> - </span>
-                              <span className={`badge bg-${item?.deliveryStatus == "Kuryerde" ? 'warning' : item?.deliveryStatus == 'Catdirildi' ? 'success' : 'danger'}`}>
+                              <span
+                                className={`badge bg-${
+                                  item?.deliveryStatus == "Kuryerde"
+                                    ? "warning"
+                                    : item?.deliveryStatus == "Catdirildi"
+                                    ? "success"
+                                    : "danger"
+                                }`}
+                              >
                                 {item?.deliveryStatus}
                               </span>
                             </td>
@@ -73,7 +90,12 @@ const Orderhistory = () => {
                                 to="#invoiceModal"
                                 data-bs-toggle="modal"
                                 className="btn btn-secondary btn-sm"
-                                onClick={() => handleInvoice(item, item?.codePrefix + item?.codeNumber)}
+                                onClick={() =>
+                                  handleInvoice(
+                                    item,
+                                    item?.codePrefix + item?.codeNumber
+                                  )
+                                }
                               >
                                 İnvoysa bax
                               </Link>
@@ -85,7 +107,11 @@ const Orderhistory = () => {
                   </Table>
                 </div>
                 <div className="text-end">
-                  <Link to="/mehsullar" variant="primary" className="btn btn-hover">
+                  <Link
+                    to="/mehsullar"
+                    variant="primary"
+                    className="btn btn-hover"
+                  >
                     Alışa davam et{" "}
                     <i className="ri-arrow-right-line align-middle ms-1"></i>
                   </Link>
@@ -93,7 +119,14 @@ const Orderhistory = () => {
               </div>
             </Col>
           </Row>
-          <InvoiceModal modal={modal} handleClose={handleClose} selectedOrder={selectedOrder} selectedInvoice={selectedInvoice} />
+          
+            <InvoiceModal
+              modal={modal}
+              handleClose={handleClose}
+              selectedInvoice={selectedInvoice}
+              selectedOrder={selectedOrder}
+            />
+          
         </Container>
       </section>
     </>

@@ -11,18 +11,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoLogIn } from "react-icons/io5"
 import { logoutUser } from "../slices/layouts/accont";
 import { logoutToken, logoutUserId } from "../slices/layouts/user";
-import {  getAllCategories,getMyAccount } from "../services/getRequests";
+import { getAllBrands, getAllCategories } from "../services/getRequests";
 import { getAllBaskets } from "../slices/layouts/basket";
 import { getAllWisslist } from "../slices/layouts/wistliss";
-import { changeAccont } from "../slices/layouts/accont";
 import NavbarMenu from "./NavbarMenu";
-import { useQuery } from "@tanstack/react-query";
-
 const Header = (props) => {
   const userData = useSelector(state => state.persistedReducer.Accont.user);
   const basket = useSelector(state => state.persistedReducer.Basket.basket);
   const wishlistAll = useSelector(state => state.persistedReducer.Wisslist.wisslist)
-  const userId = useSelector((state) => state.persistedReducer.User.userId);
   // kateqoriyalar
   const [categories, setCategories] = useState([])
   const [show, setShow] = useState(false);
@@ -36,6 +32,9 @@ const Header = (props) => {
   const handlecardClose = () => setCard(false);
   const handlecardShow = () => setCard(true);
 
+
+
+  const dispatch = useDispatch()
   const logOut = () => {
     dispatch(logoutUser())
     dispatch(logoutToken())
@@ -47,22 +46,6 @@ const Header = (props) => {
   useEffect(() => {
     fetchCategories();
   }, []);
-
-  const dispatch = useDispatch();
-
-  if (userId) {
-    const getmyAccount = useQuery({
-      queryKey: ["myaccount"],
-      queryFn: async () => {
-        const res = await getMyAccount(userId);
-        return res;
-      },
-      refetchInterval: 180000,
-      refetchIntervalInBackground: true,
-    });
-
-    dispatch(changeAccont(getmyAccount.data));
-  }
 
   const fetchCategories = async () => {
     try {

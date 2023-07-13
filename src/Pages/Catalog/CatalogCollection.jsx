@@ -12,7 +12,6 @@ import { AddToBasket } from "../../services/postRequests";
 import axios from "axios";
 import { getAllBaskets } from "../../slices/layouts/basket";
 import { getAllWisslist } from "../../slices/layouts/wistliss";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const CatalogCollection = ({
   cxxl,
@@ -29,19 +28,6 @@ const CatalogCollection = ({
   slug = null,
 }) => {
   const [selectItem, setSelectItem] = useState([]);
-  const queryClient = useQueryClient();
-  const addNewProductMutation = useMutation({
-    mutationFn: async (props) => {
-      console.log(props);
-      const skuID = props.sku;
-      const res = await AddToBasket(props.id, [{ skuId: skuID, count: 1 }]);
-      return res;
-    },
-    onMutate: () => console.log("loading..."),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["basket"]);
-    },
-  });
 
   const userId = useSelector((state) => state.persistedReducer.User.userId);
   const wishlistAll = useSelector(
@@ -125,20 +111,19 @@ const CatalogCollection = ({
     setSelectItem(a);
   };
   const addToCart = async (skuId, appUserId, stockCount) => {
-    console.log(skuId);
     if (stockCount == 0) {
       toast.info("Bu məhsul stokda yoxdur");
     } else {
-      const res = await addNewProductMutation.mutateAsync({
-        id: appUserId,
-        sku: skuId,
-      });
-
-      if(res == "Stokda bu məhsul yoxdur !") {
-         toast.info(res)
+      const res = await AddToBasket(appUserId, [{ skuId, count: 1 }]);
+      if(typeof res == "string") {
+        toast.info(res)
       }else {
-         toast.success("Məhsul səbətə əlavə olundu")
+        const re = await getAllBasket(appUserId);
+        
+        toast.success("Məhsul səbətə əlavə olundu");
+        dispatch(getAllBaskets(re));
       }
+     
     }
   };
 
@@ -198,25 +183,20 @@ const CatalogCollection = ({
             products.map((item, i) => {
               return (
                 !cxl && (
-                  <Col
-                    key={item.id}
-                    xxl={cxxl}
-                    lg={clg}
-                    md={cmd}
-                    className="col-6"
-                  >
+                  <Col key={item.id} xxl={cxxl} lg={clg} md={cmd} className="col-6">
                     <Card className="ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
                       <div
                         className="bg-light bg-opacity-50 rounded position-relative"
                         style={{ height: "250px" }}
                       >
                         <Image
+                        
                           src={item?.posterImage}
                           alt=""
                           style={{
-                            height: "250px",
-                            width: "100%",
-                            maxHeight: "100%",
+                            height:'250px',
+                            width:'100%',
+                            maxHeight: '100%',
                             maxWidth: "100%",
                             objectFit: "cover",
                           }}
@@ -469,8 +449,7 @@ const CatalogCollection = ({
                                 }
                               }}
                             >
-                              <i className="mdi mdi-cart me-1"></i>Səbətə əlavə
-                              et
+                              <i className="mdi mdi-cart me-1"></i>Səbətə əlavə et
                             </Button>
                           </div>
                         </div>

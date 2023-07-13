@@ -17,8 +17,6 @@ import SimpleBar from "simplebar-react";
 import modalImg from "../assets/images/subscribe.png";
 import logodark from "../assets/images/Logo.svg";
 import logolight from "../assets/images/Logo.svg";
-import avatar1 from "../assets/images/users/avatar-1.jpg";
-import avatar7 from "../assets/images/users/avatar-7.jpg";
 
 //component
 import DeleteModal from "../Components/DeleteModal";
@@ -97,7 +95,7 @@ export const InvoiceModal = ({
   selectedInvoice,
 }) => {
   const userData = useSelector((state) => state.persistedReducer.Accont.user);
-
+console.log(selectedOrder, selectedInvoice);
   const InvoicePrint = () => {
     window.print();
   };
@@ -352,7 +350,7 @@ export const InvoiceModal = ({
                                 )
                                   ? selectedOrder.orderItems.find(
                                       (f) => f.discountPrice > 0
-                                    )
+                                    ).discountPrice
                                   : 0} %
                               </td>
                             </tr>

@@ -84,7 +84,6 @@ const publicRoutes = [
   { path: "/hesabim", component: <MyAccount /> },
   { path: "/giris", component: <Signin /> },
   { path: "/qeydiyyat", component: <SignUp /> },
-
   { path: "/sifreni-sifirla", component: <Passwordreset /> },
   { path: "/sifreni-yarat", component: <Passwordcreate /> },
   { path: "/hesab-tesdiqi", component: <Successmsg /> },
