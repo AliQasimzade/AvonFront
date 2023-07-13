@@ -199,9 +199,6 @@ export const getUsersWithTeam = async (referalId, day, month,year) => {
      }
 }
 
-
-
-
 export const getAllBasket = async (userId) => {
     try {
         const request = await axios.get(`${process.env.REACT_APP_BASE_URL}Baskets/GetAll?appUserId=${userId}`)
